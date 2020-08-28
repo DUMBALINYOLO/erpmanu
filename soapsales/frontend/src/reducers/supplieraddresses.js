@@ -1,0 +1,39 @@
+import {
+    ADD_SUPPLIER_ADDRESS,
+    GET_SUPPLIER_ADDRESSES,
+    DELETE_SUPPLIER_ADDRESS,
+    GET_SUPPLIER_ADDRESS,
+} from '../types/supplieraddressTypes';
+
+const initialState = {
+    supplieraddresses: [],
+    supplieraddress: [],
+    loading: false
+}
+
+export default function(state = initialState, action){
+    switch(action.type){
+        case GET_SUPPLIER_ADDRESSES:
+            return {
+                ...state,
+                supplieraddresses: action.payload
+            };
+        case DELETE_SUPPLIER_ADDRESS:
+            return {
+                ...state,
+                supplieraddress: state.supplieraddresses.filter(supplieraddress=> supplieraddress.id !== action.payload)
+            };
+        case ADD_SUPPLIER_ADDRESS:
+            return {
+                ...state,
+                supplieraddress: [...state.supplieraddresses, action.payload]
+            }
+        case GET_SUPPLIER_ADDRESS:
+            return {
+                ...state,
+                supplieraddress:action.payload
+                };
+        default:
+            return state;
+    }
+}

@@ -40,8 +40,6 @@ class CreditSerializer(serializers.ModelSerializer):
 
 
 
-
-
 class AccountCreateUpdateSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -166,6 +164,7 @@ class InterestBearingAccountListSerializer(serializers.ModelSerializer):
     class Meta:
         model = InterestBearingAccount
         fields = [
+            'id',
             'account_number',
             'type',
             'balance_sheet_category',

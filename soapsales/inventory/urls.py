@@ -27,7 +27,7 @@ router = routers.DefaultRouter()
 router.register(r'config', InventorySettingsViewset, basename='config')
 router.register(r'inventory-categories', CategoryViewset, basename='inventory-categories' )
 router.register(r'debit-notes',  DebitNoteViewSet, basename='debit-notes')
-router.register(r'invetory-orders',  OrderViewSet, basename='invetory-orders')
+router.register(r'inventory-orders',  OrderViewSet, basename='invetory-orders')
 router.register(r'inventory-orderpayments',  OrderPaymentViewSet, basename='inventory-orderpayments')
 
 router.register(r'warehouses',  WareHouseViewSet, basename='warehouses')
@@ -46,6 +46,7 @@ router.register(r'equipments',  EquipmentViewSet, basename='equipments')
 router.register(r'consumables',  ConsumablesViewSet, basename='consumables')
 router.register(r'fully-received-and-total-paid-for-orders',  FullyReceivedAndTotalPaidForOrderViewSet, basename='fully-received-and-total-paid-for-orders')
 router.register(r'fully-received-total-paid-for-and-verified-orders',  FullyReceivedTotalPaidForAndVerifiedOrderViewSet, basename='fully-received-total-paid-for-and-verified-orders')
+
 
 
 

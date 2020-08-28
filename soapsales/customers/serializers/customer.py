@@ -43,7 +43,6 @@ class CustomerAddressSerializer(serializers.ModelSerializer):
 			'owner',
 			'type',
 			'street_address',
-			'street_address',
 			'floor_number',
 			'city',
 			'apartment_number',

@@ -1,0 +1,4 @@
+export const GET_DEBIT_NOTES = 'GET_DEBIT_NOTES';
+export const DELETE_DEBIT_NOTE = 'DELETE_DEBIT_NOTE';
+export const ADD_DEBIT_NOTE = 'ADD_DEBIT_NOTE';
+export const GET_DEBIT_NOTE = 'GET_DEBIT_NOTE';

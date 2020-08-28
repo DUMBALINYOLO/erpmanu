@@ -38,8 +38,6 @@ from employees.apis import (
 )
 
 
-
-
 router = DefaultRouter()
 
 router.register(r'employees', EmployeeViewSet)
@@ -56,7 +54,7 @@ router.register(r'pending-employee-leaves', PendingLeaveViewSet, basename='pendi
 router.register(r'authorised-employee-leaves', AuthorizedLeaveViewSet, basename='authorised-employee-leaves')
 router.register(r'declined-employee-leaves', DeclinedLeaveViewSet, basename='declined-employee-leaves')
 
-#the end 
+#the end
 
 router.register(r'employee-config', EmployeesConfigViewSet, basename='config')
 router.register(r'employee-contracts', ContractViewSet, basename='employee-contracts')
@@ -72,7 +70,6 @@ router.register(r'employee-payroll-schedules', PayrollScheduleViewSet, basename=
 router.register(r'employee-payroll-dates', PayrollDateViewSet, basename='employee-payroll-dates')
 router.register(r'employee-payslips', PayslipViewSet, basename='employee-payslips')
 router.register(r'employee-attendance-timesheets', EmployeeTimeSheetViewSet,  basename='employee-attendance-timesheets')
-
 
 
 
