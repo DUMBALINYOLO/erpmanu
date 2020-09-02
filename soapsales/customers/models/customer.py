@@ -1,6 +1,5 @@
 
 from decimal import Decimal as D
-
 from django.db import models
 from django.db.models import Q
 import uuid
@@ -27,7 +26,7 @@ class Customer(SoftDeletionModel):
     
     name = models.CharField(max_length=230, blank=True)
     status = models.CharField(max_length=50, choices=CUSTOMER_STATUS_CHOICES, default='active')
-    customer_number = models.CharField(max_length=255, null=True, default=None)  
+    customer_number = models.CharField(max_length=255, null=True, unique=True, default=None)  
     is_organization = models.BooleanField(default=False)
     is_individual = models.BooleanField(default=False)
     banking_details = models.TextField(default= "", blank=True)
@@ -41,6 +40,14 @@ class Customer(SoftDeletionModel):
 
     def __str__(self):
         return f'{self.name} {self.customer_number}'
+
+
+    def save(self, *args, **kwargs):
+        if not self.customer_number:
+            self.customer_number = str(uuid.uuid4()).replace("-", '').upper()[:20]
+        if not self.account:
+            self.create_customer_account()
+        super(Customer, self).save(*args, **kwargs)
     
 
     @property
@@ -132,28 +139,15 @@ class Customer(SoftDeletionModel):
         new_num = (acc_nos + 1) + 8000 
         self.account = Account.objects.create(
                 name= "Customer: %s" % self.name,
-                initial_balance =0,
-                order  = 2,
                 id= (1100 + n_customers + 20) * 2,
-                account_number = f'ACNO-{self.name}-{new_num}',
-                is_active = False,
-                is_contra = False,
+                balance = 0,
+                type = 'income',
                 description = 'Account which represents credit extended to a customer',
             )
 
 
-    # def save(self, *args, **kwargs):
-    #     if self.account is None:
-    #         self.create_customer_account()
-    #     if not self.customer_number:
-    #        prefix = 'CUS{}'.format(timezone.now().strftime('%y%m%d'))
-    #        prev_instances = self.__class__.objects.filter(customer_number__contains=prefix)
-    #        if prev_instances.exists():
-    #           last_instance_id = prev_instances.last().customer_number[-4:]
-    #           self.customer_number = prefix+'{0:04d}'.format(int(last_instance_id)+1)
-    #        else:
-    #            self.customer_number = prefix+'{0:04d}'.format(1)
-    #     super(Customer, self).save(*args, **kwargs)
+
+
 
 
 

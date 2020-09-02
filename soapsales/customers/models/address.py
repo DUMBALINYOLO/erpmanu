@@ -12,7 +12,9 @@ class CustomerAddress(SoftDeletionModel):
 
 	type = models.CharField(
 		        max_length=150,
-		        blank=True
+		        blank=True,
+		        choices=CUSTOMER_ADDRESSES_TYPE_CHOICES
+
 		    )
 	street_address = models.CharField(
 		        max_length=150,

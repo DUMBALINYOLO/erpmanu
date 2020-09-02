@@ -57,24 +57,6 @@ class ProductionProcess(SoftDeletionModel):
 
 
  
-    '''
-    @action(methods=['POST',] detail=False)
-    def verify_process(self, request, *args, **kwargs):
-      process = self.get_object():
-      if process.verified:
-        return Respose({message: 'It seems this process has already been verified'}, status = 200)
-      else:
-        process.verified = True
-        process.save()
-        process.update_inventory()
-    '''
-
-    '''
-        
-        by-products
-        yel
-    '''
-
     
 
 class ProductionProcessIngridient(SoftDeletionModel):
@@ -126,8 +108,4 @@ class ProcessRate(SoftDeletionModel):
 
 
         
-
-
-
-
 

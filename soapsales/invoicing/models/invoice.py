@@ -1,4 +1,4 @@
-
+import uuid
 import datetime
 import itertools
 from decimal import Decimal as D
@@ -87,7 +87,7 @@ class Invoice(SoftDeletionModel):
 
     sale_type = models.CharField(max_length=16, choices=INVOICE_SALES_TYPES_CHOICES)
     status = models.CharField(max_length=16, choices=INVOICE_SALE_STATUS_CHOICES)
-    reference_number = models.CharField(max_length=255, null=True, default=None)  
+    tracking_number = models.CharField(max_length=255, null=True, default=None)  
     validated_by = models.ForeignKey('employees.Employee',
         blank=True,
         null=True,
@@ -121,6 +121,13 @@ class Invoice(SoftDeletionModel):
     # sale = models.ForeignKey('invoicing.Sale',
     #     on_delete=models.SET_NULL,  blank=True, null=True)
     is_voided = models.BooleanField(blank=True,default=False)
+
+
+
+    def save(self, *args, **kwargs):
+        if not self.tracking_number:
+            self.tracking_number = str(uuid.uuid4()).replace("-", '').upper()[:20]
+        super(Invoice, self).save(*args, **kwargs)
 
 
 
@@ -266,7 +273,7 @@ class Invoice(SoftDeletionModel):
             )#sales tax
 
         self.entry = j
-        return j
+
 
 
 
@@ -327,6 +334,12 @@ class InvoiceLine(models.Model):
     reference_number = models.CharField(max_length=255, null=True, default=None)
 
 
+    def save(self, *args, **kwargs):
+        if not self.reference_number:
+            self.reference_number = str(uuid.uuid4()).replace("-", '').upper()[:20]
+        super(InvoiceLine, self).save(*args, **kwargs)
+
+
     #what it is sold for
 
 
@@ -383,6 +396,32 @@ class SalesGroupPricingDiscount(models.Model):
     reference_number = models.CharField(max_length=255, null=True, default=None)
 
 
+    def save(self, *args, **kwargs):
+        if not self.reference_number:
+            self.reference_number = str(uuid.uuid4()).replace("-", '').upper()[:20]
+        super(SalesGroupPricingDiscount, self).save(*args, **kwargs)
+
+
     def __str__(self):
         return f'{self.group_name} {self.product_name}'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

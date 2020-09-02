@@ -62,6 +62,7 @@ INSTALLED_APPS = [
 ]
 
 
+
 AUTH_USER_MODEL = 'employees.Employee'
 
 

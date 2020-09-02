@@ -21,6 +21,7 @@ class Category(SoftDeletionModel):
 
 
 
+
     def __str__(self):
         return self.name
 
@@ -75,6 +76,12 @@ class OrderPayment(SoftDeletionModel):
                     )
 
 
+    def save(self, *args, **kwargs):
+        if not self.entry:
+            self.create_entry()
+        super(OrderPayment, self).save(*args, **kwargs)
+
+
     def create_entry(self, comments=""):
         if self.entry:
             return
@@ -105,6 +112,7 @@ class OrderPayment(SoftDeletionModel):
 
         if not self.entry:
             self.entry = j
+
 
 
 class StockReceipt(SoftDeletionModel):

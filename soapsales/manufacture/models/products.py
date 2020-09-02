@@ -67,10 +67,9 @@ class ProcessProduct(models.Model):
 
     @property
     def quantity(self):
-        from inventory.models import WareHouseItem
 
         #returns quantity from all warehouses
-        processed = ManufacturedStockItem.objects.filter(processed_item=self)
+        processed = ManufacturedStockItem.objects.filter(item=self)
         return sum([i.quantity for i in processed])
 
 
@@ -79,24 +78,13 @@ class ProcessProduct(models.Model):
     	return self.unit_price
 
 
-    def production_orders(self):
-        return self.production_orders.all()
-
-
-
 
 
     def save(self, *args, **kwargs):
         if self.value == D(0.0):
             self.set_value()
         if not self.reference_number:
-           prefix = 'PPD-{}'.format(timezone.now().strftime('%y%m%d'))
-           prev_instances = self.__class__.objects.filter(reference_number__contains=prefix)
-           if prev_instances.exists():
-              last_instance_id = prev_instances.last().reference_number[-4:]
-              self.reference_number = prefix+'{0:04d}'.format(int(last_instance_id)+1)
-           else:
-               self.reference_number = prefix+'{0:04d}'.format(1)
+            self.reference_number = str(uuid.uuid4()).replace("-", '').upper()[:20]
         super(ProcessProduct, self).save(*args, **kwargs)
 
 

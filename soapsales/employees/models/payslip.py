@@ -1,3 +1,4 @@
+import uuid
 import random
 import datetime
 from decimal import Decimal as D
@@ -80,13 +81,8 @@ class Payslip(SoftDeletionModel):
             self.employee.save()
 
         if not self.payslip_number:
-           prefix = 'PAYSLIP-{}'.format(timezone.now().strftime('%y%m%d'))
-           prev_instances = self.__class__.objects.filter(payslip_number__contains=prefix)
-           if prev_instances.exists():
-              last_instance_id = prev_instances.last().payslip_number[-4:]
-              self.payslip_number = prefix+'{0:04d}'.format(int(last_instance_id)+1)
-           else:
-               self.payslip_number = prefix+'{0:04d}'.format(1)
+            self.payslip_number = str(uuid.uuid4()).replace("-", '').upper()[:20]
+
         if self.pay_grade != self.employee.pay_grade \
                 or is_new:
             self.pay_grade = self.employee.pay_grade
@@ -332,6 +328,7 @@ class Payslip(SoftDeletionModel):
         self.status = 'verified'
 
         self.entry = j
+        self.save()
         
 
 
@@ -366,4 +363,5 @@ class Payslip(SoftDeletionModel):
 
         self.entry = j
         self.status = 'paid'
+        self.save()
 

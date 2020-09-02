@@ -12,7 +12,7 @@ from manufacture.serializers import (
 
 
 class ShiftViewSet(viewsets.ModelViewSet):
-	queryset = Shift.objects.all()
+	
 
 	def get_serializer_class(self):
 		if self.action in ['create', 'put']:
@@ -20,6 +20,18 @@ class ShiftViewSet(viewsets.ModelViewSet):
 		elif self.action == 'retrieve':
 			return ShiftDetailSerializer
 		return ShiftListSerializer
+
+	def get_queryset(self, *args, **kwargs):
+		queryset = Shift.objects.prefetch_related(
+											'team',
+											'supervisor',
+											'employees',
+											'machine'
+										)
+
+		return queryset
+
+
 
 
 class ShiftScheduleViewSet(viewsets.ModelViewSet):

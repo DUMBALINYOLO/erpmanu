@@ -62,6 +62,14 @@ class WareHouse(SoftDeletionModel):
             retrieved_item.decrement(quantity)
 
 
+    def increament_manufactured_item(self, item, quantity):
+        '''Takes an item and decrements it from the appropriate warehouse item'''
+        #safety checks handled elsewhere
+        retrieved_item = self.get_manufactured_item(item)
+        if retrieved_item:
+            retrieved_item.increment(quantity)
+
+
     def get_manufactured_item(self, item):
         '''can accept product consumable or equipment as an arg'''
         if ManufacturedStockItem.objects.filter(

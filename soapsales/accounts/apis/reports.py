@@ -113,7 +113,7 @@ class BalanceSheetAPIView(APIView):
         working_capital =  current_assets_total - current_liabilities_total
         
         #LONG TERM LIABILITIES
-        long_term_liabilities = models.Account.objects.filter(
+        long_term_liabilities = Account.objects.filter(
             Q(balance_sheet_category='non-current-liabilities')).exclude(
                 Q(balance=0))
 
@@ -189,6 +189,7 @@ class JournalReportAPIView(APIView):
 
 
 
+
 class ProfitAndLossReportAPIView(APIView):
 
     def get(self, request, *args, **kwargs):
@@ -207,10 +208,10 @@ class ProfitAndLossReportAPIView(APIView):
         purchases = purchases_acc.balance_over_period(start, end) + purchase_returns
         
         opening_inventory = sum(
-            [D(i.quantity_on_date(start)) * i.unit_value for i in inventory_models.InventoryItem.objects.filter(product_component__isnull=False)])
+            [D(i.quantity_on_date(start)) * i.unit_value for i in InventoryItem.objects.filter(product_component__isnull=False)])
         print(opening_inventory)
         
-        closing_inventory = inventory_models.InventoryItem.total_inventory_value()
+        closing_inventory = InventoryItem.total_inventory_value()
         cogs = opening_inventory +  purchases - closing_inventory
         #cost of revenue
         # calculate direct labour for services
@@ -265,7 +266,7 @@ class TrialBalanceAPIView(APIView):
         date  = datetime.date.today()
         total_debit = Account.total_debit()
         total_credit = Account.total_credit()
-        inventory_value = inventory_models.InventoryItem.total_inventory_value()
+        inventory_value = InventoryItem.total_inventory_value()
         # manufactured_items stock value
 
         data = {

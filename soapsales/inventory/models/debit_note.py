@@ -36,6 +36,15 @@ class DebitNote(models.Model):
     reference_number = models.CharField(max_length=255, null=True, default=None)
 
 
+    def save(self, *args, **kwargs):
+        if not self.reference_number:
+            self.reference_number = str(uuid.uuid4()).replace("-", '').upper()[:20]
+        if not self.entry:
+            self.create_entry()
+            self.subtract_returned_inventory()
+        super(DebitNote, self).save(*args, **kwargs)
+
+
     @property
     def returned_items(self):
         return self.lines.all()
@@ -103,6 +112,12 @@ class DebitNote(models.Model):
         self.entry = j
 
 
+    def subtract_returned_inventory(self):
+        '''Removes inventory from the warehouse'''
+        for line in self.lines.all():
+            self.order.ship_to.decrement_inventory_stock_item(line.item.item, line.quantity)
+
+
 
 class DebitNoteLine(models.Model):
     item = models.ForeignKey('inventory.OrderItem', null=True,
@@ -119,10 +134,10 @@ class DebitNoteLine(models.Model):
         return str(self.item)
 
 
-    def _return_to_vendor(self, n):
-        self.order.ship_to.decrement_item(self.item.item, n)
 
     @property
     def returned_value(self):
         return self.item.order_price * D(self.quantity)
+
+
 

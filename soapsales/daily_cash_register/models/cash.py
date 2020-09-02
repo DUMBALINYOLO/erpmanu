@@ -85,7 +85,7 @@ class CashRegister(models.Model):
     @property
     def inventory_order_debit_card_payments_total(self):
         return sum([orderpayment.amount for orderpayment in self.orderpayments.filter(
-            method='debit card')], D(0.0))
+            method='debit_card')], D(0.0))
 
     
     @property

@@ -1,7 +1,7 @@
 import datetime
+import uuid
 from decimal import Decimal as D
 from functools import reduce
-
 from django.db import models
 from django.db.models import Q
 from django.utils import timezone
@@ -78,7 +78,14 @@ class Post(models.Model):
                     null=True
                 )
     date = models.DateTimeField(auto_now_add=True)
-    reference_number = models.CharField(max_length=100, null=True, blank=True)
+    reference_number = models.CharField(max_length=100, unique=True, null=True, blank=True)
+
+
+    def save(self, *args, **kwargs):
+        if not self.reference_number:
+            self.reference_number = str(uuid.uuid4()).replace("-", '').upper()[:20]
+        super(Post, self).save(*args, **kwargs)
+
 
     def __str__(self):
         return f'Post: {self.id} & {self.reference_number}'
@@ -93,7 +100,13 @@ class WorkBook(models.Model):
     Not yet implemented
     '''
     name = models.CharField(max_length=64)
-    reference_number = models.CharField(max_length=100, null=True, blank=True)
+    reference_number = models.CharField(max_length=100, unique=True, null=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        if not self.reference_number:
+            self.reference_number = str(uuid.uuid4()).replace("-", '').upper()[:20]
+        super(WorkBook, self).save(*args, **kwargs)
+
 
     def __str__(self):
         return f'{self.name} {self.reference_number}'
@@ -133,7 +146,13 @@ class Adjustment(models.Model):
                             default=1
                         )
     date_created = models.DateField(default=datetime.date.today)
-    reference_number = models.CharField(max_length=100, null=True, blank=True)
+    reference_number = models.CharField(max_length=100, unique=True, null=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        if not self.reference_number:
+            self.reference_number = str(uuid.uuid4()).replace("-", '').upper()[:20]
+        super(Adjustment, self).save(*args, **kwargs)
+
 
     def __str__(self):
         return self.reference_number

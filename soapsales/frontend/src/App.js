@@ -13,10 +13,7 @@ import Default from './components/Home/Default';
 import Content from "./dashboard/Content";
 import Dashboard from './dashboard/components/Dashboard';
 
-import ProcessMachineGroups from './manufacture/ProcessMachineGroups';
-
 import Taxes from './accounts/taxes/Taxes';
-import TaxForm from './accounts/taxes/TaxForm';
 
 import Journals from './accounts/journals/Journals';
 
@@ -49,7 +46,6 @@ class App extends Component {
 							<Route exact path='/dash-view' component={Dashboard} />
 
 							<Route exact path='/taxes' component={Taxes} />
-							<Route exact path='/taxes/create' component={TaxForm} />
 
 							<Route exact path='/assets' component={Assets} />
 
@@ -59,8 +55,6 @@ class App extends Component {
 
 							<Route exact path='/employeepayrollschedules' component={EmployeePayrollSchedules} />
 							<Route exact path='/employeepayrollschedules/create' component={EmployeePayrollScheduleForm} />
-
-							<Route exact path='/processmachinegroups' component={ProcessMachineGroups} />
 
 							<Route component={Default} />
 						</Switch>

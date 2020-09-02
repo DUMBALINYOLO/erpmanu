@@ -1,5 +1,5 @@
 from django.db import models
-
+import uuid
 import accounts
 from decimal import Decimal as D
 from basedata.models import SoftDeletionModel
@@ -66,13 +66,7 @@ class Payment(SoftDeletionModel):
         if self.receipt is None:
             self.create_create_customer_receipt()
         if not self.reference_number:
-           prefix = 'PAYM{}'.format(timezone.now().strftime('%y%m%d'))
-           prev_instances = self.__class__.objects.filter(reference_number__contains=prefix)
-           if prev_instances.exists():
-              last_instance_id = prev_instances.last().reference_number[-4:]
-              self.reference_number = prefix+'{0:04d}'.format(int(last_instance_id)+1)
-           else:
-               self.reference_number = prefix+'{0:04d}'.format(1)
+            self.reference_number = str(uuid.uuid4()).replace("-", '').upper()[:20]
         super(Payment, self).save(*args, **kwargs)
 
 
@@ -131,11 +125,8 @@ class Payment(SoftDeletionModel):
 
 
     def create_create_customer_receipt(self):
-        rec_nos = CustomerReceipt.objects.all().count()
-        new_num = (rec_nos + 1) + 10 
         self.receipt = CustomerReceipt.objects.create(
-                sales_rep = self.sales_rep,
-                receipt_number = f'RECNO-{new_num}-{self.invoice.customer.name}',
+                sales_rep = self.cashier,
                 customer = self.invoice.customer,
                 comment = f'We are Grateful for your support {self.invoice.customer.name} !!!!!',
                 payment_method = self.method,

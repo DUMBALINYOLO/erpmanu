@@ -70,11 +70,6 @@ class Order(SoftDeletionModel):
                             null=True
                         )
 
-    tracking_number = models.CharField(
-                                max_length=64,
-                                blank=True,
-                                default=""
-                            )
     notes = models.TextField(blank=True)
     status = models.CharField(max_length=24,
         choices=INVENTORY_ORDER_STATUS_CHOICES)
@@ -90,7 +85,7 @@ class Order(SoftDeletionModel):
                                         null=True,
                                         related_name='orders'
                                     )
-    reference_number = models.CharField(max_length=255, null=True, default=None)
+    tracking_number = models.CharField(max_length=255, null=True, default=None)
     entry = models.ForeignKey(
                         'accounts.JournalEntry',
                         blank=True, 
@@ -111,9 +106,17 @@ class Order(SoftDeletionModel):
                                     )
 
 
+    def save(self, *args, **kwargs):
+        if not self.tracking_number:
+            self.tracking_number = str(uuid.uuid4()).replace("-", '').upper()[:20]
+        if not self.entry:
+            self.create_entry()
+        super(Order, self).save(*args, **kwargs)
+
+
 
     def __str__(self):
-        return f'ORD: {str(self.pk)} {self.reference_number}'
+        return f'ORD: {str(self.pk)} {self.tracking_number}'
 
     @property
     def days_overdue(self):
@@ -344,3 +347,4 @@ class OrderItem(models.Model):
     @property
     def returned_value(self):
         return D(self.returned_quantity) * self.order_price
+

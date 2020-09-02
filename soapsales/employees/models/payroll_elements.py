@@ -1,4 +1,4 @@
-
+import uuid
 import random
 import datetime
 from decimal import Decimal as D
@@ -150,14 +150,9 @@ class CommissionRule(SoftDeletionModel):
 
     def save(self, *args, **kwargs):
         if not self.reference_number:
-           prefix = 'COMRU-{}'.format(timezone.now().strftime('%y%m%d'))
-           prev_instances = self.__class__.objects.filter(reference_number__contains=prefix)
-           if prev_instances.exists():
-              last_instance_id = prev_instances.last().reference_number[-4:]
-              self.reference_number = prefix+'{0:04d}'.format(int(last_instance_id)+1)
-           else:
-               self.reference_number = prefix+'{0:04d}'.format(1)
+            self.reference_number = str(uuid.uuid4()).replace("-", '').upper()[:20]
         super(CommissionRule, self).save(*args, **kwargs)
+
 
     def __str__(self):
         return f'{self.reference_number} {self.name}'
@@ -170,16 +165,13 @@ class PayrollTax(models.Model):
     paid_by = models.IntegerField(choices=EMPLOYEE_PAYROLL_TAX_CHOICES)
     reference_number = models.CharField(max_length=255, null=True, default=None)
 
+
     def save(self, *args, **kwargs):
         if not self.reference_number:
-           prefix = 'P-TAX-{}'.format(timezone.now().strftime('%y%m%d'))
-           prev_instances = self.__class__.objects.filter(reference_number__contains=prefix)
-           if prev_instances.exists():
-              last_instance_id = prev_instances.last().reference_number[-4:]
-              self.reference_number = prefix+'{0:04d}'.format(int(last_instance_id)+1)
-           else:
-               self.reference_number = prefix+'{0:04d}'.format(1)
+            self.reference_number = str(uuid.uuid4()).replace("-", '').upper()[:20]
         super(PayrollTax, self).save(*args, **kwargs)
+
+
 
     def __str__(self):
         return f'{self.reference_number} {self.name}'
@@ -231,16 +223,13 @@ class PayrollSchedule(SingletonModel):
     name = models.CharField(max_length=255)
     reference_number = models.CharField(max_length=255, null=True, default=None)
 
+
     def save(self, *args, **kwargs):
         if not self.reference_number:
-           prefix = 'P-SCHED-{}'.format(timezone.now().strftime('%y%m%d'))
-           prev_instances = self.__class__.objects.filter(reference_number__contains=prefix)
-           if prev_instances.exists():
-              last_instance_id = prev_instances.last().reference_number[-4:]
-              self.reference_number = prefix+'{0:04d}'.format(int(last_instance_id)+1)
-           else:
-               self.reference_number = prefix+'{0:04d}'.format(1)
+            self.reference_number = str(uuid.uuid4()).replace("-", '').upper()[:20]
         super(PayrollSchedule, self).save(*args, **kwargs)
+
+
 
     def __str__(self):
         return f'{self.reference_number} {self.name}'

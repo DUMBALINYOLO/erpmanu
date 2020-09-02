@@ -1,13 +1,14 @@
 import datetime
+import uuid
 from decimal import Decimal as D
 from functools import reduce
 from itertools import chain
-
 from django.db import models
 from django.db.models import Q
 from django.utils import timezone
 from .books import Post
 from basedata.models import SoftDeletionModel
+
 
     
 class Transaction(SoftDeletionModel):
@@ -136,7 +137,12 @@ class JournalEntry(SoftDeletionModel):
     reference_number = models.CharField(max_length=100, null=True, blank=True)
 
 
-    
+    def save(self, *args, **kwargs):
+        if not self.reference_number:
+            self.reference_number = str(uuid.uuid4()).replace("-", '').upper()[:20]
+        super(JournalEntry, self).save(*args, **kwargs)
+
+
 
     def __str__(self):
         return f'{self.reference_number} {self.str_total}'

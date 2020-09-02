@@ -1,4 +1,4 @@
-
+import uuid
 import random
 import datetime
 from decimal import Decimal as D
@@ -34,20 +34,13 @@ class Leave(models.Model):
                             )
     notes = models.TextField(blank=True)
     recorded = models.BooleanField(default=False)
-    reference_number = models.CharField(max_length=255, null=True, default=None)
+    reference_number = models.CharField(max_length=255, null=True, default=None, unique=True)
+
 
     def save(self, *args, **kwargs):
         if not self.reference_number:
-           prefix = 'LEAVE-{}'.format(timezone.now().strftime('%y%m%d'))
-           prev_instances = self.__class__.objects.filter(reference_number__contains=prefix)
-           if prev_instances.exists():
-              last_instance_id = prev_instances.last().reference_number[-4:]
-              self.reference_number = prefix+'{0:04d}'.format(int(last_instance_id)+1)
-           else:
-               self.reference_number = prefix+'{0:04d}'.format(1)
+            self.reference_number = str(uuid.uuid4()).replace("-", '').upper()[:20]
         super(Leave, self).save(*args, **kwargs)
-
-
 
 
     @property
@@ -63,5 +56,4 @@ class Leave(models.Model):
     def __str__(self):
         return f'{self.employee.__str__()} {self.reference_number}'
         
-
 

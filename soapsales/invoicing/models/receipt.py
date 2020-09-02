@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 from basedata.models import SoftDeletionModel
 from django.utils import timezone
@@ -49,13 +50,7 @@ class CustomerReceipt(SoftDeletionModel):
 
     def save(self, *args, **kwargs):
         if not self.receipt_number:
-           prefix = 'REC{}'.format(timezone.now().strftime('%y%m%d'))
-           prev_instances = self.__class__.objects.filter(receipt_number__contains=prefix)
-           if prev_instances.exists():
-              last_instance_id = prev_instances.last().receipt_number[-4:]
-              self.receipt_number = prefix+'{0:04d}'.format(int(last_instance_id)+1)
-           else:
-               self.receipt_number = prefix+'{0:04d}'.format(1)
+            self.receipt_number = str(uuid.uuid4()).replace("-", '').upper()[:20]
         super(CustomerReceipt, self).save(*args, **kwargs)
 
 

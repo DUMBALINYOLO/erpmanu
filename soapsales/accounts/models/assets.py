@@ -1,4 +1,5 @@
 import datetime
+import uuid
 from decimal import Decimal as D
 from functools import reduce
 from django.db import models
@@ -54,10 +55,16 @@ class Asset(SoftDeletionModel):
     salvage_value = models.DecimalField(max_digits=16, decimal_places=2)
     created_by = models.ForeignKey('employees.Employee', default=1, on_delete=models.SET_NULL, null=True)
     entry = models.ForeignKey("accounts.JournalEntry", null=True, on_delete=models.SET_NULL)
-    reference_number = models.CharField(max_length=255, null=True, default=None)
+    reference_number = models.CharField(max_length=255, unique=True, null=True, default=None)
 
 
 
+    def save(self, *args, **kwargs):
+        if not self.reference_number:
+            self.reference_number = str(uuid.uuid4()).replace("-", '').upper()[:20]
+        if not self.entry:
+            self.create_entry()
+        super(Asset, self).save(*args, **kwargs)
 
 
     def create_entry(self):
@@ -68,7 +75,7 @@ class Asset(SoftDeletionModel):
             memo =  "Asset added. Name: %s. Description: %s " % (
                 self.name, self.description
             ),
-            created_by = self.created_by,# not ideal general journal
+            creator = self.created_by,# not ideal general journal
             journal = Journal.objects.get(name='DEFAULT_JOURNAL'),
             draft=False
         )
@@ -89,6 +96,8 @@ class Asset(SoftDeletionModel):
                 )
         )# asset account
 
+        self.entry = j
+        
 
 
     def __str__(self):

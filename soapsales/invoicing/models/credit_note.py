@@ -1,4 +1,5 @@
 from functools import reduce
+import uuid
 from django.contrib.contenttypes.fields import GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
@@ -38,18 +39,13 @@ class CreditNote(models.Model):
 
     #
 
-    # def save(self, *args, **kwargs):
-    #     if not self.reference_number:
-    #        prefix = 'CNOTE-{}'.format(timezone.now().strftime('%y%m%d'))
-    #        prev_instances = self.__class__.objects.filter(reference_number__contains=prefix)
-    #        if prev_instances.exists():
-    #           last_instance_id = prev_instances.last().reference_number[-4:]
-    #           self.reference_number = prefix+'{0:04d}'.format(int(last_instance_id)+1)
-    #        else:
-    #            self.reference_number = prefix+'{0:04d}'.format(1)
-    #     if self.entry is None:
-    #         self.create_entry()
-    #     super(CreditNote, self).save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        if not self.reference_number:
+            self.reference_number = str(uuid.uuid4()).replace("-", '').upper()[:20]
+        if self.entry is None:
+            self.create_entry()
+            self.add_returned_to_stock()
+        super(CreditNote, self).save(*args, **kwargs)
 
 
     @property
@@ -100,7 +96,14 @@ class CreditNote(models.Model):
         j.debit(self.tax_credit, Account.objects.get(name='TAX-ACCOUNT-NUMBER-TWO'))
 
         self.entry = j
-        self.save()
+
+    def add_returned_to_stock(self):
+        '''Removes inventory from the warehouse'''
+        for line in self.lines.all():
+            self.invoice.ship_from.increament_manufactured_item(line.line.product, line.quantity)
+
+
+        
 
 #TODO test
 class CreditNoteLine(models.Model):

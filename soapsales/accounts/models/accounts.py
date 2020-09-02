@@ -1,5 +1,6 @@
 
 from __future__ import unicode_literals
+import uuid
 from decimal import Decimal as D
 from functools import reduce
 from itertools import chain
@@ -37,7 +38,7 @@ class AbstractAccount(SoftDeletionModel):
     name = models.CharField(max_length=64, unique=True)
     account_number = models.CharField(max_length=255, null=True, unique=True, default=None)
     balance = models.DecimalField(max_digits=16, decimal_places=2, default=0.0)
-    type = models.CharField(max_length=32, choices=ACCOUNT_TYPE_CHOICES)
+    type = models.CharField(max_length=32, choices=ACCOUNT_TYPE_CHOICES,)
     description = models.TextField()
     bank_account = models.BooleanField(default=False)
     control_account = models.BooleanField(default=False)
@@ -124,6 +125,12 @@ class AbstractAccount(SoftDeletionModel):
 
         return total
 
+    def save(self, *args, **kwargs):
+        if not self.account_number:
+            self.account_number = str(uuid.uuid4()).replace("-", '').upper()[:20]
+        super(AbstractAccount, self).save(*args, **kwargs)
+
+   
 class Account(AbstractAccount):
 
     '''

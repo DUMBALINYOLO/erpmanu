@@ -32,6 +32,7 @@ class ProcessProductListSerializer(serializers.ModelSerializer):
 
 
 
+
 class ProcessProductDetailSerializer(serializers.ModelSerializer):
     type = serializers.SerializerMethodField()
     status = serializers.SerializerMethodField()
@@ -55,8 +56,6 @@ class ProcessProductDetailSerializer(serializers.ModelSerializer):
             'status',
             'minimum_order_level',
             'maximum_stock_level',
-            'order',
-            'process',
             'reference_number',
 
         ]

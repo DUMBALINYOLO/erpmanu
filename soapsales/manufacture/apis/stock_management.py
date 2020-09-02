@@ -24,7 +24,7 @@ from manufacture.serializers import (
 
 
 class ProcessedProductsStockReceiptViewSet(viewsets.ModelViewSet):
-    queryset = ProcessedProductsStockReceipt.objects.all()
+    
 
     def get_serializer_class(self):
         if self.action in ['create', 'put']:
@@ -32,6 +32,18 @@ class ProcessedProductsStockReceiptViewSet(viewsets.ModelViewSet):
         elif self.action == 'retrieve':
             return ProcessedProductsStockReceiptDetailSerializer
         return ProcessedProductsStockReceiptListSerializer
+
+
+    def get_queryset(self, *args, **kwargs):
+
+        queryset = ProcessedProductsStockReceipt.objects.prefetch_related(
+                                                                'ship_to',
+                                                                'process',
+                                                                'received_by'
+                                                            )
+
+        return queryset
+
 
 
 

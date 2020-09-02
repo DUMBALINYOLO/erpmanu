@@ -22,21 +22,23 @@ class ProcessedProductsStockReceiptLineCreateSerializer(serializers.ModelSeriali
         model = ProcessedProductsStockReceiptLine
         fields = [
             'id',
-            'line',
+            'item',
             'quantity',
+
 
         ]
 
 
 class ProcessedProductsStockReceiptLineListSerializer(serializers.ModelSerializer):
-    line = StringSerializer()
+    item = StringSerializer()
 
     class Meta:
         model = ProcessedProductsStockReceiptLine
         fields = [
             'id',
-            'line',
+            'item',
             'quantity',
+            'reference_number',
 
         ]
 
@@ -50,6 +52,8 @@ class ProcessedProductsStockReceiptCreateUpdateSerializer(WritableNestedModelSer
         fields = [
             'id',
             'received_by',
+            'process',
+            'ship_to',
             'receive_date',
             'note',
             'lines',
@@ -59,6 +63,7 @@ class ProcessedProductsStockReceiptCreateUpdateSerializer(WritableNestedModelSer
 
 class ProcessedProductsStockReceiptListSerializer(serializers.ModelSerializer):
     received_by = StringSerializer()
+    process = StringSerializer()
 
     class Meta:
         model = ProcessedProductsStockReceipt
@@ -66,7 +71,8 @@ class ProcessedProductsStockReceiptListSerializer(serializers.ModelSerializer):
             'id',
             'received_by',
             'receive_date',
-            'reference_number'
+            'reference_number',
+            'process',
 
         ]
 
@@ -74,6 +80,8 @@ class ProcessedProductsStockReceiptListSerializer(serializers.ModelSerializer):
 class ProcessedProductsStockReceiptDetailSerializer(serializers.ModelSerializer):
     lines = ProcessedProductsStockReceiptLineListSerializer(many=True, read_only=True)
     received_by = StringSerializer()
+    process = StringSerializer()
+    ship_to = StringSerializer()
 
 
     class Meta:
@@ -85,6 +93,8 @@ class ProcessedProductsStockReceiptDetailSerializer(serializers.ModelSerializer)
             'reference_number',
             'lines',
             'note',
+            'process',
+            'ship_to'
         ]
 
 

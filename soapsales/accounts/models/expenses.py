@@ -1,4 +1,5 @@
 import datetime
+import uuid
 from decimal import Decimal as D
 from functools import reduce
 from django.db import models
@@ -31,8 +32,17 @@ class Bill(SoftDeletionModel):
         on_delete=models.SET_NULL,
         blank=True,
         null=True)
-    bill_number = models.CharField(max_length=255, null=True, default=None)
+    bill_number = models.CharField(max_length=255, null=True, unique=True, default=None)
     payment_status = models.CharField(max_length=500, choices=BILL_PAYMENT_STATUS_CHOICES)
+
+
+    def save(self, *args, **kwargs):
+        if not self.bill_number:
+            self.bill_number = str(uuid.uuid4()).replace("-", '').upper()[:20]
+        if not self.entry:
+            self.create_entry()
+        super(Bill, self).save(*args, **kwargs)
+
 
     def __str__(self):
         return f'{self.vendor.__str__()} {self.reference}'
@@ -131,9 +141,10 @@ class BillPayment(SoftDeletionModel):
 
 
     def save(self, *args, **kwargs):
-        if self.entry is None:
+        if not self.entry:
             self.create_entry()
         super(BillPayment, self).save(*args, **kwargs)
+
 
 
     def create_entry(self):
@@ -149,3 +160,8 @@ class BillPayment(SoftDeletionModel):
 
         j.debit(self.amount, self.bill.vendor.account)
         j.credit(self.amount, self.account)
+
+        self.entry = j
+
+
+

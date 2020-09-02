@@ -9,8 +9,9 @@ from manufacture.serializers import (
                     )
 
 
+
 class ProcessProductViewSet(ModelViewSet):
-    queryset = ProcessProduct.objects.all()
+    
     # permission_classes = [
     #     permissions.IsAuthenticated,
     # ]
@@ -21,5 +22,13 @@ class ProcessProductViewSet(ModelViewSet):
         if self.action == 'retrieve':
         	return ProcessProductDetailSerializer
         return ProcessProductListSerializer
+
+
+    def get_queryset(self, *args, **kwargs):
+        queryset = ProcessProduct.objects.prefetch_related(
+                                                    'unit',
+                                                    'location'
+                                                )
+        return queryset
 
 

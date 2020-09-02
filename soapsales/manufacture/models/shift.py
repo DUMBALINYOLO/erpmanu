@@ -68,9 +68,10 @@ class ShiftSchedule(models.Model):
     def __str__(self):
         return self.name
 
+
     @property
     def shifts(self):
-        return self.lines
+        return self.lines.all()
 
 class ShiftScheduleLine(models.Model):
     schedule = models.ForeignKey(

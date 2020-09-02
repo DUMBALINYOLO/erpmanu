@@ -49,7 +49,7 @@ class Employee(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     category = models.CharField(max_length=341, choices=EMPLOYEES_TYPE_CHOICES)
-    employee_number = models.CharField(max_length=255, null=True, default=None)
+    employee_number = models.CharField(max_length=255, null=True, unique=True, default=None)
     phone = models.CharField(max_length =16, unique=True, blank=True, default="")
     first_name = models.CharField(max_length =32, blank=True, null=True)
     middle_name = models.CharField(max_length =32, blank=True, null=True)
@@ -68,12 +68,38 @@ class Employee(AbstractBaseUser, PermissionsMixin):
     leave_days = models.FloatField(default=0, blank=True, null=True)
     last_leave_day_increment = models.DateField(blank=True, null=True)
     uses_timesheet = models.BooleanField(default=False,blank=True, null=True)
+    account = models.ForeignKey('accounts.Account', on_delete=models.CASCADE,
+        null=True)#created in save method
 
     objects = EmployeeManager()
 
     
     USERNAME_FIELD = 'email'
     REQUIRE_FIELDS = ['category', 'first_name', 'last_name']
+
+
+    def save(self, *args, **kwargs):
+        if not self.employee_number:
+            self.employee_number = str(uuid.uuid4()).replace("-", '').upper()[:20]
+        if not self.account:
+            self.create_employee_account()
+        super(Customer, self).save(*args, **kwargs)
+
+
+
+    def create_employee_account(self):
+        from accounts.models import Account
+        n_employees = Employee.objects.all().count()
+        acc_nos = Account.objects.all().count()
+        new_num = (acc_nos + 1) + 8000 
+        self.account = Account.objects.create(
+                name= "Employee: %s" % self.name,
+                id= (1100 + n_employees + 20) * 2,
+                balance = 0,
+                type = 'income',
+                description = 'Account which represents credit extended to a customer',
+            )
+
 
 
     def get_full_name(self):
@@ -302,18 +328,15 @@ class Department(models.Model):
                                     null=True, 
                                     blank=True
                                 )
-    reference_number = models.CharField(max_length=255, null=True, default=None)
+    reference_number = models.CharField(max_length=255, null=True, unique=True, default=None)
+
+
 
     def save(self, *args, **kwargs):
         if not self.reference_number:
-           prefix = 'DPT-{}'.format(timezone.now().strftime('%y%m%d'))
-           prev_instances = self.__class__.objects.filter(reference_number__contains=prefix)
-           if prev_instances.exists():
-              last_instance_id = prev_instances.last().reference_number[-4:]
-              self.reference_number = prefix+'{0:04d}'.format(int(last_instance_id)+1)
-           else:
-               self.reference_number = prefix+'{0:04d}'.format(1)
+            self.reference_number = str(uuid.uuid4()).replace("-", '').upper()[:20]
         super(Department, self).save(*args, **kwargs)
+
 
     def __str__(self):
         return f'{self.name} {self.reference_number}'
@@ -337,18 +360,14 @@ class Termination(models.Model):
         choices=EMPLOYEE_CONTRACT_TERMINATION_REASONS)
     contract = models.OneToOneField('Contract', null=True,
         blank=True,on_delete=models.SET_NULL)
-    reference_number = models.CharField(max_length=255, null=True, default=None)
+    reference_number = models.CharField(max_length=255, null=True, unique=True, default=None)
+
 
     def save(self, *args, **kwargs):
         if not self.reference_number:
-           prefix = 'ECT-{}'.format(timezone.now().strftime('%y%m%d'))
-           prev_instances = self.__class__.objects.filter(reference_number__contains=prefix)
-           if prev_instances.exists():
-              last_instance_id = prev_instances.last().reference_number[-4:]
-              self.reference_number = prefix+'{0:04d}'.format(int(last_instance_id)+1)
-           else:
-               self.reference_number = prefix+'{0:04d}'.format(1)
+            self.reference_number = str(uuid.uuid4()).replace("-", '').upper()[:20]
         super(Termination, self).save(*args, **kwargs)
+
 
     def __str__(self):
         return self.reference_number
@@ -374,18 +393,14 @@ class Contract(models.Model):
     nature_of_employment = models.CharField(max_length=1, default='N',
         choices=NATURE_OF_EMPLOYMENT_CHOICES)
 
-    reference_number = models.CharField(max_length=255, null=True, default=None)
+    reference_number = models.CharField(max_length=255, null=True, default=None, unique=True)
+
 
     def save(self, *args, **kwargs):
         if not self.reference_number:
-           prefix = 'ECON-{}'.format(timezone.now().strftime('%y%m%d'))
-           prev_instances = self.__class__.objects.filter(reference_number__contains=prefix)
-           if prev_instances.exists():
-              last_instance_id = prev_instances.last().reference_number[-4:]
-              self.reference_number = prefix+'{0:04d}'.format(int(last_instance_id)+1)
-           else:
-               self.reference_number = prefix+'{0:04d}'.format(1)
+            self.reference_number = str(uuid.uuid4()).replace("-", '').upper()[:20]
         super(Contract, self).save(*args, **kwargs)
+
 
     def __str__(self):
         return self.reference_number

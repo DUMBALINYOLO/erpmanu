@@ -7,4 +7,6 @@ from .shift import *
 from .stock_management import *
 from .waste_report import *
 from .orders import *
+from .stock import *
+
 

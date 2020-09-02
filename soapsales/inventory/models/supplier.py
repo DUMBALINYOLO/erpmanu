@@ -83,6 +83,14 @@ class Supplier(SoftDeletionModel):
     def __str__(self):
         return self.name
 
+    def save(self, *args, **kwargs):
+        if not self.supplier_number:
+            self.supplier_number = str(uuid.uuid4()).replace("-", '').upper()[:20]
+        if not self.account:
+            self.create_account()
+        super(Supplier, self).save(*args, **kwargs)
+
+
     @property
     def rawmaterials(self):
         return InventoryItem.objects.filter(
@@ -145,27 +153,13 @@ class Supplier(SoftDeletionModel):
         self.account = Account.objects.create(
             name= "VEN: %s" % self.name,
             id = (2100 + n_suppliers + 2 ) * 10, # the + 1 for the default supplier
-            initial_balance = 0,
-            order  = 2,
-            is_active = False,
-            is_contra = False,
-            account_number = f'ACNO-{self.name}-{new_num}',
+            balance = 0,
+            type = 'expense',
             description = 'Account which represents debt owed to a Vendor',
         )
+
         
 
-    # def save(self, *args, **kwargs):
-    #     if self.account is None:
-    #         self.create_account()
-    #     if not self.supplier_number:
-    #        prefix = 'VENDOR{}'.format(timezone.now().strftime('%y%m%d'))
-    #        prev_instances = self.__class__.objects.filter(supplier_number__contains=prefix)
-    #        if prev_instances.exists():
-    #           last_instance_id = prev_instances.last().supplier_number[-4:]
-    #           self.supplier_number = prefix+'{0:04d}'.format(int(last_instance_id)+1)
-    #        else:
-    #            self.supplier_number = prefix+'{0:04d}'.format(1)
-    #     super(Supplier, self).save(*args, **kwargs)
 
 
     @property
