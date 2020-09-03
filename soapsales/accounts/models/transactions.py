@@ -216,6 +216,8 @@ class JournalEntry(SoftDeletionModel):
         '''
         self.credit(amount, credit_acc)
         self.debit(amount, debit_acc)
+
+        
         
     def credit(self, amount, account):
         Credit.objects.create(

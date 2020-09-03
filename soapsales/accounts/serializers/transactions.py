@@ -15,12 +15,12 @@ class StringSerializer(serializers.StringRelatedField):
 class CreditSerializer(serializers.ModelSerializer):
     class Meta:
         model = Credit
-        fieds = ['id', 'amount', 'date']
+        fields = ['id', 'amount', 'date']
 
 class DebitSerializer(serializers.ModelSerializer):
     class Meta:
         model = Debit
-        fieds = ['id', 'amount', 'date']
+        fields = ['id', 'amount', 'date']
 
 
 class JournalEntryCreateUpdateSerializer(WritableNestedModelSerializer):

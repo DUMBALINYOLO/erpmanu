@@ -1,0 +1,115 @@
+This is a map for default data needed to make sure the accounting system runs smoothly
+These are loaded using python manage.py loaddata accounts.json
+
+This data is mapped so that we can make get calls by id and find the accounts when creating journal entries
+and in reports
+
+mapping
+
+ids based on category
+
+expense
+
+28000
+28010
+28020
+28030
+28040
+
+
+
+asset
+
+25000
+25010
+25020
+25030
+25040
+
+
+liability
+26000
+26010
+26020
+26030
+26040
+
+equity
+27000
+27010
+27020
+27030
+27040
+
+
+income
+29000
+29010
+29020
+29030
+29040
+
+cost-of-sales
+22000
+22010
+22020
+22030
+22040
+
+
+Journals
+
+Cash Disbursements
+22222  - 2
+
+Cash Receipts
+11111 - 1
+
+Sales
+
+33333 - 3
+
+
+Purchases
+
+44444 - 4
+
+
+General
+
+55555 - 5
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+('expense', 'Expense'), 
+        ('asset', 'Asset'), 
+        ('liability', 'Liability'), 
+        ('equity', 'Equity'), 
+        ('income', 'Income'),
+        ('cost-of-sales', 'Cost of Sales')]
+

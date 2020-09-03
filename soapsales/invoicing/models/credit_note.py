@@ -80,28 +80,27 @@ class CreditNote(models.Model):
         return self.tax_credit
 
     def create_entry(self):
-        from accounts.models import Account, JournalEntry
+        from accounts.models import Account, JournalEntry, Journal
         j = JournalEntry.objects.create(
             memo=f"Journal entry for credit note #{self.pk}. From Invoice #{self.invoice.invoice_number}",
             date=self.date,
-            is_approved = True,
-            creator = self.invoice.salesperson.employee
+            draft = True,
+            journal=Journal.objects.get(pk=33333),
+            creator = self.invoice.salesperson,
         )
 
 
         j.credit(self.returned_total_with_tax, self.invoice.customer.account)
-        # sales returns
-        j.debit(self.returned_total, Account.objects.get(name='SALES-RETURN-ACCOUNT-NUMBER-ONE'))
-        # tax account
-        j.debit(self.tax_credit, Account.objects.get(name='TAX-ACCOUNT-NUMBER-TWO'))
-
+        # sales returns 
+        j.debit(self.returned_total, Account.objects.get(pk=4002))
+        # tax account 
+        j.debit(self.tax_credit, Account.objects.get(pk=2001))
         self.entry = j
 
     def add_returned_to_stock(self):
         '''Removes inventory from the warehouse'''
         for line in self.lines.all():
             self.invoice.ship_from.increament_manufactured_item(line.line.product, line.quantity)
-
 
         
 

@@ -35,7 +35,7 @@ class AbstractAccount(SoftDeletionModel):
     properties
     ------------
     '''
-    name = models.CharField(max_length=64, unique=True)
+    name = models.CharField(max_length=64)
     account_number = models.CharField(max_length=255, null=True, unique=True, default=None)
     balance = models.DecimalField(max_digits=16, decimal_places=2, default=0.0)
     type = models.CharField(max_length=32, choices=ACCOUNT_TYPE_CHOICES,)
@@ -50,7 +50,7 @@ class AbstractAccount(SoftDeletionModel):
                                         default='current-assets'
                                     )
     active = models.BooleanField(default=False, verbose_name="active?")
-    created_date = models.DateTimeField(auto_now_add=True, verbose_name='date Created')
+    created_date = models.DateTimeField(auto_now_add=False, null=True, blank=True, verbose_name='date Created')
 
 
     class Meta:

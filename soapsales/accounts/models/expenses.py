@@ -79,22 +79,36 @@ class Bill(SoftDeletionModel):
         for line in self.lines.all():
             j.debit(
                 line.amount,
-                line.debit_account,
-                Account.objects.filter(
-                    Q(name='EXPENSES-ACCOUNT-NUMBER-ONE') &
-                    Q(type='expense') &
-                    Q(balance_sheet_category='current-liabilites'), 
-
-                ).get_or_create(
-                    name = 'EXPENSES-ACCOUNT-NUMBER-ONE',
-                    type = 'expense',
-                    description = 'This is the Company main Assets Account',
-                    active = True,
-                    balance_sheet_category = 'current-liabilites'
-                )
+                self.expense_account
             )
 
         self.entry = j
+
+
+    @property
+    def expense_account(self):
+        mapping = {
+            0: 5000,
+            1: 5001,
+            2: 5002,
+            3: 5003,
+            4: 5004,
+            5: 5005,
+            6: 5006,
+            7: 5007,
+            8: 5008,
+            9: 5009,
+            10: 5010,
+            11: 5011,
+            12: 5012,
+            13: 5013,
+            14: 5014,
+            15: 5023,
+            16: 5024,
+            17: 5015,
+       }
+        return Account.objects.get(pk=mapping[self.category])
+
 
 
 class BillLine(SoftDeletionModel):
@@ -105,6 +119,7 @@ class BillLine(SoftDeletionModel):
 
     def __str__(self):
         return self.bill
+
 
 class BillPayment(SoftDeletionModel):
     date = models.DateField()

@@ -222,58 +222,28 @@ class Invoice(SoftDeletionModel):
 
 
     def create_entry(self):
-        from accounts.models import Account, JournalEntry, Journal
-        '''Makes the necessary inputs into the accounting system after a
-            transaction. It debits the customer account and credits the sales
+        from accounts.models import Account, Journal, JournalEntry
+        '''Makes the necessary inputs into the accounting system after a 
+            transaction. It debits the customer account and credits the sales 
             account as well as crediting the tax account'''
-
+        
         j = JournalEntry.objects.create(
-                memo= f'Journal entry for invoice #{self.reference_number}.',
+                memo= f'Journal entry for invoice #{self.invoice_number}.',
                 date=self.date,
+                journal =Journal.objects.get(pk=33333),#Sales Journal
                 creator = self.cashier,
-                journal = Journal.objects.filter(name="JOURNAL-FIRST")
+                draft=False,
             )
 
-        j.credit(
-            self.subtotal, 
-            Account.objects.filter(
-                    Q(name='SALES-ACCOUNT-NUMBER-ONE') &
-                    Q(type='income') &
-                    Q(balance_sheet_category__in = ['current-assets', 'equity']),
+        j.credit(self.subtotal, Account.objects.get(pk=4000))#sales does not affect balance sheet
 
-                ).get_or_create(
-                    name = 'SALES-ACCOUNT-NUMBER-ONE',
-                    type = 'income',
-                    description = 'This is a Purchase Return Account for Inventory',
-                    active = True,
-                    balance_sheet_category = 'current-assets'
-                )
-
-            )#sales does not affect balance sheet
-
-        if not self.customer.account:
-                self.customer.create_account()
         j.debit(self.total, self.customer.account)#asset increase
 
         if self.tax_amount > D(0):
-            j.credit(
-                self.tax_amount, 
-                Account.objects.filter(
-                    Q(name='SALES-TAX-ACCOUNT-NUMBER-ONE') &
-                    Q(type='liability') &
-                    Q(balance_sheet_category = 'current-liabilites') ,
-
-                ).get_or_create(
-                    name = 'SALES-TAX-ACCOUNT-NUMBER-ONE',
-                    type = 'liability',
-                    description = 'This is a Sales Tax Account for the Company',
-                    active = True,
-                    )
-
-            )#sales tax
+            j.credit(self.tax_amount, Account.objects.get(pk=2001))#sales tax
 
         self.entry = j
-
+        return j
 
 
 
@@ -289,8 +259,8 @@ class Invoice(SoftDeletionModel):
     def lines(self):
         return self.lines.prefetch_related(
                                     'product',
+                                    'discount', 
                                     'tax',
-                                    'discount'
                                 )
         
 

@@ -12,6 +12,7 @@ from django.dispatch import receiver
 
 
 
+
 class UserManager(BaseUserManager):
     def create_user(self, email, is_superuser=False, password=None, is_active=True, is_staff=False, is_admin=False):
         if not email:

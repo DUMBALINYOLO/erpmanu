@@ -20,6 +20,7 @@ import accounts
 
 
 
+
 class Order(SoftDeletionModel):
     '''
     The record of all purchase orders for inventory of items that
@@ -217,11 +218,11 @@ class Order(SoftDeletionModel):
     def create_entry(self):
         #verified
         if not self.entry:
-            j = accounts.models.JournalEntry.objects.create(
+            j = JournalEntry.objects.create(
                     date=self.date,
                     memo = self.notes,
-                    journal = Journal.objects.get(name='DEFAULT'),
-                    created_by = self.issuing_inventory_controller,
+                    journal = Journal.objects.get(pk=44444),
+                    created_by = self.issuing_inventory_controller.employee.user,
                     draft=False
                 )
 
@@ -230,47 +231,23 @@ class Order(SoftDeletionModel):
             if not self.supplier.account:
                 self.supplier.create_account()
             j.credit(self.total, self.supplier.account)
-            j.debit(
-                self.subtotal, 
-                Account.objects.filter(
-                    Q(name='PURCHASES-ACCOUNT-NUMBER-ONE') &
-                    Q(type='cost-of-sales') &
-                    Q(balance_sheet_category = 'current-liabilites') ,
-
-                ).get_or_create(
-                    name = 'PURCHASES-ACCOUNT-NUMBER-ONE',
-                    type = 'cost-of-sales',
-                    description = 'This is a Purchase Account for Inventory',
-                    active = True,
-                    balance_sheet_category = 'current-liabilites'
-                )
-            )#purchases
-            j.debit(
-                self.tax_amount, 
-                Account.objects.filter(
-                    Q(name='TAXES-ACCOUNT-NUMBER-ONE') &
-                    Q(type='liability') &
-                    Q(balance_sheet_category = 'current-liabilites') ,
-
-                ).get_or_create(
-                    name = 'TAXES-ACCOUNT-NUMBER-ONE',
-                    type = 'liability',
-                    description = 'This is a Value Added Tax Account for the Company',
-                    active = True,
-                    )
-                )
-                    
+            j.debit(self.subtotal, Account.objects.get(pk=4006))#purchases
+            j.debit(self.tax_amount, Account.objects.get(pk=2001))#tax
         else:
             j = self.entry
 
         if not self.entry:
             self.entry = j
+                 
+    
 
 
 
     @property
     def returned_total(self):
         return sum([i.returned_value for i in self.items.all()])
+
+        
 
 class OrderItem(models.Model):
     '''

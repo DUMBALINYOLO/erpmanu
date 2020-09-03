@@ -5,7 +5,8 @@ from decimal import Decimal as D
 from django.db.models import Q
 from accounts.models import (
                     Account,
-                    JournalEntry
+                    JournalEntry,
+                    Journal,
                 )
 
 
@@ -71,43 +72,17 @@ class DebitNote(models.Model):
         j = JournalEntry.objects.create(
             memo="Auto generated journal entry from debit note",
             date=self.date,
-            creator = self.order.issuing_inventory_controller.employee,
-            is_approved = True
+            draft=False,
+            journal=Journal.objects.get(pk=33333),
+            creator = self.order.issuing_inventory_controller
         )
 
         j.debit(self.returned_total, self.order.supplier.account)
         #Purchase returns
-        j.credit(
-            self.returned_subtotal, 
-            Account.objects.filter(
-                    Q(name='PURCHASE-RETURNS-ACCOUNT-NUMBER-ONE') &
-                    Q(type='cost-of-sales') &
-                    Q(balance_sheet_category = 'current-liabilites') ,
-
-                ).get_or_create(
-                    name = 'PURCHASE-RETURNS-ACCOUNT-NUMBER-ONE',
-                    type = 'cost-of-sales',
-                    description = 'This is a Purchase Return Account for Inventory',
-                    active = True,
-                    balance_sheet_category = 'current-liabilites'
-                )
-            )
+        j.credit(self.returned_subtotal, Account.objects.get(pk=4008))
+        
         #Vat account
-        j.credit(
-            self.returned_tax, 
-            Account.objects.filter(
-                    Q(name='VAT-ACCOUNT-NUMBER-ONE') &
-                    Q(type='liability') &
-                    Q(balance_sheet_category = 'current-liabilites') ,
-
-                ).get_or_create(
-                    name = 'VAT-ACCOUNT-NUMBER-ONE',
-                    type = 'liability',
-                    description = 'This is a Value Added Tax Account for the Company',
-                    active = True,
-                    balance_sheet_category = 'current-liabilites'
-                )
-            )
+        j.credit(self.returned_tax, Account.objects.get(pk=2001))
 
         self.entry = j
 

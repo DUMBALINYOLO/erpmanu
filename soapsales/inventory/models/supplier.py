@@ -154,7 +154,9 @@ class Supplier(SoftDeletionModel):
             name= "VEN: %s" % self.name,
             id = (2100 + n_suppliers + 2 ) * 10, # the + 1 for the default supplier
             balance = 0,
-            type = 'expense',
+            type = 'liability',
+            balance_sheet_category='current-liabilities',
+            parent_account= Account.objects.get(pk=2000),# trade payables
             description = 'Account which represents debt owed to a Vendor',
         )
 

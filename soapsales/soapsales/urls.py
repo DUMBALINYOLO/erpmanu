@@ -20,6 +20,7 @@ urlpatterns = [
     re_path('api/employees/', include('employees.urls')),
     re_path('api/customers/', include('customers.urls')),
     path('api/config/', include('basedata.urls')),
+
 ] 
 
-urlpatterns += [re_path(r'^.*', TemplateView.as_view(template_name='index.html'))]
+# urlpatterns += [re_path(r'^.*', TemplateView.as_view(template_name='index.html'))]

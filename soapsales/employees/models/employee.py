@@ -27,33 +27,49 @@ from invoicing.models import Invoice, Payment
 
 
 class EmployeeManager(BaseUserManager):
+    
 
-    def create_user(self, email, category, first_name, last_name, password=None):
+    def create_user(self, email, is_superuser=False, password=None, is_active=True, is_staff=False, is_admin=False):
         if not email:
             raise ValueError("Enter Valid Email")
-        email =self.normalize_email(email)
-        user = self.model(
-                    email=email,
-                    first_name = first_name,
-                    last_name = last_name,
-                    category = category
-                )
-        user.set_password(password)
-        user.save(using=self._db)
-        return user 
+        user_obj = self.model(
+                email=self.normalize_email(email)
+        )
+        user_obj.set_password(password)
+        user_obj.staff = is_staff
+        user_obj.admin = is_admin
+        user_obj.active = is_active
+        user_obj.save(using=self._db)
+        return user_obj
+
+
+    def create_superuser(self, email, password=None, **extra_fields):
+        user=self.create_user(
+            email,
+            password = password,
+            is_staff = True,
+            is_admin =True,
+            is_superuser=True, 
+            **extra_fields
+        )
+        return user
+
+
 
 
 
 class Employee(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True, max_length=355)
-    is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=False)
+    active = models.BooleanField(default=True)
+    staff = models.BooleanField(default=False)
     category = models.CharField(max_length=341, choices=EMPLOYEES_TYPE_CHOICES)
     employee_number = models.CharField(max_length=255, null=True, unique=True, default=None)
     phone = models.CharField(max_length =16, unique=True, blank=True, default="")
     first_name = models.CharField(max_length =32, blank=True, null=True)
     middle_name = models.CharField(max_length =32, blank=True, null=True)
     last_name = models.CharField(max_length =32)
+    is_superuser = models.BooleanField(default=False)
+    admin = models.BooleanField(default=False)
 
     address = models.TextField(max_length =128, blank=True, null=True, default="")
     date_of_birth = models.DateField(blank=True, null=True)
@@ -68,8 +84,8 @@ class Employee(AbstractBaseUser, PermissionsMixin):
     leave_days = models.FloatField(default=0, blank=True, null=True)
     last_leave_day_increment = models.DateField(blank=True, null=True)
     uses_timesheet = models.BooleanField(default=False,blank=True, null=True)
-    account = models.ForeignKey('accounts.Account', on_delete=models.CASCADE,
-        null=True)#created in save method
+    # account = models.ForeignKey('accounts.Account', on_delete=models.CASCADE,
+    #     null=True)#created in save method
 
     objects = EmployeeManager()
 
@@ -81,24 +97,24 @@ class Employee(AbstractBaseUser, PermissionsMixin):
     def save(self, *args, **kwargs):
         if not self.employee_number:
             self.employee_number = str(uuid.uuid4()).replace("-", '').upper()[:20]
-        if not self.account:
-            self.create_employee_account()
-        super(Customer, self).save(*args, **kwargs)
+        # if not self.account:
+        #     self.create_employee_account()
+        super(Employee, self).save(*args, **kwargs)
 
 
 
-    def create_employee_account(self):
-        from accounts.models import Account
-        n_employees = Employee.objects.all().count()
-        acc_nos = Account.objects.all().count()
-        new_num = (acc_nos + 1) + 8000 
-        self.account = Account.objects.create(
-                name= "Employee: %s" % self.name,
-                id= (1100 + n_employees + 20) * 2,
-                balance = 0,
-                type = 'income',
-                description = 'Account which represents credit extended to a customer',
-            )
+    # def create_employee_account(self):
+    #     from accounts.models import Account
+    #     n_employees = Employee.objects.all().count()
+    #     acc_nos = Account.objects.all().count()
+    #     new_num = (acc_nos + 1) + 8000 
+    #     self.account = Account.objects.create(
+    #             name= "Employee: %s" % self.email,
+    #             id= (1100 + n_employees + 20) * 2,
+    #             balance = 0,
+    #             type = 'income',
+    #             description = 'Account which represents credit extended to a customer',
+    #         )
 
 
 
@@ -113,7 +129,19 @@ class Employee(AbstractBaseUser, PermissionsMixin):
         return True
 
     def has_module_perms(self, app_label):
-        return True 
+        return True
+
+
+    @property
+    def is_staff(self):
+        return self.staff
+
+
+    @property
+    def is_admin(self):
+        return self.admin
+
+
 
     @property
     def is_cashier(self):
@@ -222,7 +250,7 @@ class Employee(AbstractBaseUser, PermissionsMixin):
         self.save()
 
     def __str__(self):
-        return self.first_name + " " + self.last_name
+        return self.email
 
     @property
     def _payslips_YTD(self):

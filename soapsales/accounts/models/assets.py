@@ -8,14 +8,12 @@ from django.utils import timezone
 from calendar import monthrange
 from .transactions import JournalEntry
 from .accounts import Account
+from .books import Journal
 from basedata.const import (
         ASSET_DEPRECIATION_METHOD_CHOICES,
         ASSET_TYPE_CHOICES
     )
 from basedata.models import SoftDeletionModel
-
-
-
 
 
 
@@ -76,32 +74,54 @@ class Asset(SoftDeletionModel):
                 self.name, self.description
             ),
             creator = self.created_by,# not ideal general journal
-            journal = Journal.objects.get(name='DEFAULT_JOURNAL'),
+            journal =  Journal.objects.get(pk=55555),
             draft=False
         )
+
+
         j.simple_entry(
             self.initial_value, 
             self.credit_account,# defaults to cash account
-            Account.objects.filter(
-                    Q(name='ASSETS-ACCOUNT-NUMBER-ONE') &
-                    Q(type='asset') &
-                    Q(balance_sheet_category='current-assets'), 
-
-                ).get_or_create(
-                    name = 'ASSETS-ACCOUNT-NUMBER-ONE',
-                    type = 'asset',
-                    description = 'This is the Company main Assets Account',
-                    active = True,
-                    balance_sheet_category = 'current-assets'
-                )
+            self.account
         )# asset account
 
         self.entry = j
         
 
 
+
     def __str__(self):
         return f'{self.name} {self.reference_number}'
+
+
+    @property
+    def account(self):
+        '''maps an asset choice to an asset account from the chart of accounts'''
+        mapping = {
+            0: 1005,
+            1: 1006,
+            3: 1008,
+            2: 1009,
+            4: 1011,
+            5: 1013,
+        }
+        return Account.objects.get(pk=mapping[self.category])
+
+    @property
+    def depreciation_account(self):
+        '''maps an asset choice to an asset account from the chart of accounts'''
+        if self.category == 0:
+            return None # land does not depreciate
+        #'Buildings', 'Vehicles', 'LeaseHold Improvements',
+        #'Furniture and Fixtures', 'Equipment']
+        mapping = {
+            1: 5017,
+            3: 5020,
+            2: 5016,
+            4: 5018,
+            5: 5019,
+        }
+        return Account.objects.get(pk=mapping[self.category])
         
     @property
     def salvage_date(self):

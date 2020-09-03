@@ -50,13 +50,12 @@ ASSET_DEPRECIATION_METHOD_CHOICES = [
     ]
 
 ASSET_TYPE_CHOICES = [
-        ('DONT-CHOOSE-ME', 'Do Not Choose Me'),
-        ('LAND', 'Land'),
-        ('BUILDINGS', 'Buildings'),
-        ('VEHICLES', 'Vehicles'),
-        ('LEASEHOLD-IMPROVEMENTS', 'LeaseHold Improvements'),
-        ('FURNITURE-AND-FIXTURES', 'Furniture and Fixtures'),
-        ('EQUIPMENT', 'Equipment')
+        (0, 'Land'),
+        (1, 'Buildings'),
+        (2, 'Vehicles'),
+        (3, 'LeaseHold Improvements'),
+        (4, 'Furniture and Fixtures'),
+        (5, 'Equipment')
     ]
 
 BILL_PAYMENT_STATUS_CHOICES = [
@@ -379,24 +378,24 @@ BILL_PAYMENT_METHODS_CHOICES = [
         ]
 
 BILLING_CHOICES = [
-    ('Advertising', 'ADVERTISING'), 
-    ('Bank_Service_Charges', 'BANK SERVICE CHARGES'),
-    ('Dues_and_Subscriptions','DUES AND SUBSCRIPTIONS'),
-    ('Equipment_Rental', 'EQUIPMENT_RENTAL'),
-    ('Telephone', 'TELEPHONE'),
-    ('Vehicles', 'VEHICLES'),
-    ('Travel_and_Expenses', 'TRAVEL AND EXPENSES'),
-    ('Supplies', 'SUPPLIES'),
-    ('Salaries_and_Wages', 'SALARIES AND WAGES'),
-    ('Rent', 'RENT'),
-    ('Payroll_Taxes', 'PAYROLL TAXES'),
-    ('Legal_and_Accounting', 'LEGAL AND ACCOUNTING'),
-    ('Insurance', 'INSURANCE'), 
-    ('Office_Expenses', 'OFFICE EXPENSES'),
-    ('Carriage_Outwards', 'CARRIAGE OUTWARDS'),
-    ('Training', 'TRAINING'),
-    ('Vendor_Services', 'VENDOR SERVICES'),
-    ('Other', 'OTHER'),
+    (0, 'ADVERTISING'), 
+    (1, 'BANK SERVICE CHARGES'),
+    (2,'DUES AND SUBSCRIPTIONS'),
+    (3, 'EQUIPMENT_RENTAL'),
+    (4, 'TELEPHONE'),
+    (5, 'VEHICLES'),
+    (6, 'TRAVEL AND EXPENSES'),
+    (7, 'SUPPLIES'),
+    (8, 'SALARIES AND WAGES'),
+    (9, 'RENT'),
+    (10, 'PAYROLL TAXES'),
+    (11, 'LEGAL AND ACCOUNTING'),
+    (12, 'INSURANCE'), 
+    (13, 'OFFICE EXPENSES'),
+    (14, 'CARRIAGE OUTWARDS'),
+    (15, 'TRAINING'),
+    (16, 'VENDOR SERVICES'),
+    (17, 'OTHER'),
 ]
 
 

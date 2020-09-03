@@ -89,24 +89,14 @@ class OrderPayment(SoftDeletionModel):
                 memo= 'Auto generated journal entry from order payment.' \
                     if self.comments == "" else self.comments,
                 date=self.date,
-                creator = self.order.issuing_inventory_controller.employee,
-                is_approved = True,
+                journal =Journal.objects.get(pk=44444),
+                creator = self.order.issuing_inventory_controller,
+                draft = True,
             )
 
         j.simple_entry(
             self.amount,
-            Account.objects.filter(
-                    Q(name='CASH-IN-CHECKING-ACCOUNT-NUMBER-ONE') &
-                    Q(type='cost-of-sales') &
-                    Q(balance_sheet_category = 'current-liabilites') ,
-
-                ).get_or_create(
-                    name = 'CASH-IN-CHECKING-ACCOUNT-NUMBER-ONE',
-                    type = 'cost-of-sales',
-                    description = 'This is a Purchase Return Account for Inventory',
-                    active = True,
-                    balance_sheet_category = 'current-liabilites'
-                ),
+            Account.objects.get(pk=1000),#cash in checking account
             self.order.supplier.account,
         )
 

@@ -82,45 +82,30 @@ class Payment(SoftDeletionModel):
     def customer_change(self):
         return self.amount_tendered - self.amount_to_pay
 
+    
     def create_entry(self):
         '''payment entries credit the customer account and debits the cash book'''
         if self.entry:
-            return
-        j = accounts.models.JournalEntry.objects.create(
-                memo= f'Journal entry for payment #{self.pk} from invoice #{self.invoice.invoice_number}.',
+            return 
+        j = JournalEntry.objects.create(
+                memo= f'Journal entry for payment #{self.pk} from invoice #{self.invoice.tracking_number}.',
                 date=self.date,
-                creator = self.sales_rep.employee,
-                is_approved = True
-
+                journal =Journal.objects.get(pk=3),
+                creator = self.cashier,
+                draft=False
             )
-
+        
         # split into sales tax and sales
-
+        
         j.simple_entry(
             self.amount,
             self.invoice.customer.account,
-            accounts.models.Account.objects.filter(
-                    Q(name='CASH-IN-CHECKING-ACCOUNT-NUMBER-ONE') &
-                    Q(type='income') &
-                    Q(balance_sheet_category__in = ['current-assets', 'equity']),
-
-                ).get_or_create(
-                    name = 'CASH-IN-CHECKING-ACCOUNT-NUMBER-ONE',
-                    type = 'income',
-                    description = 'This is a cash in checking account number one ',
-                    active = True,
-                    balance_sheet_category = 'current-assets'
-                )
-
-            )#sales does not affect balance sheet
-
+            Account.objects.get(
+                pk=1000),#cash in checking account
+        )
         #change invoice status if  fully paid
-        if self.invoice.total_due <= 0:
-            self.invoice.status = "sale"
-        else:
-            self.invoice.status = "paid-partially"
         self.entry = j
-        self.invoice.save()
+
 
 
 
@@ -133,6 +118,8 @@ class Payment(SoftDeletionModel):
                 amount_paid = self.amount_to_pay,
                 amount_tendered =  self.amount_tendered   
             )
+
+
 
 
 

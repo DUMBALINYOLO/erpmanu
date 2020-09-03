@@ -316,15 +316,16 @@ class Payslip(SoftDeletionModel):
             j.debit(amount, deduction.account_paid_into)
             j.credit(amount, deduction.liability_account)
 
-        j.debit(self.net_pay,
-            accounts.models.Account.objects.get(name="SALARIES-EXPENSE"))#salaries EXPENSE
-        j.credit(self.net_pay,
-            accounts.models.Account.objects.get(name="SALARIES-LIABILITY"))#salaries Liability
-        j.debit(self.total_payroll_taxes,
-            accounts.models.Account.objects.get(
-                name=PAYROLL-TAXES-LIABILITY))#payroll taxes LIABILITY
-        j.credit(self.total_payroll_taxes,
-            accounts.models.Account.objects.get(name="PAYROLL-TAXES-EXPENSE"))#payroll taxes EXPENSE
+        j.debit(self.net_pay, 
+            Account.objects.get(pk=5008))#salaries EXPENSE
+        j.credit(self.net_pay, 
+            Account.objects.get(pk=2010))#salaries Liability
+        j.debit(self.total_payroll_taxes, 
+            Account.objects.get(
+                pk=2002))#payroll taxes LIABILITY
+        j.credit(self.total_payroll_taxes, 
+            Account.objects.get(
+                pk=5010))#payroll taxes EXPENSE
         self.status = 'verified'
 
         self.entry = j
@@ -357,7 +358,7 @@ class Payslip(SoftDeletionModel):
                 is_approved = True,
         )
 
-        j.debit(self.net_pay, Account.objects.get(name="PAY-ROLL-TAXES"))#payroll taxes
+        j.debit(self.net_pay, Account.objects.get(pk=2010))#payroll taxes
 
         j.credit(self.net_pay, settings.payroll_account)#default cash account
 

@@ -196,7 +196,7 @@ class CreditNoteForm extends Component {
 }
 
 const mapStateToProps = state =>({
-    invoices: state.invoices
+    invoices: state.invoices.invoices
 })
 
 export default connect(mapStateToProps, {getInvoices, addCreditnote})(CreditNoteForm);
