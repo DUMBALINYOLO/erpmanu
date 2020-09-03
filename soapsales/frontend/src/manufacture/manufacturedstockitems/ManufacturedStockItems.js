@@ -4,63 +4,60 @@ import 'primereact/resources/primereact.css';
 import 'primeflex/primeflex.css';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {DataTable} from 'primereact/datatable';
 import {Column} from 'primereact/column';
 import {InputText} from 'primereact/inputtext';
 import {Button} from 'primereact/button';
 import {Calendar} from 'primereact/calendar';
-import { FileUpload } from 'primereact/fileupload';
 import {ProgressBar} from 'primereact/progressbar';
-import { getEvents} from '..//../actions/events';
+import { getManufacturedStockItems} from '..//../actions/manufacturedstockitems';
 import "./form.css";
-import { Link } from 'react-router-dom';
 
 
-class Events extends Component {
+class ManufacturedStockItems extends Component {
 
     constructor() {
         super();
         this.state = {
-            events: null,
+            manufacturedstockitems : null,
             globalFilter: null,
             dateFilter: null,
-            selectedEvents: null,
+            selectedManufacturedStockItems: null,
 
         };
+
         this.actionBodyTemplate = this.actionBodyTemplate.bind(this);
         this.filterDate = this.filterDate.bind(this);
         this.export = this.export.bind(this);
         this.renderDateFilter = this.renderDateFilter.bind(this)
         this.onDateFilterChange = this.onDateFilterChange.bind(this)
         this.formatDate = this.formatDate.bind(this)
-
     }
 
     static propTypes = {
-        events : PropTypes.array.isRequired,
-        getEvents: PropTypes.func.isRequired,
+        manufacturedstockitems : PropTypes.array.isRequired,
+        getManufacturedStockItems: PropTypes.func.isRequired,
 
     };
 
     componentDidMount() {
-        this.props.getEvents();
+        this.props.getManufacturedStockItems();
     }
-
 
     renderHeader() {
         return (
             <div className="table-head">
-            <h1>Manage Events</h1>
-            <div className="datatable-fancy-icons">
-                <div className="fancy-icon"><FileUpload mode="basic" accept="image/*" maxFileSize={1000000} label="Import" chooseLabel="Import" className="p-mr-2 p-d-inline-block" /></div>
-                <div className="fancy-icon"><Button label="Export" icon="pi pi-upload" className="p-button-rounded p-button-help" onClick={this.export} /></div>
-                <div className="fancy-icon"><Button type="button" className="p-button-warning p-button-rounded" icon="pi pi-file-pdf" iconPos="right" label="PDF" onClick={this.export}></Button></div>
-                <div className="fancy-icon"><Button type="button" className="p-button-warning p-button-rounded" icon="pi pi-print" iconPos="right" label="PRINT" onClick={this.export}></Button></div>
-                <InputText className="fancy-icon" type="search" onInput={(e) => this.setState({globalFilter: e.target.value})} placeholder="Search" />
+                <h1>Manage Manufactured Stock Items</h1>
+                <div className="datatable-fancy-icons">
+                    <div className="fancy-icon"><Button type="button" className="p-button-warning p-button-rounded" icon="pi pi-file-pdf" iconPos="right" label="PDF" onClick={this.export}></Button></div>
+                    <div className="fancy-icon"><Button type="button" className="p-button-warning p-button-rounded" icon="pi pi-file-excel" iconPos="right" label="CSV" onClick={this.export}></Button></div>
+                    <div className="fancy-icon"><Button type="button" className="p-button-warning p-button-rounded" icon="pi pi-print" iconPos="right" label="PRINT" onClick={this.export}></Button></div>
+                    <InputText className="fancy-icon" type="search" onInput={(e) => this.setState({globalFilter: e.target.value})} placeholder="Search" />
+                </div>
             </div>
-            </div>
-        )
+        );
     }
 
     activityBodyTemplate(rowData) {
@@ -74,7 +71,6 @@ class Events extends Component {
             </Link>
         );
     }
-
 
 
     renderDateFilter() {
@@ -130,71 +126,58 @@ class Events extends Component {
 
         return (
             <div className="datatable-doc-demo">
-                <DataTable ref={(el) => this.dt = el} value={this.props.events}
-                    style={{background: '#4EB08E'}}
+                <DataTable ref={(el) => this.dt = el} value={this.props.manufacturedstockitems}
+                    style={{backgroundColor: '#4EB08E'}}
                     header={header} responsive className="table-head" dataKey="id" rowHover globalFilter={this.state.globalFilter}
-                    selection={this.state.selectedEvents} onSelectionChange={e => this.setState({selectedEvents: e.value})}
-                    paginator rows={10} emptyMessage="No Events found" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                    selection={this.state.selectedManufacturedStockItems} onSelectionChange={e => this.setState({selectedManufacturedStockItems: e.value})}
+                    paginator rows={10} emptyMessage="No Manufactured Stock Items found" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
                     paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown" rowsPerPageOptions={[10,25,50]}>
                     <Column
                         className="table-field"
                         selectionMode="multiple"
-                        style={{width:'3em'}}
-                        headerStyle={{width: '3em', backgroundColor: '#4EB0A5', textAlign: 'center'}}
+                        style={{width:'3em', backgroundColor: '#4EB0A5'}}
                     />
                     <Column
                         className="table-field"
                         field="id" header="ID"
-                        sortable filter
-                        filterPlaceholder="Search by ID"
-                        style={{width:'3em'}}
-                        headerStyle={{width: '3em', backgroundColor: '#4EB0A5', textAlign: 'center'}}
+                        sortable filter filterPlaceholder="Search by ID"
+                        style={{width:'3em', backgroundColor: '#4EB0A5'}}
                     />
                     <Column
                         className="table-field"
-                        field="owner"
-                        header="Owner"
-                        sortable filter
-                        filterPlaceholder="Search by Owner"
-                        style={{width:'3em'}}
-                        headerStyle={{width: '3em', backgroundColor: '#4EB0A5', textAlign: 'center'}}
+                        field="item"
+                        header="Item"
+                        sortable filter filterPlaceholder="Search by Item"
+                        style={{width:'3em', backgroundColor: '#4EB0A5'}}
                     />
                     <Column
                         className="table-field"
-                        field="date"
-                        header="Date"
-                        sortable filter
-                        filterPlaceholder="Search by Date"
-                        style={{width:'3em'}}
-                        headerStyle={{width: '3em', backgroundColor: '#4EB0A5', textAlign: 'center'}}
+                        field="quantity"
+                        header="Quantity"
+                        sortable filter filterPlaceholder="Search by Quantity"
+                        style={{width:'3em', backgroundColor: '#4EB0A5'}}
                     />
                     <Column
                         className="table-field"
-                        field="start_time"
-                        header="Start Time"
-                        sortable filter
-                        filterPlaceholder="Search by Start Time"
-                        style={{width:'3em'}}
-                        headerStyle={{width: '3em', backgroundColor: '#4EB0A5', textAlign: 'center'}}
+                        field="warehouse"
+                        header="Warehouse"
+                        sortable filter filterPlaceholder="Search by Warehouse"
+                        style={{width:'3em', backgroundColor: '#4EB0A5'}}
                     />
                     <Column
                         className="table-field"
-                        field="end_time"
-                        header="End Time"
-                        sortable filter
-                        filterPlaceholder="Search by End Time"
-                        style={{width:'3em'}}
-                        headerStyle={{width: '3em', backgroundColor: '#4EB0A5', textAlign: 'center'}}
+                        field="location"
+                        header="Location"
+                        sortable filter filterPlaceholder="Search by Location"
+                        style={{width:'3em', backgroundColor: '#4EB0A5'}}
                     />
                     <Column
                         className="table-field"
                         header="EDIT"
                         body={this.actionBodyTemplate}
-                        headerStyle={{width: '3em', backgroundColor: '#4EB0A5', textAlign: 'center'}}
+                        headerStyle={{width: '3em', textAlign: 'center', backgroundColor: '#4EB0A5'}}
                         bodyStyle={{textAlign: 'center', overflow: 'visible', backgroundColor: '#4EB0A5'}}
-
                     />
-
                 </DataTable>
             </div>
         );
@@ -202,7 +185,7 @@ class Events extends Component {
 }
 
 const mapStateToProps = state =>({
-    events: state.events.events
+    manufacturedstockitems: state.manufacturedstockitems.manufacturedstockitems
 })
 
-export default connect(mapStateToProps, {getEvents} ) (Events);
+export default connect(mapStateToProps, {getManufacturedStockItems} ) (ManufacturedStockItems);

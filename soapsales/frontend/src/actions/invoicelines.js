@@ -3,7 +3,7 @@ import { GET_INVOICE_LINES } from '../types/invoicelineTypes';
 import { invoicelinesURL } from '../constants';
 
 
-export const getInvoicelines = () => dispatch => {
+export const getInvoiceLines = () => dispatch => {
     axios.get(invoicelinesURL)
         .then(res => {
             dispatch({

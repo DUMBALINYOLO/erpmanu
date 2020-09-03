@@ -148,7 +148,7 @@ class InventoryCategories extends Component {
                     <Column
                         className="table-field"
                         field="name"
-                        header= Name"
+                        header= "Name"
                         sortable filter filterPlaceholder="Search by Name"
                         style={{width:'3em', backgroundColor: '#4EB0A5'}}
                     />

@@ -24,7 +24,7 @@ export class ShiftForm extends Component{
         machine: null
       }
       this.onChange = this.onChange.bind(this);
-      this.onSubmit = this.onSubmit.bind(this);      
+      this.onSubmit = this.onSubmit.bind(this);
       this.onTeam = this.onTeam.bind(this);
       this.onSupervisor = this.onSupervisor.bind(this);
       this.onEmployee = this.onEmployee.bind(this);
@@ -33,32 +33,32 @@ export class ShiftForm extends Component{
 
     onTeam(e){
       this.setState({team: e.value})
-    } 
+    }
 
     onSupervisor(e){
       this.setState({supervisor: e.value})
-    } 
+    }
 
     onEmployee(e){
       this.setState({employee: e.value})
-    } 
+    }
 
     onMachine(e){
       this.setState({machine: e.value})
-    } 
+    }
 
     onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
     onSubmit = (e) => {
       e.preventDefault();
-      const { 
+      const {
         name,
         team,
         supervisor,
         employee,
-        machine 
+        machine
       } = this.state;
-      const shift = { 
+      const shift = {
         name,
         team,
         supervisor,
@@ -91,12 +91,12 @@ export class ShiftForm extends Component{
 
 
     render() {
-        const { 
+        const {
           name,
           team,
           supervisor,
           employee,
-          machine 
+          machine
         } = this.state;
 
         const { employees } = this.props;
@@ -105,7 +105,7 @@ export class ShiftForm extends Component{
 
         return (
             <div className="card card-body mt-4 mb-4">
-              <h2>Add Shift</h2>
+              <h2>Manage Shift</h2>
               <form onSubmit={this.onSubmit}>
                 <div className="p-fluid p-formgrid p-grid">
                   <div className="p-field p-col-12 p-md-12">
@@ -117,54 +117,54 @@ export class ShiftForm extends Component{
                     />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
-                    <Dropdown 
+                    <Dropdown
                       placeholder ="SELECT TEAM"
                       value={team}
                       onChange={this.onTeam}
                       options={manufacturingteams}
-                      filter={true} 
-                      filterBy="id,name" 
+                      filter={true}
+                      filterBy="id,name"
                       showClear={true}
-                      optionLabel="name" 
+                      optionLabel="name"
                       optionValue="id"
                     />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
-                    <Dropdown 
+                    <Dropdown
                       placeholder ="SELECT SUPERVISOR"
                       value={supervisor}
                       onChange={this.onSupervisor}
                       options={employees}
-                      filter={true} 
-                      filterBy="id,name" 
+                      filter={true}
+                      filterBy="id,name"
                       showClear={true}
-                      optionLabel="employee_number" 
+                      optionLabel="employee_number"
                       optionValue="id"
                     />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
-                    <Dropdown 
+                    <Dropdown
                       placeholder ="SELECT EMPLOYEE"
                       value={employee}
                       onChange={this.onEmployee}
                       options={employees}
-                      filter={true} 
-                      filterBy="id,name" 
+                      filter={true}
+                      filterBy="id,name"
                       showClear={true}
-                      optionLabel="employee_number" 
+                      optionLabel="employee_number"
                       optionValue="id"
                     />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
-                    <Dropdown 
+                    <Dropdown
                       placeholder ="SELECT MACHINE"
                       value={machine}
                       onChange={this.onMachine}
                       options={processmachines}
-                      filter={true} 
-                      filterBy="id,name" 
+                      filter={true}
+                      filterBy="id,name"
                       showClear={true}
-                      optionLabel="name" 
+                      optionLabel="name"
                       optionValue="id"
                     />
                   </div>

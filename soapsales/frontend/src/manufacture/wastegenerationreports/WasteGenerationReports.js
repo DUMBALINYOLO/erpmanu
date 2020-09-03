@@ -9,12 +9,9 @@ import {DataTable} from 'primereact/datatable';
 import {Column} from 'primereact/column';
 import {InputText} from 'primereact/inputtext';
 import {Button} from 'primereact/button';
-import {Dropdown} from 'primereact/dropdown';
 import {Calendar} from 'primereact/calendar';
-import {MultiSelect} from 'primereact/multiselect';
 import {ProgressBar} from 'primereact/progressbar';
-import classNames from 'classnames';
-import { getWasteReports} from '..//../actions/wasteReports';
+import { getWasteGenerationReports} from '..//../actions/wastegenerationreports';
 import { Link } from 'react-router-dom';
 import "./form.css";
 
@@ -24,14 +21,14 @@ class WasteGenerationReports extends Component {
     constructor() {
         super();
         this.state = {
-            wastereports: null,
+            wastegenerationreports: null,
             globalFilter: null,
             dateFilter: null,
             selectedWasteReports: null,
 
         };
         this.actionBodyTemplate = this.actionBodyTemplate.bind(this);
-        this.filterDate = this.filterDate.bind(this);       //custom filter function
+        this.filterDate = this.filterDate.bind(this);
         this.export = this.export.bind(this);
         this.renderDateFilter = this.renderDateFilter.bind(this)
         this.onDateFilterChange = this.onDateFilterChange.bind(this)
@@ -39,19 +36,19 @@ class WasteGenerationReports extends Component {
     }
 
     static propTypes = {
-        wastereports : PropTypes.array.isRequired,
-        getWasteReports: PropTypes.func.isRequired,
+        wastegenerationreports : PropTypes.array.isRequired,
+        getWasteGenerationReports: PropTypes.func.isRequired,
 
     };
 
     componentDidMount() {
-        this.props.getWasteReports();
+        this.props.getWasteGenerationReports();
     }
 
     renderHeader() {
         return (
             <div className="table-head">
-                <h1>Waste Reports</h1>
+                <h1>Manage Waste Generation Report</h1>
                 <div className="datatable-fancy-icons">
                     <div className="fancy-icon"><Button type="button" className="p-button-warning p-button-rounded" icon="pi pi-file-pdf" iconPos="right" label="PDF" onClick={this.export}></Button></div>
                     <div className="fancy-icon"><Button type="button" className="p-button-warning p-button-rounded" icon="pi pi-file-excel" iconPos="right" label="CSV" onClick={this.export}></Button></div>
@@ -125,16 +122,14 @@ class WasteGenerationReports extends Component {
     render() {
 
         const header = this.renderHeader();
-        const dateFilter = this.renderDateFilter();
-
 
         return (
             <div className="datatable-doc-demo">
-                <DataTable ref={(el) => this.dt = el} value={this.props.wastereports}
+                <DataTable ref={(el) => this.dt = el} value={this.props.wastegenerationreports}
                     style={{backgroundColor: '#4EB08E'}}
                     header={header} responsive className="table-head" dataKey="id" rowHover globalFilter={this.state.globalFilter}
                     selection={this.state.selectedWasteReports} onSelectionChange={e => this.setState({selectedWasteReports: e.value})}
-                    paginator rows={10} emptyMessage="No Accounts found" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                    paginator rows={10} emptyMessage="No Waste Generation Reports found" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
                     paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown" rowsPerPageOptions={[10,25,50]}>
                     <Column className="table-field" selectionMode="multiple" style={{width:'3em', backgroundColor: '#4EB0A5'}}/>
                     <Column className="table-field" field="id" header="ID" sortable filter filterPlaceholder="Search by ID" style={{width:'3em', backgroundColor: '#4EB0A5'}}/>
@@ -151,7 +146,7 @@ class WasteGenerationReports extends Component {
 }
 
 const mapStateToProps = state =>({
-    wastereports: state.wastereports.wastereports
+    wastegenerationreports: state.wastegenerationreports.wastegenerationreports
 })
 
-export default connect(mapStateToProps, {getWasteReports} ) (WasteGenerationReports);
+export default connect(mapStateToProps, {getWasteGenerationReports} ) (WasteGenerationReports);

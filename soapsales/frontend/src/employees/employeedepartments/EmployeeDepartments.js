@@ -127,7 +127,6 @@ class EmployeeDepartments extends Component {
     render() {
 
         const header = this.renderHeader();
-        const dateFilter = this.renderDateFilter();
 
 
         return (

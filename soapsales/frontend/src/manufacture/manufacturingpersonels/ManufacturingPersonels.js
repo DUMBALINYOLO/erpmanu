@@ -10,11 +10,8 @@ import {DataTable} from 'primereact/datatable';
 import {Column} from 'primereact/column';
 import {InputText} from 'primereact/inputtext';
 import {Button} from 'primereact/button';
-import {Dropdown} from 'primereact/dropdown';
 import {Calendar} from 'primereact/calendar';
-import {MultiSelect} from 'primereact/multiselect';
 import {ProgressBar} from 'primereact/progressbar';
-import classNames from 'classnames';
 import { getManufacturingPersonels} from '..//../actions/manufacturingpersonels';
 import "./form.css";
 
@@ -32,7 +29,7 @@ class ManufacturingPersonels extends Component {
         };
 
         this.actionBodyTemplate = this.actionBodyTemplate.bind(this);
-        this.filterDate = this.filterDate.bind(this);       //custom filter function
+        this.filterDate = this.filterDate.bind(this);
         this.export = this.export.bind(this);
         this.renderDateFilter = this.renderDateFilter.bind(this)
         this.onDateFilterChange = this.onDateFilterChange.bind(this)
@@ -52,7 +49,7 @@ class ManufacturingPersonels extends Component {
     renderHeader() {
         return (
             <div className="table-head">
-                <h1>List of Manufacturing Personels</h1>
+                <h1>Manage Manufacturing Personels</h1>
                 <div className="datatable-fancy-icons">
                     <div className="fancy-icon"><Button type="button" className="p-button-warning p-button-rounded" icon="pi pi-file-pdf" iconPos="right" label="PDF" onClick={this.export}></Button></div>
                     <div className="fancy-icon"><Button type="button" className="p-button-warning p-button-rounded" icon="pi pi-file-excel" iconPos="right" label="CSV" onClick={this.export}></Button></div>
@@ -126,8 +123,6 @@ class ManufacturingPersonels extends Component {
     render() {
 
         const header = this.renderHeader();
-        const dateFilter = this.renderDateFilter();
-
 
         return (
             <div className="datatable-doc-demo">
@@ -135,7 +130,7 @@ class ManufacturingPersonels extends Component {
                     style={{backgroundColor: '#4EB08E'}}
                     header={header} responsive className="table-head" dataKey="id" rowHover globalFilter={this.state.globalFilter}
                     selection={this.state.selectedManufacturingPersonels} onSelectionChange={e => this.setState({selectedManufacturingPersonels: e.value})}
-                    paginator rows={10} emptyMessage="No ManufacturingPersonels found" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                    paginator rows={10} emptyMessage="No Manufacturing Personels found" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
                     paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown" rowsPerPageOptions={[10,25,50]}>
                     <Column
                         className="table-field"

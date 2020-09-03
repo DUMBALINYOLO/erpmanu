@@ -10,11 +10,8 @@ import {DataTable} from 'primereact/datatable';
 import {Column} from 'primereact/column';
 import {InputText} from 'primereact/inputtext';
 import {Button} from 'primereact/button';
-import {Dropdown} from 'primereact/dropdown';
 import {Calendar} from 'primereact/calendar';
-import {MultiSelect} from 'primereact/multiselect';
 import {ProgressBar} from 'primereact/progressbar';
-import classNames from 'classnames';
 import { getShifts} from '..//../actions/shifts';
 import "./form.css";
 
@@ -32,7 +29,7 @@ class Shifts extends Component {
         };
 
         this.actionBodyTemplate = this.actionBodyTemplate.bind(this);
-        this.filterDate = this.filterDate.bind(this);       //custom filter function
+        this.filterDate = this.filterDate.bind(this);
         this.export = this.export.bind(this);
         this.renderDateFilter = this.renderDateFilter.bind(this)
         this.onDateFilterChange = this.onDateFilterChange.bind(this)
@@ -126,8 +123,6 @@ class Shifts extends Component {
     render() {
 
         const header = this.renderHeader();
-        const dateFilter = this.renderDateFilter();
-
 
         return (
             <div className="datatable-doc-demo">

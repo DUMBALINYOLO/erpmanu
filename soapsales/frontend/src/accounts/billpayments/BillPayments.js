@@ -176,7 +176,7 @@ class BillPayments extends Component {
                     <Column
                         className="table-field"
                         field="date"
-                        header= Date"
+                        header= "Date"
                         sortable filter filterPlaceholder="Search by Date"
                         style={{width:'3em', backgroundColor: '#4EB0A5'}}
                     />
