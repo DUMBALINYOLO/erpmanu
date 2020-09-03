@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addWasteReport } from '..//../actions/wasteReports';
+import { addWasteGenerationReport } from '..//../actions/wastegenerationreports';
 import PropTypes from 'prop-types';
 import { getEmployees } from '..//../actions/employees';
 import { getProcessProducts } from '..//../actions/processproducts';
-import { getUnitmeasures } from '..//../actions/unitmeasure';
+import { getUnitOfMeasureChoices } from '..//../actions/choices';
 import 'primeicons/primeicons.css';
 import 'primereact/resources/themes/nova-light/theme.css';
 import 'primereact/resources/primereact.css';
@@ -13,6 +13,7 @@ import {Button} from 'primereact/button';
 import {InputTextarea} from 'primereact/inputtextarea';
 import {InputNumber} from 'primereact/inputnumber';
 import {Dropdown} from 'primereact/dropdown';
+
 
 export class WasteGenerationReportForm extends Component{
     constructor(props){
@@ -48,8 +49,8 @@ export class WasteGenerationReportForm extends Component{
     onSubmit = (e) => {
       e.preventDefault();
       const { product, unit, quantity, comments, recorded_by } = this.state;
-      const wasteReport = { product, unit, quantity, comments, recorded_by };
-      this.props.addWasteReport(wasteReport);
+      const wastereportgeneration = { product, unit, quantity, comments, recorded_by };
+      this.props.addWasteGenerationReport(wastereportgeneration);
       this.setState({
             product: '',
             unit: '',
@@ -57,19 +58,19 @@ export class WasteGenerationReportForm extends Component{
             comments: '',
             recorded_by: '',
         });
-      this.props.history.push('/wastereportgenerations');
+      this.props.history.push('/wastegenerationreports');
     };
 
     static propTypes = {
-        addWasteReport: PropTypes.func.isRequired,
+        addWasteGenerationReport: PropTypes.func.isRequired,
         getProcessProducts: PropTypes.func.isRequired,
-        getUnitmeasures: PropTypes.func.isRequired,
+        getUnitOfMeasureChoices: PropTypes.func.isRequired,
         getEmployees: PropTypes.func.isRequired,
     }
 
     componentDidMount() {
       this.props.getProcessProducts()
-      this.props.getUnitmeasures()
+      this.props.getUnitOfMeasureChoices()
       this.props.getEmployees()
     }
 
@@ -77,7 +78,7 @@ export class WasteGenerationReportForm extends Component{
     render() {
         const { product, unit, quantity, comments, recorded_by } = this.state;
         const { processproducts } = this.props;
-        const { unitmeasures } = this.props;
+        const { unitofmeasurechoices } = this.props;
         const { employees } = this.props;
 
         return (
@@ -109,41 +110,41 @@ export class WasteGenerationReportForm extends Component{
                   />
                 </div>
                 <div className="p-field p-col-12 p-md-6">
-                  <Dropdown 
+                  <Dropdown
                     placeholder ="SELECT PRODUCT"
                     value={product}
                     onChange={this.onProduct}
                     options={processproducts}
-                    filter={true} 
-                    filterBy="id,name" 
+                    filter={true}
+                    filterBy="id,name"
                     showClear={true}
-                    optionLabel="name" 
+                    optionLabel="name"
                     optionValue="id"
                   />
                 </div>
                 <div className="p-field p-col-12 p-md-6">
-                  <Dropdown 
+                  <Dropdown
                     placeholder ="SELECT UNIT"
                     value={unit}
                     onChange={this.onUnit}
-                    options={unitmeasures}
-                    filter={true} 
-                    filterBy="id,name" 
+                    options={unitofmeasurechoices}
+                    filter={true}
+                    filterBy="id,name"
                     showClear={true}
-                    optionLabel="name" 
+                    optionLabel="name"
                     optionValue="id"
                   />
                 </div>
                 <div className="p-field p-col-12 p-md-6">
-                  <Dropdown 
+                  <Dropdown
                     placeholder ="SELECT RECORDED BY"
                     value={recorded_by}
                     onChange={this.onRecordedBy}
                     options={employees}
-                    filter={true} 
-                    filterBy="id,name" 
+                    filter={true}
+                    filterBy="id,name"
                     showClear={true}
-                    optionLabel="employee_number" 
+                    optionLabel="employee_number"
                     optionValue="id"
                   />
                 </div>
@@ -158,9 +159,9 @@ export class WasteGenerationReportForm extends Component{
 }
 
 const mapStateToProps = state =>({
-    unitmeasures: state.unitmeasures.unitmeasures,
+    unitofmeasurechoices: state.unitofmeasurechoices.unitofmeasurechoices,
     processproducts: state.processproducts.processproducts,
     employees: state.employees.employees
 })
 
-export default connect(mapStateToProps, { getUnitmeasures, getProcessProducts, getEmployees, addWasteReport })(WasteGenerationReportForm);
+export default connect(mapStateToProps, { getUnitOfMeasureChoices, getProcessProducts, getEmployees, addWasteGenerationReport })(WasteGenerationReportForm);

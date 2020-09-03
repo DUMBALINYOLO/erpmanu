@@ -3,7 +3,7 @@ import {
         GET_UNVERIFIED_PRODUCTION_PROCESSES,
         DELETE_UNVERIFIED_PRODUCTION_PROCESS,
         GET_UNVERIFIED_PRODUCTION_PROCESS
-    } from '../types/unverifiedproductionprocessesTypes';
+    } from '../types/unverifiedproductionprocessTypes';
 import { unverifiedproductionprocessesURL } from '../constants';
 
 // Get

@@ -1,11 +1,11 @@
 import axios from 'axios';
 import { GET_RECEIPTS, GET_RECEIPT, DELETE_RECEIPT } from '../types/receiptTypes';
-import { receiptURL } from '../constants';
+import { receiptsURL } from '../constants';
 
 
 // Get
 export const getReceipts = () => dispatch => {
-    axios.get(receiptURL)
+    axios.get(receiptsURL)
         .then(res => {
             dispatch({
                 type: GET_RECEIPTS,
@@ -17,7 +17,7 @@ export const getReceipts = () => dispatch => {
 //Delete
 
 export const deleteReceipt = (id) => dispatch => {
-    axios.delete(receiptURL, id)
+    axios.delete(receiptsURL, id)
         .then(res => {
             dispatch({
                 type: DELETE_RECEIPT,

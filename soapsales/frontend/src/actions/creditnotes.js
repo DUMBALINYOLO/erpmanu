@@ -5,7 +5,7 @@ import { creditnotesURL } from '../constants';
 
 // Get
 export const getCreditNotes = () => dispatch => {
-    axios.get(creditnoteURL)
+    axios.get(creditnotesURL)
         .then(res => {
             dispatch({
                 type: GET_CREDIT_NOTES,
@@ -17,7 +17,7 @@ export const getCreditNotes = () => dispatch => {
 //Delete
 
 export const deleteCreditNote = (id) => dispatch => {
-    axios.delete(creditnoteURL, id)
+    axios.delete(creditnotesURL, id)
         .then(res => {
             dispatch({
                 type: DELETE_CREDIT_NOTE,
@@ -28,7 +28,7 @@ export const deleteCreditNote = (id) => dispatch => {
 
 // Add
 export const addCreditNote = creditnote => dispatch => {
-    axios.post(creditnoteURL, creditnote)
+    axios.post(creditnotesURL, creditnote)
         .then(res => {
             dispatch({
                 type: ADD_CREDIT_NOTE,

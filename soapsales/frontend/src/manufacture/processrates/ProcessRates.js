@@ -8,14 +8,13 @@ import PropTypes from 'prop-types';
 import {DataTable} from 'primereact/datatable';
 import {Column} from 'primereact/column';
 import {InputText} from 'primereact/inputtext';
-import {Button} from 'primereact/button';
 import {Calendar} from 'primereact/calendar';
-import {MultiSelect} from 'primereact/multiselect';
+import {Button} from 'primereact/button';
 import {ProgressBar} from 'primereact/progressbar';
-import classNames from 'classnames';
-import { getProcessRates} from '..//../actions/processRates';
+import { getProcessRates} from '..//../actions/processrates';
 import { Link } from 'react-router-dom';
 import "./form.css";
+
 
 
 class ProcessRates extends Component {
@@ -30,7 +29,7 @@ class ProcessRates extends Component {
 
         };
         this.actionBodyTemplate = this.actionBodyTemplate.bind(this);
-        this.filterDate = this.filterDate.bind(this);       //custom filter function
+        this.filterDate = this.filterDate.bind(this);
         this.export = this.export.bind(this);
         this.renderDateFilter = this.renderDateFilter.bind(this)
         this.onDateFilterChange = this.onDateFilterChange.bind(this)
@@ -50,7 +49,7 @@ class ProcessRates extends Component {
     renderHeader() {
         return (
             <div className="table-head">
-                <h1>List Of Process Rates</h1>
+                <h1>Manage Process Rates</h1>
                 <div className="datatable-fancy-icons">
                     <div className="fancy-icon"><Button type="button" className="p-button-warning p-button-rounded" icon="pi pi-file-pdf" iconPos="right" label="PDF" onClick={this.export}></Button></div>
                     <div className="fancy-icon"><Button type="button" className="p-button-warning p-button-rounded" icon="pi pi-file-excel" iconPos="right" label="CSV" onClick={this.export}></Button></div>
@@ -124,8 +123,6 @@ class ProcessRates extends Component {
     render() {
 
         const header = this.renderHeader();
-        const dateFilter = this.renderDateFilter();
-
 
         return (
             <div className="datatable-doc-demo">

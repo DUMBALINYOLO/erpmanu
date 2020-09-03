@@ -12,9 +12,10 @@ import {Button} from 'primereact/button';
 import {Calendar} from 'primereact/calendar';
 import {ProgressBar} from 'primereact/progressbar';
 import { FileUpload } from 'primereact/fileupload';
-import { getEmployeeAllowances} from '../actions/employeeallowances';
+import { getEmployeeAllowances} from '..//../actions/employeeallowances';
 import "./form.css";
 import { Link } from 'react-router-dom';
+
 
 
 class EmployeeAllowances extends Component {
@@ -127,8 +128,6 @@ class EmployeeAllowances extends Component {
     render() {
 
         const header = this.renderHeader();
-        const dateFilter = this.renderDateFilter();
-
 
         return (
             <div className="datatable-doc-demo">

@@ -43,6 +43,7 @@ export const wastegenerationreportsURL = `${endpoint}/manufacture/waste-generati
 export const processedproductstockreceiptsURL = `${endpoint}/manufacture/processed-product-stock-receipts/`
 export const processedproductstockadjustmentsURL = `${endpoint}/manufacture/processed-product-stock-adjustments/`
 export const processedproductstocktakesURL = `${endpoint}/manufacture/processed-product-stock-takes/`
+export const manufacturedstockitemsURL = `${endpoint}/manufacture/manufactured-stock-items/`
 
 //inventory
 export const inventorycategoriesURL = `${endpoint}/inventory/inventory-categories/`

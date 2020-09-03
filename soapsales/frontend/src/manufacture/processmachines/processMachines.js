@@ -9,11 +9,8 @@ import {DataTable} from 'primereact/datatable';
 import {Column} from 'primereact/column';
 import {InputText} from 'primereact/inputtext';
 import {Button} from 'primereact/button';
-import {Dropdown} from 'primereact/dropdown';
 import {Calendar} from 'primereact/calendar';
-import {MultiSelect} from 'primereact/multiselect';
 import {ProgressBar} from 'primereact/progressbar';
-import classNames from 'classnames';
 import { getProcessMachines} from '..//../actions/processmachines';
 import { Link } from 'react-router-dom';
 import "./form.css";
@@ -31,7 +28,7 @@ class ProcessMachines extends Component {
 
         };
         this.actionBodyTemplate = this.actionBodyTemplate.bind(this);
-        this.filterDate = this.filterDate.bind(this);       //custom filter function
+        this.filterDate = this.filterDate.bind(this);    
         this.export = this.export.bind(this);
         this.renderDateFilter = this.renderDateFilter.bind(this)
         this.onDateFilterChange = this.onDateFilterChange.bind(this)

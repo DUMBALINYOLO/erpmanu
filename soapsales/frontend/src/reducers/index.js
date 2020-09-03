@@ -158,9 +158,12 @@ import voidedinvoices from "./voidedinvoices";
 import refundedinvoices from "./refundedinvoices";
 import fullypaidnotyetsalesinvoices from "./fullypaidnotyetsalesinvoices";
 import sales from "./sales";
+import manufacturedstockitems from "./manufacturedstockitems";
+
 
 export default combineReducers({
     creditnotes,
+    manufacturedstockitems,
     payments,
     receipts,
     invoicelines,

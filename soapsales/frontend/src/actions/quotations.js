@@ -1,11 +1,11 @@
 import axios from 'axios';
 import { GET_QUOTATIONS, GET_QUOTATION, DELETE_QUOTATION } from '../types/quotationTypes';
-import { quotationURL } from '../constants';
+import { quotationsURL } from '../constants';
 
 
 // Get
 export const getQuotations = () => dispatch => {
-    axios.get(quotationURL)
+    axios.get(quotationsURL)
         .then(res => {
             dispatch({
                 type: GET_QUOTATIONS,
@@ -17,7 +17,7 @@ export const getQuotations = () => dispatch => {
 //Delete
 
 export const deleteQuotation = (id) => dispatch => {
-    axios.delete(quotationURL, id)
+    axios.delete(quotationsURL, id)
         .then(res => {
             dispatch({
                 type: DELETE_QUOTATION,

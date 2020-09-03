@@ -11,12 +11,11 @@ import {InputNumber} from 'primereact/inputnumber';
 import {Checkbox} from 'primereact/checkbox';
 import {Dropdown} from 'primereact/dropdown';
 import { addProcessProduct } from '../../actions/processproducts';
-import { getManufacturingProductTypeChoices, getProcessedProductsStockStatusChoices } from '..//../actions/choices';
-import { getInventoryitems } from '..//../actions/inventoryitems';
-import { getUnitmeasures } from '..//../actions/unitmeasure';
+import { getManufacturingProductTypeChoices, getProcessedProductsStockStatusChoices, getUnitOfMeasureChoices } from '..//../actions/choices';
+import { getInventoryStockItems } from '..//../actions/inventorystockitems';
 import PropTypes from 'prop-types';
 
-export class ProcessproductForm extends Component{
+export class ProcessProductForm extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -48,19 +47,19 @@ export class ProcessproductForm extends Component{
 
     onType (e){
       this.setState({type: e.value})
-    } 
+    }
 
     onUnit (e){
       this.setState({unit: e.value})
-    } 
+    }
 
     onlocation (e){
       this.setState({location: e.value})
-    } 
+    }
 
     onStatus (e){
       this.setState({status: e.value})
-    } 
+    }
 
     onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
@@ -107,15 +106,15 @@ export class ProcessproductForm extends Component{
     static propTypes = {
         addProcessProduct: PropTypes.func.isRequired,
         getManufacturingProductTypeChoices: PropTypes.func.isRequired,
-        getInventoryitems: PropTypes.func.isRequired,
+        getInventoryStockItems: PropTypes.func.isRequired,
         getProcessedProductsStockStatusChoices: PropTypes.func.isRequired,
-        getUnitmeasures: PropTypes.func.isRequired,
+        getUnitOfMeasureChoices: PropTypes.func.isRequired,
     }
     componentDidMount() {
       this.props.getManufacturingProductTypeChoices();
-      this.props.getInventoryitems();
+      this.props.getInventoryStockItems();
       this.props.getProcessedProductsStockStatusChoices();
-      this.props.getUnitmeasures();
+      this.props.getUnitOfMeasureChoices();
     }
 
     render() {
@@ -132,13 +131,13 @@ export class ProcessproductForm extends Component{
         } = this.state;
 
         const {manufacturingproducttypechoices} = this.props;
-        const {inventoryitems} = this.props;
+        const {inventorystockitems} = this.props;
         const {processedproductstockstatuschoices} = this.props;
-        const {unitmeasures} = this.props;
+        const {unitofmeasurechoices} = this.props;
 
         return (
             <div className="card card-body mt-4 mb-4">
-              <h2>Add Process Product </h2>
+              <h2>Manage Process Product</h2>
               <form onSubmit={this.onSubmit}>
               <div className="p-fluid p-formgrid p-grid">
                 <div className="p-field p-col-12 p-md-12">
@@ -188,54 +187,54 @@ export class ProcessproductForm extends Component{
                   />
                 </div>
                 <div className="p-field p-col-12 p-md-6">
-                  <Dropdown 
+                  <Dropdown
                     placeholder ="SELECT TYPE"
                     value={type}
                     onChange={this.onType}
                     options={manufacturingproducttypechoices}
-                    filter={true} 
-                    filterBy="id,name" 
+                    filter={true}
+                    filterBy="id,name"
                     showClear={true}
-                    optionLabel="value" 
+                    optionLabel="value"
                     optionValue="id"
                   />
                 </div>
                 <div className="p-field p-col-12 p-md-6">
-                  <Dropdown 
+                  <Dropdown
                     placeholder ="SELECT UNIT"
                     value={unit}
                     onChange={this.onUnit}
-                    options={unitmeasures}
-                    filter={true} 
-                    filterBy="id,name" 
+                    options={unitofmeasurechoices}
+                    filter={true}
+                    filterBy="id,name"
                     showClear={true}
-                    optionLabel="name" 
+                    optionLabel="name"
                     optionValue="id"
                   />
                 </div>
                 <div className="p-field p-col-12 p-md-6">
-                  <Dropdown 
+                  <Dropdown
                     placeholder ="SELECT LOCATION"
                     value={location}
                     onChange={this.onlocation}
-                    options={inventoryitems}
-                    filter={true} 
-                    filterBy="id,name" 
+                    options={inventorystockitems}
+                    filter={true}
+                    filterBy="id,name"
                     showClear={true}
-                    optionLabel="name" 
+                    optionLabel="name"
                     optionValue="id"
                   />
                 </div>
                 <div className="p-field p-col-12 p-md-6">
-                  <Dropdown 
+                  <Dropdown
                     placeholder ="SELECT STATUS"
                     value={status}
                     onChange={this.onStatus}
                     options={processedproductstockstatuschoices}
-                    filter={true} 
-                    filterBy="id,name" 
+                    filter={true}
+                    filterBy="id,name"
                     showClear={true}
-                    optionLabel="value" 
+                    optionLabel="value"
                     optionValue="key"
                   />
                 </div>
@@ -245,7 +244,7 @@ export class ProcessproductForm extends Component{
                     inputId="working"
                     onChange={this.handleFinished}
                     checked={this.state.finished_goods}
-                  /> 
+                  />
                 </div>
                 <div className="p-field p-col-12 p-md-6">
                   <Button label="Submit" className="p-button-success p-button-rounded" />
@@ -260,8 +259,8 @@ export class ProcessproductForm extends Component{
 const mapStateToProps = state =>({
     manufacturingproducttypechoices: state.manufacturingproducttypechoices.manufacturingproducttypechoices,
     processedproductstockstatuschoices: state.processedproductstockstatuschoices.processedproductstockstatuschoices,
-    unitmeasures: state.unitmeasures.unitmeasures,
-    inventoryitems: state.inventoryitems.inventoryitems,
+    unitofmeasurechoices: state.unitofmeasurechoices.unitofmeasurechoices,
+    inventorystockitems: state.inventorystockitems.inventorystockitems,
 })
 
-export default connect(mapStateToProps, {getManufacturingProductTypeChoices, getProcessedProductsStockStatusChoices, getUnitmeasures, getInventoryitems, addProcessProduct })(ProcessproductForm);
+export default connect(mapStateToProps, {getManufacturingProductTypeChoices, getProcessedProductsStockStatusChoices, getUnitOfMeasureChoices, getInventoryStockItems, addProcessProduct })(ProcessProductForm);

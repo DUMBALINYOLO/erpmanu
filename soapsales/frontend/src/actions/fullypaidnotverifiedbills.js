@@ -7,7 +7,7 @@ import {
 import { fullypaidnotverifiedbillsURL } from '../constants';
 
 // Get
-export const getFullyPaidNotVerifiedBill = () => dispatch => {
+export const getFullyPaidNotVerifiedBills = () => dispatch => {
     axios.get(fullypaidnotverifiedbillsURL)
         .then(res => {
             dispatch({

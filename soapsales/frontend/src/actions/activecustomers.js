@@ -5,7 +5,7 @@ import {
 import { activecustomersURL } from '../constants';
 
 // Get
-export const getDeactivatedCustomers = () => dispatch => {
+export const getActiveCustomers = () => dispatch => {
     axios.get(activecustomersURL)
         .then(res => {
             dispatch({

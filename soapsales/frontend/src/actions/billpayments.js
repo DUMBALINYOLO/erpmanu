@@ -31,7 +31,7 @@ export const deleteBillPayment = (id) => dispatch => {
 
 // Add
 export const addBillPayment = (billpayment) => dispatch => {
-    axios.post(billsURL, billpayment)
+    axios.post(billpaymentsURL, billpayment)
         .then(res => {
             dispatch({
                 type: ADD_BILL_PAYMENT,

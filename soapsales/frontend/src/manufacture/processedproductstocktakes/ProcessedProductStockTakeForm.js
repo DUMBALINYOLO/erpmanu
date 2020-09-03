@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addProcessedProductStockTake } from '../../actions/processedproductstocktakes';
 import { getWarehouses } from '../../actions/warehouses';
-import { getInventoryControllers } from '../../actions/inventorycontrollers';
+import { getEmployees } from '../../actions/employees';
 import PropTypes from 'prop-types';
 import 'primeicons/primeicons.css';
 import 'primereact/resources/themes/nova-light/theme.css';
@@ -41,17 +41,17 @@ export class ProcessedProductStockTakeForm extends Component{
 
     onSubmit = (e) => {
       e.preventDefault();
-      const { 
+      const {
         date,
         adjusted_by,
         warehouse,
-        comments, 
+        comments,
       } = this.state;
-      const processedproductstocktake = { 
+      const processedproductstocktake = {
         date,
         adjusted_by,
         warehouse,
-        comments, 
+        comments,
       };
       this.props.addProcessedProductStockTake(processedproductstocktake);
       this.setState({
@@ -66,18 +66,18 @@ export class ProcessedProductStockTakeForm extends Component{
     static propTypes = {
         addProcessedProductStockTake: PropTypes.func.isRequired,
         getWarehouses: PropTypes.func.isRequired,
-        getInventoryControllers: PropTypes.func.isRequired,
+        getEmployees: PropTypes.func.isRequired,
     }
 
     componentDidMount() {
       this.props.getWarehouses()
-      this.props.getInventoryControllers()
+      this.props.getEmployees()
     }
 
 
     render() {
 
-        const { 
+        const {
           date,
           adjusted_by,
           warehouse,
@@ -85,7 +85,7 @@ export class ProcessedProductStockTakeForm extends Component{
         } = this.state;
 
         const { warehouses } = this.props;
-        const { inventorycontrollers } = this.props;
+        const { employees } = this.props;
 
         return (
             <div className="card card-body mt-4 mb-4">
@@ -112,34 +112,34 @@ export class ProcessedProductStockTakeForm extends Component{
                       />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
-                    <Dropdown 
+                    <Dropdown
                       placeholder ="SELECT ADJUSTED BY"
                       value={adjusted_by}
                       onChange={this.onAdjustedBy}
-                      options={inventorycontrollers}
-                      filter={true} 
-                      filterBy="id,name" 
+                      options={employees}
+                      filter={true}
+                      filterBy="id,name"
                       showClear={true}
-                      optionLabel="name" 
+                      optionLabel="id_number"
                       optionValue="id"
                     />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
-                    <Dropdown 
+                    <Dropdown
                       placeholder ="SELECT WAREHOUSE"
                       value={warehouse}
                       onChange={this.onWarehouse}
                       options={warehouses}
-                      filter={true} 
-                      filterBy="id,name" 
+                      filter={true}
+                      filterBy="id,name"
                       showClear={true}
-                      optionLabel="name" 
+                      optionLabel="name"
                       optionValue="id"
                     />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
                     <Button label="Submit" className="p-button-success p-button-rounded" />
-                  </div>         
+                  </div>
                 </div>
              </form>
          </div>
@@ -149,7 +149,7 @@ export class ProcessedProductStockTakeForm extends Component{
 
 const mapStateToProps = state =>({
     warehouses: state.warehouses.warehouses,
-    inventorycontrollers: state.inventorycontrollers.inventorycontrollers
+    employees: state.employees.employees
 })
 
-export default connect(mapStateToProps, { getWarehouses, getInventoryControllers, addProcessedProductStockTake })(ProcessedProductStockTakeForm);
+export default connect(mapStateToProps, { getWarehouses, getEmployees, addProcessedProductStockTake })(ProcessedProductStockTakeForm);
