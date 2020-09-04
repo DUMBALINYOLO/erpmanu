@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_EMPLOYEES } from '../types/employeesTypes';
+import { GET_EMPLOYEES, ADD_EMPLOYEE } from '../types/employeesTypes';
 import { employeesURL } from '../constants';
 
 
@@ -14,4 +14,13 @@ export const getEmployees = () => dispatch => {
         }).catch(err => console.log(err))
 }
 
-
+// Add
+export const addEmployee = (employee) => dispatch => {
+    axios.post(employeesURL, employee)
+        .then(res => {
+            dispatch({
+                type: ADD_EMPLOYEE,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
+}

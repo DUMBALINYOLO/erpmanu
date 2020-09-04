@@ -9,7 +9,6 @@ import 'primeicons/primeicons.css';
 import 'primereact/resources/themes/nova-light/theme.css';
 import 'primereact/resources/primereact.css';
 import 'primeflex/primeflex.css';
-import {InputText} from 'primereact/inputtext';
 import {InputNumber} from 'primereact/inputnumber';
 import {Button} from 'primereact/button';
 import {Dropdown} from 'primereact/dropdown';
@@ -30,7 +29,7 @@ export class EmployeePayslipForm extends Component{
         pay_grade_version: '',
       }
       this.onChange = this.onChange.bind(this);
-      this.onSubmit = this.onSubmit.bind(this); 
+      this.onSubmit = this.onSubmit.bind(this);
       this.onEmployee = this.onEmployee.bind(this);
       this.onPayGrade = this.onPayGrade.bind(this);
       this.onStatus = this.onStatus.bind(this);
@@ -38,21 +37,21 @@ export class EmployeePayslipForm extends Component{
 
     onEmployee (e){
       this.setState({employee: e.value})
-    } 
+    }
 
     onPayGrade (e){
       this.setState({pay_grade: e.value})
-    } 
+    }
 
     onStatus (e){
       this.setState({status: e.value})
-    } 
+    }
 
     onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
     onSubmit = (e) => {
       e.preventDefault();
-      const { 
+      const {
         start_period,
         employee,
         normal_hours,
@@ -63,7 +62,7 @@ export class EmployeePayslipForm extends Component{
         status,
         pay_grade_version,
       } = this.state;
-      const employeepayslip = { 
+      const employeepayslip = {
         start_period,
         employee,
         normal_hours,
@@ -103,7 +102,7 @@ export class EmployeePayslipForm extends Component{
     }
 
     render() {
-        const { 
+        const {
           start_period,
           employee,
           normal_hours,
@@ -112,7 +111,7 @@ export class EmployeePayslipForm extends Component{
           pay_grade,
           pay_roll_id,
           status,
-          pay_grade_version, 
+          pay_grade_version,
         } = this.state;
 
         const {employees} = this.props;
@@ -215,41 +214,41 @@ export class EmployeePayslipForm extends Component{
                     />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
-                    <Dropdown 
+                    <Dropdown
                       placeholder ="SELECT EMPLOYEE"
                       value={employee}
                       onChange={this.onEmployee}
                       options={employees}
-                      filter={true} 
-                      filterBy="id,name" 
+                      filter={true}
+                      filterBy="id,name"
                       showClear={true}
-                      optionLabel="employee_number" 
+                      optionLabel="employee_number"
                       optionValue="id"
                     />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
-                    <Dropdown 
+                    <Dropdown
                       placeholder ="SELECT STATUS"
                       value={status}
                       onChange={this.onStatus}
                       options={employeepayslipstatuschoices}
-                      filter={true} 
-                      filterBy="id,name" 
+                      filter={true}
+                      filterBy="id,name"
                       showClear={true}
-                      optionLabel="value" 
+                      optionLabel="value"
                       optionValue="key"
                     />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
-                    <Dropdown 
+                    <Dropdown
                       placeholder ="SELECT PAYGRADE"
                       value={pay_grade}
                       onChange={this.onPayGrade}
                       options={employeepaygrades}
-                      filter={true} 
-                      filterBy="id,name" 
+                      filter={true}
+                      filterBy="id,name"
                       showClear={true}
-                      optionLabel="name" 
+                      optionLabel="name"
                       optionValue="id"
                     />
                   </div>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addEmployeeAllowance } from '../actions/employeeallowances';
+import { addEmployeeAllowance } from '..//../actions/employeeallowances';
 import PropTypes from 'prop-types';
 import 'primeicons/primeicons.css';
 import 'primereact/resources/themes/nova-light/theme.css';
@@ -51,7 +51,7 @@ export class EmployeeAllowanceForm extends Component{
 
 
     render() {
-        const { name, amount, taxable } = this.state;
+        const { name, amount } = this.state;
         return (
             <div className="card card-body mt-4 mb-4">
               <h2>Add Employee Allowance</h2>

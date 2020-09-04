@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addAccount } from '..//../actions/accounts';
+import { addAccount, getAccounts } from '..//../actions/accounts';
 import PropTypes from 'prop-types';
-import { accounttypesURL } from '../../constants';
-import { getAccountTypes} from '..//../actions/accounttypes';
+import { getAccountTypeChoices, getAccountBalanceSheetCategoriesChoices } from '..//../actions/choices';
 import 'primeicons/primeicons.css';
 import 'primereact/resources/themes/nova-light/theme.css';
 import 'primereact/resources/primereact.css';
@@ -13,6 +12,7 @@ import {InputText} from 'primereact/inputtext';
 import {Button} from 'primereact/button';
 import {InputTextarea} from 'primereact/inputtextarea';
 import {Checkbox} from 'primereact/checkbox';
+import {InputNumber} from 'primereact/inputnumber';
 
 
 class AccountForm extends Component{
@@ -23,6 +23,7 @@ class AccountForm extends Component{
             balance: '',
             type: null,
             description: '',
+            bank_account: false,
             control_account: false,
             parent_account: null,
             balance_sheet_category: null,
@@ -35,7 +36,14 @@ class AccountForm extends Component{
         this.onParentAccount = this.onParentAccount.bind(this);
         this.onBalanceSheetCategory = this.onBalanceSheetCategory.bind(this);
         this.onControlAccount = this.onControlAccount.bind(this);
-        this.onActive = this.onActive.bind(this)
+        this.onActive = this.onActive.bind(this);
+        this.onBankAccount = this.onBankAccount.bind(this)
+    }
+
+    onBankAccount() {
+        this.setState({
+            bank_account: !this.state.checked
+        });
     }
 
     onControlAccount() {
@@ -46,7 +54,7 @@ class AccountForm extends Component{
 
     onActive() {
         this.setState({
-            is_active: !this.state.checked
+            active: !this.state.checked
         });
     }
 
@@ -75,6 +83,7 @@ class AccountForm extends Component{
             parent_account,
             balance_sheet_category,
             active,
+            bank_account
         } = this.state;
         const account = {
             name,
@@ -85,6 +94,7 @@ class AccountForm extends Component{
             parent_account,
             balance_sheet_category,
             active,
+            bank_account
         };
         this.props.addAccount(account);
         this.setState({
@@ -96,18 +106,22 @@ class AccountForm extends Component{
             parent_account: '',
             balance_sheet_category: '',
             active: true,
+            bank_account: true
         });
         this.props.history.push('/accounts');
     };
 
     static propTypes = {
         addAccount: PropTypes.func.isRequired,
-        getAccountTypes: PropTypes.func.isRequired,
-
+        getAccounts: PropTypes.func.isRequired,
+        getAccountTypeChoices: PropTypes.func.isRequired,
+        getAccountBalanceSheetCategoriesChoices: PropTypes.func.isRequired,
     }
 
     componentDidMount() {
-      this.props.getAccountTypes()
+        this.props.getAccounts()
+        this.props.getAccountTypeChoices()
+        this.props.getAccountBalanceSheetCategoriesChoices()
     }
 
     render() {
@@ -116,107 +130,139 @@ class AccountForm extends Component{
             balance,
             type,
             description,
-            control_account,
             parent_account,
             balance_sheet_category,
-            active,
         } = this.state;
 
-        const { inputValue } = this.state;
-
-        const {accounttypes} = this.props;
+        const { accounts } = this.props;
+        const { accounttypechoices } = this.props;
+        const {accountbalancesheetcategorieschoices} = this.props;
 
         return (
             <div className="card card-body mt-4 mb-4">
-              <h2>Add An Account</h2>
-              <form onSubmit={this.onSubmit}>
+                <h2>Manage Account</h2>
+                <form onSubmit={this.onSubmit}>
                 <div className="p-fluid p-formgrid p-grid">
-                  <div className="p-field p-col-12 p-md-6">
-                    <label>Name</label>
-                    <InputText
-                      className="form-control"
-                      type="text"
-                      name="name"
-                      onChange={this.onChange}
-                      value={name}
-                    />
-                  </div>
-
-                  <div className="p-field p-col-12 p-md-6">
-                    <label>Initial-Balance</label>
-                    <InputText
-                      className="form-control"
-                      type="number"
-                      name="initial_balance"
-                      onChange={this.onChange}
-                      value={initial_balance}
-                    />
-                  </div>
-
-
-                  <div className="p-field p-col-12 p-md-12">
-                    <label>Description</label>
-                    <InputTextarea
-                      row="3"
-                      className="form-control"
-                      type="text"
-                      name="description"
-                      onChange={this.onChange}
-                      value={description}
-                    />
-                  </div>
-                  <div className="p-field p-col-12 p-md-6 p-formgroup-inline">
-                    <label>IS CONTRA :</label>
-                    <Checkbox
-                      inputId="working"
-                      onChange={this.onContra}
-                      checked={this.state.is_contra}
-                    />
-                  </div>
-                  <div className="p-field p-col-12 p-md-6 p-formgroup-inline">
-                    <label>IS ACTIVE :</label>
-                    <Checkbox
-                      inputId="working"
-                      onChange={this.onActive}
-                      checked={this.state.is_active}
-                    />
-                  </div>
-                  <div className="p-field p-col-12 p-md-12">
-                    <label>Order</label>
-                    <InputText
-                      className="form-control"
-                      type="number"
-                      name="order"
-                      onChange={this.onChange}
-                      value={order}
-                    />
-                  </div>
-                  <div className="p-field p-col-12 p-md-6">
-                    <Dropdown
-                      placeholder ="SELECT ACCOUNT TYPE"
-                      value={account_type}
-                      onChange={this.onTypeChange}
-                      options={accounttypes}
-                      filter={true}
-                      filterBy="id,name"
-                      showClear={true}
-                      optionLabel="name"
-                      optionValue="id"
-                    />
-                  </div>
-                  <div className="p-field p-col-12 p-md-6">
-                    <Button label="Submit" className="p-button-success p-button-rounded" />
-                  </div>
+                    <div className="p-field p-col-12 p-md-6">
+                        <span className="p-float-label">
+                            <InputText
+                                name="name"
+                                onChange={this.onChange}
+                                value={name}
+                            />
+                            <label htmlFor="inputtext">Name</label>
+                        </span>
+                    </div>
+                    <div className="p-field p-col-12 p-md-6">
+                        <label>Balance</label>
+                        <InputNumber
+                            name="balance"
+                            mode="decimal"
+                            onChange={this.onChange}
+                            value={balance}
+                            showButtons
+                            buttonLayout="horizontal"
+                            decrementButtonClassName="p-button-danger"
+                            incrementButtonClassName="p-button-success"
+                            incrementButtonIcon="pi pi-plus"
+                            decrementButtonIcon="pi pi-minus"
+                            step={1}
+                        />
+                    </div>
+                    <div className="p-field p-col-12 p-md-12">
+                        <span className="p-float-label">
+                            <InputTextarea
+                                name="description"
+                                onChange={this.onChange}
+                                value={description}
+                            />
+                            <label htmlFor="inputtext">Description</label>
+                        </span>
+                    </div>
+                    <div className="p-field p-col-12 p-md-6 p-formgroup-inline">
+                        <label>BANK ACCOUNT :</label>
+                        <Checkbox
+                            inputId="working"
+                            onChange={this.onBankAccount}
+                            checked={this.state.bank_account}
+                        />
+                    </div>
+                    <div className="p-field p-col-12 p-md-6 p-formgroup-inline">
+                        <label>CONTROL ACCOUT :</label>
+                        <Checkbox
+                            inputId="working"
+                            onChange={this.onControlAccount}
+                            checked={this.state.control_account}
+                        />
+                    </div>
+                    <div className="p-field p-col-12 p-md-6 p-formgroup-inline">
+                        <label>ACTIVE :</label>
+                        <Checkbox
+                            inputId="working"
+                            onChange={this.onActive}
+                            checked={this.state.active}
+                        />
+                    </div>
+                    <div className="p-field p-col-12 p-md-6">
+                        <span className="p-float-label">
+                        <Dropdown
+                            value={type}
+                            onChange={this.onType}
+                            options={accounttypechoices}
+                            filter={true}
+                            filterBy="id,name"
+                            showClear={true}
+                            optionLabel="value"
+                            optionValue="key"
+                        />
+                        <label htmlFor="dropdown">SELECT TYPE</label>
+                        </span>
+                    </div>
+                    <div className="p-field p-col-12 p-md-6">
+                        <span className="p-float-label">
+                        <Dropdown
+                            value={balance_sheet_category}
+                            onChange={this.onBalanceSheetCategory}
+                            options={accountbalancesheetcategorieschoices}
+                            filter={true}
+                            filterBy="id,name"
+                            showClear={true}
+                            optionLabel="value"
+                            optionValue="key"
+                        />
+                        <label htmlFor="dropdown">SELECT BALANCE SHEET CATEGORY</label>
+                        </span>
+                    </div>
+                    <div className="p-field p-col-12 p-md-6">
+                        <span className="p-float-label">
+                        <Dropdown
+                            value={parent_account}
+                            onChange={this.onParentAccount}
+                            options={accounts}
+                            filter={true}
+                            filterBy="id,name"
+                            showClear={true}
+                            optionLabel="id_number"
+                            optionValue="id"
+                        />
+                        <label htmlFor="dropdown">SELECT CATEGORY</label>
+                        </span>
+                    </div>
+                    <div className="p-field p-col-12 p-md-6">
+                        <Button label="Submit" className="p-button-success p-button-rounded" />
+                    </div>
                 </div>
-             </form>
-         </div>
+                </form>
+            </div>
         );
     }
 }
 
 
 const mapStateToProps = state =>({
-    accounttypes: state.accounttypes.accounttypes
+    accounts: state.accounts.accounts,
+    accounttypechoices: state.accounttypechoices.accounttypechoices,
+    accountbalancesheetcategorieschoices: state.accountbalancesheetcategorieschoices.accountbalancesheetcategorieschoices
 })
 
-export default connect(mapStateToProps, {getAccountTypes, addAccount})(AccountForm);
+export default connect(mapStateToProps, {getAccounts, getAccountTypeChoices, getAccountBalanceSheetCategoriesChoices, addAccount})(AccountForm);

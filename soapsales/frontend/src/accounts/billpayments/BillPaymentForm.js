@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addBillpayment } from '..//../actions/billpayments';
+import { addBillPayment } from '..//../actions/billpayments';
 import PropTypes from 'prop-types';
 import { getAccounts} from '..//../actions/accounts';
 import { getBills} from '..//../actions/bills';
@@ -9,7 +9,6 @@ import 'primeicons/primeicons.css';
 import 'primereact/resources/themes/nova-light/theme.css';
 import 'primereact/resources/primereact.css';
 import 'primeflex/primeflex.css';
-import {InputText} from 'primereact/inputtext';
 import {Button} from 'primereact/button';
 import {InputTextarea} from 'primereact/inputtextarea';
 import {Calendar} from "primereact/calendar";
@@ -72,7 +71,7 @@ class BillPaymentForm extends Component{
         paid_by
       };
 
-      this.props.addBillpayment(billpayment);
+      this.props.addBillPayment(billpayment);
       this.setState({
         date: '',
         account: '',
@@ -85,7 +84,7 @@ class BillPaymentForm extends Component{
     };
 
     static propTypes = {
-        addBillpayment: PropTypes.func.isRequired,
+        addBillPayment: PropTypes.func.isRequired,
         getAccounts: PropTypes.func.isRequired,
         getBills: PropTypes.func.isRequired,
         getEmployees: PropTypes.func.isRequired,
@@ -219,4 +218,4 @@ const mapStateToProps = state =>({
 })
 
 
-export default connect(mapStateToProps, {getAccounts, getBills, getEmployees, addBillpayment})(BillPaymentForm);
+export default connect(mapStateToProps, {getAccounts, getBills, getEmployees, addBillPayment})(BillPaymentForm);

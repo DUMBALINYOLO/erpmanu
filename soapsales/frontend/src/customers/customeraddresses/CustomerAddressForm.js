@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addCustomerAddress } from '..//../actions/customeraddresses';
-import { getCustomers } from '..//../actions/customers';
+import { getActiveCustomers } from '..//../actions/activecustomers';
 import PropTypes from 'prop-types';
 import { getCustomerAddressTypeChoices } from '..//../actions/choices';
 import 'primeicons/primeicons.css';
@@ -77,12 +77,12 @@ class CustomerAddressForm extends Component{
 
     static propTypes = {
         addCustomerAddress: PropTypes.func.isRequired,
-        getCustomers: PropTypes.func.isRequired,
+        getActiveCustomers: PropTypes.func.isRequired,
         getCustomerAddressTypeChoices: PropTypes.func.isRequired,
     }
 
     componentDidMount() {
-        this.props.getCustomers()
+        this.props.getActiveCustomers()
         this.props.getCustomerAddressTypeChoices()
     }
 
@@ -97,7 +97,7 @@ class CustomerAddressForm extends Component{
 			postal_code
         } = this.state;
 
-        const {customers} = this.props;
+        const {activecustomers} = this.props;
         const {customeraddresstypechoices} = this.props;
 
         return (
@@ -175,7 +175,7 @@ class CustomerAddressForm extends Component{
                         <Dropdown
                             value={owner}
                             onChange={this.onOwner}
-                            options={customers}
+                            options={activecustomers}
                             filter={true}
                             filterBy="id,name"
                             showClear={true}
@@ -197,7 +197,7 @@ class CustomerAddressForm extends Component{
 
 
 const mapStateToProps = state =>({
-    customers: state.customers.customers,
+    activecustomers: state.activecustomers.activecustomers,
     customeraddresstypechoices: state.customeraddresstypechoices.customeraddresstypechoices,
 })
-export default connect(mapStateToProps, {getCustomers, getCustomerAddressTypeChoices, addCustomerAddress})(CustomerAddressForm);
+export default connect(mapStateToProps, {getActiveCustomers, getCustomerAddressTypeChoices, addCustomerAddress})(CustomerAddressForm);

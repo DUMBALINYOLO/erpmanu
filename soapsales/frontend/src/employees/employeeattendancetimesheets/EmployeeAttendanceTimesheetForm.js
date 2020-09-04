@@ -23,29 +23,29 @@ export class EmployeeAttendanceTimesheetForm extends Component{
         complete: false,
       }
       this.onChange = this.onChange.bind(this);
-      this.onSubmit = this.onSubmit.bind(this); 
+      this.onSubmit = this.onSubmit.bind(this);
       this.onEmployee = this.onEmployee.bind(this);
       this.onMonth = this.onMonth.bind(this);
       this.onYear = this.onYear.bind(this);
-      this.onRecordedBy = this.onRecordedBy.bind(this);     
+      this.onRecordedBy = this.onRecordedBy.bind(this);
       this.onComplete = this.onComplete.bind(this);
     }
 
     onEmployee (e){
       this.setState({employee: e.value})
-    } 
+    }
 
     onMonth (e){
       this.setState({month: e.value})
-    } 
+    }
 
     onYear (e){
       this.setState({year: e.value})
-    } 
+    }
 
     onRecordedBy (e){
       this.setState({recorded_by: e.value})
-    } 
+    }
 
     onComplete() {
       this.setState({
@@ -57,19 +57,19 @@ export class EmployeeAttendanceTimesheetForm extends Component{
 
     onSubmit = (e) => {
       e.preventDefault();
-      const { 
+      const {
         employee,
         month,
         year,
         recorded_by,
-        complete, 
+        complete,
       } = this.state;
-      const employeeattendancetimesheet = { 
+      const employeeattendancetimesheet = {
         employee,
         month,
         year,
         recorded_by,
-        complete, 
+        complete,
       };
       this.props.addEmployeeAttendanceTimesheet(employeeattendancetimesheet);
       this.setState({
@@ -96,12 +96,11 @@ export class EmployeeAttendanceTimesheetForm extends Component{
     }
 
     render() {
-        const { 
+        const {
           employee,
           month,
           year,
           recorded_by,
-          complete,  
         } = this.state;
 
         const {employeetimesheetmonthchoices} = this.props;
@@ -114,54 +113,54 @@ export class EmployeeAttendanceTimesheetForm extends Component{
               <form onSubmit={this.onSubmit}>
                 <div className="p-fluid p-formgrid p-grid">
                   <div className="p-field p-col-12 p-md-6">
-                    <Dropdown 
+                    <Dropdown
                       placeholder ="SELECT EMPLOYEE"
                       value={employee}
                       onChange={this.onEmployee}
                       options={employees}
-                      filter={true} 
-                      filterBy="id,name" 
+                      filter={true}
+                      filterBy="id,name"
                       showClear={true}
-                      optionLabel="employee_number" 
+                      optionLabel="employee_number"
                       optionValue="id"
                     />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
-                    <Dropdown 
+                    <Dropdown
                       placeholder ="SELECT RECORDED BY"
                       value={recorded_by}
                       onChange={this.onRecordedBy}
                       options={employees}
-                      filter={true} 
-                      filterBy="id,name" 
+                      filter={true}
+                      filterBy="id,name"
                       showClear={true}
-                      optionLabel="employee_number" 
+                      optionLabel="employee_number"
                       optionValue="id"
                     />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
-                    <Dropdown 
+                    <Dropdown
                       placeholder ="SELECT MONTH"
                       value={month}
                       onChange={this.onMonth}
                       options={employeetimesheetmonthchoices}
-                      filter={true} 
-                      filterBy="id,name" 
+                      filter={true}
+                      filterBy="id,name"
                       showClear={true}
-                      optionLabel="value" 
+                      optionLabel="value"
                       optionValue="key"
                     />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
-                    <Dropdown 
+                    <Dropdown
                       placeholder ="SELECT YEAR"
                       value={year}
                       onChange={this.onYear}
                       options={employeeyearchoices}
-                      filter={true} 
-                      filterBy="id,name" 
+                      filter={true}
+                      filterBy="id,name"
                       showClear={true}
-                      optionLabel="value" 
+                      optionLabel="value"
                       optionValue="key"
                     />
                   </div>
@@ -171,7 +170,7 @@ export class EmployeeAttendanceTimesheetForm extends Component{
                       inputId="working"
                       onChange={this.onComplete}
                       checked={this.state.complete}
-                    /> 
+                    />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
                     <Button label="Submit" className="p-button-success p-button-rounded" />

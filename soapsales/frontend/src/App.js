@@ -19,22 +19,29 @@ import Taxes from './accounts/taxes/Taxes';
 import Journals from './accounts/journals/Journals';
 
 import Assets from './accounts/assets/Assets';
+import AssetForm from './accounts/assets/AssetForm';
 
 import Currencies from './accounts/currencies/Currencies';
 
 import Accounts from './accounts/accounts/Accounts';
+import AccountForm from './accounts/accounts/AccountForm';
 
 import InterestBearingAccounts from './accounts/interestbearingaccounts/InterestBearingAccounts';
+import InterestBearingAccountForm from './accounts/interestbearingaccounts/InterestBearingAccountForm';
 
 import BillPayments from './accounts/billpayments/BillPayments';
+import BillPaymentForm from './accounts/billpayments/BillPaymentForm';
 
 import Ledgers from './accounts/ledgers/Ledgers';
 
 import AccountingPosts from './accounts/accountingposts/AccountingPosts';
+import AccountingPostForm from './accounts/accountingposts/AccountingPostForm';
 
 import Workbooks from './accounts/workbooks/Workbooks';
+import WorkbookForm from './accounts/workbooks/WorkbookForm';
 
 import AccountingAdjustments from './accounts/accountingadjustments/AccountingAdjustments';
+import AccountingAdjustmentForm from './accounts/accountingadjustments/AccountingAdjustmentForm';
 
 import Debits from './accounts/debits/Debits';
 
@@ -55,35 +62,47 @@ import PostedJournalEntries from './accounts/postedjournalentries/PostedJournalE
 import InActiveAccounts from './accounts/inactiveaccounts/InActiveAccounts';
 
 import Bills from './accounts/bills/Bills';
+import BillForm from './accounts/bills/BillForm';
 
 //customers
 import DeactivatedCustomers from './customers/deactivatedcustomers/DeactivatedCustomers';
 
 import CustomerAddresses from './customers/customeraddresses/CustomerAddresses';
+import CustomerAddressForm from './customers/customeraddresses/CustomerAddressForm';
 
 import ActiveCustomers from './customers/activecustomers/ActiveCustomers';
+import ActiveCustomerForm from './customers/activecustomers/ActiveCustomerForm';
 
 //employees
 import EmployeePayrollSchedules from './employees/employeepayrollschedules/EmployeePayrollSchedules';
 import EmployeePayrollScheduleForm from './employees/employeepayrollschedules/EmployeePayrollScheduleForm';
 
 import Employees from './employees/employees/Employees';
+import EmployeeForm from './employees/employees/EmployeeForm';
 
 import CompanyShareholders from './employees/companyshareholders/CompanyShareholders';
+import CompanyShareholderForm from './employees/companyshareholders/CompanyShareholderForm';
 
 import CompanyManagers from './employees/companymanagers/CompanyManagers';
+import CompanyManagerForm from './employees/companymanagers/CompanyManagerForm';
 
 import CompanyBookkeepers from './employees/companybookkeepers/CompanyBookkeepers';
+import CompanyBookkeeperForm from './employees/companybookkeepers/CompanyBookkeeperForm';
 
 import CompanyPayrollOfficers from './employees/companypayrollofficers/CompanyPayrollOfficers';
+import CompanyPayrollOfficerForm from './employees/companypayrollofficers/CompanyPayrollOfficerForm';
 
 import CompanyDrivers from './employees/companydrivers/CompanyDrivers';
+import CompanyDriverForm from './employees/companydrivers/CompanyDriverForm';
 
 import CompanyManufacturingPersonells from './employees/companymanufacturingpersonells/CompanyManufacturingPersonells';
+import CompanyManufacturingPersonellForm from './employees/companymanufacturingpersonells/CompanyManufacturingPersonellForm';
 
 import CompanyInventoryControllers from './employees/companyinventorycontrollers/CompanyInventoryControllers';
+import CompanyInventoryControllerForm from './employees/companyinventorycontrollers/CompanyInventoryControllerForm';
 
 import CompanySalesreps from './employees/companysalesreps/CompanySalesreps';
+import CompanySalesrepForm from './employees/companysalesreps/CompanySalesrepForm';
 
 import PendingEmployeeLeaves from './employees/pendingemployeeleaves/PendingEmployeeLeaves';
 
@@ -92,28 +111,40 @@ import AuthorisedEmployeeLeaves from './employees/authorisedemployeeleaves/Autho
 import DeclinedEmployeeLeaves from './employees/declinedemployeeleaves/DeclinedEmployeeLeaves';
 
 import EmployeeContracts from './employees/employeecontracts/EmployeeContracts';
+import EmployeeContractForm from './employees/employeecontracts/EmployeeContractForm';
 
 import EmployeeContractsTerminations from './employees/employeecontractsterminations/EmployeeContractsTerminations';
+import EmployeeContractsTerminationForm from './employees/employeecontractsterminations/EmployeeContractsTerminationForm';
 
 import EmployeeDepartments from './employees/employeedepartments/EmployeeDepartments';
+import EmployeeDepartmentForm from './employees/employeedepartments/EmployeeDepartmentForm';
 
 import EmployeeLeaves from './employees/employeeleaves/EmployeeLeaves';
+import EmployeeLeaveForm from './employees/employeeleaves/EmployeeLeaveForm';
 
 import EmployeePaygrades from './employees/employeepaygrades/EmployeePaygrades';
+import EmployeePaygradeForm from './employees/employeepaygrades/EmployeePaygradeForm';
 
 import EmployeeAllowances from './employees/employeeallowances/EmployeeAllowances';
+import EmployeeAllowanceForm from './employees/employeeallowances/EmployeeAllowanceForm';
 
 import EmployeePayDeductions from './employees/employeepaydeductions/EmployeePayDeductions';
+import EmployeePayDeductionForm from './employees/employeepaydeductions/EmployeePayDeductionForm';
 
 import EmployeePayCommissionRules from './employees/employeepaycommissionrules/EmployeePayCommissionRules';
+import EmployeePayCommissionRuleForm from './employees/employeepaycommissionrules/EmployeePayCommissionRuleForm';
 
 import EmployeePayrollTaxes from './employees/employeepayrolltaxes/EmployeePayrollTaxes';
+import EmployeePayrollTaxForm from './employees/employeepayrolltaxes/EmployeePayrollTaxForm';
 
 import EmployeePayrollDates from './employees/employeepayrolldates/EmployeePayrollDates';
+import EmployeePayrollDateForm from './employees/employeepayrolldates/EmployeePayrollDateForm';
 
 import EmployeePayslips from './employees/employeepayslips/EmployeePayslips';
+import EmployeePayslipForm from './employees/employeepayslips/EmployeePayslipForm';
 
 import EmployeeAttendanceTimesheets from './employees/employeeattendancetimesheets/EmployeeAttendanceTimesheets';
+import EmployeeAttendanceTimesheetForm from './employees/employeeattendancetimesheets/EmployeeAttendanceTimesheetForm';
 
 //events
 import UpcomingEvents from './events/upcomingevents/UpcomingEvents';
@@ -337,22 +368,31 @@ class App extends Component {
 							<Route exact path='/upcomingevents' component={UpcomingEvents} />
 
 							<Route exact path='/employees' component={Employees} />
+							<Route exact path='/employees/create' component={EmployeeForm} />
 
 							<Route exact path='/companyshareholders' component={CompanyShareholders} />
+							<Route exact path='/companyshareholders/create' component={CompanyShareholderForm} />
 
 							<Route exact path='/companymanagers' component={CompanyManagers} />
+							<Route exact path='/companymanagers/create' component={CompanyManagerForm} />
 
 							<Route exact path='/companybookkeepers' component={CompanyBookkeepers} />
+							<Route exact path='/companybookkeepers/create' component={CompanyBookkeeperForm} />
 
 							<Route exact path='/companypayrollofficers' component={CompanyPayrollOfficers} />
+							<Route exact path='/companypayrollofficers/create' component={CompanyPayrollOfficerForm} />
 
 							<Route exact path='/companydrivers' component={CompanyDrivers} />
+							<Route exact path='/companydrivers/create' component={CompanyDriverForm} />
 
 							<Route exact path='/companymanufacturingpersonells' component={CompanyManufacturingPersonells} />
+							<Route exact path='/companymanufacturingpersonells/create' component={CompanyManufacturingPersonellForm} />
 
 							<Route exact path='/companyinventorycontrollers' component={CompanyInventoryControllers} />
+							<Route exact path='/companyinventorycontrollers/create' component={CompanyInventoryControllerForm} />
 
 							<Route exact path='/companysalesreps' component={CompanySalesreps} />
+							<Route exact path='/companysalesreps/create' component={CompanySalesrepForm} />
 
 							<Route exact path='/pendingemployeeleaves' component={PendingEmployeeLeaves} />
 
@@ -361,54 +401,74 @@ class App extends Component {
 							<Route exact path='/declinedemployeeleaves' component={DeclinedEmployeeLeaves} />
 
 							<Route exact path='/employeecontracts' component={EmployeeContracts} />
+							<Route exact path='/employeecontracts/create' component={EmployeeContractForm} />
 
 							<Route exact path='/employeecontractsterminations' component={EmployeeContractsTerminations} />
+							<Route exact path='/employeecontractsterminations/create' component={EmployeeContractsTerminationForm} />
 
 							<Route exact path='/employeedepartments' component={EmployeeDepartments} />
+							<Route exact path='/employeedepartments/create' component={EmployeeDepartmentForm} />
 
 							<Route exact path='/employeeleaves' component={EmployeeLeaves} />
+							<Route exact path='/employeeleaves/create' component={EmployeeLeaveForm} />
 
 							<Route exact path='/employeepaygrades' component={EmployeePaygrades} />
+							<Route exact path='/employeepaygrades/create' component={EmployeePaygradeForm} />
 
 							<Route exact path='/employeeallowances' component={EmployeeAllowances} />
+							<Route exact path='/employeeallowances/create' component={EmployeeAllowanceForm} />
 
 							<Route exact path='/employeepaydeductions' component={EmployeePayDeductions} />
+							<Route exact path='/employeepaydeductions/create' component={EmployeePayDeductionForm} />
 
 							<Route exact path='/employeepaycommissionrules' component={EmployeePayCommissionRules} />
+							<Route exact path='/employeepaycommissionrules/create' component={EmployeePayCommissionRuleForm} />
 
 							<Route exact path='/employeepayrolltaxes' component={EmployeePayrollTaxes} />
+							<Route exact path='/employeepayrolltaxes/create' component={EmployeePayrollTaxForm} />
 
 							<Route exact path='/employeepayrolldates' component={EmployeePayrollDates} />
+							<Route exact path='/employeepayrolldates/create' component={EmployeePayrollDateForm} />
 
 							<Route exact path='/employeepayslips' component={EmployeePayslips} />
+							<Route exact path='/employeepayslips/create' component={EmployeePayslipForm} />
 
 							<Route exact path='/employeeattendancetimesheets' component={EmployeeAttendanceTimesheets} />
+							<Route exact path='/employeeattendancetimesheets/create' component={EmployeeAttendanceTimesheetForm} />
 
 							<Route exact path='/deactivatedcustomers' component={DeactivatedCustomers} />
 
 							<Route exact path='/customeraddresses' component={CustomerAddresses} />
+							<Route exact path='/customeraddresses/create' component={CustomerAddressForm} />
 
 							<Route exact path='/activecustomers' component={ActiveCustomers} />
+							<Route exact path='/activecustomers/create' component={ActiveCustomerForm} />
 
 							<Route exact path='/taxes' component={Taxes} />
 
 							<Route exact path='/assets' component={Assets} />
+							<Route exact path='/assets/create' component={AssetForm} />
 
 							<Route exact path='/journals' component={Journals} />
 
 							<Route exact path='/currencies' component={Currencies} />
 
 							<Route exact path='/accounts' component={Accounts} />
+							<Route exact path='/accounts/create' component={AccountForm} />
 
 							<Route exact path='/interestbearingaccounts' component={InterestBearingAccounts} />
+							<Route exact path='/interestbearingaccounts/create' component={InterestBearingAccountForm} />
 
 							<Route exact path='/ledgers' component={Ledgers} />
 
 							<Route exact path='/accountingposts' component={AccountingPosts} />
+							<Route exact path='/accountingposts/create' component={AccountingPostForm} />
 
 							<Route exact path='/workbooks' component={Workbooks} />
+							<Route exact path='/workbooks/create' component={WorkbookForm} />
 
 							<Route exact path='/accountingadjustments' component={AccountingAdjustments} />
+							<Route exact path='/accountingadjustments/create' component={AccountingAdjustmentForm} />
 
 							<Route exact path='/debits' component={Debits} />
 
@@ -429,8 +489,10 @@ class App extends Component {
 							<Route exact path='/inactiveaccounts' component={InActiveAccounts} />
 
 							<Route exact path='/bills' component={Bills} />
+							<Route exact path='/bills/create' component={BillForm} />
 
 							<Route exact path='/billpayments' component={BillPayments} />
+							<Route exact path='/billpayments/create' component={BillPaymentForm} />
 
 							<Route exact path='/employeepayrollschedules' component={EmployeePayrollSchedules} />
 							<Route exact path='/employeepayrollschedules/create' component={EmployeePayrollScheduleForm} />
