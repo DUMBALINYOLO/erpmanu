@@ -19,6 +19,7 @@ export const getTaxes = () => dispatch => {
 }
 
 //Delete
+
 export const deleteTax = (id) => dispatch => {
     axios.delete(taxesURL, id)
         .then(res => {
@@ -40,8 +41,8 @@ export const addTax = (tax) => dispatch => {
         }).catch(err => console.log(err))
 }
 
-export const editTax = (tax) => dispatch => {
-    axios.put(taxesURL, tax)
+export const editTax = (id, tax) => dispatch => {
+    axios.put(`http://127.0.0.1:8000/api/accounting/taxes/${id}/`, tax)
         .then(res => {
             dispatch({
                 type: EDIT_TAX,
@@ -49,3 +50,21 @@ export const editTax = (tax) => dispatch => {
             });
         }).catch(err => console.log(err))
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

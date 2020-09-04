@@ -23,6 +23,24 @@ class SalesGroupPricingDiscountViewSet(viewsets.ModelViewSet):
 	serializer_class = SalesGroupPricingDiscountSerializer
 
 
+class InvoiceViewSet(viewsets.ModelViewSet):
+	serializer_class = InvoiceListSerializer
+
+	
+	def get_queryset(self, *args, **kwargs):
+		queryset = Invoice.objects.prefetch_related(
+												'validated_by',
+												'cashier',
+												'customer',
+												'ship_from',
+												'entry',
+											)
+		return queryset
+
+
+
+
+
 
 
 class InvoiceLineViewSet(viewsets.ModelViewSet):

@@ -9,6 +9,17 @@ from inventory.serializers import (
 from inventory.models import InventoryItem
 
 
+class InventoryItemViewSet(ModelViewSet):
+	serializer_class = InventoryItemListSerializer
+
+	def get_queryset(self, *args, **kwargs):
+		queryset = InventoryItem.objects.prefetch_related(
+										'category',
+										'supplier'
+									)
+		return queryset
+
+
 class RawMaterialsViewSet(ModelViewSet):
 	
 	# permission_classes = [

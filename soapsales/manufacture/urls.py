@@ -16,7 +16,8 @@ from manufacture.apis import (
                     ProcessedProductsStockReceiptViewSet,
                     ProcessedProductsStockTakeViewSet,
                     ProcessedProductStockAdjustmentViewSet,
-                    ManufacturedStockItemViewSet
+                    ManufacturedStockItemViewSet,
+                    ProductionProcessViewSet
 
 
                 )
@@ -27,6 +28,7 @@ router = DefaultRouter()
 router.register(r'unverified-production-processes', UnverifiedProductionProcessViewSet, basename='unverified-production-processes')
 router.register(r'verified-production-processes', VerifiedProductionProcessViewSet, basename='unverified-production-processes')
 router.register(r'manufactured-stock-items',  ManufacturedStockItemViewSet, basename='manufactured-stock-items')
+router.register(r'production-processes',  ProductionProcessViewSet, basename='production-processes')
 #end
 
 router.register(r'process-machines', ProcessMachineViewset, basename='process-machines')

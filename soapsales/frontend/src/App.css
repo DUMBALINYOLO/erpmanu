@@ -25,3 +25,10 @@ body{
 .text-bright{
     color: #483D8B;
 }
+
+
+.datatable-icons{
+    display: flex;
+    padding: 15px;
+    justify-content: space-between;
+}

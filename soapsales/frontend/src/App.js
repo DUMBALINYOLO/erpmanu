@@ -14,6 +14,7 @@ import Content from "./dashboard/Content";
 import Dashboard from './dashboard/components/Dashboard';
 
 //accounts
+
 import Taxes from './accounts/taxes/Taxes';
 
 import Journals from './accounts/journals/Journals';
@@ -137,6 +138,7 @@ import StorageMedias from './inventory/storagemedias/StorageMedias';
 
 import OrderItems from './inventory/orderitems/OrderItems';
 
+
 import InventoryReceipts from './inventory/inventoryreceipts/InventoryReceipts';
 
 import StockAdjustments from './inventory/stockadjustments/StockAdjustments';
@@ -193,6 +195,7 @@ import ManufacturedStockItems from './manufacture/manufacturedstockitems/Manufac
 
 import ProcessMachines from './manufacture/processmachines/ProcessMachines';
 
+
 import ProcessMachineGroups from './manufacture/processmachinegroups/ProcessMachineGroups';
 
 import Shifts from './manufacture/shifts/Shifts';
@@ -224,6 +227,7 @@ const alertOptions = {
 	timeout: 30000,
 	position: 'top center'
 }
+
 
 
 class App extends Component {
@@ -443,5 +447,6 @@ class App extends Component {
 		);
 	}
 }
+
 
 export default App;

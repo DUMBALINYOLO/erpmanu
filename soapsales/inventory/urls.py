@@ -20,6 +20,7 @@ from inventory.apis import (
                     FullyReceivedAndTotalPaidForOrderViewSet,
                     FullyReceivedTotalPaidForAndVerifiedOrderViewSet,
                     SupplierAddressViewSet,
+                    InventoryItemViewSet,
                 )
 
 router = routers.DefaultRouter()
@@ -28,6 +29,7 @@ router.register(r'config', InventorySettingsViewset, basename='config')
 router.register(r'inventory-categories', CategoryViewset, basename='inventory-categories' )
 router.register(r'debit-notes',  DebitNoteViewSet, basename='debit-notes')
 router.register(r'inventory-orders',  OrderViewSet, basename='invetory-orders')
+router.register(r'inventory-items',  InventoryItemViewSet, basename='inventory-items')
 router.register(r'inventory-orderpayments',  OrderPaymentViewSet, basename='inventory-orderpayments')
 
 router.register(r'warehouses',  WareHouseViewSet, basename='warehouses')

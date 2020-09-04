@@ -13,7 +13,18 @@ from manufacture.serializers import (
                        
                     )
 
+class ProductionProcessViewSet(ModelViewSet):
+    serializer_class = ProductionProcessListSerializer
 
+    def get_queryset(self, *args, **kwargs):
+
+        queryset = ProductionProcess.objects.prefetch_related(
+                                                        'rate'
+                                                )
+        return queryset
+
+    
+        
 
 class UnverifiedProductionProcessViewSet(ModelViewSet):
     
