@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addSupplierAddress } from '..//../actions/supplieraddresses';
-import { getSuppliers } from '..//../actions/suppliers';
+import { getActiveSuppliers } from '..//../actions/activesuppliers';
 import PropTypes from 'prop-types';
 import { getSupplierAddressTypeChoices } from '..//../actions/choices';
 import 'primeicons/primeicons.css';
@@ -11,6 +11,7 @@ import 'primeflex/primeflex.css';
 import {Dropdown} from 'primereact/dropdown';
 import {InputText} from 'primereact/inputtext';
 import {Button} from 'primereact/button';
+
 
 
 class SupplierAddressForm extends Component{
@@ -73,12 +74,12 @@ class SupplierAddressForm extends Component{
 
     static propTypes = {
         addSupplierAddress: PropTypes.func.isRequired,
-        getSuppliers: PropTypes.func.isRequired,
+        getActiveSuppliers: PropTypes.func.isRequired,
         getSupplierAddressTypeChoices: PropTypes.func.isRequired,
     }
 
     componentDidMount() {
-        this.props.getSuppliers()
+        this.props.getActiveSuppliers()
         this.props.getSupplierAddressTypeChoices()
     }
 
@@ -92,7 +93,7 @@ class SupplierAddressForm extends Component{
 			postal_code
         } = this.state;
 
-        const {suppliers} = this.props;
+        const {activesuppliers} = this.props;
         const {supplieraddresstypechoices} = this.props;
 
         return (
@@ -133,16 +134,6 @@ class SupplierAddressForm extends Component{
                     <div className="p-field p-col-12 p-md-6">
                         <span className="p-float-label">
                             <InputText
-                                name="apartment_number"
-                                onChange={this.onChange}
-                                value={apartment_number}
-                            />
-                            <label htmlFor="inputtext">Apartment Number</label>
-                        </span>
-                    </div>
-                    <div className="p-field p-col-12 p-md-6">
-                        <span className="p-float-label">
-                            <InputText
                                 name="postal_code"
                                 onChange={this.onChange}
                                 value={postal_code}
@@ -170,7 +161,7 @@ class SupplierAddressForm extends Component{
                         <Dropdown
                             value={owner}
                             onChange={this.onOwner}
-                            options={suppliers}
+                            options={activesuppliers}
                             filter={true}
                             filterBy="id,name"
                             showClear={true}
@@ -192,7 +183,7 @@ class SupplierAddressForm extends Component{
 
 
 const mapStateToProps = state =>({
-    suppliers: state.suppliers.suppliers,
+    activesuppliers: state.activesuppliers.activesuppliers,
     supplieraddresstypechoices: state.supplieraddresstypechoices.supplieraddresstypechoices,
 })
-export default connect(mapStateToProps, {getSuppliers, getSupplierAddressTypeChoices, addSupplierAddress})(SupplierAddressForm);
+export default connect(mapStateToProps, {getActiveSuppliers, getSupplierAddressTypeChoices, addSupplierAddress})(SupplierAddressForm);

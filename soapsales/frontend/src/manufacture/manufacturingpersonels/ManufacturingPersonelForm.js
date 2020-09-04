@@ -90,9 +90,6 @@ export class ManufacturingPersonelForm extends Component{
     render() {
         const {
             employee,
-            is_manager,
-            can_authorize_equipment_requisitions,
-            can_authorize_consumables_requisitions,
         } = this.state;
 
         const { employees } = this.props;

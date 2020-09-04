@@ -8,7 +8,7 @@ import {Dropdown} from 'primereact/dropdown';
 import {Button} from 'primereact/button';
 import {InputTextarea} from 'primereact/inputtextarea';
 import { getInvoices } from '..//../actions/invoices';
-import { addCreditnote } from '..//../actions/creditnotes';
+import { addCreditNote } from '..//../actions/creditnotes';
 import {Calendar} from "primereact/calendar";
 import PropTypes from 'prop-types';
 import CreditNoteLines from './CreditNoteLine';
@@ -89,7 +89,7 @@ class CreditNoteForm extends Component {
 
       };
 
-      this.props.addCreditnote(creditnote);
+      this.props.addCreditNote(creditnote);
       this.setState({
           lines: [],
           invoice: '',
@@ -100,7 +100,7 @@ class CreditNoteForm extends Component {
     };
 
     static propTypes = {
-        addCreditnote: PropTypes.func.isRequired,
+        addCreditNote: PropTypes.func.isRequired,
         getInvoices: PropTypes.func.isRequired,
     }
 
@@ -199,4 +199,4 @@ const mapStateToProps = state =>({
     invoices: state.invoices.invoices
 })
 
-export default connect(mapStateToProps, {getInvoices, addCreditnote})(CreditNoteForm);
+export default connect(mapStateToProps, {getInvoices, addCreditNote})(CreditNoteForm);

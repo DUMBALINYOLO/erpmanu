@@ -2,6 +2,7 @@ import {
     GET_ACTIVE_SUPPLIERS,
     DELETE_ACTIVE_SUPPLIER,
     GET_ACTIVE_SUPPLIER,
+    ADD_ACTIVE_SUPPLIER
 } from '../types/activesupplierTypes';
 
 const initialState = {
@@ -27,6 +28,11 @@ export default function(state = initialState, action){
                 ...state,
                 activesupplier:action.payload
                 };
+        case ADD_ACTIVE_SUPPLIER:
+            return {
+                ...state,
+                activesupplier: [...state.activesuppliers, action.payload]
+            };
         default:
             return state;
     }

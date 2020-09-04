@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addRawMaterial } from '..//../actions/rawmaterials';
-import { getInventoryTypeChoices, getUnitOfMeasureChoices } from '..//../actions/choices';
-import { getSuppliers } from '..//../actions/suppliers';
+import { getInventoryTypesChoices, getUnitOfMeasureChoices } from '..//../actions/choices';
+import { getActiveSuppliers } from '..//../actions/activesuppliers';
 import { getInventoryCategories } from '..//../actions/inventorycategories';
 import PropTypes from 'prop-types';
 import 'primeicons/primeicons.css';
@@ -14,6 +14,7 @@ import {Button} from 'primereact/button';
 import {InputTextarea} from 'primereact/inputtextarea';
 import {InputNumber} from 'primereact/inputnumber';
 import {Dropdown} from 'primereact/dropdown';
+
 
 export class RawMaterialForm extends Component{
     constructor(props){
@@ -112,16 +113,16 @@ export class RawMaterialForm extends Component{
 
     static propTypes = {
         addRawMaterial: PropTypes.func.isRequired,
-        getInventoryTypeChoices: PropTypes.func.isRequired,
+        getInventoryTypesChoices: PropTypes.func.isRequired,
         getUnitOfMeasureChoices: PropTypes.func.isRequired,
-        getSuppliers: PropTypes.func.isRequired,
+        getActiveSuppliers: PropTypes.func.isRequired,
         getInventoryCategories: PropTypes.func.isRequired,
     }
 
     componentDidMount() {
-        this.props.getInventoryTypeChoices();
+        this.props.getInventoryTypesChoices();
         this.props.getUnitOfMeasureChoices();
-        this.props.getSuppliers();
+        this.props.getActiveSuppliers();
         this.props.getInventoryCategories();
     }
 
@@ -141,10 +142,10 @@ export class RawMaterialForm extends Component{
             maximum_stock_level,
         } = this.state;
 
-        const {inventorytypechoices} = this.props;
+        const {inventorytypeschoices} = this.props;
         const {inventorycategories} = this.props;
         const {unitofmeasurechoices} = this.props;
-        const {suppliers} = this.props;
+        const {activesuppliers} = this.props;
 
         return (
             <div className="card card-body mt-4 mb-4">
@@ -266,7 +267,7 @@ export class RawMaterialForm extends Component{
                             placeholder ="SELECT TYPE"
                             value={type}
                             onChange={this.onType}
-                            options={inventorytypechoices}
+                            options={inventorytypeschoices}
                             filter={true}
                             filterBy="id,name"
                             showClear={true}
@@ -305,7 +306,7 @@ export class RawMaterialForm extends Component{
                             placeholder ="SELECT SUPPLIER"
                             value={supplier}
                             onChange={this.onSupplier}
-                            options={suppliers}
+                            options={activesuppliers}
                             filter={true}
                             filterBy="id,name"
                             showClear={true}
@@ -324,13 +325,13 @@ export class RawMaterialForm extends Component{
 }
 
 const mapStateToProps = state =>({
-    inventorytypechoices: state.inventorytypechoices.inventorytypechoices,
+    inventorytypeschoices: state.inventorytypeschoices.inventorytypeschoices,
     unitofmeasurechoices: state.unitofmeasurechoices.unitofmeasurechoices,
-    suppliers: state.suppliers.suppliers,
+    activesuppliers: state.activesuppliers.activesuppliers,
     inventorycategories: state.inventorycategories.inventorycategories,
 })
 
 export default connect(
       mapStateToProps,
-      {getInventoryTypeChoices, getInventoryCategories, getUnitOfMeasureChoices, getSuppliers, addRawMaterial })
+      {getInventoryTypesChoices, getInventoryCategories, getUnitOfMeasureChoices, getActiveSuppliers, addRawMaterial })
       (RawMaterialForm);

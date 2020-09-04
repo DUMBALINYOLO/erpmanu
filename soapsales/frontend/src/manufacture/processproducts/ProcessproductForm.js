@@ -11,9 +11,10 @@ import {InputNumber} from 'primereact/inputnumber';
 import {Checkbox} from 'primereact/checkbox';
 import {Dropdown} from 'primereact/dropdown';
 import { addProcessProduct } from '../../actions/processproducts';
-import { getManufacturingProductTypeChoices, getProcessedProductsStockStatusChoices, getUnitOfMeasureChoices } from '..//../actions/choices';
+import { getManufacturingProductTypesChoices, getProcessedProductsStockStatusChoices, getUnitOfMeasureChoices } from '..//../actions/choices';
 import { getInventoryStockItems } from '..//../actions/inventorystockitems';
 import PropTypes from 'prop-types';
+
 
 export class ProcessProductForm extends Component{
     constructor(props){
@@ -105,13 +106,13 @@ export class ProcessProductForm extends Component{
 
     static propTypes = {
         addProcessProduct: PropTypes.func.isRequired,
-        getManufacturingProductTypeChoices: PropTypes.func.isRequired,
+        getManufacturingProductTypesChoices: PropTypes.func.isRequired,
         getInventoryStockItems: PropTypes.func.isRequired,
         getProcessedProductsStockStatusChoices: PropTypes.func.isRequired,
         getUnitOfMeasureChoices: PropTypes.func.isRequired,
     }
     componentDidMount() {
-      this.props.getManufacturingProductTypeChoices();
+      this.props.getManufacturingProductTypesChoices();
       this.props.getInventoryStockItems();
       this.props.getProcessedProductsStockStatusChoices();
       this.props.getUnitOfMeasureChoices();
@@ -123,14 +124,13 @@ export class ProcessProductForm extends Component{
             description,
             type,
             unit,
-            finished_goods,
             location,
             status,
             minimum_order_level,
             maximum_stock_level,
         } = this.state;
 
-        const {manufacturingproducttypechoices} = this.props;
+        const {manufacturingproducttypeschoices} = this.props;
         const {inventorystockitems} = this.props;
         const {processedproductstockstatuschoices} = this.props;
         const {unitofmeasurechoices} = this.props;
@@ -191,7 +191,7 @@ export class ProcessProductForm extends Component{
                     placeholder ="SELECT TYPE"
                     value={type}
                     onChange={this.onType}
-                    options={manufacturingproducttypechoices}
+                    options={manufacturingproducttypeschoices}
                     filter={true}
                     filterBy="id,name"
                     showClear={true}
@@ -257,10 +257,10 @@ export class ProcessProductForm extends Component{
 }
 
 const mapStateToProps = state =>({
-    manufacturingproducttypechoices: state.manufacturingproducttypechoices.manufacturingproducttypechoices,
+    manufacturingproducttypeschoices: state.manufacturingproducttypeschoices.manufacturingproducttypeschoices,
     processedproductstockstatuschoices: state.processedproductstockstatuschoices.processedproductstockstatuschoices,
     unitofmeasurechoices: state.unitofmeasurechoices.unitofmeasurechoices,
     inventorystockitems: state.inventorystockitems.inventorystockitems,
 })
 
-export default connect(mapStateToProps, {getManufacturingProductTypeChoices, getProcessedProductsStockStatusChoices, getUnitOfMeasureChoices, getInventoryStockItems, addProcessProduct })(ProcessProductForm);
+export default connect(mapStateToProps, {getManufacturingProductTypesChoices, getProcessedProductsStockStatusChoices, getUnitOfMeasureChoices, getInventoryStockItems, addProcessProduct })(ProcessProductForm);

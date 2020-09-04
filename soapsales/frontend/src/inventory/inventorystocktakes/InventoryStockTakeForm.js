@@ -9,10 +9,10 @@ import 'primereact/resources/themes/nova-light/theme.css';
 import 'primereact/resources/primereact.css';
 import 'primeflex/primeflex.css';
 import {Dropdown} from 'primereact/dropdown';
-import {InputText} from 'primereact/inputtext';
 import {Button} from 'primereact/button';
 import {InputTextarea} from 'primereact/inputtextarea';
 import {InputNumber} from 'primereact/inputnumber';
+import {Calendar} from "primereact/calendar";
 
 
 class InventoryStockTakeForm extends Component{

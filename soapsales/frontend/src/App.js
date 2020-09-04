@@ -153,38 +153,53 @@ import CompletedEvents from './events/completedevents/CompletedEvents';
 
 //inventory
 import InventoryCategories from './inventory/inventorycategories/InventoryCategories';
+import InventoryCategoryForm from './inventory/inventorycategories/InventoryCategoryForm';
 
 import DebitNotes from './inventory/debitnotes/DebitNotes';
+import DebitNoteForm from './inventory/debitnotes/DebitNoteForm';
 
 import InventoryOrders from './inventory/inventoryorders/InventoryOrders';
+import InventoryOrderForm from './inventory/inventoryorders/InventoryOrderForm';
 
 import InventoryOrderpayments from './inventory/inventoryorderpayments/InventoryOrderpayments';
+import InventoryOrderpaymentForm from './inventory/inventoryorderpayments/InventoryOrderpaymentForm';
 
 import Warehouses from './inventory/warehouses/Warehouses';
+import WarehouseForm from './inventory/warehouses/WarehouseForm';
 
 import InventoryStockItems from './inventory/inventorystockitems/InventoryStockItems';
+import InventoryStockItemForm from './inventory/inventorystockitems/InventoryStockItemForm';
 
 import StorageMedias from './inventory/storagemedias/StorageMedias';
+import StorageMediaForm from './inventory/storagemedias/StorageMediaForm';
 
 import OrderItems from './inventory/orderitems/OrderItems';
+import OrderItemForm from './inventory/orderitems/OrderItemForm';
 
 import InventoryReceipts from './inventory/inventoryreceipts/InventoryReceipts';
 
 import StockAdjustments from './inventory/stockadjustments/StockAdjustments';
+import StockAdjustmentForm from './inventory/stockadjustments/StockAdjustmentForm';
 
 import InventoryStockTakes from './inventory/inventorystocktakes/InventoryStockTakes';
+import InventoryStockTakeForm from './inventory/inventorystocktakes/InventoryStockTakeForm';
 
 import ActiveSuppliers from './inventory/activesuppliers/ActiveSuppliers';
+import ActiveSupplierForm from './inventory/activesuppliers/ActiveSupplierForm';
 
 import DeActivedSuppliers from './inventory/deactivedsuppliers/DeActivedSuppliers';
 
 import SupplierAddresses from './inventory/supplieraddresses/SupplierAddresses';
+import SupplierAddressForm from './inventory/supplieraddresses/SupplierAddressForm';
 
 import RawMaterials from './inventory/rawmaterials/RawMaterials';
+import RawMaterialForm from './inventory/rawmaterials/RawMaterialForm';
 
 import Equipments from './inventory/equipments/Equipments';
+import EquipmentForm from './inventory/equipments/EquipmentForm';
 
 import Consumables from './inventory/consumables/Consumables';
+import ConsumableForm from './inventory/consumables/ConsumableForm';
 
 import FullyReceivedAndTotalPaidForOrders from './inventory/fullyreceivedandtotalpaidfororders/FullyReceivedAndTotalPaidForOrders';
 
@@ -200,6 +215,7 @@ import Receipts from './invoicing/receipts/Receipts';
 import InvoiceLines from './invoicing/invoicelines/InvoiceLines';
 
 import SalesGroupsPricingDiscounts from './invoicing/salesgroupspricingdiscounts/SalesGroupsPricingDiscounts';
+import SalesGroupsPricingDiscountForm from './invoicing/salesgroupspricingdiscounts/SalesGroupsPricingDiscountForm';
 
 import Quotations from './invoicing/quotations/Quotations';
 
@@ -221,32 +237,45 @@ import UnverifiedProductionProcesses from './manufacture/unverifiedproductionpro
 import VerifiedProductionProcesses from './manufacture/verifiedproductionprocesses/VerifiedProductionProcesses';
 
 import ManufacturedStockItems from './manufacture/manufacturedstockitems/ManufacturedStockItems';
+import ManufacturedStockItemForm from './manufacture/manufacturedstockitems/ManufacturedStockItemForm';
 
 import ProcessMachines from './manufacture/processmachines/ProcessMachines';
+import ProcessMachineForm from './manufacture/processmachines/ProcessMachineForm';
 
 import ProcessMachineGroups from './manufacture/processmachinegroups/ProcessMachineGroups';
+import ProcessMachineGroupForm from './manufacture/processmachinegroups/ProcessMachineGroupForm';
 
 import Shifts from './manufacture/shifts/Shifts';
+import ShiftForm from './manufacture/shifts/ShiftForm';
 
 import ShiftSchedules from './manufacture/shiftschedules/ShiftSchedules';
+import ShiftScheduleForm from './manufacture/shiftschedules/ShiftScheduleForm';
 
 import ProcessRates from './manufacture/processrates/ProcessRates';
+import ProcessRateForm from './manufacture/processrates/ProcessRateForm';
 
 import ProductionOrders from './manufacture/productionorders/ProductionOrders';
 
 import ManufacturingTeams from './manufacture/manufacturingteams/ManufacturingTeams';
+import ManufacturingTeamForm from './manufacture/manufacturingteams/ManufacturingTeamForm';
 
 import ManufacturingPersonels from './manufacture/manufacturingpersonels/ManufacturingPersonels';
+import ManufacturingPersonelForm from './manufacture/manufacturingpersonels/ManufacturingPersonelForm';
 
 import ProcessProducts from './manufacture/processproducts/ProcessProducts';
+import ProcessProductForm from './manufacture/processproducts/ProcessProductForm';
 
 import WasteGenerationReports from './manufacture/wastegenerationreports/WasteGenerationReports';
+import WasteGenerationReportForm from './manufacture/wastegenerationreports/WasteGenerationReportForm';
 
 import ProcessedProductStockReceipts from './manufacture/processedproductstockreceipts/ProcessedProductStockReceipts';
+import ProcessedProductStockReceiptForm from './manufacture/processedproductstockreceipts/ProcessedProductStockReceiptForm';
 
 import ProcessedProductStockAdjustments from './manufacture/processedproductstockadjustments/ProcessedProductStockAdjustments';
+import ProcessedProductStockAdjustmentForm from './manufacture/processedproductstockadjustments/ProcessedProductStockAdjustmentForm';
 
 import ProcessedProductStockTakes from './manufacture/processedproductstocktakes/ProcessedProductStockTakes';
+import ProcessedProductStockTakeForm from './manufacture/processedproductstocktakes/ProcessedProductStockTakeForm';
 
 import Alerts from './components/alerts/Alert';
 
@@ -274,32 +303,45 @@ class App extends Component {
 							<Route exact path='/verifiedproductionprocesses' component={VerifiedProductionProcesses} />
 
 							<Route exact path='/manufacturedstockitems' component={ManufacturedStockItems} />
+							<Route exact path='/manufacturedstockitems/create' component={ManufacturedStockItemForm} />
 
 							<Route exact path='/processmachines' component={ProcessMachines} />
+							<Route exact path='/processmachines/create' component={ProcessMachineForm} />
 
 							<Route exact path='/processmachinegroups' component={ProcessMachineGroups} />
+							<Route exact path='/processmachinegroups/create' component={ProcessMachineGroupForm} />
 
 							<Route exact path='/shifts' component={Shifts} />
+							<Route exact path='/shifts/create' component={ShiftForm} />
 
 							<Route exact path='/shiftschedules' component={ShiftSchedules} />
+							<Route exact path='/shiftschedules/create' component={ShiftScheduleForm} />
 
 							<Route exact path='/processrates' component={ProcessRates} />
+							<Route exact path='/processrates/create' component={ProcessRateForm} />
 
 							<Route exact path='/productionorders' component={ProductionOrders} />
 
 							<Route exact path='/manufacturingteams' component={ManufacturingTeams} />
+							<Route exact path='/manufacturingteams/create' component={ManufacturingTeamForm} />
 
 							<Route exact path='/manufacturingpersonels' component={ManufacturingPersonels} />
+							<Route exact path='/manufacturingpersonels/create' component={ManufacturingPersonelForm} />
 
 							<Route exact path='/processproducts' component={ProcessProducts} />
+							<Route exact path='/processproducts/create' component={ProcessProductForm} />
 
 							<Route exact path='/wastegenerationreports' component={WasteGenerationReports} />
+							<Route exact path='/wastegenerationreports/create' component={WasteGenerationReportForm} />
 
 							<Route exact path='/processedproductstockreceipts' component={ProcessedProductStockReceipts} />
+							<Route exact path='/processedproductstockreceipts/create' component={ProcessedProductStockReceiptForm} />
 
 							<Route exact path='/processedproductstockadjustments' component={ProcessedProductStockAdjustments} />
+							<Route exact path='/processedproductstockadjustments/create' component={ProcessedProductStockAdjustmentForm} />
 
 							<Route exact path='/processedproductstocktakes' component={ProcessedProductStockTakes} />
+							<Route exact path='/processedproductstocktakes/create' component={ProcessedProductStockTakeForm} />
 
 							<Route exact path='/creditnotes' component={CreditNotes} />
 
@@ -310,6 +352,7 @@ class App extends Component {
 							<Route exact path='/invoicelines' component={InvoiceLines} />
 
 							<Route exact path='/salesgroupspricingdiscounts' component={SalesGroupsPricingDiscounts} />
+							<Route exact path='/salesgroupspricingdiscounts/create' component={SalesGroupsPricingDiscountForm} />
 
 							<Route exact path='/quotations' component={Quotations} />
 
@@ -326,38 +369,53 @@ class App extends Component {
 							<Route exact path='/sales' component={Sales} />
 
 							<Route exact path='/inventorycategories' component={InventoryCategories} />
+							<Route exact path='/inventorycategories/create' component={InventoryCategoryForm} />
 
 							<Route exact path='/debitnotes' component={DebitNotes} />
+							<Route exact path='/debitnotes/create' component={DebitNoteForm} />
 
 							<Route exact path='/inventoryorders' component={InventoryOrders} />
+							<Route exact path='/inventoryorders/create' component={InventoryOrderForm} />
 
 							<Route exact path='/inventoryorderpayments' component={InventoryOrderpayments} />
+							<Route exact path='/inventoryorderpayments/create' component={InventoryOrderpaymentForm} />
 
 							<Route exact path='/warehouses' component={Warehouses} />
+							<Route exact path='/warehouses/create' component={WarehouseForm} />
 
 							<Route exact path='/inventorystockitems' component={InventoryStockItems} />
+							<Route exact path='/inventorystockitems/create' component={InventoryStockItemForm} />
 
 							<Route exact path='/storagemedias' component={StorageMedias} />
+							<Route exact path='/storagemedias/create' component={StorageMediaForm} />
 
 							<Route exact path='/orderitems' component={OrderItems} />
+							<Route exact path='/orderitems/create' component={OrderItemForm} />
 
 							<Route exact path='/inventoryreceipts' component={InventoryReceipts} />
 
 							<Route exact path='/stockadjustments' component={StockAdjustments} />
+							<Route exact path='/stockadjustments/create' component={StockAdjustmentForm} />
 
 							<Route exact path='/inventorystocktakes' component={InventoryStockTakes} />
+							<Route exact path='/inventorystocktakes/create' component={InventoryStockTakeForm} />
 
 							<Route exact path='/activesuppliers' component={ActiveSuppliers} />
+							<Route exact path='/activesuppliers/create' component={ActiveSupplierForm} />
 
 							<Route exact path='/deactivedsuppliers' component={DeActivedSuppliers} />
 
 							<Route exact path='/supplieraddresses' component={SupplierAddresses} />
+							<Route exact path='/supplieraddresses/create' component={SupplierAddressForm} />
 
 							<Route exact path='/rawmaterials' component={RawMaterials} />
+							<Route exact path='/rawmaterials/create' component={RawMaterialForm} />
 
 							<Route exact path='/equipments' component={Equipments} />
+							<Route exact path='/equipments/create' component={EquipmentForm} />
 
 							<Route exact path='/consumables' component={Consumables} />
+							<Route exact path='/consumables/create' component={ConsumableForm} />
 
 							<Route exact path='/fullyreceivedandtotalpaidfororders' component={FullyReceivedAndTotalPaidForOrders} />
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getInventoryOrders } from '..//../actions/inventoryorders';
 import { getEmployees } from '..//../actions/employees';
-import { addInventoryOrderpayment } from '..//../actions/orderpayments';
+import { addInventoryOrderpayment } from '..//../actions/inventoryorderpayments';
 import PropTypes from 'prop-types';
 import 'primeicons/primeicons.css';
 import 'primereact/resources/themes/nova-light/theme.css';
@@ -151,7 +151,7 @@ class InventoryOrderpaymentForm extends Component{
                             optionLabel="tracking_number"
                             optionValue="id"
                         />
-                        <label htmlFor="dropdown">SELECT ORDER/label>
+                        <label htmlFor="dropdown">SELECT ORDER</label>
                         </span>
                     </div>
                     <div className="p-field p-col-12 p-md-6">
@@ -166,7 +166,7 @@ class InventoryOrderpaymentForm extends Component{
                             optionLabel="id_number"
                             optionValue="id"
                         />
-                        <label htmlFor="dropdown">SELECT PAID BY/label>
+                        <label htmlFor="dropdown">SELECT PAID BY</label>
                         </span>
                     </div>
                     <div className="p-field p-col-12 p-md-6">

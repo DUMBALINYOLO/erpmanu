@@ -2,7 +2,8 @@ import axios from 'axios';
 import {
         GET_ACTIVE_SUPPLIERS,
         DELETE_ACTIVE_SUPPLIER,
-        GET_ACTIVE_SUPPLIER
+        GET_ACTIVE_SUPPLIER,
+        ADD_ACTIVE_SUPPLIER
     } from '../types/activesupplierTypes';
 import { activesuppliersURL } from '../constants';
 
@@ -12,6 +13,17 @@ export const getActiveSuppliers = () => dispatch => {
         .then(res => {
             dispatch({
                 type: GET_ACTIVE_SUPPLIERS,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
+}
+
+// Add
+export const addActiveSupplier = (activesupplier) => dispatch => {
+    axios.post(activesuppliersURL, activesupplier)
+        .then(res => {
+            dispatch({
+                type: ADD_ACTIVE_SUPPLIER,
                 payload: res.data
             });
         }).catch(err => console.log(err))
