@@ -6,7 +6,6 @@ import 'primeflex/primeflex.css';
 import {Button} from 'primereact/button';
 import { connect } from 'react-redux';
 import { getOrderItems} from '..//../actions/orderitems';
-import {InputNumber} from 'primereact/inputnumber';
 
 
 const DebitNoteLines = (props) => {
@@ -15,7 +14,7 @@ const DebitNoteLines = (props) => {
             props.getOrderItems();
         }
         console.log('mount it!');
-    }, []);
+    }, [props]);
 
   const { orderitems } = props;
 

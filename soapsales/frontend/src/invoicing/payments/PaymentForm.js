@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { addPayment } from '..//../actions/payments';
 import { getEmployees} from '..//../actions/employees';
 import { getInvoices} from '..//../actions/invoices';
-import { getCustomerPaymentMethodChoices } from '..//../actions/choices';
+import { getCustomerPaymentMethodsChoices } from '..//../actions/choices';
 import PropTypes from 'prop-types';
 import 'primeicons/primeicons.css';
 import 'primereact/resources/themes/nova-light/theme.css';
@@ -21,8 +21,8 @@ export class PaymentForm extends Component{
         super(props);
         this.state = {
             amount_tendered: '',
-            amount_to_pay: ''.
-            date: ''
+            amount_to_pay: '',
+            date: '',
             invoice: null,
             method: null,
             cashier: null,
@@ -74,7 +74,7 @@ export class PaymentForm extends Component{
       this.props.addPayment(payment);
       this.setState({
           amount_tendered: '',
-          amount_to_pay: ''.
+          amount_to_pay: '',
           date: '',
           invoice: '',
           method: '',
@@ -87,13 +87,13 @@ export class PaymentForm extends Component{
 
     static propTypes = {
         addPayment: PropTypes.func.isRequired,
-        getCustomerPaymentMethodChoices: PropTypes.func.isRequired,
+        getCustomerPaymentMethodsChoices: PropTypes.func.isRequired,
         getInvoices: PropTypes.func.isRequired,
         getEmployees: PropTypes.func.isRequired,
     }
 
     componentDidMount() {
-      this.props.getCustomerPaymentMethodChoices()
+      this.props.getCustomerPaymentMethodsChoices()
       this.props.getInvoices()
       this.props.getEmployees()
     }
@@ -110,7 +110,7 @@ export class PaymentForm extends Component{
             comments,
         } = this.state;
 
-        const { customerpaymentmethodchoices } = this.props;
+        const { customerpaymentmethodschoices } = this.props;
         const { invoices } = this.props;
         const { employees } = this.props;
 
@@ -192,7 +192,7 @@ export class PaymentForm extends Component{
                     <div className="p-field p-col-12 p-md-6">
                         <span className="p-float-label">
                             <Dropdown
-                                value={sales_rep}
+                                value={cashier}
                                 onChange={this.onCashier}
                                 options={employees}
                                 filter={true}
@@ -209,7 +209,7 @@ export class PaymentForm extends Component{
                             <Dropdown
                                 value={method}
                                 onChange={this.onMethod}
-                                options={customerpaymentmethodchoices}
+                                options={customerpaymentmethodschoices}
                                 filter={true}
                                 filterBy="id,name"
                                 showClear={true}
@@ -230,9 +230,9 @@ export class PaymentForm extends Component{
 }
 
 const mapStateToProps = state =>({
-    customerpaymentmethodchoices: state.customerpaymentmethodchoices.customerpaymentmethodchoices,
+    customerpaymentmethodschoices: state.customerpaymentmethodschoices.customerpaymentmethodschoices,
     invoices: state.invoices.invoices,
     employees: state.employees.employees
 })
 
-export default connect(mapStateToProps, {getCustomerPaymentMethodChoices, getEmployees, getInvoices, addPayment })(PaymentForm);
+export default connect(mapStateToProps, {getCustomerPaymentMethodsChoices, getEmployees, getInvoices, addPayment })(PaymentForm);

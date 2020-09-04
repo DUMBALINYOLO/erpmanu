@@ -24,11 +24,11 @@ export class EmployeePayrollDateForm extends Component{
         pay_grades: null,
         schedule: null
       }
-      this.onSubmit = this.onSubmit.bind(this); 
+      this.onSubmit = this.onSubmit.bind(this);
       this.onDate = this.onDate.bind(this);
       this.onDepartments = this.onDepartments.bind(this);
       this.onPayGrades = this.onPayGrades.bind(this);
-      this.onSchedule = this.onSchedule.bind(this);     
+      this.onSchedule = this.onSchedule.bind(this);
     }
 
     onDate (e){
@@ -57,17 +57,17 @@ export class EmployeePayrollDateForm extends Component{
         employee: '',
         departments: '',
         pay_grades: '',
-        schedule: '' 
+        schedule: ''
       });
       this.props.history.push('/employeepayrolldates');
     };
 
     static propTypes = {
-      getEmployees: PropTypes.func.isRequired,  
-      getEmployeeDepartments: PropTypes.func.isRequired,  
-      getEmployeePaygrades: PropTypes.func.isRequired,  
-      getEmployeePayrollSchedules: PropTypes.func.isRequired, 
-      getEmployeePayrollDateChoices: PropTypes.func.isRequired, 
+      getEmployees: PropTypes.func.isRequired,
+      getEmployeeDepartments: PropTypes.func.isRequired,
+      getEmployeePaygrades: PropTypes.func.isRequired,
+      getEmployeePayrollSchedules: PropTypes.func.isRequired,
+      getEmployeePayrollDateChoices: PropTypes.func.isRequired,
     }
 
     componentDidMount() {
@@ -92,67 +92,67 @@ export class EmployeePayrollDateForm extends Component{
               <form onSubmit={this.onSubmit}>
                 <div className="p-fluid p-formgrid p-grid">
                   <div className="p-field p-col-12 p-md-6">
-                    <Dropdown 
+                    <Dropdown
                       placeholder ="SELECT EMPLOYEE"
                       value={employee}
                       onChange={this.onEmployees}
                       options={employees}
-                      filter={true} 
-                      filterBy="id,name" 
+                      filter={true}
+                      filterBy="id,name"
                       showClear={true}
-                      optionLabel="employee_number" 
+                      optionLabel="employee_number"
                       optionValue="id"
                     />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
-                    <Dropdown 
+                    <Dropdown
                       placeholder ="SELECT DATE"
                       value={date}
                       onChange={this.onDate}
                       options={employeepayrolldatechoices}
-                      filter={true} 
-                      filterBy="id,name" 
+                      filter={true}
+                      filterBy="id,name"
                       showClear={true}
-                      optionLabel="value" 
+                      optionLabel="value"
                       optionValue="key"
                     />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
-                    <Dropdown 
+                    <Dropdown
                       placeholder ="SELECT DEPARTMENTS"
                       value={departments}
                       onChange={this.onDepartments}
                       options={employeedepartments}
-                      filter={true} 
-                      filterBy="id,name" 
+                      filter={true}
+                      filterBy="id,name"
                       showClear={true}
-                      optionLabel="name" 
+                      optionLabel="name"
                       optionValue="id"
                     />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
-                    <Dropdown 
+                    <Dropdown
                       placeholder ="SELECT EMPLOYEE"
                       value={pay_grades}
                       onChange={this.onPayGrades}
                       options={employeepaygrades}
-                      filter={true} 
-                      filterBy="id,name" 
+                      filter={true}
+                      filterBy="id,name"
                       showClear={true}
-                      optionLabel="name" 
+                      optionLabel="name"
                       optionValue="id"
                     />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
-                    <Dropdown 
+                    <Dropdown
                       placeholder ="SELECT SCHEDULE"
                       value={schedule}
                       onChange={this.onSchedule}
                       options={employeepayrollschedules}
-                      filter={true} 
-                      filterBy="id,name" 
+                      filter={true}
+                      filterBy="id,name"
                       showClear={true}
-                      optionLabel="name" 
+                      optionLabel="name"
                       optionValue="id"
                     />
                   </div>
@@ -172,4 +172,4 @@ const mapStateToProps = state =>({
   employeepayrollschedules: state.employeepayrollschedules.employeepayrollschedules,
   employeepayrolldatechoices: state.employeepayrolldatechoices.employeepayrolldatechoices
 })
-export default connect(null, { getEmployees, getEmployeeDepartments, getEmployeePaygrades, getEmployeePayrollSchedules, getEmployeePayrollDateChoices, addEmployeePayrollDate })(EmployeePayrollDateForm);
+export default connect( mapStateToProps, { getEmployees, getEmployeeDepartments, getEmployeePaygrades, getEmployeePayrollSchedules, getEmployeePayrollDateChoices, addEmployeePayrollDate })(EmployeePayrollDateForm);

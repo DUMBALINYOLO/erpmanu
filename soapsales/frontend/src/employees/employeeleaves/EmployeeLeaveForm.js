@@ -8,7 +8,6 @@ import 'primeicons/primeicons.css';
 import 'primereact/resources/themes/nova-light/theme.css';
 import 'primereact/resources/primereact.css';
 import 'primeflex/primeflex.css';
-import {InputText} from 'primereact/inputtext';
 import {Button} from 'primereact/button';
 import {Dropdown} from 'primereact/dropdown';
 import {InputTextarea} from 'primereact/inputtextarea';
@@ -45,25 +44,25 @@ export class EmployeeLeaveForm extends Component{
 
     onCategory (e){
       this.setState({category: e.value})
-    } 
+    }
 
     onEmployee (e){
       this.setState({employee: e.value})
-    } 
+    }
 
     onStatus (e){
       this.setState({status: e.value})
-    } 
+    }
 
     onAuthorizedBy (e){
       this.setState({authorized_by: e.value})
-    }     
+    }
 
     onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
     onSubmit = (e) => {
       e.preventDefault();
-      const { 
+      const {
         start_date,
         end_date,
         employee,
@@ -73,7 +72,7 @@ export class EmployeeLeaveForm extends Component{
         notes,
         recorded,
       } = this.state;
-      const employeeleave = { 
+      const employeeleave = {
         start_date,
         end_date,
         employee,
@@ -111,7 +110,7 @@ export class EmployeeLeaveForm extends Component{
       this.props.getEmployeeLeaveStatusChoices()
     }
     render() {
-        const { 
+        const {
           start_date,
           end_date,
           employee,
@@ -119,7 +118,6 @@ export class EmployeeLeaveForm extends Component{
           status,
           authorized_by,
           notes,
-          recorded,
         } = this.state;
 
         const {employeeleavecategorychoices} = this.props;
@@ -160,54 +158,54 @@ export class EmployeeLeaveForm extends Component{
                     />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
-                    <Dropdown 
+                    <Dropdown
                       placeholder ="SELECT EMPLOYEE"
                       value={employee}
                       onChange={this.onEmployee}
                       options={employees}
-                      filter={true} 
-                      filterBy="id,name" 
+                      filter={true}
+                      filterBy="id,name"
                       showClear={true}
-                      optionLabel="employee_number" 
+                      optionLabel="employee_number"
                       optionValue="id"
                     />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
-                    <Dropdown 
+                    <Dropdown
                       placeholder ="SELECT AUTHORIZED BY"
                       value={authorized_by}
                       onChange={this.onEmployee}
                       options={employees}
-                      filter={true} 
-                      filterBy="id,name" 
+                      filter={true}
+                      filterBy="id,name"
                       showClear={true}
-                      optionLabel="employee_number" 
+                      optionLabel="employee_number"
                       optionValue="id"
                     />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
-                    <Dropdown 
+                    <Dropdown
                       placeholder ="SELECT CATEGORY"
                       value={category}
                       onChange={this.onCategory}
                       options={employeeleavecategorychoices}
-                      filter={true} 
-                      filterBy="id,name" 
+                      filter={true}
+                      filterBy="id,name"
                       showClear={true}
-                      optionLabel="value" 
+                      optionLabel="value"
                       optionValue="key"
                     />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
-                    <Dropdown 
+                    <Dropdown
                       placeholder ="SELECT STATUS"
                       value={status}
                       onChange={this.onStatus}
                       options={employeeleavestatuschoices}
-                      filter={true} 
-                      filterBy="id,name" 
+                      filter={true}
+                      filterBy="id,name"
                       showClear={true}
-                      optionLabel="value" 
+                      optionLabel="value"
                       optionValue="key"
                     />
                   </div>
@@ -217,7 +215,7 @@ export class EmployeeLeaveForm extends Component{
                       inputId="working"
                       onChange={this.onRecorded}
                       checked={this.state.recorded}
-                    /> 
+                    />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
                     <Button label="Submit" className="p-button-success p-button-rounded" />
@@ -236,6 +234,6 @@ const mapStateToProps = state =>({
 })
 
 export default connect(
-        mapStateToProps, 
+        mapStateToProps,
         {getEmployeeLeaveCategoryChoices, getEmployees, getEmployeeLeaveStatusChoices, addEmployeeLeave })
         (EmployeeLeaveForm);

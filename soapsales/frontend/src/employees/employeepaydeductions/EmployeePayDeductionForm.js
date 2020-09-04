@@ -14,7 +14,6 @@ import 'primeflex/primeflex.css';
 import {InputText} from 'primereact/inputtext';
 import {Button} from 'primereact/button';
 import {Dropdown} from 'primereact/dropdown';
-import {Calendar} from "primereact/calendar"
 import {Checkbox} from 'primereact/checkbox';
 import {InputNumber} from 'primereact/inputnumber';
 
@@ -85,15 +84,15 @@ export class EmployeePayDeductionForm extends Component{
 
     onDeductionMethods (e){
       this.setState({deduction_method: e.value})
-    } 
+    }
 
     onBenefits (e){
       this.setState({benefits: e.value})
-    } 
+    }
 
     onCommission (e){
       this.setState({commission: e.value})
-    } 
+    }
 
     onPayrollTaxes (e){
       this.setState({payroll_taxes: e.value})
@@ -101,17 +100,17 @@ export class EmployeePayDeductionForm extends Component{
 
     onLiabilityAccount (e){
       this.setState({liability_account: e.value})
-    } 
+    }
 
     onAccountPaidInto (e){
       this.setState({account_paid_into: e.value})
-    }      
+    }
 
     onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
     onSubmit = (e) => {
       e.preventDefault();
-      const { 
+      const {
         deduction_method,
         name,
         tax_deductable,
@@ -128,7 +127,7 @@ export class EmployeePayDeductionForm extends Component{
         account_paid_into,
         archived
       } = this.state;
-      const employeepaydeduction = { 
+      const employeepaydeduction = {
         deduction_method,
         name,
         tax_deductable,
@@ -186,13 +185,9 @@ export class EmployeePayDeductionForm extends Component{
 
     }
     render() {
-        const { 
+        const {
           deduction_method,
           name,
-          tax_deductable,
-          basic_income,
-          hourly_income,
-          overtime_income,
           benefits,
           commission,
           payroll_taxes,
@@ -201,7 +196,6 @@ export class EmployeePayDeductionForm extends Component{
           employer_contribution,
           liability_account,
           account_paid_into,
-          archived
         } = this.state;
 
         const {employeeallowances} = this.props;
@@ -272,80 +266,80 @@ export class EmployeePayDeductionForm extends Component{
                       />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
-                    <Dropdown 
+                    <Dropdown
                       placeholder ="SELECT DEDUCTION METHOD"
                       value={deduction_method}
                       onChange={this.onDeductionMethods}
                       options={employeedeductionmethods}
-                      filter={true} 
-                      filterBy="id,name" 
+                      filter={true}
+                      filterBy="id,name"
                       showClear={true}
-                      optionLabel="value" 
+                      optionLabel="value"
                       optionValue="key"
                     />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
-                    <Dropdown 
+                    <Dropdown
                       placeholder ="SELECT BENEFITS"
                       value={benefits}
                       onChange={this.onBenefits}
                       options={employeeallowances}
-                      filter={true} 
-                      filterBy="id,name" 
+                      filter={true}
+                      filterBy="id,name"
                       showClear={true}
-                      optionLabel="name" 
+                      optionLabel="name"
                       optionValue="id"
                     />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
-                    <Dropdown 
+                    <Dropdown
                       placeholder ="SELECT COMMISSION"
                       value={commission}
                       onChange={this.onCommission}
                       options={employeepaycommissionrules}
-                      filter={true} 
-                      filterBy="id,name" 
+                      filter={true}
+                      filterBy="id,name"
                       showClear={true}
-                      optionLabel="name" 
+                      optionLabel="name"
                       optionValue="id"
                     />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
-                    <Dropdown 
+                    <Dropdown
                       placeholder ="SELECT PAYROLL TAXES"
                       value={payroll_taxes}
                       onChange={this.onPayrollTaxes}
                       options={employeepayrolltaxes}
-                      filter={true} 
-                      filterBy="id,name" 
+                      filter={true}
+                      filterBy="id,name"
                       showClear={true}
-                      optionLabel="name" 
+                      optionLabel="name"
                       optionValue="id"
                     />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
-                    <Dropdown 
+                    <Dropdown
                       placeholder ="SELECT LIABILITY ACCOUNT"
                       value={liability_account}
                       onChange={this.onLiabilityAccount}
                       options={accounts}
-                      filter={true} 
-                      filterBy="id,name" 
+                      filter={true}
+                      filterBy="id,name"
                       showClear={true}
-                      optionLabel="name" 
+                      optionLabel="name"
                       optionValue="id"
                     />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
-                    <Dropdown 
+                    <Dropdown
                       placeholder ="SELECT ACCOUNT PAID INTO"
                       value={account_paid_into}
                       onChange={this.onAccountPaidInto}
                       options={accounts}
-                      filter={true} 
-                      filterBy="id,name" 
+                      filter={true}
+                      filterBy="id,name"
                       showClear={true}
-                      optionLabel="name" 
+                      optionLabel="name"
                       optionValue="id"
                     />
                   </div>
@@ -355,7 +349,7 @@ export class EmployeePayDeductionForm extends Component{
                       inputId="working"
                       onChange={this.onTaxDeductable}
                       checked={this.state.tax_deductable}
-                    /> 
+                    />
                   </div>
                   <div className="p-field p-col-12 p-md-6 p-formgroup-inline">
                     <label>BASIC INCOME :</label>
@@ -363,7 +357,7 @@ export class EmployeePayDeductionForm extends Component{
                       inputId="working"
                       onChange={this.onBasicIncome}
                       checked={this.state.basic_income}
-                    /> 
+                    />
                   </div>
                   <div className="p-field p-col-12 p-md-6 p-formgroup-inline">
                     <label>HOURLY INCOME :</label>
@@ -371,7 +365,7 @@ export class EmployeePayDeductionForm extends Component{
                       inputId="working"
                       onChange={this.onHourlyIncome}
                       checked={this.state.hourly_income}
-                    /> 
+                    />
                   </div>
                   <div className="p-field p-col-12 p-md-6 p-formgroup-inline">
                     <label>OVERTIME INCOME :</label>
@@ -379,7 +373,7 @@ export class EmployeePayDeductionForm extends Component{
                       inputId="working"
                       onChange={this.onOvertimeIncome}
                       checked={this.state.overtime_income}
-                    /> 
+                    />
                   </div>
                   <div className="p-field p-col-12 p-md-12 p-formgroup-inline">
                     <label>ARCHIVED :</label>
@@ -387,7 +381,7 @@ export class EmployeePayDeductionForm extends Component{
                       inputId="working"
                       onChange={this.onArchived}
                       checked={this.state.archived}
-                    /> 
+                    />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
                     <Button label="Submit" className="p-button-success p-button-rounded" />
@@ -408,12 +402,12 @@ const mapStateToProps = state =>({
 })
 
 export default connect(
-        mapStateToProps, 
+        mapStateToProps,
         {
           getEmployeeAllowances,
           getEmployeePayCommissionRules,
           getEmployeePayrollTaxes,
           getAccounts,
-          getEmployeeDeductionMethods, 
+          getEmployeeDeductionMethods,
           addEmployeePayDeduction })
         (EmployeePayDeductionForm);

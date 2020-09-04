@@ -11,7 +11,7 @@ import { getInventoryOrders } from '..//../actions/inventoryorders';
 import { addDebitNote } from '..//../actions/debitnotes';
 import {Calendar} from "primereact/calendar";
 import PropTypes from 'prop-types';
-import DebitNoteLines from './DebitNoteLine';
+import DebitNoteLines from './DebitNoteLines';
 
 class DebitNoteForm extends Component {
     constructor(props){

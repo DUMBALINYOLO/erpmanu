@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addProcessedProductStockAdjustment } from '../../actions/processedproductstockadjustments';
-import { getWarehouseItems } from '../../actions/warehouseitems';
+import { getManufacturedStockItems } from '../../actions/manufacturedstockitems';
 import PropTypes from 'prop-types';
 import 'primeicons/primeicons.css';
 import 'primereact/resources/themes/nova-light/theme.css';
@@ -13,12 +13,13 @@ import {Dropdown} from 'primereact/dropdown';
 import {InputNumber} from 'primereact/inputnumber';
 
 
+
 export class ProcessedProductStockAdjustmentForm extends Component{
     constructor(props){
     super(props);
     this.state = {
-        warehouse_item: null, 
-        adjustment: '', 
+        warehouse_item: null,
+        adjustment: '',
         note: '',
       }
       this.onChange = this.onChange.bind(this);
@@ -34,20 +35,20 @@ export class ProcessedProductStockAdjustmentForm extends Component{
 
     onSubmit = (e) => {
       e.preventDefault();
-      const { 
-        warehouse_item, 
-        adjustment, 
-        note, 
+      const {
+        warehouse_item,
+        adjustment,
+        note,
       } = this.state;
-      const processedproductstockadjustment = { 
-        warehouse_item, 
-        adjustment, 
-        note,  
+      const processedproductstockadjustment = {
+        warehouse_item,
+        adjustment,
+        note,
       };
       this.props.addProcessedProductStockAdjustment(processedproductstockadjustment);
       this.setState({
-        warehouse_item: '', 
-        adjustment: '', 
+        warehouse_item: '',
+        adjustment: '',
         note: '',
       });
       this.props.history.push('/processedproductstockadjustments');
@@ -55,23 +56,23 @@ export class ProcessedProductStockAdjustmentForm extends Component{
 
     static propTypes = {
         addProcessedProductStockAdjustment: PropTypes.func.isRequired,
-        getWarehouseItems: PropTypes.func.isRequired,
+        getManufacturedStockItems: PropTypes.func.isRequired,
     }
 
     componentDidMount() {
-      this.props.getWarehouseItems()
+      this.props.getManufacturedStockItems()
     }
 
 
     render() {
 
-        const { 
-          warehouse_item, 
-          adjustment, 
-          note, 
+        const {
+          warehouse_item,
+          adjustment,
+          note,
         } = this.state;
 
-        const { warehouseitems } = this.props;
+        const { manufacturedstockitems } = this.props;
 
         return (
             <div className="card card-body mt-4 mb-4">
@@ -102,21 +103,21 @@ export class ProcessedProductStockAdjustmentForm extends Component{
                     />
                   </div>
                   <div className="p-field p-col-12 p-md-12">
-                    <Dropdown 
+                    <Dropdown
                       placeholder ="SELECT WAREHOUSE ITEM"
                       value={warehouse_item}
                       onChange={this.onWarehouseItem}
-                      options={warehouseitems}
-                      filter={true} 
-                      filterBy="id,name" 
+                      options={manufacturedstockitems}
+                      filter={true}
+                      filterBy="id,name"
                       showClear={true}
-                      optionLabel="name" 
+                      optionLabel="name"
                       optionValue="id"
                     />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
                     <Button label="Submit" className="p-button-success p-button-rounded" />
-                  </div>         
+                  </div>
                 </div>
              </form>
          </div>
@@ -125,7 +126,7 @@ export class ProcessedProductStockAdjustmentForm extends Component{
 }
 
 const mapStateToProps = state =>({
-    warehouseitems: state.warehouseitems.warehouseitems,
+    manufacturedstockitems: state.manufacturedstockitems.manufacturedstockitems,
 })
 
-export default connect(mapStateToProps, { getWarehouseItems, addProcessedProductStockAdjustment })(ProcessedProductStockAdjustmentForm);
+export default connect(mapStateToProps, { getManufacturedStockItems, addProcessedProductStockAdjustment })(ProcessedProductStockAdjustmentForm);

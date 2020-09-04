@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addConsumable } from '..//../actions/consumables';
-import { getInventoryTypeChoices, getUnitOfMeasureChoices } from '..//../actions/choices';
-import { getSuppliers } from '..//../actions/suppliers';
+import { getInventoryTypesChoices, getUnitOfMeasureChoices } from '..//../actions/choices';
+import { getActiveSuppliers } from '..//../actions/activesuppliers';
 import { getInventoryCategories } from '..//../actions/inventorycategories';
 import PropTypes from 'prop-types';
 import 'primeicons/primeicons.css';
@@ -112,16 +112,16 @@ export class ConsumableForm extends Component{
 
     static propTypes = {
         addConsumable: PropTypes.func.isRequired,
-        getInventoryTypeChoices: PropTypes.func.isRequired,
+        getInventoryTypesChoices: PropTypes.func.isRequired,
         getUnitOfMeasureChoices: PropTypes.func.isRequired,
-        getSuppliers: PropTypes.func.isRequired,
+        getActiveSuppliers: PropTypes.func.isRequired,
         getInventoryCategories: PropTypes.func.isRequired,
     }
 
     componentDidMount() {
-        this.props.getInventoryTypeChoices();
+        this.props.getInventoryTypesChoices();
         this.props.getUnitOfMeasureChoices();
-        this.props.getSuppliers();
+        this.props.getActiveSuppliers();
         this.props.getInventoryCategories();
     }
 
@@ -141,10 +141,10 @@ export class ConsumableForm extends Component{
             maximum_stock_level,
         } = this.state;
 
-        const {inventorytypechoices} = this.props;
+        const {inventorytypeschoices} = this.props;
         const {inventorycategories} = this.props;
         const {unitofmeasurechoices} = this.props;
-        const {suppliers} = this.props;
+        const {activesuppliers} = this.props;
 
         return (
             <div className="card card-body mt-4 mb-4">
@@ -266,7 +266,7 @@ export class ConsumableForm extends Component{
                             placeholder ="SELECT TYPE"
                             value={type}
                             onChange={this.onType}
-                            options={inventorytypechoices}
+                            options={inventorytypeschoices}
                             filter={true}
                             filterBy="id,name"
                             showClear={true}
@@ -305,7 +305,7 @@ export class ConsumableForm extends Component{
                             placeholder ="SELECT SUPPLIER"
                             value={supplier}
                             onChange={this.onSupplier}
-                            options={suppliers}
+                            options={activesuppliers}
                             filter={true}
                             filterBy="id,name"
                             showClear={true}
@@ -324,13 +324,13 @@ export class ConsumableForm extends Component{
 }
 
 const mapStateToProps = state =>({
-    inventorytypechoices: state.inventorytypechoices.inventorytypechoices,
+    inventorytypeschoices: state.inventorytypeschoices.inventorytypeschoices,
     unitofmeasurechoices: state.unitofmeasurechoices.unitofmeasurechoices,
-    suppliers: state.suppliers.suppliers,
+    activesuppliers: state.activesuppliers.activesuppliers,
     inventorycategories: state.inventorycategories.inventorycategories,
 })
 
 export default connect(
       mapStateToProps,
-      {getInventoryTypeChoices, getInventoryCategories, getUnitOfMeasureChoices, getSuppliers, addConsumable })
+      {getInventoryTypesChoices, getInventoryCategories, getUnitOfMeasureChoices, getActiveSuppliers, addConsumable })
       (ConsumableForm);

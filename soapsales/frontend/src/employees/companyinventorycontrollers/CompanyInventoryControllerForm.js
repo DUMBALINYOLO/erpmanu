@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addCompanyInventoryController } from '..//../actions/companyinventorycontrollers';
 import PropTypes from 'prop-types';
-import { getPayGrades } from '..//../actions/paygrades';
+import { getEmployeePaygrades } from '..//../actions/employeepaygrades';
 import { getEmployeesTypeChoices, getEmployeesGenderChoices } from '..//../actions/choices';
 import 'primeicons/primeicons.css';
 import 'primereact/resources/themes/nova-light/theme.css';
@@ -122,13 +122,13 @@ class CompanyInventoryControllerForm extends Component{
         addCompanyInventoryController: PropTypes.func.isRequired,
         getEmployeesTypeChoices: PropTypes.func.isRequired,
         getEmployeesGenderChoices: PropTypes.func.isRequired,
-        getPayGrades: PropTypes.func.isRequired,
+        getEmployeePaygrades: PropTypes.func.isRequired,
     }
 
     componentDidMount() {
         this.props.getEmployeesTypeChoices()
         this.props.getEmployeesGenderChoices()
-        this.props.getPayGrades()
+        this.props.getEmployeePaygrades()
     }
 
     render() {
@@ -146,12 +146,11 @@ class CompanyInventoryControllerForm extends Component{
 			pay_grade,
 			leave_days,
 			last_leave_day_increment,
-			uses_timesheet,
         } = this.state;
 
         const { employeestypechoices } = this.props;
         const { employeesgenderchoices } = this.props;
-        const { paygrades } = this.props;
+        const { employeepaygrades } = this.props;
 
         return (
             <div className="card card-body mt-4 mb-4">
@@ -307,7 +306,7 @@ class CompanyInventoryControllerForm extends Component{
                         <Dropdown
                             value={pay_grade}
                             onChange={this.onPayGrade}
-                            options={paygrades}
+                            options={employeepaygrades}
                             filter={true}
                             filterBy="id,name"
                             showClear={true}
@@ -331,6 +330,6 @@ class CompanyInventoryControllerForm extends Component{
 const mapStateToProps = state =>({
     employeestypechoices: state.employeestypechoices.employeestypechoices,
     employeesgenderchoices: state.employeesgenderchoices.employeesgenderchoices,
-    paygrades: state.paygrades.paygrades
+    employeepaygrades: state.employeepaygrades.employeepaygrades
 })
-export default connect(mapStateToProps, {getEmployeesTypeChoices, getEmployeesGenderChoices, getPayGrades, addCompanyInventoryController})(CompanyInventoryControllerForm);
+export default connect(mapStateToProps, {getEmployeesTypeChoices, getEmployeesGenderChoices, getEmployeePaygrades, addCompanyInventoryController})(CompanyInventoryControllerForm);

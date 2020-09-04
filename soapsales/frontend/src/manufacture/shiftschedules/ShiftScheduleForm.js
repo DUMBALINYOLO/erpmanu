@@ -8,7 +8,6 @@ import 'primereact/resources/primereact.css';
 import 'primeflex/primeflex.css';
 import {InputText} from 'primereact/inputtext';
 import {Button} from 'primereact/button';
-import {Dropdown} from 'primereact/dropdown';
 
 export class ShiftScheduleForm extends Component{
     constructor(props){
@@ -17,17 +16,17 @@ export class ShiftScheduleForm extends Component{
         name: '',
       }
       this.onChange = this.onChange.bind(this);
-      this.onSubmit = this.onSubmit.bind(this);      
+      this.onSubmit = this.onSubmit.bind(this);
     }
 
     onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
     onSubmit = (e) => {
       e.preventDefault();
-      const { 
+      const {
         name
       } = this.state;
-      const shiftschedule = { 
+      const shiftschedule = {
         name
       };
       this.props.addShiftSchedule(shiftschedule);
@@ -41,7 +40,7 @@ export class ShiftScheduleForm extends Component{
         addShiftSchedule: PropTypes.func.isRequired    }
 
     render() {
-        const { 
+        const {
           name
         } = this.state;
 

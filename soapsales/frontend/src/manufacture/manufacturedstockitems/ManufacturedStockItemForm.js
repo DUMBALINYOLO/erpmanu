@@ -3,15 +3,15 @@ import { connect } from 'react-redux';
 import { addManufacturedStockItem } from '..//../actions/manufacturedstockitems';
 import {getProcessProducts} from "..//../actions/processproducts";
 import {getWarehouses} from "..//../actions/warehouses";
-import {getStorageMedias} from "..//../actions/storagemedias";
+import {getStoragemedias} from "..//../actions/storagemedias";
 import PropTypes from 'prop-types';
 import 'primeicons/primeicons.css';
 import 'primereact/resources/themes/nova-light/theme.css';
 import 'primereact/resources/primereact.css';
 import 'primeflex/primeflex.css';
-import {InputText} from 'primereact/inputtext';
 import {Button} from 'primereact/button';
 import {Dropdown} from 'primereact/dropdown';
+import {InputNumber} from 'primereact/inputnumber';
 
 export class ManufacturedStockItemForm extends Component{
     constructor(props){
@@ -71,13 +71,13 @@ export class ManufacturedStockItemForm extends Component{
         addManufacturedStockItem: PropTypes.func.isRequired,
         getProcessProducts: PropTypes.func.isRequired,
         getWarehouses: PropTypes.func.isRequired,
-        getStorageMedias: PropTypes.func.isRequired,
+        getStoragemedias: PropTypes.func.isRequired,
     }
 
     componentDidMount() {
         this.props.getProcessProducts()
         this.props.getWarehouses()
-        this.props.getStorageMedias()
+        this.props.getStoragemedias()
     }
 
 
@@ -173,4 +173,4 @@ const mapStateToProps = state =>({
     storagemedias: state.storagemedias.storagemedias
 })
 
-export default connect(mapStateToProps, { getProcessProducts, getWarehouses, getStorageMedias, addManufacturedStockItem })(ManufacturedStockItemForm);
+export default connect(mapStateToProps, { getProcessProducts, getWarehouses, getStoragemedias, addManufacturedStockItem })(ManufacturedStockItemForm);

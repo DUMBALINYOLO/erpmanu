@@ -11,7 +11,6 @@ import 'primeflex/primeflex.css';
 import {Dropdown} from 'primereact/dropdown';
 import {InputText} from 'primereact/inputtext';
 import {Button} from 'primereact/button';
-import {InputTextarea} from 'primereact/inputtextarea';
 import {Checkbox} from 'primereact/checkbox';
 
 
@@ -68,7 +67,6 @@ class ActiveSupplierForm extends Component{
             name,
 			is_organization,
             is_individual,
-			banking_details,
 			website,
 			bp_number,
 			email,
@@ -82,7 +80,6 @@ class ActiveSupplierForm extends Component{
             name,
 			is_organization,
             is_individual,
-			banking_details,
 			website,
 			bp_number,
 			email,
@@ -97,7 +94,6 @@ class ActiveSupplierForm extends Component{
             name: '',
 			is_organization: true,
             is_individual: true,
-			banking_details: '',
 			website: '',
 			bp_number: '',
 			email: '',
@@ -124,9 +120,6 @@ class ActiveSupplierForm extends Component{
     render() {
         const {
             name,
-			is_organization,
-            is_individual,
-			banking_details,
 			website,
 			bp_number,
 			email,
@@ -153,16 +146,6 @@ class ActiveSupplierForm extends Component{
                                 value={name}
                             />
                             <label htmlFor="inputtext">Name</label>
-                        </span>
-                    </div>
-                    <div className="p-field p-col-12 p-md-6">
-                        <span className="p-float-label">
-                            <InputText
-                                name="customer_number"
-                                onChange={this.onChange}
-                                value={customer_number}
-                            />
-                            <label htmlFor="inputtext">Customer Number</label>
                         </span>
                     </div>
                     <div className="p-field p-col-12 p-md-6">

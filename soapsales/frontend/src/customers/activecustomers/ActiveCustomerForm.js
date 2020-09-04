@@ -117,8 +117,6 @@ class ActiveCustomerForm extends Component{
     render() {
         const {
             name,
-			is_organization,
-            is_individual,
 			banking_details,
 			website,
 			bp_number,
@@ -144,16 +142,6 @@ class ActiveCustomerForm extends Component{
                                 value={name}
                             />
                             <label htmlFor="inputtext">Name</label>
-                        </span>
-                    </div>
-                    <div className="p-field p-col-12 p-md-6">
-                        <span className="p-float-label">
-                            <InputText
-                                name="customer_number"
-                                onChange={this.onChange}
-                                value={customer_number}
-                            />
-                            <label htmlFor="inputtext">Customer Number</label>
                         </span>
                     </div>
                     <div className="p-field p-col-12 p-md-6">

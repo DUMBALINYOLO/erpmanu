@@ -21,7 +21,7 @@ export class EmployeePayCommissionRuleForm extends Component{
         archived: false,
       }
       this.onChange = this.onChange.bind(this);
-      this.onSubmit = this.onSubmit.bind(this);      
+      this.onSubmit = this.onSubmit.bind(this);
       this.onArchived = this.onArchived.bind(this);
     }
 
@@ -53,7 +53,7 @@ export class EmployeePayCommissionRuleForm extends Component{
 
 
     render() {
-        const { name, min_sales, rate, archived } = this.state;
+        const { name, min_sales, rate } = this.state;
         return (
             <div className="card card-body mt-4 mb-4">
               <h2>Add Employee Pay Commission Rule</h2>
@@ -105,7 +105,7 @@ export class EmployeePayCommissionRuleForm extends Component{
                       inputId="working"
                       onChange={this.onArchived}
                       checked={this.state.archived}
-                    /> 
+                    />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
                     <Button label="Submit" className="p-button-success p-button-rounded" />

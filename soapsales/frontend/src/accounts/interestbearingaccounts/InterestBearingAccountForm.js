@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addInterestBearingAccount } from '..//../actions/interestbearingaccounts';
+import { getAccounts } from '..//../actions/accounts';
 import PropTypes from 'prop-types';
 import { getAccountTypeChoices, getAccountBalanceSheetCategoriesChoices, getInterestIntervalAccountChoices, getAccountInterestMethodChoices } from '..//../actions/choices';
 import 'primeicons/primeicons.css';
@@ -149,10 +150,8 @@ class InterestBearingAccountForm extends Component{
             balance,
             type,
             description,
-            control_account,
             parent_account,
             balance_sheet_category,
-            active,
             interest_rate,
             interest_interval,
             interest_method,

@@ -13,7 +13,6 @@ import 'primereact/resources/primereact.css';
 import 'primeflex/primeflex.css';
 import {InputText} from 'primereact/inputtext';
 import {Button} from 'primereact/button';
-import {InputTextarea} from 'primereact/inputtextarea';
 import {Dropdown} from 'primereact/dropdown';
 import {Checkbox} from 'primereact/checkbox';
 import {InputNumber} from 'primereact/inputnumber';
@@ -57,33 +56,33 @@ export class EmployeePaygradeForm extends Component{
 
     onPayFrequency (e){
       this.setState({pay_frequency: e.value})
-    } 
+    }
 
     onCommission (e){
       this.setState({commission: e.value})
-    } 
+    }
 
     onAllowances (e){
       this.setState({allowances: e.value})
-    } 
+    }
 
     onDeductions (e){
       this.setState({deductions: e.value})
-    } 
+    }
 
     onPayrollTaxes (e){
       this.setState({payroll_taxes: e.value})
-    } 
+    }
 
     onLunchDuration (e){
       this.setState({lunch_duration: e.value})
-    }      
+    }
 
     onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
     onSubmit = (e) => {
       e.preventDefault();
-      const { 
+      const {
         name,
         salary,
         pay_frequency,
@@ -99,7 +98,7 @@ export class EmployeePaygradeForm extends Component{
         lunch_duration,
         maximum_leave_days,
       } = this.state;
-      const employeepaygrade = { 
+      const employeepaygrade = {
         name,
         salary,
         pay_frequency,
@@ -155,7 +154,7 @@ export class EmployeePaygradeForm extends Component{
       this.props.getEmployeeLunchChoices()
     }
     render() {
-        const { 
+        const {
           name,
           salary,
           pay_frequency,
@@ -167,7 +166,6 @@ export class EmployeePaygradeForm extends Component{
           allowances,
           deductions,
           payroll_taxes,
-          subtract_lunch_time_from_working_hours,
           lunch_duration,
           maximum_leave_days,
         } = this.state;
@@ -283,80 +281,80 @@ export class EmployeePaygradeForm extends Component{
                     />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
-                    <Dropdown 
+                    <Dropdown
                       placeholder ="SELECT PAY FREQUENCY"
                       value={pay_frequency}
                       onChange={this.onPayFrequency}
                       options={employeepayfrequencies}
-                      filter={true} 
-                      filterBy="id,name" 
+                      filter={true}
+                      filterBy="id,name"
                       showClear={true}
-                      optionLabel="value" 
+                      optionLabel="value"
                       optionValue="key"
                     />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
-                    <Dropdown 
+                    <Dropdown
                       placeholder ="SELECT COMMISSION"
                       value={commission}
                       onChange={this.onCommission}
                       options={employeepaycommissionrules}
-                      filter={true} 
-                      filterBy="id,name" 
+                      filter={true}
+                      filterBy="id,name"
                       showClear={true}
-                      optionLabel="name" 
+                      optionLabel="name"
                       optionValue="id"
                     />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
-                    <Dropdown 
+                    <Dropdown
                       placeholder ="SELECT ALLOWANCES"
                       value={allowances}
                       onChange={this.onAllowances}
                       options={employeeallowances}
-                      filter={true} 
-                      filterBy="id,name" 
+                      filter={true}
+                      filterBy="id,name"
                       showClear={true}
-                      optionLabel="name" 
+                      optionLabel="name"
                       optionValue="id"
                     />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
-                    <Dropdown 
+                    <Dropdown
                       placeholder ="SELECT DEDUCTIONS"
                       value={deductions}
                       onChange={this.onDeductions}
                       options={employeepaydeductions}
-                      filter={true} 
-                      filterBy="id,name" 
+                      filter={true}
+                      filterBy="id,name"
                       showClear={true}
-                      optionLabel="name" 
+                      optionLabel="name"
                       optionValue="id"
                     />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
-                    <Dropdown 
+                    <Dropdown
                       placeholder ="SELECT PAYROLL TAX"
                       value={payroll_taxes}
                       onChange={this.onPayrollTaxes}
                       options={employeepayrolltaxes}
-                      filter={true} 
-                      filterBy="id,name" 
+                      filter={true}
+                      filterBy="id,name"
                       showClear={true}
-                      optionLabel="name" 
+                      optionLabel="name"
                       optionValue="id"
                     />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
-                    <Dropdown 
+                    <Dropdown
                       placeholder ="SELECT LUNCH DURATION"
                       value={lunch_duration}
                       onChange={this.onLunchDuration}
                       options={employeelunchchoices}
-                      filter={true} 
-                      filterBy="id,name" 
+                      filter={true}
+                      filterBy="id,name"
                       showClear={true}
-                      optionLabel="value" 
+                      optionLabel="value"
                       optionValue="key"
                     />
                   </div>
@@ -366,7 +364,7 @@ export class EmployeePaygradeForm extends Component{
                       inputId="working"
                       onChange={this.onCheck}
                       checked={this.state.subtract_lunch_time_from_working_hours}
-                    />                        
+                    />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
                     <Button label="Submit" className="p-button-success p-button-rounded" />
@@ -388,7 +386,7 @@ const mapStateToProps = state =>({
 })
 
 export default connect(
-        mapStateToProps, 
+        mapStateToProps,
         {
           getEmployeePayCommissionRules,
           getEmployeeAllowances,

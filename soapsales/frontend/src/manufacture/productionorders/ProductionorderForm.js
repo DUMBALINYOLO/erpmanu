@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addProductionorder } from '../../actions/productionorders';
-import { getCustomers } from '../../actions/customers';
+import { addProductionOrder } from '../../actions/productionorders';
+import { getActiveCustomers } from '../../actions/activecustomers';
 import { getProcesses } from '../../actions/process';
-import { getInventoryitems } from '../../actions/inventoryitems';
+import { getInventoryStockItems } from '../../actions/inventorystockitems';
 import 'primeicons/primeicons.css';
 import 'primereact/resources/themes/nova-light/theme.css';
 import 'primereact/resources/primereact.css';
@@ -14,7 +14,7 @@ import {Dropdown} from 'primereact/dropdown';
 import PropTypes from 'prop-types';
 import {Checkbox} from 'primereact/checkbox';
 
-export class ProductionorderForm extends Component{
+class ProductionOrderForm extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -49,15 +49,15 @@ export class ProductionorderForm extends Component{
 
     onCustomer (e){
       this.setState({customer: e.value})
-    } 
+    }
 
     onProcess (e){
       this.setState({process: e.value})
-    } 
+    }
 
     onProduct (e){
       this.setState({product: e.value})
-    } 
+    }
 
     onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
@@ -65,7 +65,7 @@ export class ProductionorderForm extends Component{
       e.preventDefault();
       const { customer, process, product, due, date } = this.state;
       const productionorders = { customer, product, process, due, date };
-      this.props.addProductionorder(productionorders);
+      this.props.addProductionOrder(productionorders);
       this.setState({
             customer: '',
             process: '',
@@ -78,24 +78,24 @@ export class ProductionorderForm extends Component{
     };
 
     static propTypes = {
-        addProductionorder: PropTypes.func.isRequired,
-        getCustomers: PropTypes.func.isRequired,
+        addProductionOrder: PropTypes.func.isRequired,
+        getActiveCustomers: PropTypes.func.isRequired,
         getProcesses: PropTypes.func.isRequired,
-        getInventoryitems: PropTypes.func.isRequired,
+        getInventoryStockItems: PropTypes.func.isRequired,
     }
 
     componentDidMount() {
-      this.props.getCustomers()
+      this.props.getActiveCustomers()
       this.props.getProcesses()
-      this.props.getInventoryitems()
+      this.props.getInventoryStockItems()
 
     }
 
     render() {
         const { customer, process, product, due, date } = this.state;
-        const { customers } = this.props;
+        const { activecustomers } = this.props;
         const { processes } = this.props;
-        const { inventoryitems } = this.props;
+        const { inventorystockitems } = this.props;
 
         return (
             <div className="card card-body mt-4 mb-4">
@@ -125,41 +125,41 @@ export class ProductionorderForm extends Component{
                     />
                 </div>
                 <div className="p-field p-col-12 p-md-6">
-                  <Dropdown 
+                  <Dropdown
                     placeholder ="SELECT CUSTOMER"
                     value={customer}
                     onChange={this.onCustomer}
                     options={customer}
-                    filter={true} 
-                    filterBy="id,name" 
+                    filter={true}
+                    filterBy="id,name"
                     showClear={true}
-                    optionLabel="name" 
+                    optionLabel="name"
                     optionValue="id"
                   />
                 </div>
                 <div className="p-field p-col-12 p-md-6">
-                  <Dropdown 
+                  <Dropdown
                     placeholder ="SELECT PROCESS"
                     value={process}
                     onChange={this.onProcess}
                     options={processes}
-                    filter={true} 
-                    filterBy="id,name" 
+                    filter={true}
+                    filterBy="id,name"
                     showClear={true}
-                    optionLabel="name" 
+                    optionLabel="name"
                     optionValue="id"
                   />
                 </div>
                 <div className="p-field p-col-12 p-md-6">
-                  <Dropdown 
+                  <Dropdown
                     placeholder ="SELECT PRODUCT"
                     value={product}
                     onChange={this.onProduct}
-                    options={inventoryitems}
-                    filter={true} 
-                    filterBy="id,name" 
+                    options={inventorystockitems}
+                    filter={true}
+                    filterBy="id,name"
                     showClear={true}
-                    optionLabel="name" 
+                    optionLabel="name"
                     optionValue="id"
                   />
                 </div>
@@ -169,7 +169,7 @@ export class ProductionorderForm extends Component{
                     inputId="working"
                     onChange={this.handleFinished}
                     checked={this.state.finished}
-                  /> 
+                  />
                 </div>
                 <div className="p-field p-col-12 p-md-6 p-formgroup-inline">
                   <label>IS CONFIRMED ORDER :</label>
@@ -177,7 +177,7 @@ export class ProductionorderForm extends Component{
                     inputId="working"
                     onChange={this.handleIsConfirmedOrder}
                     checked={this.state.is_confirmed_order}
-                  /> 
+                  />
                 </div>
                 <div className="p-field p-col-12 p-md-6">
                   <Button label="Submit" className="p-button-success p-button-rounded" />
@@ -190,9 +190,9 @@ export class ProductionorderForm extends Component{
 }
 
 const mapStateToProps = state =>({
-    customers: state.customers.customers,
+    activecustomers: state.activecustomers.activecustomers,
     processes: state.processes.processes,
-    inventoryitems: state.inventoryitems.inventoryitems
+    inventorystockitems: state.inventorystockitems.inventorystockitems
 })
 
-export default connect(mapStateToProps, {getCustomers, getProcesses, getInventoryitems, addProductionorder })(ProductionorderForm);
+export default connect(mapStateToProps, {getActiveCustomers, getProcesses, getInventoryStockItems, addProductionOrder })(ProductionOrderForm);

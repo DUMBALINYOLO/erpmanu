@@ -6,7 +6,6 @@ import 'primeflex/primeflex.css';
 import {Button} from 'primereact/button';
 import { connect } from 'react-redux';
 import { getAccounts} from '..//../actions/accounts';
-import {InputNumber} from 'primereact/inputnumber';
 
 
 const BillLines = (props) => {
@@ -15,7 +14,7 @@ const BillLines = (props) => {
             props.getAccounts();
         }
         console.log('mount it!');
-    }, []);
+    }, [props]);
 
     const { accounts } = props;
 

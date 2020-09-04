@@ -8,9 +8,7 @@ import 'primeicons/primeicons.css';
 import 'primereact/resources/themes/nova-light/theme.css';
 import 'primereact/resources/primereact.css';
 import 'primeflex/primeflex.css';
-import {InputText} from 'primereact/inputtext';
 import {Button} from 'primereact/button';
-import {InputTextarea} from 'primereact/inputtextarea';
 import {InputNumber} from 'primereact/inputnumber';
 import {Dropdown} from 'primereact/dropdown';
 import {Checkbox} from 'primereact/checkbox';
@@ -103,7 +101,6 @@ export class InventoryStockItemForm extends Component{
             quantity,
             warehouse,
             location,
-            verified
         } = this.state;
 
         const {inventorystockitems} = this.props;

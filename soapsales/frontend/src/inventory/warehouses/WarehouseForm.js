@@ -204,7 +204,7 @@ export class WarehouseForm extends Component{
                             optionLabel="id_number"
                             optionValue="id"
                         />
-                        <label htmlFor="dropdown">SELECT INVENTORY CONTROLLER/label>
+                        <label htmlFor="dropdown">SELECT INVENTORY CONTROLLER</label>
                         </span>
                     </div>
                     <div className="p-field p-col-12 p-md-6">

@@ -8,7 +8,7 @@ import {Dropdown} from 'primereact/dropdown';
 import {InputText} from 'primereact/inputtext';
 import {Button} from 'primereact/button';
 import {InputTextarea} from 'primereact/inputtextarea';
-import { getSuppliers} from '..//../actions/suppliers';
+import { getActiveSuppliers} from '..//../actions/activesuppliers';
 import { addBill} from '..//../actions/bills';
 import {Calendar} from "primereact/calendar";
 import PropTypes from 'prop-types';
@@ -106,11 +106,11 @@ class BillForm extends Component {
 
     static propTypes = {
         addBill: PropTypes.func.isRequired,
-        getSuppliers: PropTypes.func.isRequired,
+        getActiveSuppliers: PropTypes.func.isRequired,
     }
 
     componentDidMount() {
-        this.props.getSuppliers();
+        this.props.getActiveSuppliers();
     }
 
     render = () => {
@@ -124,7 +124,7 @@ class BillForm extends Component {
 
         let { lines } = this.state
 
-        const { suppliers } = this.props;
+        const { activesuppliers } = this.props;
 
     return (
       <div className="card card-body mt-4 mb-4">
@@ -182,7 +182,7 @@ class BillForm extends Component {
                 <Dropdown
                     value={vendor}
                     onChange={this.onVendor}
-                    options={suppliers}
+                    options={activesuppliers}
                     filter={true}
                     filterBy="id,name"
                     showClear={true}
@@ -220,7 +220,7 @@ class BillForm extends Component {
 }
 
 const mapStateToProps = state =>({
-    suppliers: state.suppliers.suppliers
+    activesuppliers: state.activesuppliers.activesuppliers
 })
 
-export default connect(mapStateToProps, {getSuppliers, addBill})(BillForm);
+export default connect(mapStateToProps, {getActiveSuppliers, addBill})(BillForm);

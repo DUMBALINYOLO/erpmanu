@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import uuidv4 from 'uuid/v4'
 import 'primeicons/primeicons.css';
 import 'primereact/resources/themes/nova-light/theme.css';
 import 'primereact/resources/primereact.css';
@@ -9,8 +8,8 @@ import {Dropdown} from 'primereact/dropdown';
 import {InputText} from 'primereact/inputtext';
 import {Button} from 'primereact/button';
 import {InputTextarea} from 'primereact/inputtextarea';
-import { getInventoryControllers } from '..//../actions/inventorycontrollers';
-import { getSuppliers } from '..//../actions/suppliers';
+import { getEmployees } from '..//../actions/employees';
+import { getActiveSuppliers } from '..//../actions/activesuppliers';
 import { getWarehouses } from '..//../actions/warehouses';
 import { getInventoryOrderStatusChoices } from '..//../actions/choices';
 import { addInventoryOrder } from '..//../actions/inventoryorders';
@@ -19,6 +18,7 @@ import {Calendar} from "primereact/calendar";
 import {InputNumber} from 'primereact/inputnumber';
 import PropTypes from 'prop-types';
 import OrderItems from './OrderItems';
+
 
 
 class InventoryOrderForm extends Component {
@@ -182,17 +182,17 @@ class InventoryOrderForm extends Component {
 
     static propTypes = {
         addInventoryOrder: PropTypes.func.isRequired,
-        getSuppliers: PropTypes.func.isRequired,
-        getInventoryControllers: PropTypes.func.isRequired,
+        getActiveSuppliers: PropTypes.func.isRequired,
+        getEmployees: PropTypes.func.isRequired,
         getInventoryOrderStatusChoices: PropTypes.func.isRequired,
         getWarehouses: PropTypes.func.isRequired,
         getTaxes: PropTypes.func.isRequired,
     }
 
   componentDidMount() {
-    this.props.getInventoryControllers();
+    this.props.getEmployees();
     this.props.getWarehouses();
-    this.props.getSuppliers();
+    this.props.getActiveSuppliers();
     this.props.getInventoryOrderStatusChoices()
     this.props.getTaxes()
   }
@@ -218,9 +218,9 @@ class InventoryOrderForm extends Component {
 
     let { lines } = this.state
 
-    const { suppliers } = this.props;
+    const { activesuppliers } = this.props;
     const { warehouses } = this.props;
-    const { inventorycontrollers } = this.props;
+    const { employees } = this.props;
     const { inventoryorderstatuschoices } = this.props;
     const { taxes } = this.props;
 
@@ -337,11 +337,11 @@ class InventoryOrderForm extends Component {
                 placeholder ="SELECT VALIDATED BY"
                 value={validated_by}
                 onChange={this.onValidatedBy}
-                options={inventorycontrollers}
+                options={employees}
                 filter={true}
                 filterBy="id,name"
                 showClear={true}
-                optionLabel="employee"
+                optionLabel="id_number"
                 optionValue="id"
               />
             </div>
@@ -350,11 +350,11 @@ class InventoryOrderForm extends Component {
                 placeholder ="SELECT ISSUER"
                 value={issuing_inventory_controller}
                 onChange={this.onIssuingInventoryController}
-                options={inventorycontrollers}
+                options={employees}
                 filter={true}
                 filterBy="id,name"
                 showClear={true}
-                optionLabel="employee"
+                optionLabel="id_number"
                 optionValue="id"
               />
             </div>
@@ -376,7 +376,7 @@ class InventoryOrderForm extends Component {
                 placeholder ="SELECT SUPPLIER"
                 value={supplier}
                 onChange={this.onSupplier}
-                options={suppliers}
+                options={activesuppliers}
                 filter={true}
                 filterBy="id,name"
                 showClear={true}
@@ -428,8 +428,8 @@ class InventoryOrderForm extends Component {
 }
 
 const mapStateToProps = state =>({
-    inventorycontrollers: state.inventorycontrollers.inventorycontrollers,
-    suppliers: state.suppliers.suppliers,
+    employees: state.employees.employees,
+    activesuppliers: state.activesuppliers.activesuppliers,
     warehouses: state.warehouses.warehouses,
     taxes: state.taxes.taxes,
     inventoryorderstatuschoices: state.inventoryorderstatuschoices.inventoryorderstatuschoices,
@@ -438,5 +438,5 @@ const mapStateToProps = state =>({
 
 export default connect(
       mapStateToProps,
-      {getSuppliers, getWarehouses, getTaxes, getInventoryOrderStatusChoices, getInventoryControllers, addInventoryOrder})
+      {getActiveSuppliers, getWarehouses, getTaxes, getInventoryOrderStatusChoices, getEmployees, addInventoryOrder})
       (InventoryOrderForm);
