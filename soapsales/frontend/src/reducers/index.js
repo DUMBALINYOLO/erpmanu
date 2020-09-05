@@ -123,6 +123,7 @@ import employeecontracts from "./employeecontracts";
 import employeecontractsterminations from "./employeecontractsterminations";
 import employeedepartments from "./employeedepartments";
 import employeeleaves from "./employeeleaves";
+import employees from "./employees";
 import employeepaygrades from "./employeepaygrades";
 import employeeallowances from "./employeeallowances";
 import employeepaydeductions from "./employeepaydeductions";
@@ -190,6 +191,7 @@ export default combineReducers({
     authorisedemployeeleaves,
     declinedemployeeleaves,
     employeeconfigs,
+    employees,
     employeecontracts,
     employeecontractsterminations,
     employeedepartments,

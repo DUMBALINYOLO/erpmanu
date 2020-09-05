@@ -10,7 +10,6 @@ import 'primereact/resources/themes/nova-light/theme.css';
 import 'primereact/resources/primereact.css';
 import 'primeflex/primeflex.css';
 import {Dropdown} from 'primereact/dropdown';
-import {InputText} from 'primereact/inputtext';
 import {Button} from 'primereact/button';
 import {Checkbox} from 'primereact/checkbox';
 import {Calendar} from "primereact/calendar";
@@ -104,7 +103,6 @@ class AccountingConfigurationForm extends Component{
             default_accounting_period,
             default_bookkeeper,
             equipment_capitalization_limit,
-            is_configured,
             active_currency
         } = this.state;
 

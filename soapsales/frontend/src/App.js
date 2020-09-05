@@ -13,7 +13,10 @@ import Default from './components/Home/Default';
 import Content from "./dashboard/Content";
 import Dashboard from './dashboard/components/Dashboard';
 
+
 //accounts
+import AccountingConfigurationForm from './accounts/accountingconfiguration/AccountingConfigurationForm';
+
 import Taxes from './accounts/taxes/Taxes';
 
 import Journals from './accounts/journals/Journals';
@@ -143,10 +146,14 @@ import EmployeePayrollDateForm from './employees/employeepayrolldates/EmployeePa
 import EmployeePayslips from './employees/employeepayslips/EmployeePayslips';
 import EmployeePayslipForm from './employees/employeepayslips/EmployeePayslipForm';
 
+import EmployeeConfigForm from './employees/employeeconfig/EmployeeConfigForm';
+
 import EmployeeAttendanceTimesheets from './employees/employeeattendancetimesheets/EmployeeAttendanceTimesheets';
 import EmployeeAttendanceTimesheetForm from './employees/employeeattendancetimesheets/EmployeeAttendanceTimesheetForm';
 
 //events
+import EventConfigForm from './events/eventconfig/EventConfigForm';
+
 import UpcomingEvents from './events/upcomingevents/UpcomingEvents';
 
 import CompletedEvents from './events/completedevents/CompletedEvents';
@@ -240,7 +247,6 @@ import ManufacturedStockItems from './manufacture/manufacturedstockitems/Manufac
 import ManufacturedStockItemForm from './manufacture/manufacturedstockitems/ManufacturedStockItemForm';
 
 import ProcessMachines from './manufacture/processmachines/ProcessMachines';
-import ProcessMachineForm from './manufacture/processmachines/ProcessMachineForm';
 
 import ProcessMachineGroups from './manufacture/processmachinegroups/ProcessMachineGroups';
 import ProcessMachineGroupForm from './manufacture/processmachinegroups/ProcessMachineGroupForm';
@@ -306,7 +312,6 @@ class App extends Component {
 							<Route exact path='/manufacturedstockitems/create' component={ManufacturedStockItemForm} />
 
 							<Route exact path='/processmachines' component={ProcessMachines} />
-							<Route exact path='/processmachines/create' component={ProcessMachineForm} />
 
 							<Route exact path='/processmachinegroups' component={ProcessMachineGroups} />
 							<Route exact path='/processmachinegroups/create' component={ProcessMachineGroupForm} />
@@ -423,6 +428,8 @@ class App extends Component {
 
 							<Route exact path='/completedevents' component={CompletedEvents} />
 
+							<Route exact path='/eventconfig' component={EventConfigForm} />
+
 							<Route exact path='/upcomingevents' component={UpcomingEvents} />
 
 							<Route exact path='/employees' component={Employees} />
@@ -491,6 +498,8 @@ class App extends Component {
 							<Route exact path='/employeepayslips' component={EmployeePayslips} />
 							<Route exact path='/employeepayslips/create' component={EmployeePayslipForm} />
 
+							<Route exact path='/employeeconfig' component={EmployeeConfigForm} />
+
 							<Route exact path='/employeeattendancetimesheets' component={EmployeeAttendanceTimesheets} />
 							<Route exact path='/employeeattendancetimesheets/create' component={EmployeeAttendanceTimesheetForm} />
 
@@ -503,6 +512,8 @@ class App extends Component {
 							<Route exact path='/activecustomers/create' component={ActiveCustomerForm} />
 
 							<Route exact path='/taxes' component={Taxes} />
+
+							<Route exact path='/accountingconfiguration' component={AccountingConfigurationForm} />
 
 							<Route exact path='/assets' component={Assets} />
 							<Route exact path='/assets/create' component={AssetForm} />
