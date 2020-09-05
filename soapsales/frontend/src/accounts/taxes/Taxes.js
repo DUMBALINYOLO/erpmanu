@@ -313,12 +313,7 @@ class Taxes extends Component {
             </div>
         );
 
-        const deleteTaxDialogFooter = (
-            <>
-                <Button label="No" icon="pi pi-times" className="p-button-text" onClick={this.hideDeleteTaxDialog} />
-                <Button label="Yes" icon="pi pi-check" className="p-button-text" onClick={this.deleteTax} />
-            </>
-        );
+        
         const deleteTaxesDialogFooter = (
             <>
                 <Button label="No" icon="pi pi-times" className="p-button-text" onClick={this.hideDeleteTaxesDialog} />
@@ -398,7 +393,6 @@ class Taxes extends Component {
                                 value={this.state.selectRow.rate}
                                 style={{marginLeft: '.5em'}}
                                 mode="decimal"
-                                onChange={this.onChange}
                                 showButtons
                                 buttonLayout="horizontal"
                                 decrementButtonClassName="p-button-danger"

@@ -15,6 +15,7 @@ import Dashboard from './dashboard/components/Dashboard';
 
 //accounts
 
+
 import Taxes from './accounts/taxes/Taxes';
 
 import Journals from './accounts/journals/Journals';
@@ -242,7 +243,7 @@ import ManufacturedStockItems from './manufacture/manufacturedstockitems/Manufac
 import ManufacturedStockItemForm from './manufacture/manufacturedstockitems/ManufacturedStockItemForm';
 
 import ProcessMachines from './manufacture/processmachines/ProcessMachines';
-import ProcessMachineForm from './manufacture/processmachines/ProcessMachineForm';
+// import ProcessMachineForm from './manufacture/processmachines/ProcessMachineForm';
 
 
 import ProcessMachineGroups from './manufacture/processmachinegroups/ProcessMachineGroups';
@@ -310,7 +311,7 @@ class App extends Component {
 							<Route exact path='/manufacturedstockitems/create' component={ManufacturedStockItemForm} />
 
 							<Route exact path='/processmachines' component={ProcessMachines} />
-							<Route exact path='/processmachines/create' component={ProcessMachineForm} />
+					
 
 							<Route exact path='/processmachinegroups' component={ProcessMachineGroups} />
 							<Route exact path='/processmachinegroups/create' component={ProcessMachineGroupForm} />
@@ -567,6 +568,7 @@ class App extends Component {
 		);
 	}
 }
+
 
 
 export default App;

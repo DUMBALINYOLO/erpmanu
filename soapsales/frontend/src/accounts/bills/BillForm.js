@@ -15,6 +15,7 @@ import PropTypes from 'prop-types';
 import BillLines from './BillLines';
 
 
+
 class BillForm extends Component {
     constructor(props){
         super(props);
@@ -25,7 +26,7 @@ class BillForm extends Component {
             due: '',
             memo: '',
             formData: {},
-            lines: [{ index: Math.random(), debit_account: "", amount: '' }],
+            lines: [{ index: Math.random(), debit_account: null, amount: '' }],
         }
         this.onSubmit = this.onSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
@@ -37,6 +38,10 @@ class BillForm extends Component {
 
     onVendor (e){
         this.setState({vendor: e.value})
+    }
+
+    onAccount (e){
+        this.setState({debit_account: e.value})
     }
 
     handleChange = (e) => {
