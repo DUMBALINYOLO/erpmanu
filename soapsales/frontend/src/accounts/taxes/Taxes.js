@@ -148,13 +148,13 @@ class Taxes extends Component {
         });
     }
 
-    
+
     editTax(e) {
         const errors = this.editDataValidateError();
         const {
             name,
             rate
-         
+
         } = this.state.selectRow;
         const tax = {
             name,
@@ -235,11 +235,11 @@ class Taxes extends Component {
     actionBodyTemplate(rowData) {
         return (
             <>
-                <Button 
-                    type="button" 
-                    icon="pi pi-pencil" 
+                <Button
+                    type="button"
+                    icon="pi pi-pencil"
                     className="p-button-success"
-                    style={{marginRight: '.5em', fontSize: '12px'}} 
+                    style={{marginRight: '.5em', fontSize: '12px'}}
                     onClick={(e) => {
                         this.onOpenEditDialog(e, rowData);
                     }}>
@@ -307,13 +307,16 @@ class Taxes extends Component {
 
         const editDialogFooter = (
             <div>
-                
+
                 <Button label="Cancel" className="p-button-danger" icon="pi pi-times" onClick={this.onHideEditDialog}/>
                 <Button label="Save" className="p-button-success" icon="pi pi-check" onClick={this.editTax}/>
             </div>
         );
 
+<<<<<<< HEAD
         
+=======
+>>>>>>> 1c25867f9009c1005c2153ef5d3d4ecea22f49fc
         const deleteTaxesDialogFooter = (
             <>
                 <Button label="No" icon="pi pi-times" className="p-button-text" onClick={this.hideDeleteTaxesDialog} />
@@ -389,7 +392,7 @@ class Taxes extends Component {
                             }/>
                             <label htmlFor="inName">Rate </label>
                             <InputNumber
-                                id="inRate" 
+                                id="inRate"
                                 value={this.state.selectRow.rate}
                                 style={{marginLeft: '.5em'}}
                                 mode="decimal"

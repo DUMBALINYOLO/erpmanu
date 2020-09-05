@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addEventConfig } from '..//../actions/eventconfigs';
+import { addEventConfig } from '..//../actions/eventconfig';
 import PropTypes from 'prop-types';
 import 'primeicons/primeicons.css';
 import 'primereact/resources/themes/nova-light/theme.css';
@@ -9,6 +9,7 @@ import 'primeflex/primeflex.css';
 import {Button} from 'primereact/button';
 import {Checkbox} from 'primereact/checkbox';
 import {InputNumber} from 'primereact/inputnumber';
+
 
 
 class EventConfigForm extends Component{
@@ -54,16 +55,15 @@ class EventConfigForm extends Component{
     };
 
     static propTypes = {
-        addEventConfig: PropTypes.func.isRequired, 
+        addEventConfig: PropTypes.func.isRequired,
 
     }
 
     render() {
         const {
           number_of_agenda_items,
-          autogenerate_events_from_models,
         } = this.state;
-        
+
         return (
             <div className="card card-body mt-4 mb-4">
               <h2>Add Event Config</h2>
@@ -91,7 +91,7 @@ class EventConfigForm extends Component{
                       inputId="working"
                       onChange={this.onCompleted}
                       checked={this.state.autogenerate_events_from_models}
-                    />                        
+                    />
                   </div>
                   <div className="p-field p-col-12 p-md-6">
                     <Button label="Submit" className="p-button-success p-button-rounded" />

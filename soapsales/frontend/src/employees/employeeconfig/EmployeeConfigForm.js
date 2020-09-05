@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addEmployeeConfig } from '..//../actions/employeeconfig';
+import { addEmployeeConfig } from '..//../actions/employeeconfigs';
 import PropTypes from 'prop-types';
 import { getEmployees } from '..//../actions/employees';
 import { getAccounts } from '..//../actions/accounts';
@@ -13,6 +13,7 @@ import {InputText} from 'primereact/inputtext';
 import {Button} from 'primereact/button';
 import {Checkbox} from 'primereact/checkbox';
 import {Calendar} from "primereact/calendar";
+import {InputNumber} from 'primereact/inputnumber';
 
 
 class EmployeeConfigForm extends Component{
@@ -20,7 +21,7 @@ class EmployeeConfigForm extends Component{
         super(props);
         this.state = {
             last_payroll_date: '',
-            require_verification_before_posting_payslips: false
+            require_verification_before_posting_payslips: false,
             salary_follows_profits: false,
             payroll_officer: null,
             payroll_account: null,
@@ -116,13 +117,10 @@ class EmployeeConfigForm extends Component{
     render() {
         const {
             last_payroll_date,
-            require_verification_before_posting_payslips,
-            salary_follows_profits,
             payroll_officer,
             payroll_account,
             payroll_counter,
             business_social_security_number,
-            is_configured
         } = this.state;
 
         const { employees } = this.props;

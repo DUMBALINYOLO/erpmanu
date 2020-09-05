@@ -5,7 +5,7 @@ import {
 import { eventconfigURL } from '../constants';
 
 // Add
-export const addUpcomingEvent = (eventconfig) => dispatch => {
+export const addEventConfig = (eventconfig) => dispatch => {
     axios.post(eventconfigURL, eventconfig)
         .then(res => {
             dispatch({
