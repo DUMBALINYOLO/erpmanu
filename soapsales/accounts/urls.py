@@ -56,7 +56,7 @@ router.register(r'posted-journal-entries', PostedJournalEntryViewSet, basename='
 # router.register(r'journal-entries', JournalEntryViewSet)
 router.register(r'in-active-accounts', InActiveAccountViewSet, basename='inactive-accounts')
 router.register(r'assets', AssetViewSet, basename='assets')
-router.register(r'accounting-configuration', AccountingSettingsViewset, basename='config')
+router.register(r'accounting-configuration', AccountingSettingsViewset, basename='accounting-configuration')
 router.register(r'taxes', TaxViewset, basename='taxes')
 router.register(r'currencies', CurrencyViewset, basename='currencies')
 router.register(r'bills', BillViewset, basename='bills')

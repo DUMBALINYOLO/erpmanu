@@ -29,9 +29,11 @@ export default function(state = initialState, action){
                 tax: [...state.taxes, action.payload]
             };
         case EDIT_TAX:
+            const arrayList = state.taxes;
+            arrayList.splice(arrayList.findIndex(item => item.id === action.payload.data.id), 1 , action.payload.data);
             return {
                 ...state,
-                tax: [...state.taxes, action.payload]
+                taxes: arrayList,
             };
         default:
             return state;

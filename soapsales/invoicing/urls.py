@@ -11,6 +11,7 @@ from invoicing.apis import (
 		RefundedInvoiceViewSet,
 		FullyPaidNotSaleInvoiceViewSet,
 		SaleViewSet,
+		InvoiceViewSet,
 
 		InvoiceLineViewSet,
 		CustomerReceiptViewSet,
@@ -23,6 +24,7 @@ router.register(r'creditnotes', CreditNoteViewSet, basename='creditnotes')
 router.register(r'payments', PaymentViewSet, basename='payments')
 router.register(r'receipts', CustomerReceiptViewSet, basename='receipts')
 router.register(r'invoicelines', InvoiceLineViewSet, basename='invoicelines')
+router.register(r'invoices', InvoiceViewSet, basename='invoices')
 
 #take from here
 router.register(r'sales-groups-pricing-discounts', SalesGroupPricingDiscountViewSet, basename='sales-groups-pricing-discounts')

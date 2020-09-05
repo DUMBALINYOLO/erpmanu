@@ -183,6 +183,7 @@ import StorageMediaForm from './inventory/storagemedias/StorageMediaForm';
 import OrderItems from './inventory/orderitems/OrderItems';
 import OrderItemForm from './inventory/orderitems/OrderItemForm';
 
+
 import InventoryReceipts from './inventory/inventoryreceipts/InventoryReceipts';
 
 import StockAdjustments from './inventory/stockadjustments/StockAdjustments';
@@ -248,6 +249,7 @@ import ManufacturedStockItemForm from './manufacture/manufacturedstockitems/Manu
 
 import ProcessMachines from './manufacture/processmachines/ProcessMachines';
 
+
 import ProcessMachineGroups from './manufacture/processmachinegroups/ProcessMachineGroups';
 import ProcessMachineGroupForm from './manufacture/processmachinegroups/ProcessMachineGroupForm';
 
@@ -290,6 +292,7 @@ const alertOptions = {
 	timeout: 30000,
 	position: 'top center'
 }
+
 
 
 class App extends Component {
@@ -574,5 +577,6 @@ class App extends Component {
 		);
 	}
 }
+
 
 export default App;
