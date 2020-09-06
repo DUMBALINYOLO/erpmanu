@@ -380,15 +380,15 @@ class Taxes extends Component {
                         <span className="ui-float-label">
                             <label htmlFor="inName">Name </label>
                             <InputText id="inName" value={this.state.selectRow.name}
-                                       style={{marginLeft: '.5em'}} onChange={(e) =>
-                                this.setState({
+                                       style={{marginLeft: '.5em'}} 
+                                onChange={(e) => this.setState({
                                     selectRow: {
                                         ...this.state.selectRow,
                                         name: e.target.value
                                     }
                                 })
                             }/>
-                            <label htmlFor="inName">Rate </label>
+                            <label htmlFor="inRate">Rate </label>
                             <InputNumber
                                 id="inRate"
                                 value={this.state.selectRow.rate}

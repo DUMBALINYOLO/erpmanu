@@ -683,19 +683,21 @@ class Accounts extends Component {
                         </div>
                         <div className="p-field p-col-12 p-md-12">
                             <span className="p-float-label">
-                                <InputTextarea
+                                <InputText
                                     onChange={(e) => this.setState({
-                                    selectRow: {
+                                            selectRow: {
                                                 ...this.state.selectRow,
                                                 description: e.target.value
                                             }
                                         })
                                     }
-                                    id="inName" 
+                                    id="inDes" 
                                     value={this.state.selectRow.description}
                                 />
                             </span>
                         </div>
+
+                        
                         <div className="p-field p-col-12 p-md-12 p-formgroup-inline">
                             <label>BANK ACCOUNT :</label>
                             <Checkbox

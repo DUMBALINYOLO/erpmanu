@@ -50,16 +50,13 @@ class AccountCreateUpdateSerializer(serializers.ModelSerializer):
             'type',
             'description',
             'control_account',
+            'bank_account',
             'parent_account',
             'balance_sheet_category',
             'active',
 
         ]
 
-    def update(self, instance, validated_data):
-        if validated_data.get('active') is True and instance.get_balance() != 0:
-            raise serializers.ValidationError('Accounts with a non-zero balance cannot be disabled.')
-        return super(AccountCreateUpdateSerializer, self).update(instance, validated_data)
 
 
 class AccountListSerializer(serializers.ModelSerializer):
@@ -107,6 +104,7 @@ class AccountDetailSerializer(serializers.ModelSerializer):
             'description',
             'control_account',
             'parent_account',
+            'bank_account',
             'active',
             'total_debit',
             'total_credit',

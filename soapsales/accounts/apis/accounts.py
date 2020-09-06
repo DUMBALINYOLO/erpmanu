@@ -45,11 +45,12 @@ class AccountViewSet(viewsets.ModelViewSet):
     # ]
 
     def get_serializer_class(self):
-        if self.action in ['create', 'put']:
-            return  AccountCreateUpdateSerializer
+        if self.action == 'list':
+            return AccountListSerializer 
         elif self.action == 'retrieve':
             return AccountDetailSerializer
-        return AccountListSerializer
+        return  AccountCreateUpdateSerializer
+        
 
     #may have to filter a queryset in future but for now this can server our purposes
 

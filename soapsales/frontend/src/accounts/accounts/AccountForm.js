@@ -27,7 +27,7 @@ class AccountForm extends Component{
             control_account: false,
             parent_account: null,
             balance_sheet_category: null,
-            active: false,
+           active: false,
         }
 
         this.onChange = this.onChange.bind(this);

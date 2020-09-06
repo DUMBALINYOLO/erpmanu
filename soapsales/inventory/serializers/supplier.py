@@ -72,7 +72,7 @@ class SupplierDetailSerializer(serializers.ModelSerializer):
 				'name',
 				'is_organization',
 			    'is_individual',
-			    'website'
+			    'website',
 			    'bp_number',
 			    'email',
 			    'phone', 
@@ -89,7 +89,20 @@ class CreateUpdateSupplierSerializer(serializers.ModelSerializer):
 
 	class Meta:
 		model = Supplier
-		exclude = ('account',)
+		fields = (
+			'name',
+			'bp_number',
+			'email',
+			'phone', 
+			'contact_person',
+			'status',
+			'website',
+			'is_organization',
+			'is_individual'
+
+		)
+
+
 
 
 class ListSupplierSerializer(serializers.ModelSerializer):

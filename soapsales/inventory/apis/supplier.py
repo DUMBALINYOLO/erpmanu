@@ -18,6 +18,8 @@ class ActiveSupplierViewSet(viewsets.ModelViewSet):
  #        permissions.IsAuthenticated,
  #    ]
 
+	lookup_field = 'id'
+
 	def get_serializer_class(self):
 		if self.action in ['create', 'put', 'patch']:
 		    return CreateUpdateSupplierSerializer
@@ -37,7 +39,7 @@ class ActiveSupplierViewSet(viewsets.ModelViewSet):
 		return queryset
 
 
-	@action(methods=['POST', ], detail=False)
+	@action(methods=['POST', 'GET', 'PUT'], detail=True)
 	def deactivate_supplier(self, request, *args, **kwargs):
 
 		supplier = self.get_object()
@@ -53,6 +55,7 @@ class DeActivedSupplierViewSet(viewsets.ModelViewSet):
 	# permission_classes = [
  #        permissions.IsAuthenticated,
  #    ]
+	lookup_field = 'id'
 
 	def get_serializer_class(self):
 		if self.action in ['create', 'put', 'patch']:
@@ -67,10 +70,20 @@ class DeActivedSupplierViewSet(viewsets.ModelViewSet):
 		queryset = Supplier.objects.prefetch_related(
 												'account'
 											).filter(
-												Q(status='de-actived')
+												Q(status='de-activated')
 										).order_by('-id')
 
 		return queryset
+
+	@action(methods=['POST', 'GET', 'PUT'], detail=True)
+	def activate_supplier(self, request, *args, **kwargs):
+
+		supplier = self.get_object()
+		if supplier.status == 'active':
+			return Response({'message': 'Supplier has already been De Activated'})
+		supplier.status = 'active'
+		supplier.save()
+		return Response({'message': 'Supplier has succesfully been activated'})
 
 
 
