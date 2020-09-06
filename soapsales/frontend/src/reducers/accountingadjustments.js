@@ -2,7 +2,8 @@ import {
         ADD_ACCOUNTING_ADJUSTMENT,
         GET_ACCOUNTING_ADJUSTMENTS,
         DELETE_ACCOUNTING_ADJUSTMENT,
-        GET_ACCOUNTING_ADJUSTMENT
+        GET_ACCOUNTING_ADJUSTMENT,
+        EDIT_ACCOUNTING_ADJUSTMENT
     } from '../types/accountingadjustmentTypes';
 
 const initialState = {
@@ -33,6 +34,13 @@ export default function(state = initialState, action){
                 ...state,
                 accountingadjustment:action.payload
                 };
+        case EDIT_ACCOUNTING_ADJUSTMENT:
+            const arrayList = state.accountingadjustments;
+            arrayList.splice(arrayList.findIndex(item => item.id === action.payload.data.id), 1 , action.payload.data);
+            return {
+                ...state,
+                accountingadjustments: arrayList,
+            };
         default:
             return state;
     }

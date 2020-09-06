@@ -2,7 +2,8 @@ import {
         ADD_INTEREST_BEARING_ACCOUNT,
         GET_INTEREST_BEARING_ACCOUNTS,
         DELETE_INTEREST_BEARING_ACCOUNT,
-        GET_INTEREST_BEARING_ACCOUNT
+        GET_INTEREST_BEARING_ACCOUNT,
+        EDIT_INTEREST_BEARING_ACCOUNT
     } from '../types/interestbearingaccountTypes';
 
 const initialState = {
@@ -34,6 +35,13 @@ export default function(state = initialState, action){
                 ...state,
                 interestbearingaccount:action.payload
                 };
+        case EDIT_INTEREST_BEARING_ACCOUNT:
+            const arrayList = state.interestbearingaccounts;
+            arrayList.splice(arrayList.findIndex(item => item.id === action.payload.data.id), 1 , action.payload.data);
+            return {
+                ...state,
+                interestbearingaccounts: arrayList,
+            };
         default:
             return state;
     }

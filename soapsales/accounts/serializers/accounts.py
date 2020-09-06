@@ -70,6 +70,7 @@ class AccountListSerializer(serializers.ModelSerializer):
         model = Account
         fields = [
             'id',
+            'name',
             'account_number',
             'type',
             'balance_sheet_category',

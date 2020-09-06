@@ -3,7 +3,8 @@ import {
         ADD_ASSET,
         GET_ASSETS,
         DELETE_ASSET,
-        GET_ASSET
+        GET_ASSET,
+        EDIT_ASSET
     } from '../types/assetTypes';
 import { assetsURL } from '../constants';
 
@@ -50,4 +51,15 @@ export const getAsset = id => dispatch =>{
             });
         }).catch(err => console.log(err))
 
+}
+
+//Edit
+export const editAsset = (id, asset) => dispatch => {
+    axios.put(`http://127.0.0.1:8000/api/accounting/assets/${id}/`, asset)
+        .then(res => {
+            dispatch({
+                type: EDIT_ASSET,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
 }

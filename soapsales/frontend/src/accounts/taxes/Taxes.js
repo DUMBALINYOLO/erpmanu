@@ -19,6 +19,7 @@ import { Dialog } from 'primereact/dialog';
 import "./form.css";
 
 
+
 class Taxes extends Component {
 
     emptyTax = {
@@ -314,6 +315,7 @@ class Taxes extends Component {
             </div>
         );
 
+
         const deleteTaxesDialogFooter = (
             <>
                 <Button label="No" icon="pi pi-times" className="p-button-text" onClick={this.hideDeleteTaxesDialog} />
@@ -393,7 +395,6 @@ class Taxes extends Component {
                                 value={this.state.selectRow.rate}
                                 style={{marginLeft: '.5em'}}
                                 mode="decimal"
-
                                 showButtons
                                 buttonLayout="horizontal"
                                 decrementButtonClassName="p-button-danger"
@@ -410,7 +411,6 @@ class Taxes extends Component {
                                 })
                             }/>
                         </span>
-
                     </Dialog>
 
                     <Dialog visible={this.state.deleteTaxesDialog} style={{ width: '450px' }} header="Confirm" modal footer={deleteTaxesDialogFooter} onHide={this.hideDeleteTaxesDialog}>

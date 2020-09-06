@@ -29,9 +29,11 @@ export default function(state = initialState, action){
                 currency: [...state.currencies, action.payload]
             };
         case EDIT_CURRENCY:
+            const arrayList = state.currencies;
+            arrayList.splice(arrayList.findIndex(item => item.id === action.payload.data.id), 1 , action.payload.data);
             return {
                 ...state,
-                currencies: state.currencies.map(currency=> currency.id !== action.payload)
+                currencies: arrayList,
             };
         default:
             return state;

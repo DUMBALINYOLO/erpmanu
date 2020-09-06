@@ -22,29 +22,22 @@ import Taxes from './accounts/taxes/Taxes';
 import Journals from './accounts/journals/Journals';
 
 import Assets from './accounts/assets/Assets';
-import AssetForm from './accounts/assets/AssetForm';
 
 import Currencies from './accounts/currencies/Currencies';
 
 import Accounts from './accounts/accounts/Accounts';
-import AccountForm from './accounts/accounts/AccountForm';
 
 import InterestBearingAccounts from './accounts/interestbearingaccounts/InterestBearingAccounts';
-import InterestBearingAccountForm from './accounts/interestbearingaccounts/InterestBearingAccountForm';
 
 import BillPayments from './accounts/billpayments/BillPayments';
-import BillPaymentForm from './accounts/billpayments/BillPaymentForm';
 
 import Ledgers from './accounts/ledgers/Ledgers';
 
 import AccountingPosts from './accounts/accountingposts/AccountingPosts';
-import AccountingPostForm from './accounts/accountingposts/AccountingPostForm';
 
 import Workbooks from './accounts/workbooks/Workbooks';
-import WorkbookForm from './accounts/workbooks/WorkbookForm';
 
 import AccountingAdjustments from './accounts/accountingadjustments/AccountingAdjustments';
-import AccountingAdjustmentForm from './accounts/accountingadjustments/AccountingAdjustmentForm';
 
 import Debits from './accounts/debits/Debits';
 
@@ -248,6 +241,7 @@ import ManufacturedStockItems from './manufacture/manufacturedstockitems/Manufac
 import ManufacturedStockItemForm from './manufacture/manufacturedstockitems/ManufacturedStockItemForm';
 
 import ProcessMachines from './manufacture/processmachines/ProcessMachines';
+
 
 
 import ProcessMachineGroups from './manufacture/processmachinegroups/ProcessMachineGroups';
@@ -519,28 +513,22 @@ class App extends Component {
 							<Route exact path='/accountingconfiguration' component={AccountingConfigurationForm} />
 
 							<Route exact path='/assets' component={Assets} />
-							<Route exact path='/assets/create' component={AssetForm} />
 
 							<Route exact path='/journals' component={Journals} />
 
 							<Route exact path='/currencies' component={Currencies} />
 
 							<Route exact path='/accounts' component={Accounts} />
-							<Route exact path='/accounts/create' component={AccountForm} />
 
 							<Route exact path='/interestbearingaccounts' component={InterestBearingAccounts} />
-							<Route exact path='/interestbearingaccounts/create' component={InterestBearingAccountForm} />
 
 							<Route exact path='/ledgers' component={Ledgers} />
 
 							<Route exact path='/accountingposts' component={AccountingPosts} />
-							<Route exact path='/accountingposts/create' component={AccountingPostForm} />
 
 							<Route exact path='/workbooks' component={Workbooks} />
-							<Route exact path='/workbooks/create' component={WorkbookForm} />
 
 							<Route exact path='/accountingadjustments' component={AccountingAdjustments} />
-							<Route exact path='/accountingadjustments/create' component={AccountingAdjustmentForm} />
 
 							<Route exact path='/debits' component={Debits} />
 
@@ -564,7 +552,6 @@ class App extends Component {
 							<Route exact path='/bills/create' component={BillForm} />
 
 							<Route exact path='/billpayments' component={BillPayments} />
-							<Route exact path='/billpayments/create' component={BillPaymentForm} />
 
 							<Route exact path='/employeepayrollschedules' component={EmployeePayrollSchedules} />
 							<Route exact path='/employeepayrollschedules/create' component={EmployeePayrollScheduleForm} />
@@ -577,6 +564,7 @@ class App extends Component {
 		);
 	}
 }
+
 
 
 export default App;

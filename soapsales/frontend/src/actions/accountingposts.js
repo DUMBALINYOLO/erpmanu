@@ -3,7 +3,8 @@ import {
         ADD_ACCOUNTING_POST,
         GET_ACCOUNTING_POSTS,
         DELETE_ACCOUNTING_POST,
-        GET_ACCOUNTING_POST
+        GET_ACCOUNTING_POST,
+        EDIT_ACCOUNTING_POST
     } from '../types/accountingpostTypes';
 import { accountingpostsURL } from '../constants';
 
@@ -50,4 +51,15 @@ export const getAccountingPost = id => dispatch =>{
             });
         }).catch(err => console.log(err))
 
+}
+
+//Edit
+export const editAccountingPost = (id, accountingpost) => dispatch => {
+    axios.put(`http://127.0.0.1:8000/api/accounting/accounting-posts/${id}/`, accountingpost)
+        .then(res => {
+            dispatch({
+                type: EDIT_ACCOUNTING_POST,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
 }

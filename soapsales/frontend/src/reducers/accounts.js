@@ -3,6 +3,9 @@ import {
     GET_ACCOUNTS ,
     DELETE_ACCOUNT,
     GET_ACCOUNT,
+    EDIT_ACCOUNT,
+   
+
 } from '../types/accountTypes';
 
 const initialState = {
@@ -33,7 +36,34 @@ export default function(state = initialState, action){
                 ...state,
                 account:action.payload
                 };
+        case EDIT_ACCOUNT:
+            const arrayList = state.accounts;
+            arrayList.splice(arrayList.findIndex(item => item.id === action.payload.data.id), 1 , action.payload.data);
+            return {
+                ...state,
+                accounts: arrayList,
+            };
         default:
             return state;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

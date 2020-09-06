@@ -3,7 +3,8 @@ import {
         ADD_INTEREST_BEARING_ACCOUNT,
         GET_INTEREST_BEARING_ACCOUNTS,
         DELETE_INTEREST_BEARING_ACCOUNT,
-        GET_INTEREST_BEARING_ACCOUNT
+        GET_INTEREST_BEARING_ACCOUNT,
+        EDIT_INTEREST_BEARING_ACCOUNT
     } from '../types/interestbearingaccountTypes';
 import { interestbearingaccountsURL } from '../constants';
 
@@ -50,4 +51,16 @@ export const getInterestBearingAccount = id => dispatch =>{
             });
         }).catch(err => console.log(err))
 
+}
+
+
+//Edit
+export const editInterestBearingAccount = (id, interestbearingaccount) => dispatch => {
+    axios.put(`http://127.0.0.1:8000/api/accounting/interest-bearing-accounts/${id}/`, interestbearingaccount)
+        .then(res => {
+            dispatch({
+                type: EDIT_INTEREST_BEARING_ACCOUNT,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
 }

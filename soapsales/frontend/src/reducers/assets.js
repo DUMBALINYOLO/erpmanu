@@ -2,7 +2,8 @@ import {
         ADD_ASSET,
         GET_ASSETS,
         DELETE_ASSET,
-        GET_ASSET
+        GET_ASSET,
+        EDIT_ASSET
     } from '../types/assetTypes';
 
 const initialState = {
@@ -33,6 +34,13 @@ export default function(state = initialState, action){
                 ...state,
                 asset:action.payload
                 };
+        case EDIT_ASSET:
+            const arrayList = state.assets;
+            arrayList.splice(arrayList.findIndex(item => item.id === action.payload.data.id), 1 , action.payload.data);
+            return {
+                ...state,
+                assets: arrayList,
+            };
         default:
             return state;
     }

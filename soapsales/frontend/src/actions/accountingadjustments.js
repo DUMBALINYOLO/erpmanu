@@ -3,7 +3,8 @@ import {
         ADD_ACCOUNTING_ADJUSTMENT,
         GET_ACCOUNTING_ADJUSTMENTS,
         DELETE_ACCOUNTING_ADJUSTMENT,
-        GET_ACCOUNTING_ADJUSTMENT
+        GET_ACCOUNTING_ADJUSTMENT,
+        EDIT_ACCOUNTING_ADJUSTMENT
     } from '../types/accountingadjustmentTypes';
 import { accountingadjustmentsURL } from '../constants';
 
@@ -17,6 +18,7 @@ export const getAccountingAdjustments = () => dispatch => {
             });
         }).catch(err => console.log(err))
 }
+
 
 //Delete
 export const deleteAccountingAdjustment = (id) => dispatch => {
@@ -50,4 +52,15 @@ export const getAccountingAdjustment = id => dispatch =>{
             });
         }).catch(err => console.log(err))
 
+}
+
+//Edit
+export const editAccountingAdjustment = (id, accountingadjustment) => dispatch => {
+    axios.put(`http://127.0.0.1:8000/api/accounting/accounting-adjustments/${id}/`, accountingadjustment)
+        .then(res => {
+            dispatch({
+                type: EDIT_ACCOUNTING_ADJUSTMENT,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
 }
