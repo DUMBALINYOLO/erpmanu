@@ -118,7 +118,7 @@ class Taxes extends Component {
 
     saveTax = (e) => {
         e.preventDefault();
-        const { name, rate } = this.state.newData;
+        const { name, rate } = this.state;
         const tax = { name, rate};
         this.props.addTax(tax);
         this.setState({
@@ -128,6 +128,7 @@ class Taxes extends Component {
         });
         this.props.history.push('/taxes');
     };
+
 
 
     onHideEditDialog(event) {
@@ -372,7 +373,7 @@ class Taxes extends Component {
                         </div>
                     </Dialog>
 
-                    <Dialog header="Düzenle" footer={editDialogFooter} visible={this.state.visibleEditDialog}
+                    <Dialog header="Taxes" footer={editDialogFooter} visible={this.state.visibleEditDialog}
                             className=""
                             width="350px" modal={true} onHide={this.onHideEditDialog}>
                         <span className="ui-float-label">
@@ -392,7 +393,7 @@ class Taxes extends Component {
                                 value={this.state.selectRow.rate}
                                 style={{marginLeft: '.5em'}}
                                 mode="decimal"
-                                onChange={this.onChange}
+
                                 showButtons
                                 buttonLayout="horizontal"
                                 decrementButtonClassName="p-button-danger"
@@ -402,11 +403,11 @@ class Taxes extends Component {
                                 step={1}
                                 onChange={(e) =>
                                 this.setState({
-                                        selectRow: {
-                                            ...this.state.selectRow,
-                                            name: e.target.value
-                                        }
-                                    })
+                                    selectRow: {
+                                        ...this.state.selectRow,
+                                        rate: e.target.value
+                                    }
+                                })
                             }/>
                         </span>
 

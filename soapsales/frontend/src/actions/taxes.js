@@ -41,6 +41,7 @@ export const addTax = (tax) => dispatch => {
         }).catch(err => console.log(err))
 }
 
+//Edit
 export const editTax = (id, tax) => dispatch => {
     axios.put(`http://127.0.0.1:8000/api/accounting/taxes/${id}/`, tax)
         .then(res => {
@@ -50,21 +51,3 @@ export const editTax = (id, tax) => dispatch => {
             });
         }).catch(err => console.log(err))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
