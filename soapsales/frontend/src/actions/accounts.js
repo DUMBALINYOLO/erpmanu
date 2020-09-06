@@ -3,7 +3,8 @@ import {
         ADD_ACCOUNT,
         GET_ACCOUNTS,
         DELETE_ACCOUNT,
-        GET_ACCOUNT
+        GET_ACCOUNT,
+        EDIT_ACCOUNT,
     } from '../types/accountTypes';
 import { accountsURL } from '../constants';
 
@@ -51,3 +52,15 @@ export const getAccount = id => dispatch =>{
         }).catch(err => console.log(err))
 
 }
+
+
+export const editAccount = (id, account) => dispatch => {
+    axios.put(`http://127.0.0.1:8000/api/accounting/accounts/${id}/`, account)
+        .then(res => {
+            dispatch({
+                type: EDIT_ACCOUNT,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
+}
+

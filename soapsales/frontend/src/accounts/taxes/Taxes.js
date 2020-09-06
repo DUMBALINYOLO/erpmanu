@@ -19,6 +19,7 @@ import { Dialog } from 'primereact/dialog';
 import "./form.css";
 
 
+
 class Taxes extends Component {
 
     emptyTax = {
@@ -118,7 +119,7 @@ class Taxes extends Component {
 
     saveTax = (e) => {
         e.preventDefault();
-        const { name, rate } = this.state.newData;
+        const { name, rate } = this.state;
         const tax = { name, rate};
         this.props.addTax(tax);
         this.setState({
@@ -313,10 +314,7 @@ class Taxes extends Component {
             </div>
         );
 
-<<<<<<< HEAD
-        
-=======
->>>>>>> 1c25867f9009c1005c2153ef5d3d4ecea22f49fc
+
         const deleteTaxesDialogFooter = (
             <>
                 <Button label="No" icon="pi pi-times" className="p-button-text" onClick={this.hideDeleteTaxesDialog} />
@@ -407,7 +405,7 @@ class Taxes extends Component {
                                 this.setState({
                                         selectRow: {
                                             ...this.state.selectRow,
-                                            name: e.target.value
+                                            rate: e.target.value
                                         }
                                     })
                             }/>

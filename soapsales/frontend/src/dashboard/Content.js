@@ -128,159 +128,167 @@ class Content extends Component {
                 ]
             },
             {
-                label: 'Accounting', icon: 'pi pi-fw pi-ticket',
+                label: 'Accounting Journal Entries', icon: 'pi pi-fw pi-users',
                 items: [
                     {
-                        label: 'Submenu 1', icon: 'pi pi-fw pi-bookmark',
+                        label: 'Journals', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {
-                                label: 'Interest Bearing Accounts', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/interestbearingaccounts/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/interestbearingaccounts'},
-                                ]
-                            },
-                            {
-                                label: 'Ledgers', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/ledgers'},
-                                ]
-                            },
-                            {
-                                label: 'Accounting Posts', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/accountingposts/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/accountingposts'}
-                                ]
-                            },
-                            {
-                                label: 'Accounting Adjustments', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/accountingadjustments/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/accountingadjustments'}
-                                ]
-                            },
-                            {
-                                label: 'Debits', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/debits'},
-                                ]
-                            },
-                            {
-                                label: 'Credits', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/credits'},
-                                ]
-                            },
-                            {
-                                label: 'Fully Paid Not Verified Bills', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/fullypaidnotverifiedbills'},
-                                ]
-                            },
-                            {
-                                label: 'Fully Paid Bills', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/fullypaidbills'},
-                                ]
-                            },
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/journals'},
                         ]
                     },
                     {
-                        label: 'Submenu 2', icon: 'pi pi-fw pi-bookmark',
+                        label: 'Unposted & Unadjusted Entries', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {
-                                label: 'Accounts', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/accounts/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/accounts'}
-                                ]
-                            },
-                            {
-                                label: 'Workbooks', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/workbooks/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/workbooks'}
-                                ]
-                            },
-                            {
-                                label: 'Assets', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/assets/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/assets'},
-                                ]
-                            },
-                            {
-                                label: 'Taxes', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/taxes'}
-                                ]
-                            },
-                            {
-                                label: 'Currencies', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/currencies'}
-                                ]
-                            },
-                            {
-                                label: 'Bills', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/bills/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/bills'}
-                                ]
-                            },
-                            {
-                                label: 'Bill Payments', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/billpayments/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/billpayments'}
-                                ]
-                            },
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/unpostedandunadjustedjournalentries'},
                         ]
                     },
                     {
-                        label: 'Submenu 3', icon: 'pi pi-fw pi-bookmark',
+                        label: 'Unadjusted Entries', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {
-                                label: 'Journals', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/journals'},
-                                ]
-                            },
-                            {
-                                label: 'Unposted And Unadjusted Journal Entries', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/unpostedandunadjustedjournalentries'},
-                                ]
-                            },
-                            {
-                                label: 'Unadjusted Journal Entries', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/unadjustedjournalentries'},
-                                ]
-                            },
-                            {
-                                label: 'Unposted Journal Entries', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/unpostedjournalentries'},
-                                ]
-                            },
-                            {
-                                label: 'Posted Journal Entries', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/postedjournalentries'},
-                                ]
-                            },
-                            {
-                                label: 'In Active Accounts', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/inactiveaccounts'},
-                                ]
-                            },
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/unadjustedjournalentries'},
                         ]
-                    }
+                    },
+                    {
+                        label: 'Unposted Entries', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/unpostedjournalentries'},
+                        ]
+                    },
+                    {
+                        label: 'Posted Entries', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/postedjournalentries'},
+                        ]
+                    },
+
                 ]
             },
+            {
+                label: 'Accounts & Transactions', icon: 'pi pi-fw pi-users',
+                items: [
+                    {
+                        label: 'Accounts', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/accounts/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/accounts'}
+                        ]
+                    },
+                    {
+                        label: 'Interest Bearing Accounts', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/interestbearingaccounts/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/interestbearingaccounts'},
+                        ]
+                    },
+                    {
+                        label: 'In Active Accounts', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/inactiveaccounts'},
+                        ]
+                    },
+
+                    {
+                        label: 'Debits', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/debits'},
+                        ]
+                    },
+                    {
+                        label: 'Credits', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/credits'},
+                        ]
+                    },
+
+                ]
+            },
+
+            {
+                label: 'Bills & Assets', icon: 'pi pi-fw pi-users',
+                items: [
+                    {
+                        label: 'Assets', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/assets/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/assets'},
+                        ]
+                    },
+
+                    {
+                        label: 'Bills', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/bills/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/bills'}
+                        ]
+                    },
+                    {
+                        label: 'Bill Payments', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/billpayments/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/billpayments'}
+                        ]
+                    },
+                    {
+                        label: 'Fully Paid Not Verified Bills', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/fullypaidnotverifiedbills'},
+                        ]
+                    },
+                    {
+                        label: 'Fully Paid Bills', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/fullypaidbills'},
+                        ]
+                    },
+
+                    
+                ]
+            },
+
+          
+            {
+                label: 'Accounting Books', icon: 'pi pi-fw pi-ticket',
+                items: [
+
+                    
+                    {
+                        label: 'Ledgers', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/ledgers'},
+                        ]
+                    },
+                    {
+                        label: 'Accounting Posts', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/accountingposts/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/accountingposts'}
+                        ]
+                    },
+                    {
+                        label: 'Accounting Adjustments', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/accountingadjustments/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/accountingadjustments'}
+                        ]
+                    },
+                    {
+                        label: 'Taxes', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/taxes'}
+                        ]
+                    },
+                    {
+                        label: 'Currencies', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/currencies'}
+                        ]
+                    },
+                    
+                    
+                ]
+            },
+ 
+
             {
                 label: 'Customers', icon: 'pi pi-fw pi-users',
                 items: [
@@ -306,196 +314,194 @@ class Content extends Component {
                     },
                 ]
             },
+
             {
-                label: 'Employees', icon: 'pi pi-fw pi-user-edit',
+                label: 'Officers', icon: 'pi pi-fw pi-users',
                 items: [
                     {
-                        label: 'Submenu 1', icon: 'pi pi-fw pi-bookmark',
+                        label: 'Shareholders', icon: 'pi pi-fw pi-bookmark',
+                            items: [
+                                {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/companyshareholders'},
+                            ]
+                    },
+                    {
+                        label: 'Managers', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {
-                                label: 'Company Shareholders', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/companyshareholders/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/companyshareholders'},
-                                ]
-                            },
-                            {
-                                label: 'Company Managers', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/companymanagers/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/companymanagers'}
-                                ]
-                            },
-                            {
-                                label: 'Company Bookkeepers', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/companybookkeepers/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/companybookkeepers'}
-                                ]
-                            },
-                            {
-                                label: 'Company Payroll Officers', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/companypayrollofficers/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/companypayrollofficers'}
-                                ]
-                            },
-                            {
-                                label: 'Company Drivers', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/companydrivers/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/companydrivers'}
-                                ]
-                            },
-                            {
-                                label: 'Manufacturing Personells', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/companymanufacturingpersonells/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/companymanufacturingpersonells'}
-                                ]
-                            },
-                            {
-                                label: 'Inventory Controllers', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/companyinventorycontrollers/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/companyinventorycontrollers'}
-                                ]
-                            },
-                            {
-                                label: 'Company Salesreps', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/companysalesreps/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/companysalesreps'}
-                                ]
-                            },
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/companymanagers'}
                         ]
                     },
                     {
-                        label: 'Submenu 2', icon: 'pi pi-fw pi-bookmark',
+                        label: 'Bookkeepers', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {
-                                label: 'Employees', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/employees/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/employees'}
-                                ]
-                            },
-                            {
-                                label: 'Pending Employee Leaves', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/pendingemployeeleaves'},
-                                ]
-                            },
-                            {
-                                label: 'Authorised Employee Leaves', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/authorisedemployeeleaves'},
-                                ]
-                            },
-                            {
-                                label: 'Declined Employee Leaves', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/declinedemployeeleaves'},
-                                ]
-                            },
-                            {
-                                label: 'Employee Leaves', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/employeeleaves/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/employeeleaves'},
-                                ]
-                            },
-                            {
-                                label: 'Employee Pay Deductions', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/employeepaydeductions/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/employeepaydeductions'},
-                                ]
-                            },
-                            {
-                                label: 'Pay Commission Rules', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/employeepaycommissionrules/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/employeepaycommissionrules'},
-                                ]
-                            },
-                            {
-                                label: 'Employee Payroll Schedules', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/employeepayrollschedules/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/employeepayrollschedules'},
-                                ]
-                            },
-                            {
-                                label: 'Attendance Timesheets', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/employeeattendancetimesheets/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/employeeattendancetimesheets'},
-                                ]
-                            },
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/companybookkeepers'}
                         ]
                     },
                     {
-                        label: 'Submenu 3', icon: 'pi pi-fw pi-bookmark',
+                        label: 'Payroll Officers', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {
-                                label: 'Employee Contracts', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/employeecontracts/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/employeecontracts'}
-                                ]
-                            },
-                            {
-                                label: 'Contracts Terminations', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/employeecontractsterminations/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/employeecontractsterminations'},
-                                ]
-                            },
-                            {
-                                label: 'Employee Departments', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/employeedepartments/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/employeedepartments'}
-                                ]
-                            },
-                            {
-                                label: 'Employee Paygrades', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/employeepaygrades/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/employeepaygrades'}
-                                ]
-                            },
-                            {
-                                label: 'Employee Allowances', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/employeeallowances/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/employeeallowances'}
-                                ]
-                            },
-                            {
-                                label: 'Employee Payslips', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/employeepayslips/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/employeepayslips'}
-                                ]
-                            },
-                            {
-                                label: 'Employee Payroll Dates', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/employeepayrolldates/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/employeepayrolldates'}
-                                ]
-                            },
-                            {
-                                label: 'Employee Payroll Taxes', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/employeepayrolltaxes/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/employeepayrolltaxes'},
-                                ]
-                            },
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/companypayrollofficers'}
                         ]
                     },
+                    {
+                        label: 'Drivers', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/companydrivers'}
+                        ]
+                    },
+                    {
+                        label: 'Manufacturing Staff', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/companymanufacturingpersonells'}
+                        ]
+                    },
+                    {
+                        label: 'Inventory Controllers', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/companyinventorycontrollers'}
+                        ]
+                    },
+                    {
+                        label: 'Company Salesreps', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/companysalesreps'}
+                        ]
+                    },
+
+                  
+                ]
+            },
+            {
+                label: 'Leave Requests', icon: 'pi pi-fw pi-users',
+                items: [
+                    {
+                        label: 'Pending Leaves', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/pendingemployeeleaves'},
+                        ]
+                    },
+                    {
+                        label: 'Authorised Leaves', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/authorisedemployeeleaves'},
+                        ]
+                    },
+                    {
+                        label: 'Declined Leaves', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/declinedemployeeleaves'},
+                        ]
+                    },
+                    {
+                        label: 'Create', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/employeeleaves/create'},
+                        ]
+                    },
+                    
+                ]
+            },
+            {
+                label: 'Payroll Configurations', icon: 'pi pi-fw pi-users',
+                items: [
+                    {
+                        label: 'Pay Deductions', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/employeepaydeductions/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/employeepaydeductions'},
+                        ]
+                    },
+                    {
+                        label: 'Commission Rules', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/employeepaycommissionrules/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/employeepaycommissionrules'},
+                        ]
+                    },
+                    {
+                        label: 'Schedule', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/employeepayrollschedules/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/employeepayrollschedules'},
+                        ]
+                    },
+
+                    {
+                        label: 'Allowances', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/employeeallowances/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/employeeallowances'}
+                        ]
+                    },
+                    {
+                        label: 'Paygrades', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/employeepaygrades/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/employeepaygrades'}
+                        ]
+                    },
+
+                    {
+                        label: 'Payroll Dates', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/employeepayrolldates/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/employeepayrolldates'}
+                        ]
+                    },
+                    {
+                        label: 'Payroll Taxes', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/employeepayrolltaxes/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/employeepayrolltaxes'},
+                        ]
+                    },
+                    
+                ]
+            },
+            {
+                label: 'Human Resource', icon: 'pi pi-fw pi-users',
+                items: [
+                    {
+                        label: 'Employee Contracts', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/employeecontracts/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/employeecontracts'}
+                        ]
+                    },
+                    {
+                        label: 'Contracts Terminations', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/employeecontractsterminations/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/employeecontractsterminations'},
+                        ]
+                    },
+                    {
+                        label: 'Employee Departments', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/employeedepartments/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/employeedepartments'}
+                        ]
+                    },
+                    {
+                        label: 'Attendance', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/employeeattendancetimesheets/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/employeeattendancetimesheets'},
+                        ]
+                    },
+
+
+                    
+                ]
+            },
+            {
+    
+                label: 'Payslips', icon: 'pi pi-fw pi-bookmark',
+                items: [
+                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/employeepayslips/create'},
+                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/employeepayslips'}
+
+                            
+
                 ]
             },
             {
@@ -517,373 +523,377 @@ class Content extends Component {
                 ]
             },
             {
-                label: 'Inventory', icon: 'pi pi-fw pi-file-o',
+                label: 'Inventory Orders', icon: 'pi pi-fw pi-calendar',
                 items: [
                     {
-                        label: 'Submenu 1', icon: 'pi pi-fw pi-bookmark',
+                        label: 'Orders', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {
-                                label: 'Inventory Categories', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/inventorycategories/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/inventorycategories'},
-                                ]
-                            },
-                            {
-                                label: 'Inventory Orders', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/inventororders/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/inventororders'}
-                                ]
-                            },
-                            {
-                                label: 'Inventory Orderpayments', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/inventoryorderpayments/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/inventoryorderpayments'}
-                                ]
-                            },
-                            {
-                                label: 'Inventory Stock Items', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/inventorystockitems/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/inventorystockitems'}
-                                ]
-                            },
-                            {
-                                label: 'Order Items', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/orderitems/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/orderitems'}
-                                ]
-                            },
-                            {
-                                label: 'Inventory Receipts', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/inventoryreceipts/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/inventoryreceipts'}
-                                ]
-                            },
-                            {
-                                label: 'Inventory Stock Takes', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/inventorystocktakes/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/inventorystocktakes'}
-                                ]
-                            },
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/inventororders/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/inventororders'}
                         ]
                     },
                     {
-                        label: 'Submenu 2', icon: 'pi pi-fw pi-bookmark',
+                        label: 'Received & Paid', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {
-                                label: 'Debit Notes', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/debitnotes/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/debitnotes'}
-                                ]
-                            },
-                            {
-                                label: 'Stock Adjustments', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/stockadjustments/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/stockadjustments'}
-                                ]
-                            },
-                            {
-                                label: 'Active Suppliers', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/activesuppliers/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/activesuppliers'},
-                                ]
-                            },
-                            {
-                                label: 'DeActived Suppliers', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/deactivedsuppliers'}
-                                ]
-                            },
-                            {
-                                label: 'Fully Received And Total Paid For Orders', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/fullyreceivedandtotalpaidfororders'}
-                                ]
-                            },
-                            {
-                                label: 'Fully Received Total Paid For And Verified Orders', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/fullyreceivedtotalpaidforandverifiedorders'}
-                                ]
-                            },
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/fullyreceivedandtotalpaidfororders'}
+                        ]
+                    },
+
+                    {
+                        label: 'Received, Paid & Verified', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/fullyreceivedtotalpaidforandverifiedorders'}
                         ]
                     },
                     {
-                        label: 'Submenu 3', icon: 'pi pi-fw pi-bookmark',
+                        label: 'Payments', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {
-                                label: 'Warehouses', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/warehouses/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/warehouses'},
-                                ]
-                            },
-                            {
-                                label: 'Storage Medias', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/storagemedias/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/storagemedias'},
-                                ]
-                            },
-                            {
-                                label: 'Raw Materials', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/rawmaterials/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/rawmaterials'},
-                                ]
-                            },
-                            {
-                                label: 'Equipments', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/equipments/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/equipments'},
-                                ]
-                            },
-                            {
-                                label: 'Consumables', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/consumables/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/consumables'},
-                                ]
-                            },
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/inventoryorderpayments'},
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/inventoryorderpayments/create'}
+
                         ]
-                    }
+                    },
+
                 ]
             },
             {
-                label: 'Invoicing', icon: 'pi pi-fw pi-money-bill',
+                label: 'Inventory Configurations', icon: 'pi pi-fw pi-calendar',
                 items: [
                     {
-                        label: 'Submenu 1', icon: 'pi pi-fw pi-bookmark',
+                        label: 'Warehouses', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {
-                                label: 'Sales', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/sales/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/sales'},
-                                ]
-                            },
-                            {
-                                label: 'Quotations', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/quotations/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/quotations'}
-                                ]
-                            },
-                            {
-                                label: 'Credit Notes', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/creditnotes/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/creditnotes'}
-                                ]
-                            },
-                            {
-                                label: 'Payments', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/payments/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/payments'}
-                                ]
-                            },
-                            {
-                                label: 'Receipts', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/receipts/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/receipts'}
-                                ]
-                            },
-                            {
-                                label: 'Invoice Lines', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/invoicelines/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/invoicelines'}
-                                ]
-                            },
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/warehouses/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/warehouses'},
                         ]
                     },
                     {
-                        label: 'Submenu 2', icon: 'pi pi-fw pi-bookmark',
+                        label: 'Storage Medias', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {
-                                label: 'Sales Groups Pricing Discounts', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/salesgroupspricingdiscounts/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/salesgroupspricingdiscounts'}
-                                ]
-                            },
-                            {
-                                label: 'Unverified Invoices', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/unverifiedinvoices'}
-                                ]
-                            },
-                            {
-                                label: 'Overdue Invoices', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/overdueinvoices'},
-                                ]
-                            },
-                            {
-                                label: 'Voided Invoices', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/voidedinvoices'}
-                                ]
-                            },
-                            {
-                                label: 'Refunded Invoices', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/refundedinvoices'}
-                                ]
-                            },
-                            {
-                                label: 'Fullypaid Not Yet Sales Invoices', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/fullypaidnotyetsalesinvoices'}
-                                ]
-                            },
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/storagemedias/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/storagemedias'},
                         ]
                     },
+                    {
+                        label: 'Inventory Categories', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/inventorycategories/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/inventorycategories'},
+                        ]
+                    },
+                    {
+                        label: 'Debit Notes', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/debitnotes/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/debitnotes'}
+                        ]
+                    },
+
+
+
                 ]
             },
             {
-                label: 'Manufacture', icon: 'pi pi-fw pi-shopping-cart',
+                label: 'Stock Management', icon: 'pi pi-fw pi-calendar',
                 items: [
                     {
-                        label: 'Submenu 1', icon: 'pi pi-fw pi-bookmark',
+                        label: 'Stock Items', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {
-                                label: 'Manufactured Stock Items', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/manufacturedstockitems/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/manufacturedstockitems'},
-                                ]
-                            },
-                            {
-                                label: 'Process Machines', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/processmachines'},
-                                ]
-                            },
-                            {
-                                label: 'Process Machine Groups', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/processmachinegroups/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/processmachinegroups'}
-                                ]
-                            },
-                            {
-                                label: 'Accounting Adjustments', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/accountingadjustments/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/accountingadjustments'}
-                                ]
-                            },
-                            {
-                                label: 'Shifts', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/shifts/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/shifts'}
-                                ]
-                            },
-                            {
-                                label: 'Shift Schedules', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/shiftschedules/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/shiftschedules'}
-                                ]
-                            },
-                            {
-                                label: 'Process Rates', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/processrates/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/processrates'}
-                                ]
-                            },
-                            {
-                                label: 'Production Orders', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/productionorders/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/productionorders'}
-                                ]
-                            },
-                            {
-                                label: 'Process Products', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/processproducts/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/processproducts'}
-                                ]
-                            },
+                            {label: 'Add', icon: 'pi pi-fw pi-bookmark', to: '/inventorystockitems/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/inventorystockitems'}
+                        ]
+                    },
+
+                    {
+                        label: 'Stock Receipts', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'Receive', icon: 'pi pi-fw pi-bookmark', to: '/inventoryreceipts/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/inventoryreceipts'}
                         ]
                     },
                     {
-                        label: 'Submenu 2', icon: 'pi pi-fw pi-bookmark',
+                        label: 'Stock Takes', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {
-                                label: 'Manufacturing Teams', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/manufacturingteams/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/manufacturingteams'}
-                                ]
-                            },
-                            {
-                                label: 'Manufacturing Personels', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/manufacturingpersonels/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/manufacturingpersonels'}
-                                ]
-                            },
-                            {
-                                label: 'Waste Generation Reports', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/wastegenerationreports/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/wastegenerationreports'},
-                                ]
-                            },
-                            {
-                                label: 'Unverified Production Processes', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/unverifiedproductionprocesses'}
-                                ]
-                            },
-                            {
-                                label: 'Verified Production Processes', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/verifiedproductionprocesses'}
-                                ]
-                            },
-                            {
-                                label: 'Processed Product Stock Adjustments', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/processedproductstockadjustments/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/processedproductstockadjustments'}
-                                ]
-                            },
-                            {
-                                label: 'Processed Product Stock Receipts', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/processedproductstockreceipts/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/processedproductstockreceipts'}
-                                ]
-                            },
-                            {
-                                label: 'Processed Product Stock Takes', icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/processedproductstocktakes/create'},
-                                    {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/processedproductstocktakes'}
-                                ]
-                            },
+                            {label: 'Take', icon: 'pi pi-fw pi-bookmark', to: '/inventorystocktakes/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/inventorystocktakes'}
                         ]
                     },
+                    {
+                        label: 'Stock Adjustments', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/stockadjustments'}
+                        ]
+                    },
+
+
                 ]
             },
+            {
+                label: 'Inventory Items', icon: 'pi pi-fw pi-calendar',
+                items: [
+                    {
+                        label: 'Raw Materials', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/rawmaterials/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/rawmaterials'},
+                        ]
+                    },
+                    {
+                        label: 'Equipments', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/equipments/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/equipments'},
+                        ]
+                    },
+                    {
+                        label: 'Consumables', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/consumables/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/consumables'},
+                        ]
+                    },
+
+                ]
+            },
+            {
+                label: 'Company Suppliers', icon: 'pi pi-fw pi-calendar',
+                items: [
+                    {
+                        label: 'Active Suppliers', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/activesuppliers/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/activesuppliers'},
+                        ]
+                    },
+                    {
+                        label: 'DeActived Suppliers', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/deactivedsuppliers'}
+                        ]
+                    },
+
+
+                ]
+            },
+
+            {
+                label: 'Sales', icon: 'pi pi-fw pi-calendar',
+                items: [
+                    {
+                        label: 'Quotations', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/quotations'}
+                        ]
+                    },
+                    {
+                        label: 'Unverified Invoices', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/unverifiedinvoices'}
+                        ]
+                    },
+                    {
+                        label: 'Overdue Invoices', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/overdueinvoices'},
+                        ]
+                    },
+                    {
+                        label: 'Voided Invoices', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/voidedinvoices'}
+                        ]
+                    },
+                    {
+                        label: 'Refunded Invoices', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/refundedinvoices'}
+                        ]
+                    },
+                    {
+                        label: 'Make Sales Invoices', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/fullypaidnotyetsalesinvoices'}
+                        ]
+                    },
+                    {
+                        label: 'Sales', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/sales'},
+                        ]
+                    },
+
+
+                ]
+            },
+            {
+                label: 'Sales Payments', icon: 'pi pi-fw pi-calendar',
+                items: [
+                    {
+                        label: 'Payments', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/payments/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/payments'}
+                        ]
+                    },
+                    {
+                        label: 'Receipts', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/receipts/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/receipts'}
+                        ]
+                    },
+
+                ]
+            },
+            {
+                label: 'Sales Returns & Discounts', icon: 'pi pi-fw pi-calendar',
+                items: [
+                    {
+                        label: 'Credit Notes', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/creditnotes/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/creditnotes'}
+                        ]
+                    },
+                    {
+                        label: 'Sales Groups Pricing Discounts', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/salesgroupspricingdiscounts/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/salesgroupspricingdiscounts'}
+                        ]
+                    },
+
+
+                ]
+            },
+            {
+                label: 'Production Process', icon: 'pi pi-fw pi-calendar',
+                items: [
+                    {
+                        label: 'Unverified Production Processes', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/unverifiedproductionprocesses'}
+                        ]
+                    },
+                    {
+                        label: 'Verified Production Processes', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/verifiedproductionprocesses'}
+                        ]
+                    },
+                    {
+                        label: 'Process Machines', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/processmachines'},
+                        ]
+                    },
+                    {
+                        label: 'Process Machine Groups', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/processmachinegroups/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/processmachinegroups'}
+                        ]
+                    },
+                    {
+                        label: 'Production Orders', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/productionorders/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/productionorders'}
+                        ]
+                    },
+                    {
+                        label: 'Process Rates', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/processrates/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/processrates'}
+                        ]
+                    },
+
+                ]
+            },
+            {
+                label: 'Manufactured Stock Management', icon: 'pi pi-fw pi-calendar',
+                items: [
+                    {
+                        label: 'Stock Adjustments', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/processedproductstockadjustments'}
+                        ]
+                    },
+                    {
+                        label: 'Stock Receipts', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'Receive', icon: 'pi pi-fw pi-bookmark', to: '/processedproductstockreceipts/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/processedproductstockreceipts'}
+                        ]
+                    },
+                    {
+                        label: 'Process Products', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/processproducts/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/processproducts'}
+                        ]
+                    },
+                    {
+                        label: 'Stock Takes', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/processedproductstocktakes/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/processedproductstocktakes'}
+                        ]
+                    },
+                    {
+                        label: 'Stock Items', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'Add', icon: 'pi pi-fw pi-bookmark', to: '/manufacturedstockitems/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/manufacturedstockitems'},
+                        ]
+                    },
+                    {
+                        label: 'Waste Generation Reports', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/wastegenerationreports/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/wastegenerationreports'},
+                        ]
+                    },
+
+                ]
+            },
+            {
+                label: 'Manufacturing Shifts & Personel', icon: 'pi pi-fw pi-calendar',
+                items: [
+                    {
+                        label: 'Shifts', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/shifts/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/shifts'}
+                        ]
+                    },
+                    {
+                        label: 'Shift Schedules', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/shiftschedules/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/shiftschedules'}
+                        ]
+                    },
+                    {
+                        label: 'Manufacturing Teams', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/manufacturingteams/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/manufacturingteams'}
+                        ]
+                    },
+                    {
+                        label: 'Manufacturing Personels', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/manufacturingpersonels/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/manufacturingpersonels'}
+                        ]
+                    },
+            
+
+
+                ]
+            },
+
         ];
     }
 
