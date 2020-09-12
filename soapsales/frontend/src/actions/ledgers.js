@@ -2,9 +2,12 @@ import axios from 'axios';
 import {
         GET_LEDGERS,
         DELETE_LEDGER,
-        GET_LEDGER
+        GET_LEDGER,
+        ADD_LEDGER,
+        EDIT_LEDGER
     } from '../types/ledgerTypes';
 import { ledgersURL } from '../constants';
+
 
 // Get
 export const getLedgers = () => dispatch => {
@@ -12,6 +15,17 @@ export const getLedgers = () => dispatch => {
         .then(res => {
             dispatch({
                 type: GET_LEDGERS,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
+}
+
+// Add
+export const addLedger = (ledger) => dispatch => {
+    axios.post(ledgersURL, ledger)
+        .then(res => {
+            dispatch({
+                type: ADD_LEDGER,
                 payload: res.data
             });
         }).catch(err => console.log(err))
@@ -38,4 +52,15 @@ export const getLedger = id => dispatch =>{
             });
         }).catch(err => console.log(err))
 
+}
+
+//Edit
+export const editLedger = (id, ledger) => dispatch => {
+    axios.put(`http://127.0.0.1:8000/api/accounting/ledgers/${id}/`, ledger)
+        .then(res => {
+            dispatch({
+                type: EDIT_LEDGER,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
 }

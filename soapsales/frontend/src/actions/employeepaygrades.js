@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ADD_EMPLOYEE_PAYGRADE, GET_EMPLOYEE_PAYGRADES, GET_EMPLOYEE_PAYGRADE, DELETE_EMPLOYEE_PAYGRADE } from '../types/employeepaygradeTypes';
+import { ADD_EMPLOYEE_PAYGRADE, EDIT_EMPLOYEE_PAYGRADE, GET_EMPLOYEE_PAYGRADES, GET_EMPLOYEE_PAYGRADE, DELETE_EMPLOYEE_PAYGRADE } from '../types/employeepaygradeTypes';
 import { employeepaygradesURL } from '../constants';
 
 // Get
@@ -45,4 +45,16 @@ export const getEmployeePaygrade = id => dispatch =>{
             });
         }).catch(err => console.log(err))
 
+}
+
+
+//Edit
+export const editEmployeePaygrade = (id, employeepaygrade) => dispatch => {
+    axios.put(`http://127.0.0.1:8000/api/employees/employee-paygrades/${id}/`, employeepaygrade)
+        .then(res => {
+            dispatch({
+                type: EDIT_EMPLOYEE_PAYGRADE,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
 }

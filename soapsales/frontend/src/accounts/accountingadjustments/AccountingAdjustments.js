@@ -101,7 +101,17 @@ class AccountingAdjustments extends Component {
         addAccountingAdjustment: PropTypes.func.isRequired,
         editAccountingAdjustment: PropTypes.func.isRequired,
         deleteAccountingAdjustment: PropTypes.func.isRequired,
+        getJournals: PropTypes.func.isRequired,
+        getEmployees: PropTypes.func.isRequired,
+        getWorkbooks: PropTypes.func.isRequired
     };
+
+    componentDidMount() {
+        this.props.getJournals()
+        this.props.getEmployees()
+        this.props.getWorkbooks()
+        this.props.getAccountingAdjustments()
+    }
 
     onEntry (e){
         this.setState({entry: e.value})
@@ -151,10 +161,6 @@ class AccountingAdjustments extends Component {
         this.setState({ deleteAccountingAdjustmentsDialog: false });
     }
 
-    componentDidMount() {
-        this.props.getAccountingAdjustments();
-    }
-
 
     saveAccountingAdjustment = (e) => {
         e.preventDefault();
@@ -186,8 +192,6 @@ class AccountingAdjustments extends Component {
         });
         this.props.history.push('/accountingadjustments');
     };
-
-
 
     onHideEditDialog(event) {
         this.setState({
@@ -409,7 +413,7 @@ class AccountingAdjustments extends Component {
             <Fragment>
                 <Growl ref={(el) => this.growl = el}/>
                 <div className="datatable-doc-demo">
-                    <DataTable ref={(el) => this.dt = el} value={this.props.taxes}
+                    <DataTable ref={(el) => this.dt = el} value={this.props.accountingadjustments}
                         style={{backgroundColor: '#4EB08E'}}
                         header={header} responsive className="table-head" dataKey="id" rowHover globalFilter={this.state.globalFilter}
                         selection={this.state.selectedAccountingPosts} onSelectionChange={e => this.setState({selectedAccountingPosts: e.value})}
@@ -556,7 +560,7 @@ class AccountingAdjustments extends Component {
                                 filter={true}
                                 filterBy="id,name"
                                 showClear={true}
-                                optionLabel="id_number"
+                                optionLabel="name"
                                 optionValue="id"
                             />
                             <label htmlFor="dropdown">SELECT CREATED BY</label>

@@ -64,41 +64,30 @@ import BillForm from './accounts/bills/BillForm';
 import DeactivatedCustomers from './customers/deactivatedcustomers/DeactivatedCustomers';
 
 import CustomerAddresses from './customers/customeraddresses/CustomerAddresses';
-import CustomerAddressForm from './customers/customeraddresses/CustomerAddressForm';
 
 import ActiveCustomers from './customers/activecustomers/ActiveCustomers';
-import ActiveCustomerForm from './customers/activecustomers/ActiveCustomerForm';
 
 //employees
 import EmployeePayrollSchedules from './employees/employeepayrollschedules/EmployeePayrollSchedules';
-import EmployeePayrollScheduleForm from './employees/employeepayrollschedules/EmployeePayrollScheduleForm';
 
 import Employees from './employees/employees/Employees';
 import EmployeeForm from './employees/employees/EmployeeForm';
 
 import CompanyShareholders from './employees/companyshareholders/CompanyShareholders';
-import CompanyShareholderForm from './employees/companyshareholders/CompanyShareholderForm';
 
 import CompanyManagers from './employees/companymanagers/CompanyManagers';
-import CompanyManagerForm from './employees/companymanagers/CompanyManagerForm';
 
 import CompanyBookkeepers from './employees/companybookkeepers/CompanyBookkeepers';
-import CompanyBookkeeperForm from './employees/companybookkeepers/CompanyBookkeeperForm';
 
 import CompanyPayrollOfficers from './employees/companypayrollofficers/CompanyPayrollOfficers';
-import CompanyPayrollOfficerForm from './employees/companypayrollofficers/CompanyPayrollOfficerForm';
 
 import CompanyDrivers from './employees/companydrivers/CompanyDrivers';
-import CompanyDriverForm from './employees/companydrivers/CompanyDriverForm';
 
 import CompanyManufacturingPersonells from './employees/companymanufacturingpersonells/CompanyManufacturingPersonells';
-import CompanyManufacturingPersonellForm from './employees/companymanufacturingpersonells/CompanyManufacturingPersonellForm';
 
 import CompanyInventoryControllers from './employees/companyinventorycontrollers/CompanyInventoryControllers';
-import CompanyInventoryControllerForm from './employees/companyinventorycontrollers/CompanyInventoryControllerForm';
 
 import CompanySalesreps from './employees/companysalesreps/CompanySalesreps';
-import CompanySalesrepForm from './employees/companysalesreps/CompanySalesrepForm';
 
 import PendingEmployeeLeaves from './employees/pendingemployeeleaves/PendingEmployeeLeaves';
 
@@ -107,42 +96,30 @@ import AuthorisedEmployeeLeaves from './employees/authorisedemployeeleaves/Autho
 import DeclinedEmployeeLeaves from './employees/declinedemployeeleaves/DeclinedEmployeeLeaves';
 
 import EmployeeContracts from './employees/employeecontracts/EmployeeContracts';
-import EmployeeContractForm from './employees/employeecontracts/EmployeeContractForm';
 
 import EmployeeContractsTerminations from './employees/employeecontractsterminations/EmployeeContractsTerminations';
-import EmployeeContractsTerminationForm from './employees/employeecontractsterminations/EmployeeContractsTerminationForm';
 
 import EmployeeDepartments from './employees/employeedepartments/EmployeeDepartments';
-import EmployeeDepartmentForm from './employees/employeedepartments/EmployeeDepartmentForm';
 
 import EmployeeLeaves from './employees/employeeleaves/EmployeeLeaves';
-import EmployeeLeaveForm from './employees/employeeleaves/EmployeeLeaveForm';
 
 import EmployeePaygrades from './employees/employeepaygrades/EmployeePaygrades';
-import EmployeePaygradeForm from './employees/employeepaygrades/EmployeePaygradeForm';
 
 import EmployeeAllowances from './employees/employeeallowances/EmployeeAllowances';
-import EmployeeAllowanceForm from './employees/employeeallowances/EmployeeAllowanceForm';
 
 import EmployeePayDeductions from './employees/employeepaydeductions/EmployeePayDeductions';
-import EmployeePayDeductionForm from './employees/employeepaydeductions/EmployeePayDeductionForm';
 
 import EmployeePayCommissionRules from './employees/employeepaycommissionrules/EmployeePayCommissionRules';
-import EmployeePayCommissionRuleForm from './employees/employeepaycommissionrules/EmployeePayCommissionRuleForm';
 
 import EmployeePayrollTaxes from './employees/employeepayrolltaxes/EmployeePayrollTaxes';
-import EmployeePayrollTaxForm from './employees/employeepayrolltaxes/EmployeePayrollTaxForm';
 
 import EmployeePayrollDates from './employees/employeepayrolldates/EmployeePayrollDates';
-import EmployeePayrollDateForm from './employees/employeepayrolldates/EmployeePayrollDateForm';
 
 import EmployeePayslips from './employees/employeepayslips/EmployeePayslips';
-import EmployeePayslipForm from './employees/employeepayslips/EmployeePayslipForm';
 
 import EmployeeConfigForm from './employees/employeeconfig/EmployeeConfigForm';
 
 import EmployeeAttendanceTimesheets from './employees/employeeattendancetimesheets/EmployeeAttendanceTimesheets';
-import EmployeeAttendanceTimesheetForm from './employees/employeeattendancetimesheets/EmployeeAttendanceTimesheetForm';
 
 //events
 import EventConfigForm from './events/eventconfig/EventConfigForm';
@@ -186,12 +163,10 @@ import InventoryStockTakes from './inventory/inventorystocktakes/InventoryStockT
 import InventoryStockTakeForm from './inventory/inventorystocktakes/InventoryStockTakeForm';
 
 import ActiveSuppliers from './inventory/activesuppliers/ActiveSuppliers';
-import ActiveSupplierForm from './inventory/activesuppliers/ActiveSupplierForm';
 
 import DeActivedSuppliers from './inventory/deactivedsuppliers/DeActivedSuppliers';
 
 import SupplierAddresses from './inventory/supplieraddresses/SupplierAddresses';
-import SupplierAddressForm from './inventory/supplieraddresses/SupplierAddressForm';
 
 import RawMaterials from './inventory/rawmaterials/RawMaterials';
 import RawMaterialForm from './inventory/rawmaterials/RawMaterialForm';
@@ -403,12 +378,10 @@ class App extends Component {
 							<Route exact path='/inventorystocktakes/create' component={InventoryStockTakeForm} />
 
 							<Route exact path='/activesuppliers' component={ActiveSuppliers} />
-							<Route exact path='/activesuppliers/create' component={ActiveSupplierForm} />
 
 							<Route exact path='/deactivedsuppliers' component={DeActivedSuppliers} />
 
 							<Route exact path='/supplieraddresses' component={SupplierAddresses} />
-							<Route exact path='/supplieraddresses/create' component={SupplierAddressForm} />
 
 							<Route exact path='/rawmaterials' component={RawMaterials} />
 							<Route exact path='/rawmaterials/create' component={RawMaterialForm} />
@@ -433,28 +406,20 @@ class App extends Component {
 							<Route exact path='/employees/create' component={EmployeeForm} />
 
 							<Route exact path='/companyshareholders' component={CompanyShareholders} />
-							<Route exact path='/companyshareholders/create' component={CompanyShareholderForm} />
 
 							<Route exact path='/companymanagers' component={CompanyManagers} />
-							<Route exact path='/companymanagers/create' component={CompanyManagerForm} />
 
 							<Route exact path='/companybookkeepers' component={CompanyBookkeepers} />
-							<Route exact path='/companybookkeepers/create' component={CompanyBookkeeperForm} />
 
 							<Route exact path='/companypayrollofficers' component={CompanyPayrollOfficers} />
-							<Route exact path='/companypayrollofficers/create' component={CompanyPayrollOfficerForm} />
 
 							<Route exact path='/companydrivers' component={CompanyDrivers} />
-							<Route exact path='/companydrivers/create' component={CompanyDriverForm} />
 
 							<Route exact path='/companymanufacturingpersonells' component={CompanyManufacturingPersonells} />
-							<Route exact path='/companymanufacturingpersonells/create' component={CompanyManufacturingPersonellForm} />
 
 							<Route exact path='/companyinventorycontrollers' component={CompanyInventoryControllers} />
-							<Route exact path='/companyinventorycontrollers/create' component={CompanyInventoryControllerForm} />
 
 							<Route exact path='/companysalesreps' component={CompanySalesreps} />
-							<Route exact path='/companysalesreps/create' component={CompanySalesrepForm} />
 
 							<Route exact path='/pendingemployeeleaves' component={PendingEmployeeLeaves} />
 
@@ -463,50 +428,36 @@ class App extends Component {
 							<Route exact path='/declinedemployeeleaves' component={DeclinedEmployeeLeaves} />
 
 							<Route exact path='/employeecontracts' component={EmployeeContracts} />
-							<Route exact path='/employeecontracts/create' component={EmployeeContractForm} />
 
 							<Route exact path='/employeecontractsterminations' component={EmployeeContractsTerminations} />
-							<Route exact path='/employeecontractsterminations/create' component={EmployeeContractsTerminationForm} />
 
 							<Route exact path='/employeedepartments' component={EmployeeDepartments} />
-							<Route exact path='/employeedepartments/create' component={EmployeeDepartmentForm} />
 
 							<Route exact path='/employeeleaves' component={EmployeeLeaves} />
-							<Route exact path='/employeeleaves/create' component={EmployeeLeaveForm} />
 
 							<Route exact path='/employeepaygrades' component={EmployeePaygrades} />
-							<Route exact path='/employeepaygrades/create' component={EmployeePaygradeForm} />
 
 							<Route exact path='/employeeallowances' component={EmployeeAllowances} />
-							<Route exact path='/employeeallowances/create' component={EmployeeAllowanceForm} />
 
 							<Route exact path='/employeepaydeductions' component={EmployeePayDeductions} />
-							<Route exact path='/employeepaydeductions/create' component={EmployeePayDeductionForm} />
 
 							<Route exact path='/employeepaycommissionrules' component={EmployeePayCommissionRules} />
-							<Route exact path='/employeepaycommissionrules/create' component={EmployeePayCommissionRuleForm} />
 
 							<Route exact path='/employeepayrolltaxes' component={EmployeePayrollTaxes} />
-							<Route exact path='/employeepayrolltaxes/create' component={EmployeePayrollTaxForm} />
 
 							<Route exact path='/employeepayrolldates' component={EmployeePayrollDates} />
-							<Route exact path='/employeepayrolldates/create' component={EmployeePayrollDateForm} />
 
 							<Route exact path='/employeepayslips' component={EmployeePayslips} />
-							<Route exact path='/employeepayslips/create' component={EmployeePayslipForm} />
 
 							<Route exact path='/employeeconfig' component={EmployeeConfigForm} />
 
 							<Route exact path='/employeeattendancetimesheets' component={EmployeeAttendanceTimesheets} />
-							<Route exact path='/employeeattendancetimesheets/create' component={EmployeeAttendanceTimesheetForm} />
 
 							<Route exact path='/deactivatedcustomers' component={DeactivatedCustomers} />
 
 							<Route exact path='/customeraddresses' component={CustomerAddresses} />
-							<Route exact path='/customeraddresses/create' component={CustomerAddressForm} />
 
 							<Route exact path='/activecustomers' component={ActiveCustomers} />
-							<Route exact path='/activecustomers/create' component={ActiveCustomerForm} />
 
 							<Route exact path='/taxes' component={Taxes} />
 
@@ -554,7 +505,6 @@ class App extends Component {
 							<Route exact path='/billpayments' component={BillPayments} />
 
 							<Route exact path='/employeepayrollschedules' component={EmployeePayrollSchedules} />
-							<Route exact path='/employeepayrollschedules/create' component={EmployeePayrollScheduleForm} />
 
 							<Route component={Default} />
 						</Switch>

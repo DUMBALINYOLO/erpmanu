@@ -22,8 +22,6 @@ import {Dropdown} from 'primereact/dropdown';
 import { Dialog } from 'primereact/dialog';
 import "./form.css";
 
-
-
 class AccountingPosts extends Component {
 
     emptyAccountingPost = {
@@ -62,6 +60,7 @@ class AccountingPosts extends Component {
             },
             submitted: false,
         };
+
 
         this.actionBodyTemplate = this.actionBodyTemplate.bind(this);
         this.filterDate = this.filterDate.bind(this);
@@ -112,7 +111,19 @@ class AccountingPosts extends Component {
         addAccountingPost: PropTypes.func.isRequired,
         editAccountingPost: PropTypes.func.isRequired,
         deleteAccountingPost: PropTypes.func.isRequired,
+        getJournals: PropTypes.func.isRequired,
+        getDebits: PropTypes.func.isRequired,
+        getCredits: PropTypes.func.isRequired,
+        getLedgers: PropTypes.func.isRequired
     };
+
+    componentDidMount() {
+        this.props.getAccountingPosts()
+        this.props.getJournals()
+        this.props.getDebits()
+        this.props.getCredits()
+        this.props.getLedgers()
+    }
 
     onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
@@ -142,10 +153,6 @@ class AccountingPosts extends Component {
 
     hideDeleteAccountingPostsDialog() {
         this.setState({ deleteAccountingPostsDialog: false });
-    }
-
-    componentDidMount() {
-        this.props.getAccountingPosts();
     }
 
 
@@ -390,11 +397,11 @@ class AccountingPosts extends Component {
             <Fragment>
                 <Growl ref={(el) => this.growl = el}/>
                 <div className="datatable-doc-demo">
-                    <DataTable ref={(el) => this.dt = el} value={this.props.taxes}
+                    <DataTable ref={(el) => this.dt = el} value={this.props.accountingposts}
                         style={{backgroundColor: '#4EB08E'}}
                         header={header} responsive className="table-head" dataKey="id" rowHover globalFilter={this.state.globalFilter}
                         selection={this.state.selectedAccountingPosts} onSelectionChange={e => this.setState({selectedAccountingPosts: e.value})}
-                        paginator rows={10} emptyMessage="No Accounts found" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                        paginator rows={10} emptyMessage="No Accounting Posts found" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
                         paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown" rowsPerPageOptions={[10,25,50]}>
                         <Column
                             className="table-field"

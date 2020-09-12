@@ -37,7 +37,7 @@ class Accounts extends Component {
         parent_account: null,
         balance_sheet_category: null,
         active: false,
-        
+
     };
 
     constructor() {
@@ -108,7 +108,7 @@ class Accounts extends Component {
         this.hideDeleteAccountDialog = this.hideDeleteAccountDialog.bind(this);
         this.hideDeleteAccountsDialog = this.hideDeleteAccountsDialog.bind(this);
 
-        
+
     }
 
     static propTypes = {
@@ -241,7 +241,7 @@ class Accounts extends Component {
                 parent_account: null,
                 balance_sheet_category: null,
                 active: false,
-            }     
+            }
         });
     }
 
@@ -486,6 +486,13 @@ class Accounts extends Component {
                         />
                         <Column
                             className="table-field"
+                            field="name"
+                            header="Name"
+                            sortable filter filterPlaceholder="Search by Name"
+                            style={{width:'3em', backgroundColor: '#4EB0A5'}}
+                        />
+                        <Column
+                            className="table-field"
                             field="type"
                             header="Type"
                             sortable filter filterPlaceholder="Search by Type"
@@ -507,26 +514,19 @@ class Accounts extends Component {
                         />
                         <Column
                             className="table-field"
-                            field="created_date"
-                            header="Created Date"
-                            sortable filter filterPlaceholder="Search by Created Date"
-                            style={{width:'3em', backgroundColor: '#4EB0A5'}}
-                        />
-                        <Column
-                            className="table-field"
                             header="EDIT"
                             body={this.actionBodyTemplate}
                             headerStyle={{width: '3em', textAlign: 'center', backgroundColor: '#4EB0A5'}}
                             bodyStyle={{textAlign: 'center', overflow: 'visible', backgroundColor: '#4EB0A5'}}
                         />
                     </DataTable>
-                    <Dialog 
-                        visible={this.state.accountDialog} 
-                        style={{ width: '900px' }} 
-                        header=" Create Account" 
-                        modal 
-                        className="p-fluid" 
-                        footer={accountDialogFooter} 
+                    <Dialog
+                        visible={this.state.accountDialog}
+                        style={{ width: '900px' }}
+                        header=" Create Account"
+                        modal
+                        className="p-fluid"
+                        footer={accountDialogFooter}
                         onHide={this.hideDialog}
                     >
                         <div className="p-field p-col-12 p-md-12">
@@ -635,13 +635,13 @@ class Accounts extends Component {
                             </span>
                         </div>
                     </Dialog>
-                    <Dialog 
-                        header="UPDATE ACCOUNT" 
-                        footer={editDialogFooter} 
+                    <Dialog
+                        header="UPDATE ACCOUNT"
+                        footer={editDialogFooter}
                         visible={this.state.visibleEditDialog}
                         className="p-fluid"
                         style ={{ width: '700px'}}
-                        modal={true} 
+                        modal={true}
                         onHide={this.onHideEditDialog}
                     >
                         <div className="p-field p-col-12 p-md-12">
@@ -654,7 +654,7 @@ class Accounts extends Component {
                                             }
                                         })
                                     }
-                                    id="inName" 
+                                    id="inName"
                                     value={this.state.selectRow.name}
                                 />
                             </span>
@@ -691,7 +691,7 @@ class Accounts extends Component {
                                             }
                                         })
                                     }
-                                    id="inName" 
+                                    id="inName"
                                     value={this.state.selectRow.description}
                                 />
                             </span>
@@ -707,9 +707,9 @@ class Accounts extends Component {
                                     })
                                 }
                                 inputId="working"
-                                id="inBankAccount" 
+                                id="inBankAccount"
                                 checked={this.state.selectRow.bank_account}
-                                
+
                             />
                         </div>
                         <div className="p-field p-col-12 p-md-12 p-formgroup-inline">
@@ -743,7 +743,7 @@ class Accounts extends Component {
                         <div className="p-field p-col-12 p-md-12">
                             <span className="p-float-label">
                             <Dropdown
-                                id="inType" 
+                                id="inType"
                                 value={this.state.selectRow.type}
                                 onChange={(e) => this.setState({
                                         selectRow: {
@@ -764,7 +764,7 @@ class Accounts extends Component {
                         <div className="p-field p-col-12 p-md-12">
                             <span className="p-float-label">
                             <Dropdown
-                                id="inBalanceSheetCategory" 
+                                id="inBalanceSheetCategory"
                                 value={this.state.selectRow.balance_sheet_category}
                                 onChange={(e) => this.setState({
                                         selectRow: {
@@ -785,7 +785,7 @@ class Accounts extends Component {
                         <div className="p-field p-col-12 p-md-12">
                             <span className="p-float-label">
                             <Dropdown
-                                id="inParentAccount" 
+                                id="inParentAccount"
                                 value={this.state.selectRow.parent_account}
                                 onChange={(e) => this.setState({
                                         selectRow: {
@@ -804,7 +804,7 @@ class Accounts extends Component {
                             </span>
                         </div>
 
-                   
+
                     </Dialog>
                 </div>
             </Fragment>
@@ -820,8 +820,6 @@ const mapStateToProps = state =>({
 })
 
 export default connect(
-            mapStateToProps, 
-            {getAccounts, addAccount, deleteAccount, editAccount, getAccountTypeChoices, getAccountBalanceSheetCategoriesChoices} 
+            mapStateToProps,
+            {getAccounts, addAccount, deleteAccount, editAccount, getAccountTypeChoices, getAccountBalanceSheetCategoriesChoices}
             ) (Accounts);
-
-

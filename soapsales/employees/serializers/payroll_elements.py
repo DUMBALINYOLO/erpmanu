@@ -1,9 +1,9 @@
 from rest_framework import serializers
 from employees.models import (
-			Allowance, 
-			Deduction, 
-			CommissionRule, 
-			PayrollTax, 
+			Allowance,
+			Deduction,
+			CommissionRule,
+			PayrollTax,
 			TaxBracket,
 			PayrollSchedule,
 			PayrollDate,
@@ -24,7 +24,7 @@ class AllowanceSerializer(serializers.ModelSerializer):
 
 	class Meta:
 		model = Allowance
-		fields = ['id', 'name', 'taxable']
+		fields = ['id', 'name', 'amount', 'taxable']
 
 
 class DeductionCreateUpdateSerializer(serializers.ModelSerializer):
@@ -234,11 +234,3 @@ class PayrollDateListSerializer(serializers.ModelSerializer):
 			'schedule',
 			'number_of_employees',
 		]
-
-
-
-
-
-
-
-

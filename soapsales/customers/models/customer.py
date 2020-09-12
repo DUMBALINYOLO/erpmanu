@@ -23,10 +23,10 @@ class Customer(SoftDeletionModel):
         Customers can have accounts if store credit is extended to them.
 
     '''
-    
+
     name = models.CharField(max_length=230, blank=True)
     status = models.CharField(max_length=50, choices=CUSTOMER_STATUS_CHOICES, default='active')
-    customer_number = models.CharField(max_length=255, null=True, unique=True, default=None)  
+    customer_number = models.CharField(max_length=255, null=True, unique=True, default=None)
     is_organization = models.BooleanField(default=False)
     is_individual = models.BooleanField(default=False)
     banking_details = models.TextField(default= "", blank=True)
@@ -44,11 +44,11 @@ class Customer(SoftDeletionModel):
 
     def save(self, *args, **kwargs):
         if not self.customer_number:
-            self.customer_number = str(uuid.uuid4()).replace("-", '').upper()[:20]
+            self.customer_number = str(uuid.uuid4()).replace("-", '').upper()[:10]
         if not self.account:
             self.create_customer_account()
         super(Customer, self).save(*args, **kwargs)
-    
+
 
     @property
     def invoices(self):
@@ -136,7 +136,7 @@ class Customer(SoftDeletionModel):
         from accounts.models import Account
         n_customers = Customer.objects.all().count()
         acc_nos = Account.objects.all().count()
-        new_num = (acc_nos + 1) + 8000 
+        new_num = (acc_nos + 1) + 8000
         self.account = Account.objects.create(
                 name= "Customer: %s" % self.name,
                 id= (1100 + n_customers + 20) * 2,
@@ -179,7 +179,7 @@ class Customer(SoftDeletionModel):
         if total_full_payments == 0:
             return 0
         return total_days / total_full_payments
-        
+
 
     def sales_over_period(self, start, end):
         return Invoice.objects.filter(
@@ -234,22 +234,3 @@ class Customer(SoftDeletionModel):
 
     # payments
     # receipts
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

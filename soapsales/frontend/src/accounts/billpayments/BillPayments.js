@@ -114,7 +114,17 @@ class BillPayments extends Component {
         addBillPayment: PropTypes.func.isRequired,
         editBillPayment: PropTypes.func.isRequired,
         deleteBillPayment: PropTypes.func.isRequired,
+        getAccounts: PropTypes.func.isRequired,
+        getBills: PropTypes.func.isRequired,
+        getEmployees: PropTypes.func.isRequired,
     };
+
+    componentDidMount() {
+      this.props.getAccounts()
+      this.props.getBills()
+      this.props.getEmployees()
+      this.props.getBillPayments()
+    }
 
     onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
@@ -146,10 +156,6 @@ class BillPayments extends Component {
 
     hideDeleteBillPaymentsDialog() {
         this.setState({ deleteBillPaymentsDialog: false });
-    }
-
-    componentDidMount() {
-        this.props.getBillPayments();
     }
 
 
@@ -244,7 +250,7 @@ class BillPayments extends Component {
             errorList.push({
                 severity: 'error',
                 summary: 'cant be left blank!',
-                detail: 'Ad'
+                detail: 'Add'
             });
         }
         return errorList;
@@ -286,7 +292,7 @@ class BillPayments extends Component {
                 <div className="datatable-icons">
                     <div className="h"><FileUpload mode="basic" accept="image/*" maxFileSize={1000000} label="Import" chooseLabel="Import" className="p-mr-2 p-d-inline-block" /></div>
                     <div className="fancy-icon"><Button label="EXPORT TO CSV" icon="pi pi-upload" className="p-button-rounded p-button-help" onClick={this.export} /></div>
-                    <Button label="CREATE NEW BillPayment" className="p-button-success p-mr-2" onClick={this.openNew} />
+                    <Button label="CREATE NEW BILL PAYMENT" className="p-button-success p-mr-2" onClick={this.openNew} />
                     <div className="fancy-icon"><Button type="button" className="p-button-warning p-button-rounded" icon="pi pi-file-pdf" iconPos="right" label="EXPORT TO PDF" onClick={this.export}></Button></div>
                     <div className="fancy-icon"><Button type="button" className="p-button-warning p-button-rounded" icon="pi pi-print" iconPos="right" label="PRINT" onClick={this.export}></Button></div>
                     <InputText className="fancy-icon" type="search" onInput={(e) => this.setState({globalFilter: e.target.value})} placeholder="Search" />
@@ -468,9 +474,16 @@ class BillPayments extends Component {
                         />
                     </DataTable>
 
-                    <Dialog visible={this.state.billpaymentDialog} style={{ width: '450px' }} header="Bill Payment Details" modal className="p-fluid" footer={billpaymentDialogFooter} onHide={this.hideDialog}>
+                    <Dialog
+                        visible={this.state.billpaymentDialog}
+                        style={{ width: '900px' }}
+                        header="Bill Payment Details"
+                        modal className="p-fluid"
+                        footer={billpaymentDialogFooter}
+                        onHide={this.hideDialog}
+                    >
                     <div className="p-fluid p-formgrid p-grid">
-                        <div className="p-field p-col-12 p-md-6">
+                        <div className="p-field p-col-12 p-md-12">
                             <span className="p-float-label">
                             <Calendar
                                 showIcon={true}
@@ -483,7 +496,7 @@ class BillPayments extends Component {
                             <label htmlFor="inputtext">Date</label>
                             </span>
                         </div>
-                        <div className="p-field p-col-12 p-md-6">
+                        <div className="p-field p-col-12 p-md-12">
                             <label>Amount</label>
                             <InputNumber
                               name="amount"
@@ -557,7 +570,7 @@ class BillPayments extends Component {
                     </Dialog>
 
                     <Dialog
-                        header="UPDATE Bill Payment"
+                        header="UPDATE BILL PAYMENT"
                         footer={editDialogFooter}
                         visible={this.state.visibleEditDialog}
                         className="p-fluid"

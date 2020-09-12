@@ -24,7 +24,6 @@ import {Checkbox} from 'primereact/checkbox';
 import "./form.css";
 
 
-
 class InterestBearingAccounts extends Component {
 
     emptyInterestBearingAccount = {
@@ -156,7 +155,21 @@ class InterestBearingAccounts extends Component {
         addInterestBearingAccount: PropTypes.func.isRequired,
         editInterestBearingAccount: PropTypes.func.isRequired,
         deleteInterestBearingAccount: PropTypes.func.isRequired,
+        getAccounts: PropTypes.func.isRequired,
+        getAccountTypeChoices: PropTypes.func.isRequired,
+        getAccountBalanceSheetCategoriesChoices: PropTypes.func.isRequired,
+        getInterestIntervalAccountChoices: PropTypes.func.isRequired,
+        getAccountInterestMethodChoices: PropTypes.func.isRequired,
     };
+
+    componentDidMount() {
+        this.props.getAccounts()
+        this.props.getInterestBearingAccounts()
+        this.props.getAccountTypeChoices()
+        this.props.getAccountBalanceSheetCategoriesChoices()
+        this.props.getInterestIntervalAccountChoices()
+        this.props.getAccountInterestMethodChoices()
+    }
 
     onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
@@ -194,10 +207,6 @@ class InterestBearingAccounts extends Component {
 
     hideDeleteInterestBearingAccountsDialog() {
         this.setState({ deleteInterestBearingAccountsDialog: false });
-    }
-
-    componentDidMount() {
-        this.props.getInterestBearingAccounts();
     }
 
 
@@ -379,6 +388,7 @@ class InterestBearingAccounts extends Component {
         );
     }
 
+
     activityBodyTemplate(rowData) {
         return <ProgressBar value={rowData.activity} showValue={false} />;
     }
@@ -496,7 +506,7 @@ class InterestBearingAccounts extends Component {
             <Fragment>
                 <Growl ref={(el) => this.growl = el}/>
                 <div className="datatable-doc-demo">
-                    <DataTable ref={(el) => this.dt = el} value={this.props.taxes}
+                    <DataTable ref={(el) => this.dt = el} value={this.props.interestbearingaccounts}
                         style={{backgroundColor: '#4EB08E'}}
                         header={header} responsive className="table-head" dataKey="id" rowHover globalFilter={this.state.globalFilter}
                         selection={this.state.selectedInterestBearingAccounts} onSelectionChange={e => this.setState({selectedInterestBearingAccounts: e.value})}

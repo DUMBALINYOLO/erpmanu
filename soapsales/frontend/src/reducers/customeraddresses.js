@@ -3,6 +3,7 @@ import {
     GET_CUSTOMER_ADDRESSES ,
     DELETE_CUSTOMER_ADDRESS,
     GET_CUSTOMER_ADDRESS,
+    EDIT_CUSTOMER_ADDRESS
 } from '../types/customeraddressTypes';
 
 const initialState = {
@@ -33,6 +34,13 @@ export default function(state = initialState, action){
                 ...state,
                 customeraddress:action.payload
                 };
+        case EDIT_CUSTOMER_ADDRESS:
+            const arrayList = state.customeraddresses;
+            arrayList.splice(arrayList.findIndex(item => item.id === action.payload.data.id), 1 , action.payload.data);
+            return {
+                ...state,
+                customeraddresses: arrayList,
+            };
         default:
             return state;
     }

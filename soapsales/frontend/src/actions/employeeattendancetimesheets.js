@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ADD_EMPLOYEE_ATTENDANCE_TIMESHEET, GET_EMPLOYEE_ATTENDANCE_TIMESHEETS, GET_EMPLOYEE_ATTENDANCE_TIMESHEET, DELETE_EMPLOYEE_ATTENDANCE_TIMESHEET } from '../types/employeeattendancetimesheetTypes';
+import { ADD_EMPLOYEE_ATTENDANCE_TIMESHEET, EDIT_EMPLOYEE_ATTENDANCE_TIMESHEET, GET_EMPLOYEE_ATTENDANCE_TIMESHEETS, GET_EMPLOYEE_ATTENDANCE_TIMESHEET, DELETE_EMPLOYEE_ATTENDANCE_TIMESHEET } from '../types/employeeattendancetimesheetTypes';
 import { employeeattendancetimesheetsURL } from '../constants';
 
 // Get
@@ -45,4 +45,15 @@ export const getEmployeeAttendanceTimesheet = id => dispatch =>{
             });
         }).catch(err => console.log(err))
 
+}
+
+//Edit
+export const editEmployeeAttendanceTimesheet = (id, employeeattendancetimesheet) => dispatch => {
+    axios.put(`http://127.0.0.1:8000/api/employees/employee-attendance-timesheets/${id}/`, employeeattendancetimesheet)
+        .then(res => {
+            dispatch({
+                type: EDIT_EMPLOYEE_ATTENDANCE_TIMESHEET,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
 }

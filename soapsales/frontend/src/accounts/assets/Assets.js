@@ -140,7 +140,21 @@ class Assets extends Component {
         addAsset: PropTypes.func.isRequired,
         editAsset: PropTypes.func.isRequired,
         deleteAsset: PropTypes.func.isRequired,
+        getAssetTypesChoices: PropTypes.func.isRequired,
+        getAssetsDepriciationMethodChoices: PropTypes.func.isRequired,
+        getJournals: PropTypes.func.isRequired,
+        getEmployees: PropTypes.func.isRequired,
+        getAccounts: PropTypes.func.isRequired
     };
+
+    componentDidMount() {
+        this.props.getAssetTypesChoices()
+        this.props.getAssetsDepriciationMethodChoices()
+        this.props.getJournals()
+        this.props.getEmployees()
+        this.props.getAccounts()
+        this.props.getAssets()
+    }
 
     onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
@@ -177,10 +191,6 @@ class Assets extends Component {
 
     hideDeleteAssetsDialog() {
         this.setState({ deleteAssetsDialog: false });
-    }
-
-    componentDidMount() {
-        this.props.getAssets();
     }
 
 

@@ -42,11 +42,11 @@ class AbstractAccount(SoftDeletionModel):
     description = models.TextField()
     bank_account = models.BooleanField(default=False)
     control_account = models.BooleanField(default=False)
-    parent_account = models.ForeignKey('accounts.Account', blank=True, 
+    parent_account = models.ForeignKey('accounts.Account', blank=True,
         null=True, on_delete=models.SET_NULL)
     balance_sheet_category = models.CharField(
-                                        max_length=32, 
-                                        choices=ACCOUNTS_BALANCE_SHEET_CATEGORIES, 
+                                        max_length=32,
+                                        choices=ACCOUNTS_BALANCE_SHEET_CATEGORIES,
                                         default='current-assets'
                                     )
     active = models.BooleanField(default=False, verbose_name="active?")
@@ -59,7 +59,7 @@ class AbstractAccount(SoftDeletionModel):
     def __str__(self):
         return f'{self.name} {self.account_number}'
 
-    
+
     def balance_on_date(self, date):
         #TODO fix
         # 920 + 150
@@ -68,18 +68,18 @@ class AbstractAccount(SoftDeletionModel):
 
         return self.balance - self.balance_over_period(
                 date, datetime.date.today())
-        
-        
+
+
     def balance_over_period(self, start, end):
         # TODO test
         credits = Credit.objects.filter(
-            Q(account=self) & 
+            Q(account=self) &
             Q(entry__draft=False) &
             Q(entry__date__gte=start) &
             Q(entry__date__lte=end)
             )
         debits = Debit.objects.filter(
-            Q(account=self) & 
+            Q(account=self) &
             Q(entry__draft=False) &
             Q(entry__date__gte=start) &
             Q(entry__date__lte=end)
@@ -104,7 +104,7 @@ class AbstractAccount(SoftDeletionModel):
         self.save()
         return self.balance
 
-  
+
     @property
     def balance_type(self):
         if self.type in ['asset', 'expense', 'cost-of-sales']:
@@ -118,8 +118,8 @@ class AbstractAccount(SoftDeletionModel):
 
     @property
     def control_balance(self):
-        
-        total = self.balance 
+
+        total = self.balance
         for acc in self.children:
             total += acc.balance
 
@@ -127,10 +127,10 @@ class AbstractAccount(SoftDeletionModel):
 
     def save(self, *args, **kwargs):
         if not self.account_number:
-            self.account_number = str(uuid.uuid4()).replace("-", '').upper()[:20]
+            self.account_number = str(uuid.uuid4()).replace("-", '').upper()[:10]
         super(AbstractAccount, self).save(*args, **kwargs)
 
-   
+
 class Account(AbstractAccount):
 
     '''
@@ -156,9 +156,9 @@ class Account(AbstractAccount):
         '''status of the account'''
         if self.balance_type == "credit":
             return self.control_balance
-        
+
         return D('0.00')
-        
+
 
 
     @property
@@ -168,9 +168,9 @@ class Account(AbstractAccount):
             return self.control_balance
 
         return D('0.00')
-    
+
     def convert_to_interest_bearing_account(self):
-        # create an instance of InterestBearingAccount 
+        # create an instance of InterestBearingAccount
         # and delete this account
         pass
 
@@ -181,17 +181,17 @@ class Account(AbstractAccount):
     @property
     def debit_transactions(self):
         return Debit.objects.filter(account=self)
-    
+
     @property
     def transactions(self):
         return chain(self.credit_transactions, self.debit_transactions)
 
 
-    
+
 
 class InterestBearingAccount(AbstractAccount):
     '''
-    mutable 
+    mutable
     '''
     interest_rate = models.DecimalField(max_digits=16, decimal_places=2, default=0.0)
     interest_interval = models.IntegerField(choices = INTEREST_INTERVAL_ACCOUNT_CHOICES, default=1)
@@ -224,7 +224,3 @@ class InterestBearingAccount(AbstractAccount):
                 datetime.timedelta(days=self._interest_interval_days)
         return date > self.date_account_opened + \
             datetime.timedelta(days=self._interest_interval_days)
-
-        
-
-

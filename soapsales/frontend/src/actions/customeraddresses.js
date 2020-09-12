@@ -3,7 +3,8 @@ import {
         ADD_CUSTOMER_ADDRESS,
         GET_CUSTOMER_ADDRESSES,
         DELETE_CUSTOMER_ADDRESS,
-        GET_CUSTOMER_ADDRESS
+        GET_CUSTOMER_ADDRESS,
+        EDIT_CUSTOMER_ADDRESS
     } from '../types/customeraddressTypes';
 import { customeraddressesURL } from '../constants';
 
@@ -50,4 +51,15 @@ export const getCustomerAddress = id => dispatch =>{
             });
         }).catch(err => console.log(err))
 
+}
+
+//Edit
+export const editCustomerAddress = (id, customeraddress) => dispatch => {
+    axios.put(`http://127.0.0.1:8000/api/customers/customer-addresses/${id}/`, customeraddress)
+        .then(res => {
+            dispatch({
+                type: EDIT_CUSTOMER_ADDRESS,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
 }

@@ -29,7 +29,7 @@ class Workbooks extends Component {
     constructor() {
         super();
         this.state = {
-            workbooks: [],
+            workbooks: null,
             globalFilter: null,
             dateFilter: null,
             selectedWorkbooks: null,
@@ -321,7 +321,7 @@ class Workbooks extends Component {
             <Fragment>
                 <Growl ref={(el) => this.growl = el}/>
                 <div className="datatable-doc-demo">
-                    <DataTable ref={(el) => this.dt = el} value={this.props.taxes}
+                    <DataTable ref={(el) => this.dt = el} value={this.props.workbooks}
                         style={{backgroundColor: '#4EB08E'}}
                         header={header} responsive className="table-head" dataKey="id" rowHover globalFilter={this.state.globalFilter}
                         selection={this.state.selectedWorkbooks} onSelectionChange={e => this.setState({selectedWorkbooks: e.value})}
