@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ADD_EMPLOYEE_PAYROLL_SCHEDULE, GET_EMPLOYEE_PAYROLL_SCHEDULES, GET_EMPLOYEE_PAYROLL_SCHEDULE, DELETE_EMPLOYEE_PAYROLL_SCHEDULE } from '../types/employeepayrollscheduleTypes';
+import { ADD_EMPLOYEE_PAYROLL_SCHEDULE, EDIT_EMPLOYEE_PAYROLL_SCHEDULE, GET_EMPLOYEE_PAYROLL_SCHEDULES, GET_EMPLOYEE_PAYROLL_SCHEDULE, DELETE_EMPLOYEE_PAYROLL_SCHEDULE } from '../types/employeepayrollscheduleTypes';
 import { employeepayrollschedulesURL } from '../constants';
 
 // Get
@@ -45,4 +45,15 @@ export const getEmployeePayrollSchedule = id => dispatch =>{
             });
         }).catch(err => console.log(err))
 
+}
+
+//Edit
+export const editEmployeePayrollSchedule = (id, employeepayrollschedule) => dispatch => {
+    axios.put(`http://127.0.0.1:8000/api/employees/employee-payroll-schedules/${id}/`, employeepayrollschedule)
+        .then(res => {
+            dispatch({
+                type: EDIT_EMPLOYEE_PAYROLL_SCHEDULE,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
 }

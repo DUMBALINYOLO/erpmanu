@@ -3,7 +3,8 @@ import {
         ADD_WORKBOOK,
         GET_WORKBOOKS,
         DELETE_WORKBOOK,
-        GET_WORKBOOK
+        GET_WORKBOOK,
+        EDIT_WORKBOOK
     } from '../types/workbookTypes';
 import { workbooksURL } from '../constants';
 
@@ -30,8 +31,8 @@ export const deleteWorkbook = (id) => dispatch => {
 }
 
 // Add
-export const addWorkbook = (Workbook) => dispatch => {
-    axios.post(workbooksURL, Workbook)
+export const addWorkbook = (workbook) => dispatch => {
+    axios.post(workbooksURL, workbook)
         .then(res => {
             dispatch({
                 type: ADD_WORKBOOK,
@@ -50,4 +51,15 @@ export const getWorkbook = id => dispatch =>{
             });
         }).catch(err => console.log(err))
 
+}
+
+//Edit
+export const editWorkbook = (id, workbook) => dispatch => {
+    axios.put(`http://127.0.0.1:8000/api/accounting/workbooks/${id}/`, workbook)
+        .then(res => {
+            dispatch({
+                type: EDIT_WORKBOOK,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
 }

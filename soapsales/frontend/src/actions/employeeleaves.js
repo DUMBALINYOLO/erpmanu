@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ADD_EMPLOYEE_LEAVE, GET_EMPLOYEE_LEAVES, GET_EMPLOYEE_LEAVE, DELETE_EMPLOYEE_LEAVE } from '../types/employeeleaveTypes';
+import { ADD_EMPLOYEE_LEAVE, EDIT_EMPLOYEE_LEAVE, GET_EMPLOYEE_LEAVES, GET_EMPLOYEE_LEAVE, DELETE_EMPLOYEE_LEAVE } from '../types/employeeleaveTypes';
 import { employeeleavesURL } from '../constants';
 
 // Get
@@ -45,4 +45,15 @@ export const getEmployeeLeave = id => dispatch =>{
             });
         }).catch(err => console.log(err))
 
+}
+
+//Edit
+export const editEmployeeLeave = (id, employeeleave) => dispatch => {
+    axios.put(`http://127.0.0.1:8000/api/employees/employee-leaves/${id}/`, employeeleave)
+        .then(res => {
+            dispatch({
+                type: EDIT_EMPLOYEE_LEAVE,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
 }

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ADD_EMPLOYEE_CONTRACTS_TERMINATION, GET_EMPLOYEE_CONTRACTS_TERMINATIONS, GET_EMPLOYEE_CONTRACTS_TERMINATION, DELETE_EMPLOYEE_CONTRACTS_TERMINATION } from '../types/employeecontractsterminationTypes';
+import { ADD_EMPLOYEE_CONTRACTS_TERMINATION, EDIT_EMPLOYEE_CONTRACTS_TERMINATION, GET_EMPLOYEE_CONTRACTS_TERMINATIONS, GET_EMPLOYEE_CONTRACTS_TERMINATION, DELETE_EMPLOYEE_CONTRACTS_TERMINATION } from '../types/employeecontractsterminationTypes';
 import { employeecontractsterminationsURL } from '../constants';
 
 // Get
@@ -45,4 +45,15 @@ export const getEmployeeContractsTermination = id => dispatch =>{
             });
         }).catch(err => console.log(err))
 
+}
+
+//Edit
+export const editEmployeeContractsTermination = (id, employeecontractstermination) => dispatch => {
+    axios.put(`http://127.0.0.1:8000/api/employees/employee-contracts-terminations/${id}/`, employeecontractstermination)
+        .then(res => {
+            dispatch({
+                type: EDIT_EMPLOYEE_CONTRACTS_TERMINATION,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
 }

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ADD_EMPLOYEE_DEPARTMENT, GET_EMPLOYEE_DEPARTMENTS, GET_EMPLOYEE_DEPARTMENT, DELETE_EMPLOYEE_DEPARTMENT } from '../types/employeedepartmentTypes';
+import { ADD_EMPLOYEE_DEPARTMENT, EDIT_EMPLOYEE_DEPARTMENT, GET_EMPLOYEE_DEPARTMENTS, GET_EMPLOYEE_DEPARTMENT, DELETE_EMPLOYEE_DEPARTMENT } from '../types/employeedepartmentTypes';
 import { employeedepartmentsURL } from '../constants';
 
 // Get
@@ -25,6 +25,7 @@ export const deleteEmployeeDepartment = (id) => dispatch => {
         }).catch(err => console.log(err))
 }
 
+
 // Add
 export const addEmployeeDepartment = employeedepartment => dispatch => {
     axios.post(employeedepartmentsURL, employeedepartment)
@@ -45,4 +46,15 @@ export const getEmployeeDepartment = id => dispatch =>{
             });
         }).catch(err => console.log(err))
 
+}
+
+//Edit
+export const editEmployeeDepartment = (id, employeedepartment) => dispatch => {
+    axios.put(`http://127.0.0.1:8000/api/employees/employee-departments/${id}/`, employeedepartment)
+        .then(res => {
+            dispatch({
+                type: EDIT_EMPLOYEE_DEPARTMENT,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
 }

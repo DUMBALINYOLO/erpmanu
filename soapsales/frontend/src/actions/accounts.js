@@ -53,7 +53,7 @@ export const getAccount = id => dispatch =>{
 
 }
 
-
+//Edit
 export const editAccount = (id, account) => dispatch => {
     axios.put(`http://127.0.0.1:8000/api/accounting/accounts/${id}/`, account)
         .then(res => {
@@ -63,24 +63,4 @@ export const editAccount = (id, account) => dispatch => {
             });
         }).catch(err => console.log(err))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

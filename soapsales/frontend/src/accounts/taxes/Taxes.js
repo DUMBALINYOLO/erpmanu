@@ -19,7 +19,6 @@ import { Dialog } from 'primereact/dialog';
 import "./form.css";
 
 
-
 class Taxes extends Component {
 
     emptyTax = {
@@ -131,6 +130,7 @@ class Taxes extends Component {
     };
 
 
+
     onHideEditDialog(event) {
         this.setState({
             visibleEditDialog: false,
@@ -177,8 +177,8 @@ class Taxes extends Component {
         if (!this.state.selectRow.name) {
             errorList.push({
                 severity: 'error',
-                summary: 'Boş Bırakılamaz!',
-                detail: 'Ad'
+                summary: 'cant be left blank!',
+                detail: 'Add'
             });
         }
         return errorList;
@@ -333,7 +333,7 @@ class Taxes extends Component {
                         style={{backgroundColor: '#4EB08E'}}
                         header={header} responsive className="table-head" dataKey="id" rowHover globalFilter={this.state.globalFilter}
                         selection={this.state.selectedTaxes} onSelectionChange={e => this.setState({selectedTaxes: e.value})}
-                        paginator rows={10} emptyMessage="No Accounts found" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                        paginator rows={10} emptyMessage="No Taxes found" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
                         paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown" rowsPerPageOptions={[10,25,50]}>
                         <Column className="table-field" selectionMode="multiple" style={{width:'3em', backgroundColor: '#4EB0A5'}}/>
                         <Column className="table-field" field="id" header="ID" sortable filter filterPlaceholder="Search by ID" style={{width:'3em', backgroundColor: '#4EB0A5'}}/>
@@ -342,7 +342,14 @@ class Taxes extends Component {
                         <Column className="table-field" body={this.actionBodyTemplate} headerStyle={{width: '3em', textAlign: 'center', backgroundColor: '#4EB0A5'}} bodyStyle={{textAlign: 'center', overflow: 'visible', backgroundColor: '#4EB0A5'}} />
                     </DataTable>
 
-                    <Dialog visible={this.state.taxDialog} style={{ width: '450px' }} header="Tax Details" modal className="p-fluid" footer={taxDialogFooter} onHide={this.hideDialog}>
+                    <Dialog
+                        visible={this.state.taxDialog}
+                        style={{ width: '900px' }}
+                        header="Tax Details"
+                        modal className="p-fluid"
+                        footer={taxDialogFooter}
+                        onHide={this.hideDialog}
+                    >
                         <div className="p-fluid p-formgrid p-grid">
                             <div className="p-field p-col-12 p-md-12">
                                 <label>Name</label>
@@ -374,9 +381,13 @@ class Taxes extends Component {
                         </div>
                     </Dialog>
 
-                    <Dialog header="Düzenle" footer={editDialogFooter} visible={this.state.visibleEditDialog}
-                            className=""
-                            width="350px" modal={true} onHide={this.onHideEditDialog}>
+                    <Dialog
+                        footer={editDialogFooter}
+                        visible={this.state.visibleEditDialog}
+                        style={{ width: '700px' }}
+                        header="UPDATE TAX"
+                        modal={true} onHide={this.onHideEditDialog}
+                    >
                         <span className="ui-float-label">
                             <label htmlFor="inName">Name </label>
                             <InputText id="inName" value={this.state.selectRow.name}
@@ -403,16 +414,14 @@ class Taxes extends Component {
                                 step={1}
                                 onChange={(e) =>
                                 this.setState({
-                                        selectRow: {
-                                            ...this.state.selectRow,
-                                            rate: e.target.value
-                                        }
-                                    })
+                                    selectRow: {
+                                        ...this.state.selectRow,
+                                        rate: e.target.value
+                                    }
+                                })
                             }/>
                         </span>
-
                     </Dialog>
-
                     <Dialog visible={this.state.deleteTaxesDialog} style={{ width: '450px' }} header="Confirm" modal footer={deleteTaxesDialogFooter} onHide={this.hideDeleteTaxesDialog}>
                         <div className="confirmation-content">
                             <i className="pi pi-exclamation-triangle p-mr-3" style={{ fontSize: '2rem'}} />

@@ -1,4 +1,4 @@
-import { ADD_EMPLOYEE_ALLOWANCE, GET_EMPLOYEE_ALLOWANCES, GET_EMPLOYEE_ALLOWANCE, DELETE_EMPLOYEE_ALLOWANCE } from '../types/employeeallowanceTypes';
+import { ADD_EMPLOYEE_ALLOWANCE, EDIT_EMPLOYEE_ALLOWANCE, GET_EMPLOYEE_ALLOWANCES, GET_EMPLOYEE_ALLOWANCE, DELETE_EMPLOYEE_ALLOWANCE } from '../types/employeeallowanceTypes';
 
 const initialState = {
     employeeallowances: [],
@@ -29,6 +29,13 @@ export default function(state = initialState, action){
                 ...state,
                 employeeallowance:action.payload
                 };
+        case EDIT_EMPLOYEE_ALLOWANCE:
+            const arrayList = state.employeeallowances;
+            arrayList.splice(arrayList.findIndex(item => item.id === action.payload.data.id), 1 , action.payload.data);
+            return {
+                ...state,
+                employeeallowances: arrayList,
+            };
         default:
             return state;
     }

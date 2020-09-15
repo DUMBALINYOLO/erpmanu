@@ -1,4 +1,4 @@
-import { ADD_EMPLOYEE_PAYROLL_SCHEDULE, GET_EMPLOYEE_PAYROLL_SCHEDULES, GET_EMPLOYEE_PAYROLL_SCHEDULE, DELETE_EMPLOYEE_PAYROLL_SCHEDULE } from '../types/employeepayrollscheduleTypes';
+import { ADD_EMPLOYEE_PAYROLL_SCHEDULE, EDIT_EMPLOYEE_PAYROLL_SCHEDULE, GET_EMPLOYEE_PAYROLL_SCHEDULES, GET_EMPLOYEE_PAYROLL_SCHEDULE, DELETE_EMPLOYEE_PAYROLL_SCHEDULE } from '../types/employeepayrollscheduleTypes';
 
 const initialState = {
     employeepayrollschedules: [],
@@ -22,13 +22,20 @@ export default function(state = initialState, action){
         case ADD_EMPLOYEE_PAYROLL_SCHEDULE:
             return {
                 ...state,
-                employeepayrollschedules: [...state.employeepayrollschedules, action.payload]
+                employeepayrollschedule: [...state.employeepayrollschedules, action.payload]
             }
         case GET_EMPLOYEE_PAYROLL_SCHEDULE:
             return {
                 ...state,
                 employeepayrollschedule:action.payload
                 };
+        case EDIT_EMPLOYEE_PAYROLL_SCHEDULE:
+            const arrayList = state.employeepayrollschedules;
+            arrayList.splice(arrayList.findIndex(item => item.id === action.payload.data.id), 1 , action.payload.data);
+            return {
+                ...state,
+                employeepayrollschedules: arrayList,
+            };
         default:
             return state;
     }

@@ -4,7 +4,7 @@ import {
     DELETE_ACCOUNT,
     GET_ACCOUNT,
     EDIT_ACCOUNT,
-   
+
 
 } from '../types/accountTypes';
 
@@ -46,24 +46,4 @@ export default function(state = initialState, action){
         default:
             return state;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

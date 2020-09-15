@@ -1,4 +1,4 @@
-import { ADD_EMPLOYEE_CONTRACTS_TERMINATION, GET_EMPLOYEE_CONTRACTS_TERMINATIONS, GET_EMPLOYEE_CONTRACTS_TERMINATION, DELETE_EMPLOYEE_CONTRACTS_TERMINATION } from '../types/employeecontractsterminationTypes';
+import { ADD_EMPLOYEE_CONTRACTS_TERMINATION, EDIT_EMPLOYEE_CONTRACTS_TERMINATION, GET_EMPLOYEE_CONTRACTS_TERMINATIONS, GET_EMPLOYEE_CONTRACTS_TERMINATION, DELETE_EMPLOYEE_CONTRACTS_TERMINATION } from '../types/employeecontractsterminationTypes';
 
 const initialState = {
     employeecontractsterminations: [],
@@ -22,13 +22,20 @@ export default function(state = initialState, action){
         case ADD_EMPLOYEE_CONTRACTS_TERMINATION:
             return {
                 ...state,
-                employeecontractsterminations: [...state.employeecontractsterminations, action.payload]
+                employeecontractstermination: [...state.employeecontractsterminations, action.payload]
             }
         case GET_EMPLOYEE_CONTRACTS_TERMINATION:
             return {
                 ...state,
                 employeecontractstermination:action.payload
                 };
+        case EDIT_EMPLOYEE_CONTRACTS_TERMINATION:
+            const arrayList = state.employeecontractsterminations;
+            arrayList.splice(arrayList.findIndex(item => item.id === action.payload.data.id), 1 , action.payload.data);
+            return {
+                ...state,
+                employeecontractsterminations: arrayList,
+            };
         default:
             return state;
     }

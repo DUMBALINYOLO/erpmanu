@@ -1,4 +1,5 @@
 export const ADD_WORKBOOK = 'ADD_WORKBOOK';
 export const GET_WORKBOOKS = 'GET_WORKBOOKS';
 export const DELETE_WORKBOOK = 'DELETE_WORKBOOK';
-export const GET_WORKBOOK = 'GET_WORKBOOK'
+export const GET_WORKBOOK = 'GET_WORKBOOK';
+export const EDIT_WORKBOOK = 'EDIT_WORKBOOK';

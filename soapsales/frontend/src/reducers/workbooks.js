@@ -2,7 +2,8 @@ import {
         ADD_WORKBOOK,
         GET_WORKBOOKS,
         DELETE_WORKBOOK,
-        GET_WORKBOOK
+        GET_WORKBOOK,
+        EDIT_WORKBOOK
     } from '../types/workbookTypes';
 
 const initialState = {
@@ -34,6 +35,13 @@ export default function(state = initialState, action){
                 ...state,
                 workbook:action.payload
                 };
+        case EDIT_WORKBOOK:
+            const arrayList = state.workbooks;
+            arrayList.splice(arrayList.findIndex(item => item.id === action.payload.data.id), 1 , action.payload.data);
+            return {
+                ...state,
+                workbooks: arrayList,
+            };
         default:
             return state;
     }

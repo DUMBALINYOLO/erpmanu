@@ -169,14 +169,12 @@ class Content extends Component {
                     {
                         label: 'Accounts', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/accounts/create'},
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/accounts'}
                         ]
                     },
                     {
                         label: 'Interest Bearing Accounts', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/interestbearingaccounts/create'},
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/interestbearingaccounts'},
                         ]
                     },
@@ -209,7 +207,6 @@ class Content extends Component {
                     {
                         label: 'Assets', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/assets/create'},
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/assets'},
                         ]
                     },
@@ -224,7 +221,6 @@ class Content extends Component {
                     {
                         label: 'Bill Payments', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/billpayments/create'},
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/billpayments'}
                         ]
                     },
@@ -241,16 +237,16 @@ class Content extends Component {
                         ]
                     },
 
-                    
+
                 ]
             },
 
-          
+
             {
                 label: 'Accounting Books', icon: 'pi pi-fw pi-ticket',
                 items: [
 
-                    
+
                     {
                         label: 'Ledgers', icon: 'pi pi-fw pi-bookmark',
                         items: [
@@ -260,15 +256,19 @@ class Content extends Component {
                     {
                         label: 'Accounting Posts', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/accountingposts/create'},
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/accountingposts'}
                         ]
                     },
                     {
                         label: 'Accounting Adjustments', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/accountingadjustments/create'},
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/accountingadjustments'}
+                        ]
+                    },
+                    {
+                        label: 'Workbooks', icon: 'pi pi-fw pi-bookmark',
+                        items: [
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/workbooks'}
                         ]
                     },
                     {
@@ -283,11 +283,11 @@ class Content extends Component {
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/currencies'}
                         ]
                     },
-                    
-                    
+
+
                 ]
             },
- 
+
 
             {
                 label: 'Customers', icon: 'pi pi-fw pi-users',
@@ -301,14 +301,12 @@ class Content extends Component {
                     {
                         label: 'Customer Addresses', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/customeraddresses/create'},
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/customeraddresses'},
                         ]
                     },
                     {
                         label: 'Active Customers', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/activecustomers/create'},
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/activecustomers'},
                         ]
                     },
@@ -367,7 +365,7 @@ class Content extends Component {
                         ]
                     },
 
-                  
+
                 ]
             },
             {
@@ -397,7 +395,7 @@ class Content extends Component {
                             {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/employeeleaves/create'},
                         ]
                     },
-                    
+
                 ]
             },
             {
@@ -406,21 +404,18 @@ class Content extends Component {
                     {
                         label: 'Pay Deductions', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/employeepaydeductions/create'},
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/employeepaydeductions'},
                         ]
                     },
                     {
                         label: 'Commission Rules', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/employeepaycommissionrules/create'},
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/employeepaycommissionrules'},
                         ]
                     },
                     {
                         label: 'Schedule', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/employeepayrollschedules/create'},
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/employeepayrollschedules'},
                         ]
                     },
@@ -428,14 +423,12 @@ class Content extends Component {
                     {
                         label: 'Allowances', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/employeeallowances/create'},
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/employeeallowances'}
                         ]
                     },
                     {
                         label: 'Paygrades', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/employeepaygrades/create'},
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/employeepaygrades'}
                         ]
                     },
@@ -443,18 +436,16 @@ class Content extends Component {
                     {
                         label: 'Payroll Dates', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/employeepayrolldates/create'},
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/employeepayrolldates'}
                         ]
                     },
                     {
                         label: 'Payroll Taxes', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/employeepayrolltaxes/create'},
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/employeepayrolltaxes'},
                         ]
                     },
-                    
+
                 ]
             },
             {
@@ -463,45 +454,34 @@ class Content extends Component {
                     {
                         label: 'Employee Contracts', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/employeecontracts/create'},
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/employeecontracts'}
                         ]
                     },
                     {
                         label: 'Contracts Terminations', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/employeecontractsterminations/create'},
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/employeecontractsterminations'},
                         ]
                     },
                     {
                         label: 'Employee Departments', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/employeedepartments/create'},
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/employeedepartments'}
                         ]
                     },
                     {
                         label: 'Attendance', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/employeeattendancetimesheets/create'},
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/employeeattendancetimesheets'},
                         ]
                     },
-
-
-                    
                 ]
             },
             {
-    
+
                 label: 'Payslips', icon: 'pi pi-fw pi-bookmark',
                 items: [
-                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/employeepayslips/create'},
                     {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/employeepayslips'}
-
-                            
-
                 ]
             },
             {
@@ -891,7 +871,7 @@ class Content extends Component {
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/manufacturingpersonels'}
                         ]
                     },
-            
+
 
 
                 ]

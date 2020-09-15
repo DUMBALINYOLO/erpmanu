@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ADD_EMPLOYEE_PAY_DEDUCTION, GET_EMPLOYEE_PAY_DEDUCTIONS, GET_EMPLOYEE_PAY_DEDUCTION, DELETE_EMPLOYEE_PAY_DEDUCTION } from '../types/employeepaydeductionTypes';
+import { ADD_EMPLOYEE_PAY_DEDUCTION, EDIT_EMPLOYEE_PAY_DEDUCTION, GET_EMPLOYEE_PAY_DEDUCTIONS, GET_EMPLOYEE_PAY_DEDUCTION, DELETE_EMPLOYEE_PAY_DEDUCTION } from '../types/employeepaydeductionTypes';
 import { employeepaydeductionsURL } from '../constants';
 
 // Get
@@ -45,4 +45,15 @@ export const getEmployeePayDeduction = id => dispatch =>{
             });
         }).catch(err => console.log(err))
 
+}
+
+//Edit
+export const editEmployeePayDeduction = (id, employeepaydeduction) => dispatch => {
+    axios.put(`http://127.0.0.1:8000/api/employees/employee-pay-deductions/${id}/`, employeepaydeduction)
+        .then(res => {
+            dispatch({
+                type: EDIT_EMPLOYEE_PAY_DEDUCTION,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
 }

@@ -10,12 +10,12 @@ from customers.serializers import(
 						CustomerListSerializer,
 						CustomerCreateUpdateSerializer,
 						CustomerDetailSerializer
-							
+
 					)
 
 
 class ActiveCustomerViewSet(viewsets.ModelViewSet):
-	
+
 	# permission_classes = [
  #        permissions.IsAuthenticated,
  #    ]
@@ -53,7 +53,7 @@ class ActiveCustomerViewSet(viewsets.ModelViewSet):
 
 
 class DeActivatedCustomerViewSet(viewsets.ModelViewSet):
-	
+
 	# permission_classes = [
  #        permissions.IsAuthenticated,
  #    ]
@@ -74,7 +74,7 @@ class DeActivatedCustomerViewSet(viewsets.ModelViewSet):
 										).filter(
 											Q(status='de-activated'),
 									).order_by('-id')
-		
+
 
 		return queryset
 
@@ -90,7 +90,7 @@ class DeActivatedCustomerViewSet(viewsets.ModelViewSet):
 
 
 class CustomerAddressViewSet(viewsets.ModelViewSet):
-	
+
 	# permission_classes = [
  #        permissions.IsAuthenticated,
  #    ]
@@ -99,7 +99,8 @@ class CustomerAddressViewSet(viewsets.ModelViewSet):
 	def get_serializer_class(self):
 		if self.action in ['create', 'patch', 'put']:
 			return CustomerAddressCreateUpdateSerializer
-		return CustomerSerializer
+		return CustomerAddressSerializer
+
 
 
 	def get_queryset(self, *args, **kwargs):
@@ -108,8 +109,3 @@ class CustomerAddressViewSet(viewsets.ModelViewSet):
 										).order_by('-id')
 
 		return queryset
-
-
-
-
-        
