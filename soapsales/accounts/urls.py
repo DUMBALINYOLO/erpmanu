@@ -29,6 +29,8 @@ from accounts.apis import (
                     FullyPaidButNotVerifiedBillViewset,
                     FullyPaidBillViewset,
                     JournalViewSet,
+                    JournalEntryViewSet,
+
 
                 )
 
@@ -53,14 +55,14 @@ router.register(r'unadjusted-journal-entries', UnAdjustedJournalEntryViewSet, ba
 router.register(r'unposted-journal-entries', UnPostedJournalEntryViewSet, basename='unposted-journal-entries')
 router.register(r'posted-journal-entries', PostedJournalEntryViewSet, basename='posted-journal-entries')
 #the end 
-# router.register(r'journal-entries', JournalEntryViewSet)
+router.register(r'journal-entries', JournalEntryViewSet, basename='journal-entries')
 router.register(r'in-active-accounts', InActiveAccountViewSet, basename='inactive-accounts')
 router.register(r'assets', AssetViewSet, basename='assets')
 router.register(r'accounting-configuration', AccountingSettingsViewset, basename='accounting-configuration')
 router.register(r'taxes', TaxViewset, basename='taxes')
 router.register(r'currencies', CurrencyViewset, basename='currencies')
 router.register(r'bills', BillViewset, basename='bills')
-router.register(r'bill-payments', BillPaymentViewset, basename='bills')
+router.register(r'bill-payments', BillPaymentViewset, basename='bill-payments')
 
 
 urlpatterns = [

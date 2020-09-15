@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_PAYMENTS, GET_PAYMENT, ADD_PAYMENT, DELETE_PAYMENT } from '../types/paymentTypes';
+import { GET_PAYMENTS, GET_PAYMENT, ADD_PAYMENT, EDIT_PAYMENT, DELETE_PAYMENT } from '../types/paymentTypes';
 import { paymentsURL } from '../constants';
 
 // Get
@@ -47,3 +47,45 @@ export const getPayment = id => dispatch =>{
         }).catch(err => console.log(err))
 
 }
+
+
+export const editPayment = (id, payment) => dispatch => {
+    axios.put(`http://127.0.0.1:8000/api/sales/payments/${id}`, payment)
+        .then(res => {
+            dispatch({
+                type: EDIT_PAYMENT,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -29,6 +29,7 @@ export const addSale = (sale) => dispatch => {
         }).catch(err => console.log(err))
 }
 
+
 //Delete
 export const deleteSale = (id) => dispatch => {
     axios.delete(salesURL, id)

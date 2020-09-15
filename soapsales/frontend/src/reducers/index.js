@@ -160,9 +160,24 @@ import refundedinvoices from "./refundedinvoices";
 import fullypaidnotyetsalesinvoices from "./fullypaidnotyetsalesinvoices";
 import sales from "./sales";
 import manufacturedstockitems from "./manufacturedstockitems";
+import journalentries from "./journalentries";
+import errors from './errors';
+import messages from './messages';
+import productionprocesses from './productionprocesses';
+import inventoryitems from './inventoryitems';
+import cashdrawers from './cashdrawers';
+import invoices from './invoices';
+
 
 
 export default combineReducers({
+    errors,
+    messages,
+    cashdrawers,
+    invoices,
+    inventoryitems,
+    productionprocesses,
+    journalentries,
     creditnotes,
     manufacturedstockitems,
     payments,

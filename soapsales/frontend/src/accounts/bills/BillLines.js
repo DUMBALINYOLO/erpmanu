@@ -7,7 +7,7 @@ import {Button} from 'primereact/button';
 import {Dropdown} from 'primereact/dropdown';
 import {InputNumber} from 'primereact/inputnumber';
 import { connect } from 'react-redux';
-import { getAccounts} from '..//../actions/accounts';
+import { getAccounts } from '..//../actions/accounts';
 
 
 class BillLines extends Component {
@@ -31,6 +31,12 @@ class BillLines extends Component {
     render(){
         const { accounts } = this.props;
 
+        let debitAccounts = accounts.length > 0
+            && accounts.map((item, i) => {
+            return (
+              <option key={i} value={item.id}>{item.name}</option>
+            )
+          }, this);
 
 
         return (
@@ -40,27 +46,23 @@ class BillLines extends Component {
                 <tr key={val.index}>
                     <td>
                         <input
-                            type="number"
-                            name="amount"
-                            data-id={idx}
-                            id={amount}
-                            className="form-control"
+                          type="number"
+                          name="amount"
+                          data-id={idx}
+                          id={amount}
+                          className="form-control"
                         />
                     </td>
                     <td>
-                        <Dropdown
-                            value={debit_account}
-                            data-id={idx}
-                            id={debit_account}
-                            onChange={this.props.onAccount}
-                            options={accounts}
-                            filter={true}
-                            filterBy="id,name"
-                            showClear={true}
-                            optionLabel="name"
-                            optionValue="id"
-                        />
-                    </td>
+                        <select
+                          name="debit_account"
+                          id={debit_account}
+                          data-id={idx}
+                          className="form-control"
+                        >
+                           {debitAccounts}
+                        </select>
+                    </td>    
 
                     <td>
                         {
@@ -80,3 +82,5 @@ const mapStateToProps = state =>({
 })
 
 export default connect(mapStateToProps, {getAccounts} ) (BillLines);
+
+

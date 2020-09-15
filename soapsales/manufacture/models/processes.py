@@ -48,7 +48,7 @@ class ProductionProcess(SoftDeletionModel):
     def update_inventory(self):
         '''Removes inventory from the warehouse'''
         #called in views.py
-        for ingridient in self.ingridients.filter(product__isnull=False):
+        for ingridient in self.ingridients.filter(raw_material__isnull=False):
             #check if ship_from has the product in sufficient quantity
             self.ingridient.ship_from.decrement_inventory_stock_item(
                                         ingridient.product, 
@@ -83,16 +83,12 @@ class ProductionProcessIngridient(SoftDeletionModel):
 
 
 
+
 # class ProductFormula(models.Model):
 
 
 
-
-
-
 class ProcessRate(SoftDeletionModel):
-    
-    unit = models.ForeignKey
     unit_time = models.PositiveSmallIntegerField(
         choices=PROCCES_RATE_UNIT_TIME_CHOICES
     )
@@ -105,7 +101,4 @@ class ProcessRate(SoftDeletionModel):
 
 
 
-
-
-        
 

@@ -37,8 +37,7 @@ class ProcessProductDetailSerializer(serializers.ModelSerializer):
     type = serializers.SerializerMethodField()
     status = serializers.SerializerMethodField()
     unit = StringSerializer()
-    inventory_product = StringSerializer()
-    production_orders = ProductionOrderDetailSerializer(many=True)
+    # production_orders = ProductionOrderDetailSerializer(many=True)
 
     
 
@@ -51,8 +50,8 @@ class ProcessProductDetailSerializer(serializers.ModelSerializer):
             "description", # display_this
             'type',
             'unit',
+            'unit_price',
             'finished_goods',
-            'location',
             'status',
             'minimum_order_level',
             'maximum_stock_level',
@@ -73,12 +72,13 @@ class ProcessProductCreateUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProcessProduct
         fields = [
+            'id',
             "name",
             "description", # display_this
             'type',
             'unit',
             'finished_goods',
-            'location',
+            'unit_price',
             'status',
             'minimum_order_level',
             'maximum_stock_level',

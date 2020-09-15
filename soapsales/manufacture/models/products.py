@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 from django.db import models
+import uuid
 from django.utils import timezone
 from simple_history.models import HistoricalRecords
 from datetime import datetime
@@ -20,12 +21,13 @@ class ProcessProduct(models.Model):
     created_on = models.DateTimeField(auto_now_add=True, editable=False, db_index=True, verbose_name=('created on'))
     finished_goods= models.BooleanField(default=False)
     reference_number = models.CharField(max_length=255, null=True, default=None)
-    location = models.ForeignKey(
-                        'inventory.WareHouse', 
-                        blank=True, 
-                        null=True, 
-                        on_delete=models.SET_NULL
-                    )
+    # location = models.ForeignKey(
+    #                     'inventory.WareHouse', 
+    #                     blank=True, 
+    #                     null=True, 
+    #                     on_delete=models.SET_NULL
+    #                 )
+    
     status = models.PositiveIntegerField(
                             default=0,
                             choices=PROCESSED_PRODUCTS_STOCK_STATUS_CHOICES,
@@ -45,6 +47,7 @@ class ProcessProduct(models.Model):
 
 
     history = HistoricalRecords()
+
 
 
     @property
@@ -81,8 +84,6 @@ class ProcessProduct(models.Model):
 
 
     def save(self, *args, **kwargs):
-        if self.value == D(0.0):
-            self.set_value()
         if not self.reference_number:
             self.reference_number = str(uuid.uuid4()).replace("-", '').upper()[:20]
         super(ProcessProduct, self).save(*args, **kwargs)

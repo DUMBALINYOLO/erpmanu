@@ -20,7 +20,6 @@ class InventorySettingsSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'inventory_valuation_method',
-            'default_product_sales_pricing_method',
             'inventory_check_frequency',
             'inventory_check_date',
             'use_warehouse_model',
@@ -32,6 +31,7 @@ class InventorySettingsSerializer(serializers.ModelSerializer):
             'is_configured',
             'service_hash'
         ]
+
 
 
 

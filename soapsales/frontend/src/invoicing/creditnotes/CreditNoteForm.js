@@ -59,7 +59,7 @@ class CreditNoteForm extends Component {
   clickOnDelete(record) {
         this.setState({
             lines: this.state.lines.filter(r => r !== record)
-        });
+        });   
   }
 
 
@@ -200,3 +200,8 @@ const mapStateToProps = state =>({
 })
 
 export default connect(mapStateToProps, {getInvoices, addCreditNote})(CreditNoteForm);
+
+
+
+
+

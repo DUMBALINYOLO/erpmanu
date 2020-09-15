@@ -87,7 +87,8 @@ class ProductionProcessCreateUpdateSerializer(WritableNestedModelSerializer):
             'type', 
             'duration',
             'rate',
-            'date'
+            'date',
+            'ingridients',
         ]
 
 
@@ -99,7 +100,6 @@ class ProcessRateCreateUpdateSerializer(serializers.ModelSerializer):
         model = ProcessRate
         fields = [
             "id",
-            "unit",
             "unit_time",
             'quantity',
         ]

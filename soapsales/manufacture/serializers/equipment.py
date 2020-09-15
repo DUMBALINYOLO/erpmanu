@@ -17,7 +17,6 @@ class ProcessMachineSerializer(serializers.ModelSerializer):
             "id",
             'equipment',
             'date_commissioned',
-            "description",
 
         ]
 
@@ -31,7 +30,6 @@ class ProcessMachineListSerializer(serializers.ModelSerializer):
             "id",
             'equipment',
             'date_commissioned',
-            "description",
 
         ]
 

@@ -1,11 +1,11 @@
 from decimal import Decimal as D
 from django.db import models
-from django.contrib.contenttypes.fields import GenericForeignKey
-from django.contrib.contenttypes.models import ContentType
-from django.contrib.auth.models import User
+from basedata.models import SoftDeletionModel
+
  
 
-class CashRegister(models.Model):
+
+class CashRegister(SoftDeletionModel):
     '''
         This is the Pioneer Model for Cash Up System whereby cash is incremented the moment a Client Makes Payment
         and Decremented the moment the Company makes Payments for Inventory, Bills and any Expenses
@@ -17,13 +17,23 @@ class CashRegister(models.Model):
         offers a difference report and have the register closed on a daily basis to start a new one
     '''
 
-    system = models.CharField(max_length=256,default="Physical Cash")
-    currency = models.CharField(max_length=64,default="",blank=True)
-    balance = models.DecimalField(max_digits=20,decimal_places=5,default=0,blank=True)
+    currency = models.ForeignKey(
+                                'accounts.Currency',
+                                on_delete=models.SET_NULL,
+                                null=True
+                            )
+    balance = models.DecimalField(max_digits=20,decimal_places=5,default=0, null=True, blank=True)
     comment = models.CharField(max_length=256, default="")
-    is_open = models.BooleanField(default=True)
+    closed = models.BooleanField(default=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     cashed_amount = models.DecimalField(max_digits=20,decimal_places=5,default=0.0, null=True, blank=True)
+
+
+    def increment(self, amount):
+        self.balance += D(amount)
+        self.save()
+        return self.balance
+        
 
 
     @property
@@ -146,4 +156,5 @@ class CashRegister(models.Model):
 
     
       
+
 

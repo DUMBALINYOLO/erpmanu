@@ -21,20 +21,10 @@ from employees.models import Employee, Department, Termination, Contract
 
 class EmployeeViewSet(viewsets.ModelViewSet):
 	queryset = Employee.objects.all()
+	serializer_class = EmployeeListSerializer
 	
-	def get_serializer_class(self):
-		if self.action in ['create', 'update', 'patch']:
-			return EmployeeCreateUpdateSerializer
-		elif self.action == 'retrieve':
-			return EmployeeDetailSerializer
-		return EmployeeListSerializer
+	
 
-
-	def get_queryset(self, *args, **kwargs):
-
-		queryset = Employee.objects.prefetch_related(
-											'pay_grade'
-										).exclude(category='Owner')
 
 
 

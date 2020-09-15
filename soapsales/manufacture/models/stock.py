@@ -5,6 +5,7 @@ from django.conf import settings
 from django.db import models
 from django.db.models import Q
 from basedata.models import SoftDeletionModel
+from inventory import models as gosso
 
 
 class ManufacturedStockItem(SoftDeletionModel):
@@ -67,16 +68,15 @@ class ManufacturedStockItem(SoftDeletionModel):
 
 
     def save(self, *args, **kwargs):
-        if self.is_inventory_item:
-            if self.warehouse.has_manufactured_item(self.item) and self.pk is None:
-                self.warehouse.add_manufactured_item(self.item, self.quantity)
-                return 
+        if self.warehouse.has_manufactured_item(self.item) and self.pk is None:
+            self.warehouse.add_manufactured_item(self.item, self.quantity)
+            return 
         super().save(*args, **kwargs)
         if self.location is None:
             if self.warehouse.storagemedias.all().count() == 0:
                 # create a default storage medium for each warehouse
-                location = StorageMedia.objects.create(
-                    name="Default Storage Medium",
+                location = gosso.StorageMedia.objects.create(
+                    name="Manu Storage Medium",
                     warehouse=self.warehouse
                 )
             else:
@@ -84,3 +84,7 @@ class ManufacturedStockItem(SoftDeletionModel):
 
             self.location = location
             self.save()
+
+            
+
+

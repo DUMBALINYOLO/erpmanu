@@ -12,6 +12,7 @@ export class Alerts extends Component {
   componentDidUpdate(prevProps) {
     const { error, alert, message } = this.props;
     if (error !== prevProps.error) {
+
       if (error.msg.name) alert.error(`Name: ${error.msg.name.join()}`);
       if (error.msg.rate) alert.error(`Rate: ${error.msg.rate.join()}`);
       if (error.msg.symbol) alert.error(`Symbol: ${error.msg.symbol.join()}`);
@@ -46,14 +47,24 @@ export class Alerts extends Component {
       if (error.msg.minimum_order_level) alert.error(`MANIMUM-ORDER-LEVEL: ${error.msg.minimum_order_level.join()}`);
       if (error.msg.maximum_stock_level) alert.error(`MAXIMUM-STOCK-LEVEL: ${error.msg.maximum_stock_leve.join()}`);
       if (error.msg.lines) alert.error(`LINES: ${error.msg.lines.join()}`);
+      if (error.msg.items) alert.error(`ITEMS: ${error.msg.items.join()}`);
       if (error.msg.customer) alert.error(`CUSTOMER: ${error.msg.customer.join()}`);
       if (error.msg.purchase_order_number) alert.error(`PURCHASE-ORDER-NUMBER: ${error.msg.purchase_order_number.join()}`);
-      if (error.msg.invoice_validated_by) alert.error(`INVOICE-VALIDATOR: ${error.msg.invoice_validated_by.join()}`);
+      if (error.msg.validated_by) alert.error(`INVOICE-VALIDATOR: ${error.msg.validated_by.join()}`);
       if (error.msg.draft) alert.error(`Draft: ${error.msg.draft.join()}`);
-      if (error.msg.sales_person) alert.error(`SALES PERSON: ${error.msg.sales_person.join()}`);
+      if (error.msg.cashier) alert.error(`SALES PERSON: ${error.msg.cashier.join()}`);
       if (error.msg.terms) alert.error(`TERMS: ${error.msg.terms.join()}`);
       if (error.msg.comments) alert.error(`COMMENTS: ${error.msg.comments.join()}`);
       if (error.msg.ship_from) alert.error(`SHIP FROM: ${error.msg.ship_from.join()}`);
+      if (error.msg.validated_by) alert.error(`VALIDATED BY: ${error.msg.validated_by.join()}`);
+      if (error.msg.expected_receipt_date) alert.error(`EXPECTED DATE: ${error.msg.expected_receipt_date.join()}`);
+      if (error.msg.supplier) alert.error(`SUPPLIER: ${error.msg.supplier.join()}`);
+      if (error.msg.entries) alert.error(`ENTRIES: ${error.msg.entries.join()}`);
+      if (error.msg.shipping_cost_entries) alert.error(`SHIPPING ENTRIES: ${error.msg.shipping_cost_entries.join()}`);
+      if (error.msg.ship_to) alert.error(`SHIP TO: ${error.msg.ship_to.join()}`);
+      // if (error.msg.notes) alert.error(`NOTES: ${error.msg.notes.join()}`);
+      if (error.msg.issuing_inventory_controller) alert.error(`STAFF: ${error.msg.issuing_inventory_controller.join()}`);
+      if (error.msg.tax) alert.error(`TAX: ${error.msg.tax.join()}`);
 
       if (error.msg.type) alert.error(`TYPE: ${error.msg.type.join()}`);
       if (error.msg.unit) alert.error(`UNIT: ${error.msg.unit.join()}`);

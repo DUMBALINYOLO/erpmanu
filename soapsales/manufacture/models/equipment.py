@@ -3,6 +3,7 @@ from django.db import models
 from django.utils import timezone
 from basedata.models import SoftDeletionModel
 
+
 class ProcessMachineGroup(SoftDeletionModel):
     name = models.CharField(max_length=255)
     description = models. TextField()
@@ -34,7 +35,6 @@ class ProcessMachine(SoftDeletionModel):
                           null = True,
                           on_delete=models.SET_NULL
                         )
-    description = models.TextField()
     date_commissioned = models.DateField()
     machine_group = models.ForeignKey(
             'manufacture.ProcessMachineGroup',

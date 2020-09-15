@@ -10,6 +10,7 @@ import {Button} from 'primereact/button';
 import {InputTextarea} from 'primereact/inputtextarea';
 import { getActiveSuppliers} from '..//../actions/activesuppliers';
 import { addBill} from '..//../actions/bills';
+import { getBillFrequencyChoices, getBillPaymentStatusChoices, getBillingChoices} from '..//../actions/choices';
 import {Calendar} from "primereact/calendar";
 import PropTypes from 'prop-types';
 import BillLines from './BillLines';
@@ -21,6 +22,9 @@ class BillForm extends Component {
         super(props);
         this.state = {
             vendor: null,
+            category: null,
+            bill_frequency_type: null,
+            payment_status: null,
             date: '',
             reference: '',
             due: '',
@@ -34,11 +38,27 @@ class BillForm extends Component {
         this.addNewRow = this.addNewRow.bind(this);
         this.deleteRow = this.deleteRow.bind(this);
         this.onVendor = this.onVendor.bind(this);
+        this.onBillingChoices = this.onBillingChoices.bind(this);
+        this.onBillPayment = this.onBillPayment.bind(this);
+        this.onBillingFrequency = this.onBillingFrequency.bind(this);
     }
 
     onVendor (e){
         this.setState({vendor: e.value})
     }
+
+    onBillingChoices (e){
+        this.setState({category: e.value})
+    }
+
+    onBillPayment (e){
+        this.setState({payment_status: e.value})
+    }
+
+    onBillingFrequency (e){
+        this.setState({bill_frequency_type: e.value})
+    }
+
 
     onAccount (e){
         this.setState({debit_account: e.value})
@@ -48,6 +68,7 @@ class BillForm extends Component {
         if (["debit_account", "amount"].includes(e.target.name)) {
             let lines = [...this.state.lines]
             lines[e.target.dataset.id][e.target.name] = e.target.value;
+
         } else {
             this.setState({ [e.target.name]: e.target.value })
         }
@@ -83,6 +104,9 @@ class BillForm extends Component {
             reference,
             due,
             memo,
+            category,
+            bill_frequency_type,
+            payment_status,
             lines
 
         } = this.state;
@@ -93,6 +117,9 @@ class BillForm extends Component {
             reference,
             due,
             memo,
+            category,
+            bill_frequency_type,
+            payment_status,
             lines,
         };
 
@@ -105,6 +132,9 @@ class BillForm extends Component {
             reference: '',
             due: '',
             memo: '',
+            category: '',
+            bill_frequency_type: '',
+            payment_status: ''
         });
         this.props.history.push('/bills')
     };
@@ -116,6 +146,10 @@ class BillForm extends Component {
 
     componentDidMount() {
         this.props.getActiveSuppliers();
+        this.props.getBillingChoices();
+        this.props.getBillFrequencyChoices();
+        this.props.getBillPaymentStatusChoices();
+
     }
 
     render = () => {
@@ -124,12 +158,18 @@ class BillForm extends Component {
             vendor,
             reference,
             due,
-            memo
+            memo,
+            category,
+            bill_frequency_type,
+            payment_status
         } = this.state;
 
         let { lines } = this.state
 
         const { activesuppliers } = this.props;
+        const { billingchoices } = this.props;
+        const { billfrequencychoices } = this.props;
+        const { billpaymentstatuschoices } = this.props;
 
     return (
       <div className="card card-body mt-4 mb-4">
@@ -172,6 +212,22 @@ class BillForm extends Component {
                 <label htmlFor="inputtext">Due</label>
                 </span>
             </div>
+             <div className="p-field p-col-12 p-md-6">
+                <span className="p-float-label">
+                <Dropdown
+                    value={category}
+                    onChange={this.onBillingChoices}
+                    options={billingchoices}
+                    filter={true}
+                    filterBy="key,value"
+                    showClear={true}
+                    optionLabel="value"
+                    optionValue="key"
+                />
+
+                <label htmlFor="dropdown">CATEGORY</label>
+                </span>
+            </div>
             <div className="p-field p-col-12 p-md-12">
                 <span className="p-float-label">
                     <InputTextarea
@@ -194,7 +250,40 @@ class BillForm extends Component {
                     optionLabel="name"
                     optionValue="id"
                 />
+
                 <label htmlFor="dropdown">SELECT VENDOR</label>
+                </span>
+            </div>
+            <div className="p-field p-col-12 p-md-6">
+                <span className="p-float-label">
+                <Dropdown
+                    value={payment_status}
+                    onChange={this.onBillPayment}
+                    options={billpaymentstatuschoices}
+                    filter={true}
+                    filterBy="key,value"
+                    showClear={true}
+                    optionLabel="value"
+                    optionValue="key"
+                />
+
+                <label htmlFor="dropdown">BILL PAYMENT STATUS</label>
+                </span>
+            </div>
+            <div className="p-field p-col-12 p-md-6">
+                <span className="p-float-label">
+                <Dropdown
+                    value={bill_frequency_type}
+                    onChange={this.onBillingFrequency}
+                    options={billfrequencychoices}
+                    filter={true}
+                    filterBy="key,value"
+                    showClear={true}
+                    optionLabel="value"
+                    optionValue="key"
+                />
+
+                <label htmlFor="dropdown">BILL FREQUENCY TYPE</label>
                 </span>
             </div>
             <div className="p-field p-col-12 p-md-6">
@@ -224,8 +313,38 @@ class BillForm extends Component {
 
 }
 
+
 const mapStateToProps = state =>({
-    activesuppliers: state.activesuppliers.activesuppliers
+    activesuppliers: state.activesuppliers.activesuppliers,
+    billingchoices: state.billingchoices.billingchoices,
+    billfrequencychoices: state.billfrequencychoices.billfrequencychoices,
+    billpaymentstatuschoices: state.billpaymentstatuschoices.billpaymentstatuschoices,
 })
 
-export default connect(mapStateToProps, {getActiveSuppliers, addBill})(BillForm);
+export default connect(
+            mapStateToProps, 
+            {getActiveSuppliers, addBill, getBillingChoices, getBillFrequencyChoices, getBillPaymentStatusChoices})
+            (BillForm);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

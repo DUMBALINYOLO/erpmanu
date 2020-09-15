@@ -29,10 +29,7 @@ class BillViewset(ModelViewSet):
         queryset = Bill.objects.prefetch_related(
                                     'vendor',
                                     'entry'
-                            ).filter(
-                                payment_status__in = ['pending', 'PartiallyPaid']
                             )
-
         return queryset
 
 

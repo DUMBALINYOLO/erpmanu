@@ -50,7 +50,7 @@ class AbstractAccount(SoftDeletionModel):
                                         default='current-assets'
                                     )
     active = models.BooleanField(default=False, verbose_name="active?")
-    created_date = models.DateTimeField(auto_now_add=False, null=True, blank=True, verbose_name='date Created')
+    updated_date = models.DateTimeField(auto_now=False, null=True, blank=True, verbose_name='date updated')
 
 
     class Meta:

@@ -1,4 +1,4 @@
-
+import uuid
 import datetime
 from decimal import Decimal as D
 from functools import reduce
@@ -17,6 +17,8 @@ import accounts
 
 # TODO i need to separate the order types into product, consumable and
 # equipment orders. Each order has its own entries
+
+
 
 
 
@@ -94,17 +96,17 @@ class Order(SoftDeletionModel):
                         null=True, 
                         related_name="order_entry"
                     )
-    entries = models.ManyToManyField(
-                            'accounts.JournalEntry',
-                            related_name="order_entries",
-                            blank=True, 
+    # entries = models.ManyToManyField(
+    #                         'accounts.JournalEntry',
+    #                         related_name="order_entries",
+    #                         blank=True, 
 
-                        )
-    shipping_cost_entries = models.ManyToManyField(
-                                        'accounts.JournalEntry', 
-                                        related_name="shipping_cost_entries",
-                                        blank=True
-                                    )
+    #                     )
+    # shipping_cost_entries = models.ManyToManyField(
+    #                                     'accounts.JournalEntry', 
+    #                                     related_name="shipping_cost_entries",
+    #                                     blank=True
+    #                                 )
 
 
     def save(self, *args, **kwargs):
@@ -216,13 +218,14 @@ class Order(SoftDeletionModel):
 
 
     def create_entry(self):
+        from accounts.models import Journal, JournalEntry, Account
         #verified
         if not self.entry:
             j = JournalEntry.objects.create(
                     date=self.date,
                     memo = self.notes,
                     journal = Journal.objects.get(pk=44444),
-                    created_by = self.issuing_inventory_controller.employee.user,
+                    creator = self.issuing_inventory_controller,
                     draft=False
                 )
 
@@ -276,11 +279,12 @@ class OrderItem(models.Model):
                             null=True,
                             on_delete=models.SET_NULL
                         )
+    
     quantity = models.FloatField()
     unit = models.CharField(choices=UNIT_OF_MEASURE_CHOICES, max_length=89)
 
     order_price = models.DecimalField(max_digits=16, decimal_places=2)
-    received = models.FloatField(default=0.0)
+    received = models.FloatField(default=0.0, null=True, blank=True)
 
 
     @property

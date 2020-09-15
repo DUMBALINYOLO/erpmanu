@@ -8,16 +8,19 @@ import {Dropdown} from 'primereact/dropdown';
 import {InputText} from 'primereact/inputtext';
 import {Button} from 'primereact/button';
 import {InputTextarea} from 'primereact/inputtextarea';
+import { MultiSelect } from 'primereact/multiselect';
 import { getEmployees } from '..//../actions/employees';
 import { getActiveSuppliers } from '..//../actions/activesuppliers';
 import { getWarehouses } from '..//../actions/warehouses';
 import { getInventoryOrderStatusChoices } from '..//../actions/choices';
 import { addInventoryOrder } from '..//../actions/inventoryorders';
 import { getTaxes} from '..//../actions/taxes';
+// import { getJournalEntries  } from '..//../actions/journalentries';
 import {Calendar} from "primereact/calendar";
 import {InputNumber} from 'primereact/inputnumber';
 import PropTypes from 'prop-types';
 import OrderItems from './OrderItems';
+
 
 
 
@@ -30,16 +33,12 @@ class InventoryOrderForm extends Component {
       date: '',
       due: '',
       supplier: null,
-      supplier_invoice_number: '',
-      bill_to: '',
       ship_to: null,
-      tracking_number: '',
       notes: '',
       status: null,
       tax: null,
-      received_to_date: '',
       issuing_inventory_controller: null,
-      lines: [{ index: Math.random(), item: "", quantity: '', unit: '', order_price: '', received: ''}],
+      items:[{ndex: Math.random(), item: "", quantity: '', unit: '', order_price: '',}],
 
     }
     this.onSubmit = this.onSubmit.bind(this);
@@ -80,9 +79,9 @@ class InventoryOrderForm extends Component {
     }
 
   handleChange = (e) => {
-    if (["item", "quantity", 'unit', 'order_price', 'received'].includes(e.target.name)) {
-        let lines = [...this.state.lines]
-        lines[e.target.dataset.id][e.target.name] = e.target.value;
+    if (["item", "quantity", 'unit', 'order_price'].includes(e.target.name)) {
+        let items = [...this.state.items]
+        items[e.target.dataset.id][e.target.name] = e.target.value;
     } else {
         this.setState({ [e.target.name]: e.target.value })
     }
@@ -90,13 +89,13 @@ class InventoryOrderForm extends Component {
 
   addNewRow = (e) => {
       this.setState((prevState) => ({
-          lines: [...prevState.lines, { index: Math.random(), item: "", quantity: '',  unit: '', order_price: '', received: '' }],
+          items: [...prevState.items, { index: Math.random(), item: "", quantity: '',  unit: '', order_price: '' }],
       }));
   }
 
   deleteRow = (index) => {
       this.setState({
-          lines: this.state.lines.filter((s, sindex) => index !== sindex),
+          items: this.state.items.filter((s, sindex) => index !== sindex),
       });
       // const taskList1 = [...this.state.taskList];
       // taskList1.splice(index, 1);
@@ -105,7 +104,7 @@ class InventoryOrderForm extends Component {
 
   clickOnDelete(record) {
         this.setState({
-            lines: this.state.lines.filter(r => r !== record)
+            items: this.state.items.filter(r => r !== record)
         });
   }
 
@@ -126,16 +125,12 @@ class InventoryOrderForm extends Component {
         date,
         due,
         supplier,
-        supplier_invoice_number,
-        bill_to,
         ship_to,
-        tracking_number,
         notes,
         status,
-        received_to_date,
         issuing_inventory_controller,
         tax,
-        lines
+        items
 
       } = this.state;
 
@@ -145,39 +140,33 @@ class InventoryOrderForm extends Component {
         date,
         due,
         supplier,
-        supplier_invoice_number,
-        bill_to,
         ship_to,
-        tracking_number,
         notes,
         status,
-        received_to_date,
         issuing_inventory_controller,
         tax,
-        lines
+        items
 
       };
 
       this.props.addInventoryOrder(inventoryorder);
+      console.log(inventoryorder)
       this.setState({
-          lines: [],
+          items: [],
           validated_by: '',
           expected_receipt_date: '',
           date: '',
           due: '',
           supplier: '',
           supplier_invoice_number: '',
-          bill_to: '',
           ship_to: '',
-          tracking_number: '',
           notes: '',
           status: '',
-          received_to_date: '',
           issuing_inventory_controller: '',
           tax: '',
 
         });
-      this.props.history.push('/inventoryorders');
+      // this.props.history.push('/inventoryorders');
     };
 
     static propTypes = {
@@ -193,8 +182,11 @@ class InventoryOrderForm extends Component {
     this.props.getEmployees();
     this.props.getWarehouses();
     this.props.getActiveSuppliers();
-    this.props.getInventoryOrderStatusChoices()
-    this.props.getTaxes()
+    this.props.getInventoryOrderStatusChoices();
+    this.props.getTaxes();
+    // this.props.getJournalEntries();
+
+
   }
 
   render = () => {
@@ -204,19 +196,17 @@ class InventoryOrderForm extends Component {
         date,
         due,
         supplier,
-        supplier_invoice_number,
-        bill_to,
+        // entries,
+        // shipping_cost_entries,
         ship_to,
-        tracking_number,
         notes,
         status,
-        received_to_date,
         issuing_inventory_controller,
         tax,
+        items,
 
     } = this.state;
 
-    let { lines } = this.state
 
     const { activesuppliers } = this.props;
     const { warehouses } = this.props;
@@ -262,52 +252,6 @@ class InventoryOrderForm extends Component {
                 dateFormat="yy-mm-dd"
               />
             </div>
-            <div className="p-field p-col-12 p-md-6">
-              <label>Supplier Invoice Number</label>
-              <InputText
-                className="form-control"
-                type="text"
-                name="supplier_invoice_number"
-                onChange={this.onChange}
-                value={supplier_invoice_number}
-              />
-            </div>
-            <div className="p-field p-col-12 p-md-6">
-              <label>Tracking Number</label>
-              <InputText
-                className="form-control"
-                type="text"
-                name="tracking_number"
-                onChange={this.onChange}
-                value={tracking_number}
-              />
-            </div>
-            <div className="p-field p-col-12 p-md-6">
-              <label>Bill To</label>
-              <InputText
-                className="form-control"
-                type="text"
-                name="bill_to"
-                onChange={this.onChange}
-                value={bill_to}
-              />
-            </div>
-            <div className="p-field p-col-12 p-md-12">
-              <label>Received to Date</label>
-              <InputNumber
-                className="form-control"
-                name="received_to_date"
-                onChange={this.onChange}
-                value={received_to_date}
-                showButtons
-                buttonLayout="horizontal"
-                decrementButtonClassName="p-button-danger"
-                incrementButtonClassName="p-button-success"
-                incrementButtonIcon="pi pi-plus"
-                decrementButtonIcon="pi pi-minus"
-                step={1}
-              />
-            </div>
             <div className="p-field p-col-12 p-md-12">
               <label>NOTES</label>
               <InputTextarea
@@ -329,9 +273,10 @@ class InventoryOrderForm extends Component {
                 filterBy="id,name"
                 showClear={true}
                 optionLabel="value"
-                optionValue="id"
+                optionValue="key"
               />
             </div>
+
             <div className="p-field p-col-12 p-md-6">
               <Dropdown
                 placeholder ="SELECT VALIDATED BY"
@@ -341,7 +286,7 @@ class InventoryOrderForm extends Component {
                 filter={true}
                 filterBy="id,name"
                 showClear={true}
-                optionLabel="id_number"
+                optionLabel="email"
                 optionValue="id"
               />
             </div>
@@ -354,7 +299,7 @@ class InventoryOrderForm extends Component {
                 filter={true}
                 filterBy="id,name"
                 showClear={true}
-                optionLabel="id_number"
+                optionLabel="email"
                 optionValue="id"
               />
             </div>
@@ -397,7 +342,9 @@ class InventoryOrderForm extends Component {
                 optionValue="id"
               />
             </div>
-            <div className="p-field p-col-12 p-md-6">
+            
+
+            <div className="p-field p-col-12 p-md-12">
               <Button label="Submit" className="p-button-success p-button-rounded" />
             </div>
             <table className="table">
@@ -405,13 +352,12 @@ class InventoryOrderForm extends Component {
                   <tr>
                     <th>QUANTITY</th>
                     <th>Order Price</th>
-                    <th>Received</th>
                     <th>Item</th>
                     <th>Unit Of Measure</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <OrderItems add={this.addNewRow} delete={this.clickOnDelete.bind(this)} lines={lines} />
+                  <OrderItems add={this.addNewRow} delete={this.clickOnDelete.bind(this)} items={items} />
                 </tbody>
                 <tfoot>
                   <tr><td colSpan="4">

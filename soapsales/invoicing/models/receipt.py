@@ -37,11 +37,9 @@ class CustomerReceipt(SoftDeletionModel):
     receipt_number = models.CharField(max_length=255, null=True, default=None) 
     created_date = models.DateTimeField(auto_now_add=True, db_index=True)
     comment = models.CharField(max_length=511, null=True, blank=True, default='')
-    payment_method = models.CharField(max_length=500)
     has_finished = models.BooleanField(default=False, db_index=True)
     has_error = models.BooleanField(default=False, db_index=True)
-    amount_paid = models.DecimalField(max_digits=16, decimal_places=2)
-    amount_tendered = models.DecimalField(max_digits=16, decimal_places=2)
+    amount = models.DecimalField(max_digits=16, decimal_places=2, default=0.0)
  
 
     def __str__(self):
@@ -63,10 +61,19 @@ class CustomerReceipt(SoftDeletionModel):
     @property
     def balance_as_of_date(self):
         return self.payments.invoice.total_due
+    
+    
 
-    @property
-    def change(self):
-        return self.payments.customer_change
-    
-    
+
+
+
+
+
+
+
+
+
+
+
+
 

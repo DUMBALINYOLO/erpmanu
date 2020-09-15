@@ -51,3 +51,5 @@ export const getEquipment = id => dispatch =>{
         }).catch(err => console.log(err))
 
 }
+
+

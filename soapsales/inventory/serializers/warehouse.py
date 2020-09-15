@@ -25,7 +25,6 @@ class InventoryStockItemCreateSerializer(serializers.ModelSerializer):
 class InventoryStockItemListSerializer(serializers.ModelSerializer):
 	item = StringSerializer()
 	warehouse = StringSerializer()
-	processed_item = StringSerializer()
 	location = StringSerializer()
 
 	class Meta:
@@ -42,7 +41,6 @@ class InventoryStockItemListSerializer(serializers.ModelSerializer):
 class ManufacturedStockItemSerializer(serializers.ModelSerializer):
 	item = StringSerializer()
 	warehouse = StringSerializer()
-	processed_item = StringSerializer()
 	location = StringSerializer()
 
 	class Meta:
@@ -53,7 +51,6 @@ class ManufacturedStockItemSerializer(serializers.ModelSerializer):
 		    'warehouse', 
 		    'location',
 		    'verified',
-		    'stock_value',
 		]
 		
 
@@ -61,7 +58,8 @@ class WareHouseCreateUpdateSerializer(serializers.ModelSerializer):
 
 	class Meta:
 		model = WareHouse
-		fields = "__all__"
+		fields = ['name', 'address', 'description', 'inventory_controller', 'length', 'width', 'height']
+
 
 
 class WareHouseListSerializer(serializers.ModelSerializer):
@@ -73,8 +71,7 @@ class WareHouseListSerializer(serializers.ModelSerializer):
 			'id',
 			'name',
 		    'inventory_controller',
-		    'item_count',
-		    'total_item_quantity',
+		    # 'total_item_quantity',
 		]
 
 
@@ -89,23 +86,21 @@ class WareHouseDetailSerializer(serializers.ModelSerializer):
 			'id',
 			'name',
 		    'inventory_controller',
-		    'item_count',
-		    'total_item_quantity',
 		    'address', 
 		    'description',
-		    'inventory_controller',
 		    'length',
 		    'width',
 		    'height',
 		    'last_inventory_check_date',
-		    'manufactured_items_count',
+		    # 'manufactured_items_count',
 		    'manufacturedstockitems',
-		    'manufactured_items_quantity',
-		    'inventory_item_count',
+		    # 'manufactured_items_quantity',
+		    # 'inventory_item_count',
 		    'inventorystockitems',
-		    'inventory_items_quantity'
+		    # 'inventory_items_quantity'
 
 		]
+
 
 
 
@@ -121,7 +116,6 @@ class StorageMediaDetailSerializer(serializers.ModelSerializer):
 				'id',
 				'name', 
 			    'warehouse',
-			    'location', 
 			    'description',
 			    'length',
 			    'width',
@@ -130,6 +124,7 @@ class StorageMediaDetailSerializer(serializers.ModelSerializer):
 			    'inventoryitems',
 			    'manufactureditems',
 		]
+
 
 
 class StorageMediaCreateUpdateSerializer(serializers.ModelSerializer):

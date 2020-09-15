@@ -13,6 +13,7 @@ from invoicing.serializers import (
 								InvoiceCreateUpdateSerializer,
 								InvoiceDetailSerializer,
 								InvoiceLineListSerializer,
+								InvoiceLineCreateSerializer,
 							)
 
 
@@ -37,6 +38,24 @@ class InvoiceViewSet(viewsets.ModelViewSet):
 											)
 		return queryset
 
+	def get_serializer_class(self):
+		if self.action =='list':
+			return InvoiceListSerializer
+			
+		elif self.action == 'retrieve':
+			return  InvoiceDetailSerializer
+		return InvoiceCreateUpdateSerializer
+
+
+	# def create(self, request, *args, **kwargs):
+	#     serializer = self.get_serializer(data=request.data)
+	#     if serializer.is_valid(raise_exception=True):
+	# 	    self.perform_create(serializer)
+	# 	    print(serializer.data)
+	#     print(serializer.errors)
+	#     headers = self.get_success_headers(serializer.data)
+	#     return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
 
 
 
@@ -45,7 +64,6 @@ class InvoiceViewSet(viewsets.ModelViewSet):
 
 class InvoiceLineViewSet(viewsets.ModelViewSet):
 	
-	serializer_class = InvoiceLineListSerializer
 
 	def get_queryset(self, *args, **kwargs):
 		queryset = InvoiceLine.objects.prefetch_related(
@@ -58,6 +76,13 @@ class InvoiceLineViewSet(viewsets.ModelViewSet):
 		return queryset
 
 
+	def get_serializer_class(self):
+		if self.action == 'list':
+			return  InvoiceLineListSerializer
+		return InvoiceLineCreateSerializer
+
+
+
 
 
 
@@ -66,6 +91,7 @@ class QuotationViewSet(viewsets.ModelViewSet):
 	# permission_classes = [
  #        permissions.IsAuthenticated,
  #    ]
+	lookup_field = 'id'
 
 	def get_serializer_class(self):
 		if self.action in ['create', 'put', 'patch']:
@@ -75,11 +101,11 @@ class QuotationViewSet(viewsets.ModelViewSet):
 		return InvoiceListSerializer
 
 
-	def perform_create(self, serializer):
-		return serializer.save(
-			cashier=self.request.user, 
-			validated_by=self.request.user
-			)
+	# def perform_create(self, serializer):
+	# 	return serializer.save(
+	# 		cashier=self.request.user, 
+	# 		validated_by=self.request.user
+	# 		)
 
 	def get_queryset(self, *args, **kwargs):
 		queryset = Invoice.objects.prefetch_related(
@@ -105,7 +131,7 @@ class QuotationViewSet(viewsets.ModelViewSet):
 		return queryset
 
 
-	@action(methods=['POST', ], detail=False)
+	@action(methods=['POST', 'PUT', 'GET' ], detail=True)
 	def make_invoice(self, *args, **kwargs):
 		quotation = self.get_object()
 		quotation.status = 'invoice'
@@ -122,6 +148,7 @@ class UnverifiedInvoiceViewSet(viewsets.ModelViewSet):
 	# permission_classes = [
  #        permissions.IsAuthenticated,
  #    ]
+	lookup_field = 'id'
 
 	def get_serializer_class(self):
 		if self.action in ['create', 'put', 'patch']:
@@ -156,7 +183,7 @@ class UnverifiedInvoiceViewSet(viewsets.ModelViewSet):
 		return queryset
 
 
-	@action(methods=['POST', ], detail=False)
+	@action(methods=['POST', 'PUT', 'GET' ], detail=True)
 	def verify_invoice(self, *args, **kwargs):
 		invoice = self.get_object()
 		invoice.draft = False
@@ -166,6 +193,7 @@ class UnverifiedInvoiceViewSet(viewsets.ModelViewSet):
 		return Response({
 				"message": 'Invoice has succesfully been verified'
 			})
+
 
 
 
@@ -206,6 +234,7 @@ class OverdueInvoiceViewSet(viewsets.ModelViewSet):
 				queryset.append(query)
 
 		return queryset
+
 
 
 
@@ -277,7 +306,7 @@ class FullyPaidNotSaleInvoiceViewSet(viewsets.ModelViewSet):
 	# permission_classes = [
  #        permissions.IsAuthenticated,
  #    ]
-
+	lookup_field = 'id'
 	def get_serializer_class(self):
 		if self.action in ['create', 'put', 'patch']:
 			return InvoiceCreateUpdateSerializer
@@ -286,11 +315,11 @@ class FullyPaidNotSaleInvoiceViewSet(viewsets.ModelViewSet):
 		return InvoiceListSerializer
 
 
-	def perform_create(self, serializer):
-		return serializer.save(
-			cashier=self.request.user, 
-			validated_by=self.request.user
-			)
+	# def perform_create(self, serializer):
+	# 	return serializer.save(
+	# 		cashier=self.request.user, 
+	# 		validated_by=self.request.user
+	# 		)
 
 	def get_queryset(self, *args, **kwargs):
 		unfiltered_queryset = Invoice.objects.prefetch_related(
@@ -310,12 +339,13 @@ class FullyPaidNotSaleInvoiceViewSet(viewsets.ModelViewSet):
 		queryset = []
 
 		for query in unfiltered_queryset:
-			if query.total_paid >= total:
+			if query.total_paid >= query.total:
 				queryset.append(query)
 
 		return queryset
+		
 
-	@action(methods=['POST', ], detail=False)
+	@action(methods=['POST', 'PUT', 'GET' ], detail=True)
 	def make_sale(self, *args, **kwargs):
 		invoice = self.get_object()
 		invoice.status = 'sale'
@@ -335,6 +365,7 @@ class SaleViewSet(viewsets.ModelViewSet):
 	# permission_classes = [
  #        permissions.IsAuthenticated,
  #    ]
+	# queryset = Invoice.objects.all()
 
 	def get_serializer_class(self):
 		if self.action in ['create', 'put', 'patch']:
@@ -367,4 +398,8 @@ class SaleViewSet(viewsets.ModelViewSet):
 
 		return queryset
 		
+
+
+
+
 

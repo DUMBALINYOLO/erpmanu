@@ -21,6 +21,34 @@ from accounts.serializers import (
                 )
 
 
+class JournalEntryViewSet(viewsets.ModelViewSet):
+    
+
+    # permission_classes = [
+    #     permissions.IsAuthenticated,
+    # ]
+
+
+    def perform_create(self, serializer):
+        serializer.save(creator=self.request.user)
+
+    def get_serializer_class(self):
+        if self.action in ['put', 'patch', 'create']:
+            return JournalEntryCreateUpdateSerializer
+        elif self.action == "retrieve":
+            return JournalEntryDetailSerializer
+        return JournalEntryListSerializer
+
+    def get_queryset(self, *args, **kwargs):
+        queryset = JournalEntry.objects.prefetch_related(
+                                        'journal',
+                                        'creator',
+                                    )
+
+        return queryset
+        
+
+
 class UnPostedandUnAdjustedJournalEntryViewSet(viewsets.ModelViewSet):
     
 

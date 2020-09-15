@@ -8,6 +8,7 @@ from django.contrib.contenttypes.fields import GenericRelation
 from django.utils import timezone
 from .config import AccountingSettings
 from .transactions import JournalEntry
+from .books import Journal
 from basedata.models import SoftDeletionModel
 from basedata.const import (
                 BILL_PAYMENT_METHODS_CHOICES,
@@ -72,6 +73,8 @@ class Bill(SoftDeletionModel):
             date = datetime.date.today(),
             memo =  "Bill for %s" % self.vendor,
             creator = settings.default_bookkeeper,
+            journal = Journal.objects.get(pk=22222),
+
         )
 
         j.credit(self.total, self.vendor.account)
@@ -155,6 +158,7 @@ class BillPayment(SoftDeletionModel):
                         )
 
 
+
     def save(self, *args, **kwargs):
         if not self.entry:
             self.create_entry()
@@ -169,8 +173,9 @@ class BillPayment(SoftDeletionModel):
             id = (9000 + n_entries + 10) * 10,
             date = self.date,
             memo =  f'Bill payment for  a Corresponding Bill {self.bill.id}|| {self.bill.reference}',
-            creator = settings.default_bookkeeper.employee,
-            is_approved = True
+            creator = settings.default_bookkeeper,
+            journal = Journal.objects.get(pk=22222),
+
         )
 
         j.debit(self.amount, self.bill.vendor.account)

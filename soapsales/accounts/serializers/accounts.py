@@ -72,7 +72,6 @@ class AccountListSerializer(serializers.ModelSerializer):
             'type',
             'balance_sheet_category',
             'balance',
-            'created_date'
         ]
 
     def get_type(self, obj):
@@ -100,7 +99,6 @@ class AccountDetailSerializer(serializers.ModelSerializer):
             'type',
             'balance_sheet_category',
             'balance',
-            'created_date',
             'description',
             'control_account',
             'parent_account',
@@ -204,7 +202,6 @@ class InterestBearingAccountDetailSerializer(serializers.ModelSerializer):
             'type',
             'balance_sheet_category',
             'balance',
-            'created_date',
             'description',
             'control_account',
             'parent_account',

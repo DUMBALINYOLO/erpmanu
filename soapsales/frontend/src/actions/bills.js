@@ -30,6 +30,7 @@ export const deleteBill = (id) => dispatch => {
 }
 
 // Add
+
 export const addBill = (bill) => dispatch => {
     axios.post(billsURL, bill)
         .then(res => {

@@ -96,7 +96,7 @@ class CustomerDetailSerializer(serializers.ModelSerializer):
 		model = Customer
 		fields = [
 			'id',
-			'customer_number'
+			'customer_number',
 			'name',
 			'is_organization',
 			'is_organization',
@@ -106,7 +106,7 @@ class CustomerDetailSerializer(serializers.ModelSerializer):
 			'bp_number',
 			'status',
 			'email',
-			'phone'
+			'phone',
 			'invoices',
 			'sales',
 			'quotations',
@@ -121,7 +121,7 @@ class CustomerDetailSerializer(serializers.ModelSerializer):
 
 
 	def get_status(self, obj):
-		return get_status_display()
+		return obj.get_status_display()
 
 
 

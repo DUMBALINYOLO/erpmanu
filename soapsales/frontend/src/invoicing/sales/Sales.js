@@ -17,6 +17,7 @@ import { getSales} from '..//../actions/sales';
 import "./form.css";
 
 
+
 class Sales extends Component {
 
     constructor() {

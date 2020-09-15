@@ -1,4 +1,5 @@
 from django.db import models
+from decimal import Decimal as D
 from django.db.models import Q
 from .warehouse import InventoryStockItem, WareHouse
 from .order import Order, OrderItem

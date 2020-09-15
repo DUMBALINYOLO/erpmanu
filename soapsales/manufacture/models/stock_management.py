@@ -8,8 +8,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import User
 from simple_history.models import HistoricalRecords
 from datetime import datetime
-# from inventory.models import WareHouse, WareHouseItem
-
+from inventory import models as gosso
 
 
 
@@ -44,7 +43,6 @@ class ProcessedProductsStockReceipt(models.Model):
     history = HistoricalRecords()
 
 
-
     def save(self, *args, **kwargs):
         if not self.reference_number:
           self.reference_number = str(uuid.uuid4()).replace("-", '').upper()[:20]
@@ -76,12 +74,16 @@ class ProcessedProductsStockReceiptLine(models.Model):
     def save(self, *args, **kwargs):
         if not self.reference_number:
           self.reference_number = str(uuid.uuid4()).replace("-", '').upper()[:20]
-        self.receipt.ship_to.add_inventory_stock_item(self.item, self.quantity, location=medium)
+        self.receipt.ship_to.add_manufactured_item(
+                                              self.item, 
+                                              self.quantity, 
+                                            )
         super(ProcessedProductsStockReceiptLine, self).save(*args, **kwargs)
 
 
     def __str__(self):
         return f'{self.id} | {self.reference_number}'
+
 
 
 
@@ -165,6 +167,14 @@ class ProcessedProductStockAdjustment(models.Model):
 
     def __str__(self):
     	return self.reference_number
+
+
+
+
+
+
+
+
 
 
 

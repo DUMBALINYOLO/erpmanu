@@ -47,11 +47,11 @@ class WareHouse(SoftDeletionModel):
         return self.manufacturedstockitems.all()
 
 
-    @property
-    def manufactured_items_quantity(self):
-        '''returns the total number of physical entities stored in the warehouse'''
-        return sum(
-            [i.quantity for i in self.manufacturedstockitems])
+    # @property
+    # def manufactured_items_quantity(self):
+    #     '''returns the total number of physical entities stored in the warehouse'''
+    #     return sum(
+    #         [i.quantity for i in self.manufacturedstockitems])
 
 
     def decrement_manufactured_item(self, item, quantity):
@@ -97,6 +97,7 @@ class WareHouse(SoftDeletionModel):
         #ignore location if present
         if self.has_manufactured_item(item) and not location:
             self.get_manufactured_item(item).increment(quantity)
+
 
         elif location:
             location = StorageMedia.objects.get(pk=location)
@@ -173,10 +174,10 @@ class WareHouse(SoftDeletionModel):
 
     def get_inventory_stock_item(self, item):
         '''can accept product consumable or equipment as an arg'''
-        if WareHouseItem.objects.filter(
+        if InventoryStockItem.objects.filter(
             item=item, warehouse=self).exists():
 
-            return WareHouseItem.objects.get(item=item, warehouse=self)
+            return InventoryStockItem.objects.get(item=item, warehouse=self)
 
 
     def has_inventory_stock_item(self, item):
@@ -328,6 +329,7 @@ class InventoryStockItem(SoftDeletionModel):
             self.location = location
             self.save()
             
+
 
 class StorageMedia(SoftDeletionModel):
     name = models.CharField(max_length = 255)

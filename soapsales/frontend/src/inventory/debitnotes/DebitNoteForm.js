@@ -91,6 +91,7 @@ class DebitNoteForm extends Component {
         });
     };
 
+
     static propTypes = {
         addDebitNote: PropTypes.func.isRequired,
         getInventoryOrders: PropTypes.func.isRequired,

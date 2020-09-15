@@ -5,6 +5,7 @@ import {
         GET_UNVERIFIED_PRODUCTION_PROCESS
     } from '../types/unverifiedproductionprocessTypes';
 import { unverifiedproductionprocessesURL } from '../constants';
+import { ADD_PROCESS } from './types';
 
 // Get
 export const getUnverifiedProductionProcesses = () => dispatch => {
@@ -16,6 +17,17 @@ export const getUnverifiedProductionProcesses = () => dispatch => {
             });
         }).catch(err => console.log(err))
 }
+
+export const addProcess = (process) => dispatch => {
+    axios.post(unverifiedproductionprocessesURL, process)
+        .then(res => {
+            dispatch({
+                type: ADD_PROCESS,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
+}
+
 
 //Delete
 export const deleteUnverifiedProductionProcess = (id) => dispatch => {
@@ -39,3 +51,5 @@ export const getUnverifiedProductionProcess = id => dispatch =>{
         }).catch(err => console.log(err))
 
 }
+
+

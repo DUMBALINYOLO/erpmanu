@@ -3,6 +3,7 @@ import {
         DELETE_UNVERIFIED_PRODUCTION_PROCESS,
         GET_UNVERIFIED_PRODUCTION_PROCESS
     } from '../types/unverifiedproductionprocessTypes';
+import { ADD_PROCESS } from '../actions/types.js';
 
 const initialState = {
     unverifiedproductionprocesses: [],
@@ -21,6 +22,11 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 unverifiedproductionprocess: state.unverifiedproductionprocesses.filter(unverifiedproductionprocess=> unverifiedproductionprocess.id !== action.payload)
+            };
+        case ADD_PROCESS:
+            return {
+                ...state,
+                process: [...state.unverifiedproductionprocess, action.payload]
             };
         case GET_UNVERIFIED_PRODUCTION_PROCESS:
             return {

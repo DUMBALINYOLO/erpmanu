@@ -13,7 +13,7 @@ class PaymentListSerializer(serializers.ModelSerializer):
 	class Meta:
 
 		model = Payment
-		fields = ['id', 'reference_number', 'amount_tendered', 'amount_to_pay', 'date', 'invoice']
+		fields = ['id', 'reference_number', 'cash', 'amount', 'invoice']
 
 
 
@@ -24,14 +24,13 @@ class PaymentCreateSerializer(serializers.ModelSerializer):
 
 		model = Payment
 		fields = [
-			'amount_tendered',
-			'amount_to_pay',
-			'date', 
+			'amount', 
 			'invoice',
 			'method',
-			'reference_number',
 			'cashier',
 			'comments',
+			'cash',
+
 
 		]
 
@@ -45,18 +44,26 @@ class PaymentDetailSerializer(serializers.ModelSerializer):
 		fields = [
 			'id',
 			'reference_number',
-			'amount_tendered',
-			'amount_to_pay', 
+			'amount', 
 			'date', 
 			'invoice',
 			'method',
-			'reference_number',
 			'cashier',
 			'comments',
 			'due',
-			'customer_change',
 			'entry',
 		]
+
+
+
+
+
+
+
+
+
+
+
 
 
 

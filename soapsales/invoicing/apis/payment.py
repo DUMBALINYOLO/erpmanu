@@ -22,9 +22,9 @@ class PaymentViewSet(viewsets.ModelViewSet):
 			return PaymentCreateSerializer
 		return PaymentDetailSerializer
 
-	def perform_create(self, serializer):
+	# def perform_create(self, serializer):
 
-		return serializer.save(cashier=self.request.user)
+	# 	return serializer.save(cashier=self.request.user)
 
 
 	def get_queryset(self, *args, **kwargs):

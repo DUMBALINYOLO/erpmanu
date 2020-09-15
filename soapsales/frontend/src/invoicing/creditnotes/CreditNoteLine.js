@@ -20,8 +20,9 @@ const CreditNoteLines = (props) => {
         console.log('mount it!');
     }, []);
 
-  const { invoicelines } = props;
 
+
+  const { invoicelines } = props;
 
 
   let invoiceLines = invoicelines.length > 0
@@ -74,3 +75,9 @@ const mapStateToProps = state =>({
 })
 
 export default connect(mapStateToProps, {getInvoicelines} ) (CreditNoteLines);
+
+
+
+
+
+

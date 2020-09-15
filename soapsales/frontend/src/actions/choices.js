@@ -454,6 +454,7 @@ export const getBillingChoices = () => dispatch => {
         }).catch(err => console.log(err))
 }
 
+
 export const getCustomerStatusChoices = () => dispatch => {
     axios.get('http://127.0.0.1:8000/api/config/customer-status-choices/')
         .then(res => {
@@ -614,6 +615,7 @@ export const getBillFrequencyChoices = () => dispatch => {
         }).catch(err => console.log(err))
 }
 
+
 export const getAccountTypeChoices = () => dispatch => {
     axios.get('http://127.0.0.1:8000/api/config/account-type-choices/')
         .then(res => {
@@ -663,3 +665,15 @@ export const getAccountTypesClassificationChoices = () => dispatch => {
             });
         }).catch(err => console.log(err))
 }
+
+
+
+
+
+
+
+
+
+
+
+

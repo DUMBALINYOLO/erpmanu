@@ -26,7 +26,7 @@ class WareHouseViewSet(viewsets.ModelViewSet):
 		if self.action in ['create', 'patch', 'put']:
 		    return WareHouseCreateUpdateSerializer
 		elif self.action == 'retrieve':
-			return StorageMediaDetailSerializer
+			return WareHouseDetailSerializer
 		return WareHouseListSerializer
 
 

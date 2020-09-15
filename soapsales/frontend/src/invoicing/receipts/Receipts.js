@@ -13,8 +13,8 @@ import {Button} from 'primereact/button';
 import { FileUpload } from 'primereact/fileupload';
 import {Calendar} from 'primereact/calendar';
 import {ProgressBar} from 'primereact/progressbar';
-import { getReceipts} from '..//../actions/receipts';
-import "./form.css";
+import { getReceipts } from '..//../actions/receipts';
+
 
 
 class Receipts extends Component {
@@ -50,11 +50,12 @@ class Receipts extends Component {
     renderHeader() {
         return (
             <div className="table-head">
-                <h1>Manage Receipts</h1>
-                <div className="datatable-fancy-icons">
-                    <div className="fancy-icon"><FileUpload mode="basic" accept="image/*" maxFileSize={1000000} label="Import" chooseLabel="Import" className="p-mr-2 p-d-inline-block" /></div>
-                    <div className="fancy-icon"><Button label="Export" icon="pi pi-upload" className="p-button-rounded p-button-help" onClick={this.export} /></div>
-                    <div className="fancy-icon"><Button type="button" className="p-button-warning p-button-rounded" icon="pi pi-file-pdf" iconPos="right" label="PDF" onClick={this.export}></Button></div>
+                <h1>Manage Accounts</h1>
+                <div className="datatable-icons">
+                    <div className="h"><FileUpload mode="basic" accept="image/*" maxFileSize={1000000} label="Import" chooseLabel="Import" className="p-mr-2 p-d-inline-block" /></div>
+                    <div className="fancy-icon"><Button label="EXPORT TO CSV" icon="pi pi-upload" className="p-button-rounded p-button-help" onClick={this.export} /></div>
+                    <Button label="RECEIPT" className="p-button-success p-mr-2" />
+                    <div className="fancy-icon"><Button type="button" className="p-button-warning p-button-rounded" icon="pi pi-file-pdf" iconPos="right" label="EXPORT TO PDF" onClick={this.export}></Button></div>
                     <div className="fancy-icon"><Button type="button" className="p-button-warning p-button-rounded" icon="pi pi-print" iconPos="right" label="PRINT" onClick={this.export}></Button></div>
                     <InputText className="fancy-icon" type="search" onInput={(e) => this.setState({globalFilter: e.target.value})} placeholder="Search" />
                 </div>
@@ -161,7 +162,7 @@ class Receipts extends Component {
                     />
                     <Column
                         className="table-field"
-                        field="amount_paid"
+                        field="amount"
                         header="Amount Paid"
                         sortable filter filterPlaceholder="Search by Amount Paid"
                         style={{width:'3em', backgroundColor: '#4EB0A5'}}
@@ -191,3 +192,5 @@ const mapStateToProps = state =>({
 })
 
 export default connect(mapStateToProps, {getReceipts} ) (Receipts);
+
+

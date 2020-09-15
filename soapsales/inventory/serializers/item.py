@@ -28,6 +28,7 @@ class InventoryItemListSerializer(serializers.ModelSerializer):
 
     def get_type(self, obj):
         return obj.get_type_display()
+        
 
 
 class InventoryItemCreateSerializer(serializers.ModelSerializer):
@@ -35,7 +36,7 @@ class InventoryItemCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = InventoryItem
         fields = [
-
+            'id',
             'name',
             'type',
             'category',

@@ -27,7 +27,6 @@ from basedata.const import (
 
 
 
-
 class Invoice(SoftDeletionModel):
     '''
     An invoice is a document that represents a sale. Because of the complexity of the object,
@@ -126,8 +125,9 @@ class Invoice(SoftDeletionModel):
 
     def save(self, *args, **kwargs):
         if not self.tracking_number:
-            self.tracking_number = str(uuid.uuid4()).replace("-", '').upper()[:20]
+            self.tracking_number = str(uuid.uuid4()).replace("-", '').upper()[:13]
         super(Invoice, self).save(*args, **kwargs)
+
 
 
 
@@ -179,7 +179,7 @@ class Invoice(SoftDeletionModel):
     @property
     def total_paid(self):
         '''Returns the total value of payments made towards the invoice'''
-        return sum([p.amount_to_pay for p in self.payment_set.all()])
+        return sum([p.amount for p in self.payment_set.all()])
 
 
     @property
@@ -228,7 +228,7 @@ class Invoice(SoftDeletionModel):
             account as well as crediting the tax account'''
         
         j = JournalEntry.objects.create(
-                memo= f'Journal entry for invoice #{self.invoice_number}.',
+                memo= f'Journal entry for invoice #{self.tracking_number}.',
                 date=self.date,
                 journal =Journal.objects.get(pk=33333),#Sales Journal
                 creator = self.cashier,
@@ -243,7 +243,8 @@ class Invoice(SoftDeletionModel):
             j.credit(self.tax_amount, Account.objects.get(pk=2001))#sales tax
 
         self.entry = j
-        return j
+        self.save()
+
 
 
 
@@ -284,16 +285,15 @@ class InvoiceLine(models.Model):
                             related_name= 'lines'
 
                         )
-    product = models.OneToOneField('manufacture.ProcessProduct',
+    product = models.ForeignKey('manufacture.ProcessProduct',
         on_delete=models.SET_NULL,
         null=True,
         related_name='invoicelines',
         )
 
     quantity= models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
-    value = models.DecimalField(max_digits=16, decimal_places=2, default=0.0)
+    value = models.DecimalField(max_digits=16, blank=True, decimal_places=2, default=0.0)
 
-    line_type = models.PositiveSmallIntegerField(choices=INVOCE_LINE_CHOICES)
     tax = models.ForeignKey('accounts.Tax', on_delete=models.SET_NULL,
         null=True)
     discount =models.ForeignKey(
@@ -306,11 +306,14 @@ class InvoiceLine(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.reference_number:
-            self.reference_number = str(uuid.uuid4()).replace("-", '').upper()[:20]
+            self.reference_number = str(uuid.uuid4()).replace("-", '').upper()[:13]
+        if self.value == 0.0:
+            self.set_value()
         super(InvoiceLine, self).save(*args, **kwargs)
 
 
     #what it is sold for
+
 
 
     def set_value(self):
@@ -368,12 +371,26 @@ class SalesGroupPricingDiscount(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.reference_number:
-            self.reference_number = str(uuid.uuid4()).replace("-", '').upper()[:20]
+            self.reference_number = str(uuid.uuid4()).replace("-", '').upper()[:13]
         super(SalesGroupPricingDiscount, self).save(*args, **kwargs)
 
 
     def __str__(self):
         return f'{self.group_name} {self.product_name}'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

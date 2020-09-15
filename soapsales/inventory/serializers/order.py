@@ -8,6 +8,8 @@ class StringSerializer(serializers.StringRelatedField):
 
 
 
+
+
 class OrderItemListSerializer(serializers.ModelSerializer):
     order = StringSerializer()
     item = StringSerializer()
@@ -33,11 +35,13 @@ class OrderItemListSerializer(serializers.ModelSerializer):
         return obj.get_unit_display()
 
 
+
 class OrderItemCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = OrderItem
-        fields = '__all__'
+        fields =['pk', 'item', 'quantity', 'unit', 'order_price']
+
 
 
 
@@ -52,15 +56,13 @@ class OrderCreateSerializer(WritableNestedModelSerializer):
             'date',
             'due',
             'supplier',
-            'supplier_invoice_number',
-            'bill_to',
             'ship_to',
-            # 'tax',
-            'tracking_number',
+            'tax',
             'notes',
             'status',
-            'received_to_date',
             'issuing_inventory_controller',
+            # 'entries',
+            # 'shipping_cost_entries',
             'items',
         ]
 
@@ -85,8 +87,6 @@ class OrderDetailSerializer(serializers.ModelSerializer):
             'date',
             'due',
             'supplier',
-            'supplier_invoice_number',
-            'bill_to',
             'ship_to',
             'tax',
             'tracking_number',

@@ -263,8 +263,9 @@ INVOICE_SALES_TYPES_CHOICES = [
 
 
 INVOCE_LINE_CHOICES = [
-        (1, 'product'),
         (2, 'service'),
+        (1, 'product'),
+        
     ]
 
 CUSTOMER_PAYMENT_METHODS_CHOICES = [

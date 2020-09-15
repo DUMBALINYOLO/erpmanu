@@ -1,4 +1,4 @@
-import { ADD_PAYMENT, GET_PAYMENTS, GET_PAYMENT, DELETE_PAYMENT } from '../types/paymentTypes';
+import { ADD_PAYMENT, GET_PAYMENTS, GET_PAYMENT, DELETE_PAYMENT, EDIT_PAYMENT } from '../types/paymentTypes';
 
 const initialState = {
     payments: [],
@@ -28,7 +28,31 @@ export default function(state = initialState, action){
                 ...state,
                 payment: action.payload
             };
+        case EDIT_PAYMENT:
+            const arrayList = state.payments;
+            arrayList.splice(arrayList.findIndex(item => item.id === action.payload.data.id), 1 , action.payload.data);
+            return {
+                ...state,
+                payments: arrayList,
+            };
         default:
             return state;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

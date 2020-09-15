@@ -19,6 +19,8 @@ urlpatterns = [
     re_path(r'api/sales/', include('invoicing.urls')),
     re_path('api/employees/', include('employees.urls')),
     re_path('api/customers/', include('customers.urls')),
+     re_path('api/cash/', include('daily_cash_register.urls')),
+
     path('api/config/', include('basedata.urls')),
 
 ] 

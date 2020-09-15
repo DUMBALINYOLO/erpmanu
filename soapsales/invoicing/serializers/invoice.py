@@ -16,7 +16,7 @@ class InvoiceLineCreateSerializer(serializers.ModelSerializer):
 
 	class Meta:
 		model = InvoiceLine
-		fields = [ 'product', 'line_type', 'tax', 'discount']
+		fields = ['pk', 'product', 'quantity', 'tax', 'discount']
 
 
 
@@ -31,7 +31,6 @@ class InvoiceLineListSerializer(serializers.ModelSerializer):
 			'id', 
 			'invoice', 
 			'product', 
-			'line_type', 
 			'tax', 
 			'discount', 
 			'total',
@@ -46,7 +45,7 @@ class InvoiceListSerializer(serializers.ModelSerializer):
 
 	class Meta:
 		model = Invoice
-		fields = ['id', 'reference_number', 'customer', 'cashier']
+		fields = ['id', 'tracking_number', 'customer', 'cashier']
 
 
 
@@ -60,10 +59,8 @@ class InvoiceCreateUpdateSerializer(WritableNestedModelSerializer):
 			'status',
 			'customer', 
 			'validated_by',
-			'draft',
 			'cashier',
 			'sale_type',
-			'salesperson',
 			'due',
 			'terms',
 			'comments',
@@ -75,25 +72,22 @@ class InvoiceCreateUpdateSerializer(WritableNestedModelSerializer):
 
 
 
-
 class InvoiceDetailSerializer(serializers.ModelSerializer):
 	lines = InvoiceLineListSerializer(many=True, read_only=True)
 	customer = StringSerializer()
-	salesperson = StringSerializer()
+	cashier = StringSerializer()
 	ship_from = StringSerializer()
 
 	class Meta:
 		model = Invoice
 		fields = [
 			'id',
-			'reference_number',
+			'tracking_number',
 			'status',
 			'sale_type',
 			'customer', 
-			'purchase_order_number',
-			'draft',
 			'customer',
-			'salesperson',
+			'cashier',
 			'due',
 			'terms',
 			'comments',
@@ -102,7 +96,6 @@ class InvoiceDetailSerializer(serializers.ModelSerializer):
 			'sales_total',
 			'cost_of_goods_sold',
 			'total',
-			'overdue',
 			'overdue_days',
 			'on_credit',
 			'total_paid',
@@ -118,12 +111,16 @@ class SalesGroupPricingDiscountSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = SalesGroupPricingDiscount
 		fields = [
+			'id',
 			'group_name',
 			'product_name',
 			'group_discount_rate',
 			'reference_number' # dont put on the react create form for its called in the Model Signal
 
 		]
+
+
+
 
 
 

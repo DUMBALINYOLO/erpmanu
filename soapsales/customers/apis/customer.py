@@ -19,14 +19,15 @@ class ActiveCustomerViewSet(viewsets.ModelViewSet):
 	# permission_classes = [
  #        permissions.IsAuthenticated,
  #    ]
+	lookup_field = 'id'
 
 
 	def get_serializer_class(self):
-		if self.action in ['create', 'patch', 'put']:
-			return CustomerCreateUpdateSerializer
+		if self.action == 'list':
+			return CustomerListSerializer	
 		elif self.action == 'retrieve':
 			return CustomerDetailSerializer
-		return CustomerListSerializer
+		return CustomerCreateUpdateSerializer
 
 
 	def get_queryset(self, *args, **kwargs):
@@ -39,7 +40,7 @@ class ActiveCustomerViewSet(viewsets.ModelViewSet):
 		return queryset
 
 
-	@action(methods=['POST', ], detail=False)
+	@action(methods=['POST', 'GET', 'PUT' ], detail=True)
 	def deactivate_customer(self, request, *args, **kwargs):
 
 		customer = self.get_object()
@@ -56,6 +57,7 @@ class DeActivatedCustomerViewSet(viewsets.ModelViewSet):
 	# permission_classes = [
  #        permissions.IsAuthenticated,
  #    ]
+	lookup_field = 'id'
 
 
 	def get_serializer_class(self):
@@ -75,6 +77,16 @@ class DeActivatedCustomerViewSet(viewsets.ModelViewSet):
 		
 
 		return queryset
+
+	@action(methods=['POST', 'GET', 'PUT' ], detail=True)
+	def activate_customer(self, request, *args, **kwargs):
+
+		customer = self.get_object()
+		if customer.status == 'active':
+			return Response({'message': 'Customer has already been Activated'})
+		customer.status = 'active'
+		customer.save()
+		return Response({'message': 'Customer has succesfully been activated'})
 
 
 class CustomerAddressViewSet(viewsets.ModelViewSet):

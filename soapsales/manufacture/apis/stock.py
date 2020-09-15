@@ -12,7 +12,7 @@ class ManufacturedStockItemViewSet(viewsets.ModelViewSet):
 
 
 	def get_queryset(self, *args, **kwargs):
-		queryset = ManufacturedStockItemSerializer.objects.prefetch_related(
+		queryset = ManufacturedStockItem.objects.prefetch_related(
 																	'item',
 																	'warehouse',
 																	'location'

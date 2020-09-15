@@ -18,7 +18,7 @@ class CustomerReceiptListSerializer(serializers.ModelSerializer):
             'id',
             'cashier',
             'receipt_number',
-            'amount_paid',
+            'amount',
             'created_date',
         ]
 
@@ -33,20 +33,25 @@ class CustomerReceiptDetailSerializer(serializers.ModelSerializer):
             'id',
             'cashier',
             'receipt_number',
-            'amount_paid',
             'created_date',
             'customer',
             'comment',
-            'payment_method',
             'has_finished',
             'has_error',
-            'amount_paid',
-            'amount_tendered',
+            'amount',
             'paid_as_of_date',
             'balance_as_of_date',
-            'change',
         ]
 
 
 
- 
+
+
+
+
+
+
+
+
+
+

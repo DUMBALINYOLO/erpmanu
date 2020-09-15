@@ -5,6 +5,7 @@ import {
         DELETE_INVENTORY_ORDER,
         GET_INVENTORY_ORDER
     } from '../types/inventoryorderTypes';
+import { GET_ERRORS  } from './types';
 import { inventoryordersURL } from '../constants';
 
 // Get
@@ -30,15 +31,26 @@ export const deleteInventoryOrder = (id) => dispatch => {
 }
 
 // Add
-export const addInventoryOrder= (inventoryorder) => dispatch => {
+export const addInventoryOrder= inventoryorder => dispatch => {
     axios.post(inventoryordersURL, inventoryorder)
         .then(res => {
             dispatch({
                 type: ADD_INVENTORY_ORDER,
                 payload: res.data
             });
-        }).catch(err => console.log(err))
+        }).catch(err =>{
+            const errors = {
+                msg: err.response.data,
+                status: err.response.status
+
+        }
+        dispatch({
+            type: GET_ERRORS,
+            payload: errors
+        });
+    });
 }
+
 
 //get
 export const getInventoryOrder = id => dispatch =>{
@@ -51,3 +63,4 @@ export const getInventoryOrder = id => dispatch =>{
         }).catch(err => console.log(err))
 
 }
+

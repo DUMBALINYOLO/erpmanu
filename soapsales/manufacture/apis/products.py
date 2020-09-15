@@ -17,17 +17,16 @@ class ProcessProductViewSet(ModelViewSet):
     # ]
 
     def get_serializer_class(self):
-        if self.action in ['create', 'put']:
-            return ProcessProductCreateUpdateSerializer
+        if self.action == 'list':
+            return ProcessProductListSerializer 
         if self.action == 'retrieve':
         	return ProcessProductDetailSerializer
-        return ProcessProductListSerializer
+        return ProcessProductCreateUpdateSerializer
 
 
     def get_queryset(self, *args, **kwargs):
         queryset = ProcessProduct.objects.prefetch_related(
                                                     'unit',
-                                                    'location'
                                                 )
         return queryset
 

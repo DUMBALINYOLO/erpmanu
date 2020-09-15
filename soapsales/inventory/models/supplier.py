@@ -61,6 +61,7 @@ class SupplierAddress(SoftDeletionModel):
 
 
 
+
 class Supplier(SoftDeletionModel):
     name = models.CharField(max_length=230)
     status = models.CharField(max_length=230, default='active', choices=SUPPLIER_STATUS_CHOICES)

@@ -528,8 +528,8 @@ class Content extends Component {
                     {
                         label: 'Orders', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/inventororders/create'},
-                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/inventororders'}
+                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/inventoryorders/create'},
+                            {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/inventoryorders'}
                         ]
                     },
                     {
@@ -720,6 +720,8 @@ class Content extends Component {
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/sales'},
                         ]
                     },
+                    {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/sales/create'},
+
 
 
                 ]
@@ -774,6 +776,7 @@ class Content extends Component {
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/unverifiedproductionprocesses'}
                         ]
                     },
+                    {label: 'CREATE', icon: 'pi pi-fw pi-bookmark', to: '/productionprocess'},
                     {
                         label: 'Verified Production Processes', icon: 'pi pi-fw pi-bookmark',
                         items: [

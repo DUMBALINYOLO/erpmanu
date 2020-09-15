@@ -40,7 +40,7 @@ from employees.apis import (
 
 router = DefaultRouter()
 
-router.register(r'employees', EmployeeViewSet)
+router.register(r'employees', EmployeeViewSet, basename='employees')
 ###take from here
 router.register(r'company-shareholders', CompanyShareHolderViewSet, basename='company-shareholders')
 router.register(r'company-managers', CompanyManagerViewSet, basename='company-managers')

@@ -26,12 +26,12 @@ class OrderViewSet(viewsets.ModelViewSet):
             return OrderDetailSerializer
         return OrderCreateSerializer
 
-    def perform_create(self, serializer):
+    # def perform_create(self, serializer):
 
-        return serializer.save(
-                        validated_by=self.request.user,
-                        issuing_inventory_controller=self.request.user
-                    )
+    #     return serializer.save(
+    #                     validated_by=self.request.user,
+    #                     issuing_inventory_controller=self.request.user
+    #                 )
 
 
 
@@ -44,8 +44,6 @@ class OrderViewSet(viewsets.ModelViewSet):
                                             'tax',
                                             'issuing_inventory_controller',
                                             'entry',
-                                            'entries',
-                                            'shipping_cost_entries',
                                         ).filter(
 
                                     status__in = ['received-partially', 'draft', 'order']
@@ -87,8 +85,6 @@ class FullyReceivedAndTotalPaidForOrderViewSet(viewsets.ModelViewSet):
                                             'tax',
                                             'issuing_inventory_controller',
                                             'entry',
-                                            'entries',
-                                            'shipping_cost_entries',
                                         ).order_by('-id')
 
         queryset = []
@@ -143,8 +139,6 @@ class FullyReceivedTotalPaidForAndVerifiedOrderViewSet(viewsets.ModelViewSet):
                                             'tax',
                                             'issuing_inventory_controller',
                                             'entry',
-                                            'entries',
-                                            'shipping_cost_entries',
                                         ).filter(
                                             status = 'received'
                                     )

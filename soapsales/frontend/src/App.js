@@ -14,6 +14,7 @@ import Content from "./dashboard/Content";
 import Dashboard from './dashboard/components/Dashboard';
 
 
+
 //accounts
 import AccountingConfigurationForm from './accounts/accountingconfiguration/AccountingConfigurationForm';
 
@@ -239,6 +240,9 @@ import RefundedInvoices from './invoicing/refundedinvoices/RefundedInvoices';
 import FullypaidNotYetSalesInvoices from './invoicing/fullypaidnotyetsalesinvoices/FullypaidNotYetSalesInvoices';
 
 import Sales from './invoicing/sales/Sales';
+import SalesForm from './invoicing/sales/SalesForm';
+
+
 
 //manufacture
 import UnverifiedProductionProcesses from './manufacture/unverifiedproductionprocesses/UnverifiedProductionProcesses';
@@ -263,6 +267,7 @@ import ShiftScheduleForm from './manufacture/shiftschedules/ShiftScheduleForm';
 
 import ProcessRates from './manufacture/processrates/ProcessRates';
 import ProcessRateForm from './manufacture/processrates/ProcessRateForm';
+import ProductionProcessForm from './manufacture/productionprocess/ProductionProcessForm';
 
 import ProductionOrders from './manufacture/productionorders/ProductionOrders';
 
@@ -337,7 +342,7 @@ class App extends Component {
 
 							<Route exact path='/manufacturingpersonels' component={ManufacturingPersonels} />
 							<Route exact path='/manufacturingpersonels/create' component={ManufacturingPersonelForm} />
-
+							<Route exact path='/productionprocess' component={ProductionProcessForm} />
 							<Route exact path='/processproducts' component={ProcessProducts} />
 							<Route exact path='/processproducts/create' component={ProcessProductForm} />
 
@@ -377,6 +382,7 @@ class App extends Component {
 							<Route exact path='/fullypaidnotyetsalesinvoices' component={FullypaidNotYetSalesInvoices} />
 
 							<Route exact path='/sales' component={Sales} />
+							<Route exact path='/sales/create' component={SalesForm} />
 
 							<Route exact path='/inventorycategories' component={InventoryCategories} />
 							<Route exact path='/inventorycategories/create' component={InventoryCategoryForm} />

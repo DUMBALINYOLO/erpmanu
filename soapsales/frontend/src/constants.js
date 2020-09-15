@@ -20,6 +20,7 @@ export const unpostedandunadjustedjournalentriesURL = `${endpoint}/accounting/un
 export const unadjustedjournalentriesURL = `${endpoint}/accounting/unadjusted-journal-entries/`
 export const unpostedjournalentriesURL = `${endpoint}/accounting/unposted-journal-entries/`
 export const postedjournalentriesURL = `${endpoint}/accounting/posted-journal-entries/`
+export const journalentriesURL = `${endpoint}/accounting/journal-entries/`
 export const inactiveaccountsURL = `${endpoint}/accounting/in-active-accounts/`
 export const assetsURL = `${endpoint}/accounting/assets/`
 export const taxesURL = `${endpoint}/accounting/taxes/`
@@ -44,6 +45,8 @@ export const processedproductstockreceiptsURL = `${endpoint}/manufacture/process
 export const processedproductstockadjustmentsURL = `${endpoint}/manufacture/processed-product-stock-adjustments/`
 export const processedproductstocktakesURL = `${endpoint}/manufacture/processed-product-stock-takes/`
 export const manufacturedstockitemsURL = `${endpoint}/manufacture/manufactured-stock-items/`
+export const productionprocessesURL = `${endpoint}/manufacture/production-processes/`
+
 
 //inventory
 export const inventorycategoriesURL = `${endpoint}/inventory/inventory-categories/`
@@ -51,6 +54,7 @@ export const debitnotesURL = `${endpoint}/inventory/debit-notes/`
 export const inventoryordersURL = `${endpoint}/inventory/inventory-orders/`
 export const inventoryorderpaymentsURL = `${endpoint}/inventory/inventory-orderpayments/`
 export const warehousesURL = `${endpoint}/inventory/warehouses/`
+export const inventoryitemsURL = `${endpoint}/inventory/inventory-items/`
 export const inventorystockitemsURL = `${endpoint}/inventory/inventorystockitems/`
 export const storagemediasURL = `${endpoint}/inventory/storagemedias/`
 export const orderitemsURL = `${endpoint}/inventory/orderitems/`
@@ -75,6 +79,9 @@ export const eventconfigURL = `${endpoint}/events/event-config/`
 export const deactivatedcustomersURL = `${endpoint}/customers/deactivated-customers/`
 export const customeraddressesURL = `${endpoint}/customers/customer-addresses/`
 export const activecustomersURL = `${endpoint}/customers/active-customers/`
+
+// cash
+export const cashdrawersURL = `${endpoint}/cash/cash-drawers/`
 
 //employees
 export const employeesURL= `${endpoint}/employees/employees/`
@@ -107,6 +114,7 @@ export const declinedemployeeleavesURL= `${endpoint}/employees/declined-employee
 //invoicing
 export const creditnotesURL= `${endpoint}/sales/creditnotes/`
 export const paymentsURL= `${endpoint}/sales/payments/`
+export const invoicesURL= `${endpoint}/sales/invoices/`
 export const receiptsURL= `${endpoint}/sales/receipts/`
 export const invoicelinesURL= `${endpoint}/sales/invoicelines/`
 export const salesgroupspricingdiscountsURL= `${endpoint}/sales/sales-groups-pricing-discounts/`
