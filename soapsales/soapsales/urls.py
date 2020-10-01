@@ -1,7 +1,7 @@
 
 from django.contrib import admin
 from django.urls import path, include, re_path
-
+from .views import index
 from django.views.generic import TemplateView
 from django.conf import settings
 from django.conf.urls.static import static
@@ -19,10 +19,10 @@ urlpatterns = [
     re_path(r'api/sales/', include('invoicing.urls')),
     re_path('api/employees/', include('employees.urls')),
     re_path('api/customers/', include('customers.urls')),
-     re_path('api/cash/', include('daily_cash_register.urls')),
+    re_path('api/cash/', include('daily_cash_register.urls')),
 
     path('api/config/', include('basedata.urls')),
-
+    path('', index)
 ] 
 
 # urlpatterns += [re_path(r'^.*', TemplateView.as_view(template_name='index.html'))]
