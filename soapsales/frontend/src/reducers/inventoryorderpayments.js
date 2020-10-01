@@ -3,6 +3,7 @@ import {
     GET_INVENTORY_ORDERPAYMENTS ,
     DELETE_INVENTORY_ORDERPAYMENT,
     GET_INVENTORY_ORDERPAYMENT,
+    EDIT_INVENTORY_ORDERPAYMENT
 } from '../types/inventoryorderpaymentTypes';
 
 const initialState = {
@@ -32,7 +33,14 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 inventoryorderpayment:action.payload
-                };
+            };
+        case EDIT_INVENTORY_ORDERPAYMENT:
+            const arrayList = state.inventoryorderpayments;
+            arrayList.splice(arrayList.findIndex(item => item.id === action.payload.data.id), 1 , action.payload.data);
+            return {
+                ...state,
+                inventoryorderpayments: arrayList,
+            };
         default:
             return state;
     }

@@ -2,7 +2,8 @@ import {
         ADD_MANUFACTURED_STOCK_ITEM,
         GET_MANUFACTURED_STOCK_ITEMS,
         DELETE_MANUFACTURED_STOCK_ITEM,
-        GET_MANUFACTURED_STOCK_ITEM
+        GET_MANUFACTURED_STOCK_ITEM,
+        EDIT_MANUFACTURED_STOCK_ITEM
     } from '../types/manufacturedstockitemTypes';
 
 const initialState = {
@@ -32,7 +33,14 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 manufacturedstockitem:action.payload
-                };
+            };
+        case EDIT_MANUFACTURED_STOCK_ITEM:
+            const arrayList = state.manufacturedstockitems;
+            arrayList.splice(arrayList.findIndex(item => item.id === action.payload.data.id), 1 , action.payload.data);
+            return {
+                ...state,
+                manufacturedstockitems: arrayList,
+            };
         default:
             return state;
     }

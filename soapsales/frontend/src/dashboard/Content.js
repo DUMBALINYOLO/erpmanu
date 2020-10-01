@@ -128,7 +128,7 @@ class Content extends Component {
                 ]
             },
             {
-                label: 'Accounting Journal Entries', icon: 'pi pi-fw pi-users',
+                label: 'Accounting Journal Entries', icon: 'pi pi-fw pi-ticket',
                 items: [
                     {
                         label: 'Journals', icon: 'pi pi-fw pi-bookmark',
@@ -164,7 +164,7 @@ class Content extends Component {
                 ]
             },
             {
-                label: 'Accounts & Transactions', icon: 'pi pi-fw pi-users',
+                label: 'Accounts & Transactions', icon: 'pi pi-fw pi-ticket',
                 items: [
                     {
                         label: 'Accounts', icon: 'pi pi-fw pi-bookmark',
@@ -200,9 +200,8 @@ class Content extends Component {
 
                 ]
             },
-
             {
-                label: 'Bills & Assets', icon: 'pi pi-fw pi-users',
+                label: 'Bills & Assets', icon: 'pi pi-fw pi-ticket',
                 items: [
                     {
                         label: 'Assets', icon: 'pi pi-fw pi-bookmark',
@@ -240,8 +239,6 @@ class Content extends Component {
 
                 ]
             },
-
-
             {
                 label: 'Accounting Books', icon: 'pi pi-fw pi-ticket',
                 items: [
@@ -287,8 +284,6 @@ class Content extends Component {
 
                 ]
             },
-
-
             {
                 label: 'Customers', icon: 'pi pi-fw pi-users',
                 items: [
@@ -312,7 +307,6 @@ class Content extends Component {
                     },
                 ]
             },
-
             {
                 label: 'Officers', icon: 'pi pi-fw pi-users',
                 items: [
@@ -529,8 +523,6 @@ class Content extends Component {
                         label: 'Payments', icon: 'pi pi-fw pi-bookmark',
                         items: [
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/inventoryorderpayments'},
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/inventoryorderpayments/create'}
-
                         ]
                     },
 
@@ -542,21 +534,18 @@ class Content extends Component {
                     {
                         label: 'Warehouses', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/warehouses/create'},
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/warehouses'},
                         ]
                     },
                     {
                         label: 'Storage Medias', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/storagemedias/create'},
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/storagemedias'},
                         ]
                     },
                     {
                         label: 'Inventory Categories', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/inventorycategories/create'},
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/inventorycategories'},
                         ]
                     },
@@ -567,9 +556,6 @@ class Content extends Component {
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/debitnotes'}
                         ]
                     },
-
-
-
                 ]
             },
             {
@@ -593,7 +579,6 @@ class Content extends Component {
                     {
                         label: 'Stock Takes', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {label: 'Take', icon: 'pi pi-fw pi-bookmark', to: '/inventorystocktakes/create'},
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/inventorystocktakes'}
                         ]
                     },
@@ -603,8 +588,6 @@ class Content extends Component {
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/stockadjustments'}
                         ]
                     },
-
-
                 ]
             },
             {
@@ -613,21 +596,18 @@ class Content extends Component {
                     {
                         label: 'Raw Materials', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/rawmaterials/create'},
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/rawmaterials'},
                         ]
                     },
                     {
                         label: 'Equipments', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/equipments/create'},
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/equipments'},
                         ]
                     },
                     {
                         label: 'Consumables', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/consumables/create'},
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/consumables'},
                         ]
                     },
@@ -650,11 +630,8 @@ class Content extends Component {
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/deactivedsuppliers'}
                         ]
                     },
-
-
                 ]
             },
-
             {
                 label: 'Sales', icon: 'pi pi-fw pi-calendar',
                 items: [
@@ -723,7 +700,6 @@ class Content extends Component {
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/receipts'}
                         ]
                     },
-
                 ]
             },
             {
@@ -743,8 +719,6 @@ class Content extends Component {
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/salesgroupspricingdiscounts'}
                         ]
                     },
-
-
                 ]
             },
             {
@@ -772,7 +746,6 @@ class Content extends Component {
                     {
                         label: 'Process Machine Groups', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/processmachinegroups/create'},
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/processmachinegroups'}
                         ]
                     },
@@ -786,11 +759,9 @@ class Content extends Component {
                     {
                         label: 'Process Rates', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/processrates/create'},
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/processrates'}
                         ]
                     },
-
                 ]
             },
             {
@@ -819,7 +790,6 @@ class Content extends Component {
                     {
                         label: 'Stock Takes', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/processedproductstocktakes/create'},
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/processedproductstocktakes'}
                         ]
                     },
@@ -837,7 +807,6 @@ class Content extends Component {
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/wastegenerationreports'},
                         ]
                     },
-
                 ]
             },
             {
@@ -860,20 +829,15 @@ class Content extends Component {
                     {
                         label: 'Manufacturing Teams', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/manufacturingteams/create'},
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/manufacturingteams'}
                         ]
                     },
                     {
                         label: 'Manufacturing Personels', icon: 'pi pi-fw pi-bookmark',
                         items: [
-                            {label: 'Create', icon: 'pi pi-fw pi-bookmark', to: '/manufacturingpersonels/create'},
                             {label: 'View', icon: 'pi pi-fw pi-bookmark', to: '/manufacturingpersonels'}
                         ]
                     },
-
-
-
                 ]
             },
 

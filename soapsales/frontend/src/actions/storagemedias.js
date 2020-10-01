@@ -3,7 +3,8 @@ import {
         ADD_STORAGEMEDIA,
         GET_STORAGEMEDIAS,
         DELETE_STORAGEMEDIA,
-        GET_STORAGEMEDIA
+        GET_STORAGEMEDIA,
+        EDIT_STORAGEMEDIA
     } from '../types/storagemediaTypes';
 import { storagemediasURL } from '../constants';
 
@@ -50,4 +51,15 @@ export const getStoragemedia = id => dispatch =>{
             });
         }).catch(err => console.log(err))
 
+}
+
+//Edit
+export const editStoragemedia = (id, storagemedia) => dispatch => {
+    axios.put(`http://127.0.0.1:8000/api/inventory/storagemedias/${id}/`, storagemedia)
+        .then(res => {
+            dispatch({
+                type: EDIT_STORAGEMEDIA,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
 }

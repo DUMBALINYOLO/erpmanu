@@ -3,7 +3,8 @@ import {
         ADD_CONSUMABLE,
         GET_CONSUMABLES,
         DELETE_CONSUMABLE,
-        GET_CONSUMABLE
+        GET_CONSUMABLE,
+        EDIT_CONSUMABLE
     } from '../types/consumableTypes';
 import { consumablesURL } from '../constants';
 
@@ -50,4 +51,15 @@ export const getConsumable = id => dispatch =>{
             });
         }).catch(err => console.log(err))
 
+}
+
+//Edit
+export const editConsumable = (id, consumable) => dispatch => {
+    axios.put(`http://127.0.0.1:8000/api/inventory/consumables/${id}/`, consumable)
+        .then(res => {
+            dispatch({
+                type: EDIT_CONSUMABLE,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
 }

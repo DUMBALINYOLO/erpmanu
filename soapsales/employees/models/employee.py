@@ -90,13 +90,13 @@ class Employee(AbstractBaseUser, PermissionsMixin):
     objects = EmployeeManager()
 
     
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = 'employee_number'
     REQUIRE_FIELDS = ['category', 'first_name', 'last_name']
 
 
     def save(self, *args, **kwargs):
         if not self.employee_number:
-            self.employee_number = str(uuid.uuid4()).replace("-", '').upper()[:20]
+            self.employee_number = str(uuid.uuid4()).replace("-", '').upper()[:10]
         # if not self.account:
         #     self.create_employee_account()
         super(Employee, self).save(*args, **kwargs)

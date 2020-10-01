@@ -3,7 +3,8 @@ import {
         ADD_RAW_MATERIAL,
         GET_RAW_MATERIALS,
         DELETE_RAW_MATERIAL,
-        GET_RAW_MATERIAL
+        GET_RAW_MATERIAL,
+        EDIT_RAW_MATERIAL
     } from '../types/rawmaterialTypes';
 import { rawmaterialsURL } from '../constants';
 
@@ -50,4 +51,15 @@ export const getRawMaterial = id => dispatch =>{
             });
         }).catch(err => console.log(err))
 
+}
+
+//Edit
+export const editRawMaterial = (id, rawmaterial) => dispatch => {
+    axios.put(`http://127.0.0.1:8000/api/inventory/raw-materials/${id}/`, rawmaterial)
+        .then(res => {
+            dispatch({
+                type: EDIT_RAW_MATERIAL,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
 }

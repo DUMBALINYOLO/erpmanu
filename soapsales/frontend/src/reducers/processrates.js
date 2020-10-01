@@ -1,4 +1,4 @@
-import { GET_PROCESS_RATES, GET_PROCESS_RATE, DELETE_PROCESS_RATE, ADD_PROCESS_RATE  } from "../types/processrateTypes";
+import { GET_PROCESS_RATES, GET_PROCESS_RATE, EDIT_PROCESS_RATE, DELETE_PROCESS_RATE, ADD_PROCESS_RATE  } from "../types/processrateTypes";
 
 const initialState = {
     processrates: [],
@@ -28,6 +28,13 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 processrate: action.payload
+            };
+        case EDIT_PROCESS_RATE:
+            const arrayList = state.processrates;
+            arrayList.splice(arrayList.findIndex(item => item.id === action.payload.data.id), 1 , action.payload.data);
+            return {
+                ...state,
+                processrates: arrayList,
             };
         default:
             return state;

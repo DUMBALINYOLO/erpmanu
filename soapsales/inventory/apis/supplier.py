@@ -2,7 +2,7 @@ from rest_framework import viewsets, permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.db.models import Q
-from inventory.models import Supplier 
+from inventory.models import Supplier, SupplierAddress
 from inventory.serializers import (
 						CreateUpdateSupplierSerializer,
 						ListSupplierSerializer,
@@ -106,6 +106,7 @@ class SupplierAddressViewSet(viewsets.ModelViewSet):
 											).order_by('-id')
 
 		return queryset
+
 
 
 

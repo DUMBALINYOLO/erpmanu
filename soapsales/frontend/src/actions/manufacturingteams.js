@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ADD_MANUFACTURING_TEAM, GET_MANUFACTURING_TEAMS, GET_MANUFACTURING_TEAM, DELETE_MANUFACTURING_TEAM } from '../types/manufacturingteamTypes';
+import { ADD_MANUFACTURING_TEAM, EDIT_MANUFACTURING_TEAM, GET_MANUFACTURING_TEAMS, GET_MANUFACTURING_TEAM, DELETE_MANUFACTURING_TEAM } from '../types/manufacturingteamTypes';
 import { manufacturingteamsURL } from '../constants';
 
 // Get
@@ -45,4 +45,15 @@ export const getManufacturingTeam = id => dispatch =>{
             });
         }).catch(err => console.log(err))
 
+}
+
+//Edit
+export const editManufacturingTeam = (id, manufacturingteam) => dispatch => {
+    axios.put(`http://127.0.0.1:8000/api/manufacture/manufacturing-teams/${id}/`, manufacturingteam)
+        .then(res => {
+            dispatch({
+                type: EDIT_MANUFACTURING_TEAM,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
 }

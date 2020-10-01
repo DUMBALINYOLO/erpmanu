@@ -1,4 +1,4 @@
-import { ADD_MANUFACTURING_TEAM, GET_MANUFACTURING_TEAMS, GET_MANUFACTURING_TEAM, DELETE_MANUFACTURING_TEAM } from '../types/manufacturingteamTypes';
+import { ADD_MANUFACTURING_TEAM, EDIT_MANUFACTURING_TEAM, GET_MANUFACTURING_TEAMS, GET_MANUFACTURING_TEAM, DELETE_MANUFACTURING_TEAM } from '../types/manufacturingteamTypes';
 
 const initialState = {
     manufacturingteams: [],
@@ -28,7 +28,14 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 manufacturingteam:action.payload
-                };
+            };
+        case EDIT_MANUFACTURING_TEAM:
+            const arrayList = state.manufacturingteams;
+            arrayList.splice(arrayList.findIndex(item => item.id === action.payload.data.id), 1 , action.payload.data);
+            return {
+                ...state,
+                manufacturingteams: arrayList,
+            };
         default:
             return state;
     }

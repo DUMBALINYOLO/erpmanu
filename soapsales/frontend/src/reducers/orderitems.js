@@ -3,6 +3,7 @@ import {
     GET_ORDER_ITEMS,
     DELETE_ORDER_ITEM,
     GET_ORDER_ITEM,
+    EDIT_ORDER_ITEM
 } from '../types/orderitemTypes';
 
 const initialState = {
@@ -32,7 +33,14 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 orderitem:action.payload
-                };
+            };
+        case EDIT_ORDER_ITEM:
+            const arrayList = state.orderitems;
+            arrayList.splice(arrayList.findIndex(item => item.id === action.payload.data.id), 1 , action.payload.data);
+            return {
+                ...state,
+                orderitems: arrayList,
+            };
         default:
             return state;
     }

@@ -158,9 +158,3 @@ class StorageMediaListSerializer(serializers.ModelSerializer):
 			'capacity'
 		]
 
-
-
-
-
-
-

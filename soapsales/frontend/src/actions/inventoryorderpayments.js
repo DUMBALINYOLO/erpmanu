@@ -3,7 +3,8 @@ import {
         ADD_INVENTORY_ORDERPAYMENT,
         GET_INVENTORY_ORDERPAYMENTS,
         DELETE_INVENTORY_ORDERPAYMENT,
-        GET_INVENTORY_ORDERPAYMENT
+        GET_INVENTORY_ORDERPAYMENT,
+        EDIT_INVENTORY_ORDERPAYMENT
     } from '../types/inventoryorderpaymentTypes';
 import { inventoryorderpaymentsURL } from '../constants';
 
@@ -50,4 +51,15 @@ export const getInventoryOrderpayment = id => dispatch =>{
             });
         }).catch(err => console.log(err))
 
+}
+
+//Edit
+export const editInventoryOrderpayment = (id, inventoryorderpayment) => dispatch => {
+    axios.put(`http://127.0.0.1:8000/api/inventory/inventory-orderpayments/${id}/`, inventoryorderpayment)
+        .then(res => {
+            dispatch({
+                type: EDIT_INVENTORY_ORDERPAYMENT,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
 }

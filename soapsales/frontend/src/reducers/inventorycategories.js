@@ -1,4 +1,4 @@
-import { ADD_INVENTORY_CATEGORY, GET_INVENTORY_CATEGORIES, GET_INVENTORY_CATEGORY, DELETE_INVENTORY_CATEGORY } from '../types/inventorycategoryTypes';
+import { ADD_INVENTORY_CATEGORY, GET_INVENTORY_CATEGORIES, EDIT_INVENTORY_CATEGORY, GET_INVENTORY_CATEGORY, DELETE_INVENTORY_CATEGORY } from '../types/inventorycategoryTypes';
 
 const initialState = {
     inventorycategories: [],
@@ -28,6 +28,13 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 inventorycategory: action.payload
+            };
+        case EDIT_INVENTORY_CATEGORY:
+            const arrayList = state.inventorycategories;
+            arrayList.splice(arrayList.findIndex(item => item.id === action.payload.data.id), 1 , action.payload.data);
+            return {
+                ...state,
+                inventorycategories: arrayList,
             };
         default:
             return state;

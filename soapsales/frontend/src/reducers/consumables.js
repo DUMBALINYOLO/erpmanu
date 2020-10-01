@@ -3,6 +3,7 @@ import {
     GET_CONSUMABLES,
     DELETE_CONSUMABLE,
     GET_CONSUMABLE,
+    EDIT_CONSUMABLE
 } from '../types/consumableTypes';
 
 const initialState = {
@@ -32,7 +33,14 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 consumable:action.payload
-                };
+            };
+        case EDIT_CONSUMABLE:
+            const arrayList = state.consumables;
+            arrayList.splice(arrayList.findIndex(item => item.id === action.payload.data.id), 1 , action.payload.data);
+            return {
+                ...state,
+                consumables: arrayList,
+            };
         default:
             return state;
     }

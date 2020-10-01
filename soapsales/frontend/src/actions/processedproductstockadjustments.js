@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ADD_PROCESSED_PRODUCT_STOCK_ADJUSTMENT, GET_PROCESSED_PRODUCT_STOCK_ADJUSTMENTS, GET_PROCESSED_PRODUCT_STOCK_ADJUSTMENT, DELETE_PROCESSED_PRODUCT_STOCK_ADJUSTMENT } from '../types/processedproductstockadjustmentTypes';
+import { ADD_PROCESSED_PRODUCT_STOCK_ADJUSTMENT, EDIT_PROCESSED_PRODUCT_STOCK_ADJUSTMENT, GET_PROCESSED_PRODUCT_STOCK_ADJUSTMENTS, GET_PROCESSED_PRODUCT_STOCK_ADJUSTMENT, DELETE_PROCESSED_PRODUCT_STOCK_ADJUSTMENT } from '../types/processedproductstockadjustmentTypes';
 import { processedproductstockadjustmentsURL } from '../constants';
 
 // Get
@@ -45,4 +45,15 @@ export const getProcessedProductStockAdjustment = id => dispatch =>{
             });
         }).catch(err => console.log(err))
 
+}
+
+//Edit
+export const editProcessedProductStockAdjustment = (id, processedproductstockadjustment) => dispatch => {
+    axios.put(`http://127.0.0.1:8000/api/manufacture/processed-product-stock-adjustments/${id}/`, processedproductstockadjustment)
+        .then(res => {
+            dispatch({
+                type: EDIT_PROCESSED_PRODUCT_STOCK_ADJUSTMENT,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
 }

@@ -17,7 +17,6 @@ virtual/
 __pycache__
 *.egg-info
 /dist/
-/build/
 node_modules
 /node_modules/
 
