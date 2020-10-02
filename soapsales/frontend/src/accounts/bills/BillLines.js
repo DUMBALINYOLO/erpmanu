@@ -4,8 +4,6 @@ import 'primereact/resources/themes/nova-light/theme.css';
 import 'primereact/resources/primereact.css';
 import 'primeflex/primeflex.css';
 import {Button} from 'primereact/button';
-import {Dropdown} from 'primereact/dropdown';
-import {InputNumber} from 'primereact/inputnumber';
 import { connect } from 'react-redux';
 import { getAccounts } from '..//../actions/accounts';
 

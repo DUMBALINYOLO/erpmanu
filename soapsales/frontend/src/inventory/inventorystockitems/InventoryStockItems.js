@@ -14,7 +14,6 @@ import { FileUpload } from 'primereact/fileupload';
 import {Calendar} from 'primereact/calendar';
 import {ProgressBar} from 'primereact/progressbar';
 import {Dropdown} from 'primereact/dropdown';
-import {InputTextarea} from 'primereact/inputtextarea';
 import { Dialog } from 'primereact/dialog';
 import { getInventoryStockItems, addInventoryStockItem, editInventoryStockItem, deleteInventoryStockItem } from '..//../actions/inventorystockitems';
 import { getWarehouses } from '..//../actions/warehouses';

@@ -15,7 +15,6 @@ import {Calendar} from 'primereact/calendar';
 import {ProgressBar} from 'primereact/progressbar';
 import { InputNumber } from 'primereact/inputnumber';
 import {Dropdown} from 'primereact/dropdown';
-import {InputTextarea} from 'primereact/inputtextarea';
 import { Dialog } from 'primereact/dialog';
 import { getManufacturedStockItems, addManufacturedStockItem, editManufacturedStockItem, deleteManufacturedStockItem } from '..//../actions/manufacturedstockitems';
 import {getProcessProducts} from "..//../actions/processproducts";

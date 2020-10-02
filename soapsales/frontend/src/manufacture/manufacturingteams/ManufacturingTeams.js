@@ -13,7 +13,6 @@ import {Button} from 'primereact/button';
 import { FileUpload } from 'primereact/fileupload';
 import {Calendar} from 'primereact/calendar';
 import {ProgressBar} from 'primereact/progressbar';
-import { InputNumber } from 'primereact/inputnumber';
 import {Dropdown} from 'primereact/dropdown';
 import {InputTextarea} from 'primereact/inputtextarea';
 import { Dialog } from 'primereact/dialog';

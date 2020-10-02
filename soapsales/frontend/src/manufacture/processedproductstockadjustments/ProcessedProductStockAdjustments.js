@@ -602,7 +602,6 @@ export default connect(
         addProcessedProductStockAdjustment,
         deleteProcessedProductStockAdjustment,
         editProcessedProductStockAdjustment,
-        getProcessedProductStockAdjustments,
         getManufacturedStockItems,
         getProcessedProductStockTakes
     }) (ProcessedProductStockAdjustments);

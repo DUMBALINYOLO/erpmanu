@@ -5,7 +5,6 @@ import 'primeflex/primeflex.css';
 import React, { Component, Fragment } from 'react';
 import {Growl} from 'primereact/growl';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {DataTable} from 'primereact/datatable';
 import {Column} from 'primereact/column';
@@ -328,13 +327,6 @@ class StockAdjustments extends Component {
                 <Button label="Cancel" className="p-button-danger" icon="pi pi-times" onClick={this.onHideEditDialog}/>
                 <Button label="Save" className="p-button-success" icon="pi pi-check" onClick={this.editStockAdjustment}/>
             </div>
-        );
-
-        const deleteAccountDialogFooter = (
-            <>
-                <Button label="No" icon="pi pi-times" className="p-button-text" onClick={this.hideDeleteStockAdjustmentsDialog} />
-                <Button label="Yes" icon="pi pi-check" className="p-button-text" onClick={this.deleteSelectedStockAdjustments} />
-            </>
         );
 
         const header = this.renderHeader();
