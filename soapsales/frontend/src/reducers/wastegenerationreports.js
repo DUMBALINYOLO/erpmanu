@@ -1,4 +1,4 @@
-import { GET_WASTE_GENERATION_REPORTS, GET_WASTE_GENERATION_REPORT, DELETE_WASTE_GENERATION_REPORT, ADD_WASTE_GENERATION_REPORT  } from "../types/wastegenerationreportTypes";
+import { GET_WASTE_GENERATION_REPORTS, EDIT_WASTE_GENERATION_REPORT, GET_WASTE_GENERATION_REPORT, DELETE_WASTE_GENERATION_REPORT, ADD_WASTE_GENERATION_REPORT  } from "../types/wastegenerationreportTypes";
 
 const initialState = {
     wastegenerationreports: [],
@@ -28,6 +28,13 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 wastegenerationreport: action.payload
+            };
+        case EDIT_WASTE_GENERATION_REPORT:
+            const arrayList = state.wastegenerationreports;
+            arrayList.splice(arrayList.findIndex(item => item.id === action.payload.data.id), 1 , action.payload.data);
+            return {
+                ...state,
+                wastegenerationreports: arrayList,
             };
         default:
             return state;

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_WASTE_GENERATION_REPORTS, GET_WASTE_GENERATION_REPORT, DELETE_WASTE_GENERATION_REPORT, ADD_WASTE_GENERATION_REPORT } from '../types/wastegenerationreportTypes';
+import { GET_WASTE_GENERATION_REPORTS, GET_WASTE_GENERATION_REPORT, EDIT_WASTE_GENERATION_REPORT, DELETE_WASTE_GENERATION_REPORT, ADD_WASTE_GENERATION_REPORT } from '../types/wastegenerationreportTypes';
 import { wastegenerationreportsURL } from '../constants';
 
 
@@ -47,4 +47,15 @@ export const getWasteGenerationReport = id => dispatch =>{
             });
         }).catch(err => console.log(err))
 
+}
+
+//Edit
+export const editWasteGenerationReport = (id, wastegenerationreport) => dispatch => {
+    axios.put(`http://127.0.0.1:8000/api/manufacture/waste-generation-reports/${id}/`, wastegenerationreport)
+        .then(res => {
+            dispatch({
+                type: EDIT_WASTE_GENERATION_REPORT,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
 }

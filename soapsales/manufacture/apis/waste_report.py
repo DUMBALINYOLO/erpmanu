@@ -18,3 +18,4 @@ class WasteGenerationReportViewSet(ModelViewSet):
             return WasteGenerationReportCreateUpdateSerializer
         return WasteGenerationReportSerializer
 
+

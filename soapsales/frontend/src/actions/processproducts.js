@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_PROCESS_PRODUCTS, GET_PROCESS_PRODUCT, DELETE_PROCESS_PRODUCT, ADD_PROCESS_PRODUCT } from '../types/processproductTypes';
+import { GET_PROCESS_PRODUCTS, GET_PROCESS_PRODUCT, EDIT_PROCESS_PRODUCT, DELETE_PROCESS_PRODUCT, ADD_PROCESS_PRODUCT } from '../types/processproductTypes';
 import { processproductsURL } from '../constants';
 
 
@@ -47,4 +47,15 @@ export const getProcessProduct = id => dispatch =>{
             });
         }).catch(err => console.log(err))
 
+}
+
+//Edit
+export const editProcessProduct = (id, processproduct) => dispatch => {
+    axios.put(`http://127.0.0.1:8000/api/manufacture/process-products/${id}/`, processproduct)
+        .then(res => {
+            dispatch({
+                type: EDIT_PROCESS_PRODUCT,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
 }

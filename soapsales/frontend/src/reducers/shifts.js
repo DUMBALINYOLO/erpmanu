@@ -1,4 +1,4 @@
-import { ADD_SHIFT, GET_SHIFTS, GET_SHIFT, DELETE_SHIFT } from '../types/shiftTypes';
+import { ADD_SHIFT, GET_SHIFTS, GET_SHIFT, EDIT_SHIFT, DELETE_SHIFT } from '../types/shiftTypes';
 
 const initialState = {
     shifts: [],
@@ -28,7 +28,14 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 shift:action.payload
-                };
+            };
+        case EDIT_SHIFT:
+            const arrayList = state.shifts;
+            arrayList.splice(arrayList.findIndex(item => item.id === action.payload.data.id), 1 , action.payload.data);
+            return {
+                ...state,
+                shifts: arrayList,
+            };
         default:
             return state;
     }

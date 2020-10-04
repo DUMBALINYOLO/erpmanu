@@ -13,8 +13,6 @@ import Default from './components/Home/Default';
 import Content from "./dashboard/Content";
 import Dashboard from './dashboard/components/Dashboard';
 
-
-
 //accounts
 import AccountingConfigurationForm from './accounts/accountingconfiguration/AccountingConfigurationForm';
 
@@ -195,8 +193,6 @@ import FullypaidNotYetSalesInvoices from './invoicing/fullypaidnotyetsalesinvoic
 import Sales from './invoicing/sales/Sales';
 import SalesForm from './invoicing/sales/SalesForm';
 
-
-
 //manufacture
 import UnverifiedProductionProcesses from './manufacture/unverifiedproductionprocesses/UnverifiedProductionProcesses';
 
@@ -206,8 +202,6 @@ import ManufacturedStockItems from './manufacture/manufacturedstockitems/Manufac
 import ManufacturedStockItemForm from './manufacture/manufacturedstockitems/ManufacturedStockItemForm';
 
 import ProcessMachines from './manufacture/processmachines/ProcessMachines';
-
-
 
 import ProcessMachineGroups from './manufacture/processmachinegroups/ProcessMachineGroups';
 import ProcessMachineGroupForm from './manufacture/processmachinegroups/ProcessMachineGroupForm';
@@ -252,8 +246,6 @@ const alertOptions = {
 	timeout: 30000,
 	position: 'top center'
 }
-
-
 
 class App extends Component {
 	render(){
@@ -493,7 +485,5 @@ class App extends Component {
 		);
 	}
 }
-
-
 
 export default App;

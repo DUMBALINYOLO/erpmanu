@@ -1,11 +1,13 @@
 from __future__ import unicode_literals
 from django.db import models
 from django.utils import timezone
+from basedata.const import UNIT_OF_MEASURE_CHOICES
+
 
 
 class WasteGenerationReport(models.Model):
     product = models.ForeignKey('manufacture.ProcessProduct', on_delete=models.SET_NULL, null=True)
-    unit = models.ForeignKey('basedata.UnitOfMeasure', on_delete=models.SET_NULL, null=True)
+    unit = models.CharField(choices=UNIT_OF_MEASURE_CHOICES, max_length=100, default="Count")
     quantity = models.FloatField()
     comments = models.TextField()
     recorded_by = models.ForeignKey('employees.Employee', on_delete=models.SET_NULL, null=True)
