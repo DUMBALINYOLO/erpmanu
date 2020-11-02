@@ -44,7 +44,7 @@ class RawMaterialsViewSet(ModelViewSet):
 
 		return queryset
 
-
+ 
 class EquipmentViewSet(ModelViewSet):
 	
 	# permission_classes = [

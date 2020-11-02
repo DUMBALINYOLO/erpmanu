@@ -169,7 +169,7 @@ class InventoryItem(SoftDeletionModel):
 
         used_quantity = sum([i.quantity for i in total_used_as_ingridients])
 
-
+ 
         return D(current_quantity) + used_quantity - D(ordered_quantity)
 
 
