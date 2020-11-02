@@ -68,6 +68,7 @@ class ManfacturingPersonelListSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = ManufucturingPersonel
 		fields = [
+			"id",
 			'employee',
 			'is_manager',
 			'can_authorize_equipment_requisitions',

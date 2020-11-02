@@ -51,6 +51,7 @@ class EmployeeCreateUpdateSerializer(serializers.ModelSerializer):
 			'address',
 			'date_of_birth',
 			'id_number',
+			'employee_number',
 			'gender',
 			'pay_grade',
 			'leave_days',

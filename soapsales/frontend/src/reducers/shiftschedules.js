@@ -1,4 +1,4 @@
-import { ADD_SHIFT_SCHEDULE, GET_SHIFT_SCHEDULES, GET_SHIFT_SCHEDULE, DELETE_SHIFT_SCHEDULE } from '../types/shiftscheduleTypes';
+import { ADD_SHIFT_SCHEDULE, GET_SHIFT_SCHEDULES, EDIT_SHIFT_SCHEDULE, GET_SHIFT_SCHEDULE, DELETE_SHIFT_SCHEDULE } from '../types/shiftscheduleTypes';
 
 const initialState = {
     shiftschedules: [],
@@ -28,7 +28,14 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 shiftschedule:action.payload
-                };
+            };
+        case EDIT_SHIFT_SCHEDULE:
+            const arrayList = state.shiftschedules;
+            arrayList.splice(arrayList.findIndex(item => item.id === action.payload.data.id), 1 , action.payload.data);
+            return {
+                ...state,
+                shiftschedules: arrayList,
+            };
         default:
             return state;
     }

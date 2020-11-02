@@ -35,7 +35,7 @@ class InventoryItem(SoftDeletionModel):
     height = models.FloatField(default=0.0)
     image = models.FileField(blank=True, null=True)
     description = models.TextField(blank=True, default="")
-    unit = models.ForeignKey('basedata.UnitOfMeasure', null=True, on_delete=models.SET_NULL)
+    unit = models.CharField(max_length=100, choices=UNIT_OF_MEASURE_CHOICES, null=True)
     unit_purchase_price = models.DecimalField(max_digits=16,decimal_places=2, default=0.0)
     supplier = models.ForeignKey(
                         "inventory.Supplier",
@@ -46,6 +46,7 @@ class InventoryItem(SoftDeletionModel):
     minimum_order_level = models.IntegerField( default=0)
     maximum_stock_level = models.IntegerField(default=0)
     #components
+
 
 
     def __str__(self):

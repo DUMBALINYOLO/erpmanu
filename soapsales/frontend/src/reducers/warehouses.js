@@ -1,4 +1,4 @@
-import { GET_WAREHOUSES, GET_WAREHOUSE, DELETE_WAREHOUSE, ADD_WAREHOUSE  } from '../types/warehouseTypes';
+import { GET_WAREHOUSES, GET_WAREHOUSE, EDIT_WAREHOUSE, DELETE_WAREHOUSE, ADD_WAREHOUSE  } from '../types/warehouseTypes';
 
 const initialState = {
     warehouses: [],
@@ -28,6 +28,13 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 warehouse: action.payload
+            };
+        case EDIT_WAREHOUSE:
+            const arrayList = state.warehouses;
+            arrayList.splice(arrayList.findIndex(item => item.id === action.payload.data.id), 1 , action.payload.data);
+            return {
+                ...state,
+                warehouses: arrayList,
             };
         default:
             return state;

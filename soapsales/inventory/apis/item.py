@@ -34,6 +34,7 @@ class RawMaterialsViewSet(ModelViewSet):
 			return InventoryItemListSerializer
 		return InventoryItemCreateSerializer
 
+
 	def get_queryset(self, *args, **kwargs):
 		queryset = InventoryItem.objects.prefetch_related(
 										'category',
@@ -93,4 +94,5 @@ class ConsumablesViewSet(ModelViewSet):
 								)
 
 		return queryset
+
 

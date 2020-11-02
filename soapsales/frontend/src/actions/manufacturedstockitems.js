@@ -3,7 +3,8 @@ import {
         ADD_MANUFACTURED_STOCK_ITEM,
         GET_MANUFACTURED_STOCK_ITEMS,
         DELETE_MANUFACTURED_STOCK_ITEM,
-        GET_MANUFACTURED_STOCK_ITEM
+        GET_MANUFACTURED_STOCK_ITEM,
+        EDIT_MANUFACTURED_STOCK_ITEM
     } from '../types/manufacturedstockitemTypes';
 import { manufacturedstockitemsURL } from '../constants';
 
@@ -50,4 +51,15 @@ export const getManufacturedStockItem = id => dispatch =>{
             });
         }).catch(err => console.log(err))
 
+}
+
+//Edit
+export const editManufacturedStockItem = (id, manufacturedstockitem) => dispatch => {
+    axios.put(`http://127.0.0.1:8000/api/manufacture/manufactured-stock-items/${id}/`, manufacturedstockitem)
+        .then(res => {
+            dispatch({
+                type: EDIT_MANUFACTURED_STOCK_ITEM,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
 }

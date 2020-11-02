@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ADD_SHIFT, GET_SHIFTS, GET_SHIFT, DELETE_SHIFT } from '../types/shiftTypes';
+import { ADD_SHIFT, GET_SHIFTS, GET_SHIFT, EDIT_SHIFT, DELETE_SHIFT } from '../types/shiftTypes';
 import { shiftsURL } from '../constants';
 
 // Get
@@ -45,4 +45,15 @@ export const getShift = id => dispatch =>{
             });
         }).catch(err => console.log(err))
 
+}
+
+//Edit
+export const editShift = (id, shift) => dispatch => {
+    axios.put(`http://127.0.0.1:8000/api/manufacture/shifts/${id}/`, shift)
+        .then(res => {
+            dispatch({
+                type: EDIT_SHIFT,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
 }

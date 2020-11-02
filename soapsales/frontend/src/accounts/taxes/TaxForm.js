@@ -12,7 +12,6 @@ import {Button} from 'primereact/button';
 
 export class TaxForm extends Component{
     state = {
-        taxes: [],
         name: '',
         rate: '',
         editTax: false
@@ -34,27 +33,32 @@ export class TaxForm extends Component{
         this.props.history.push('/taxes');
     };
 
-    handleEdit = id => {
-        const filteredItems = this.state.taxes.filter(tax => tax.id !== id);
-        const selectedItem = this.state.taxes.find(tax => tax.id ===id)
-        this.setState({
-            taxes: filteredItems,
-            editTax: true,
-            tax: selectedItem.
-        })
+    // handleEdit = id => {
+    //     const filteredItems = this.state.taxes.filter(tax => tax.id !== id);
+    //     const selectedItem = this.state.taxes.find(tax => tax.id ===id)
+    //     this.setState({
+    //         taxes: filteredItems,
+    //         editTax: true,
+    //         tax: selectedItem.
+    //     })
+    // }
+
+    editTax(e) {
+        const { name, rate } = this.state;
+        const tax = { name, rate};
     }
 
     static propTypes = {
         addTax: PropTypes.func.isRequired,
+        editTax: PropTypes.func.isRequired,
     }
 
-
     render() {
-        const { name, rate } = this.state;
+        const { name, rate, taxes } = this.state;
         return (
             <div className="card card-body mt-4 mb-4">
               <h2>Add Tax</h2>
-              <form onSubmit={this.onSubmit}>
+              <form onSubmit={this.onSubmit} onChange={this.editTax}>
                 <div className="p-fluid p-formgrid p-grid">
                   <div className="p-field p-col-12 p-md-12">
                     <label>Name</label>
@@ -82,9 +86,9 @@ export class TaxForm extends Component{
                         step={1}
                       />
                   </div>
-
                   <div className="p-field p-col-12 p-md-6">
-                    <Button label="Submit" className="p-button-success p-button-rounded" />
+                    <Button type="submit" className={taxes ? "p-button-success p-button-rounded":
+                        "p-button-success p-button-rounded"}>{taxes ? "Edit Tax": "Add Tax"}</Button>
                   </div>
                 </div>
              </form>

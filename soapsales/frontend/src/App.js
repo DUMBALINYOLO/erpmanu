@@ -13,8 +13,6 @@ import Default from './components/Home/Default';
 import Content from "./dashboard/Content";
 import Dashboard from './dashboard/components/Dashboard';
 
-
-
 //accounts
 import AccountingConfigurationForm from './accounts/accountingconfiguration/AccountingConfigurationForm';
 
@@ -131,7 +129,6 @@ import CompletedEvents from './events/completedevents/CompletedEvents';
 
 //inventory
 import InventoryCategories from './inventory/inventorycategories/InventoryCategories';
-import InventoryCategoryForm from './inventory/inventorycategories/InventoryCategoryForm';
 
 import DebitNotes from './inventory/debitnotes/DebitNotes';
 import DebitNoteForm from './inventory/debitnotes/DebitNoteForm';
@@ -140,28 +137,18 @@ import InventoryOrders from './inventory/inventoryorders/InventoryOrders';
 import InventoryOrderForm from './inventory/inventoryorders/InventoryOrderForm';
 
 import InventoryOrderpayments from './inventory/inventoryorderpayments/InventoryOrderpayments';
-import InventoryOrderpaymentForm from './inventory/inventoryorderpayments/InventoryOrderpaymentForm';
 
 import Warehouses from './inventory/warehouses/Warehouses';
-import WarehouseForm from './inventory/warehouses/WarehouseForm';
 
 import InventoryStockItems from './inventory/inventorystockitems/InventoryStockItems';
-import InventoryStockItemForm from './inventory/inventorystockitems/InventoryStockItemForm';
 
 import StorageMedias from './inventory/storagemedias/StorageMedias';
-import StorageMediaForm from './inventory/storagemedias/StorageMediaForm';
-
-import OrderItems from './inventory/orderitems/OrderItems';
-import OrderItemForm from './inventory/orderitems/OrderItemForm';
-
 
 import InventoryReceipts from './inventory/inventoryreceipts/InventoryReceipts';
 
 import StockAdjustments from './inventory/stockadjustments/StockAdjustments';
-import StockAdjustmentForm from './inventory/stockadjustments/StockAdjustmentForm';
 
 import InventoryStockTakes from './inventory/inventorystocktakes/InventoryStockTakes';
-import InventoryStockTakeForm from './inventory/inventorystocktakes/InventoryStockTakeForm';
 
 import ActiveSuppliers from './inventory/activesuppliers/ActiveSuppliers';
 
@@ -170,13 +157,10 @@ import DeActivedSuppliers from './inventory/deactivedsuppliers/DeActivedSupplier
 import SupplierAddresses from './inventory/supplieraddresses/SupplierAddresses';
 
 import RawMaterials from './inventory/rawmaterials/RawMaterials';
-import RawMaterialForm from './inventory/rawmaterials/RawMaterialForm';
 
 import Equipments from './inventory/equipments/Equipments';
-import EquipmentForm from './inventory/equipments/EquipmentForm';
 
 import Consumables from './inventory/consumables/Consumables';
-import ConsumableForm from './inventory/consumables/ConsumableForm';
 
 import FullyReceivedAndTotalPaidForOrders from './inventory/fullyreceivedandtotalpaidfororders/FullyReceivedAndTotalPaidForOrders';
 
@@ -209,8 +193,6 @@ import FullypaidNotYetSalesInvoices from './invoicing/fullypaidnotyetsalesinvoic
 import Sales from './invoicing/sales/Sales';
 import SalesForm from './invoicing/sales/SalesForm';
 
-
-
 //manufacture
 import UnverifiedProductionProcesses from './manufacture/unverifiedproductionprocesses/UnverifiedProductionProcesses';
 
@@ -220,8 +202,6 @@ import ManufacturedStockItems from './manufacture/manufacturedstockitems/Manufac
 import ManufacturedStockItemForm from './manufacture/manufacturedstockitems/ManufacturedStockItemForm';
 
 import ProcessMachines from './manufacture/processmachines/ProcessMachines';
-
-
 
 import ProcessMachineGroups from './manufacture/processmachinegroups/ProcessMachineGroups';
 import ProcessMachineGroupForm from './manufacture/processmachinegroups/ProcessMachineGroupForm';
@@ -266,8 +246,6 @@ const alertOptions = {
 	timeout: 30000,
 	position: 'top center'
 }
-
-
 
 class App extends Component {
 	render(){
@@ -352,7 +330,6 @@ class App extends Component {
 							<Route exact path='/sales/create' component={SalesForm} />
 
 							<Route exact path='/inventorycategories' component={InventoryCategories} />
-							<Route exact path='/inventorycategories/create' component={InventoryCategoryForm} />
 
 							<Route exact path='/debitnotes' component={DebitNotes} />
 							<Route exact path='/debitnotes/create' component={DebitNoteForm} />
@@ -361,27 +338,18 @@ class App extends Component {
 							<Route exact path='/inventoryorders/create' component={InventoryOrderForm} />
 
 							<Route exact path='/inventoryorderpayments' component={InventoryOrderpayments} />
-							<Route exact path='/inventoryorderpayments/create' component={InventoryOrderpaymentForm} />
 
 							<Route exact path='/warehouses' component={Warehouses} />
-							<Route exact path='/warehouses/create' component={WarehouseForm} />
 
 							<Route exact path='/inventorystockitems' component={InventoryStockItems} />
-							<Route exact path='/inventorystockitems/create' component={InventoryStockItemForm} />
 
 							<Route exact path='/storagemedias' component={StorageMedias} />
-							<Route exact path='/storagemedias/create' component={StorageMediaForm} />
-
-							<Route exact path='/orderitems' component={OrderItems} />
-							<Route exact path='/orderitems/create' component={OrderItemForm} />
 
 							<Route exact path='/inventoryreceipts' component={InventoryReceipts} />
 
 							<Route exact path='/stockadjustments' component={StockAdjustments} />
-							<Route exact path='/stockadjustments/create' component={StockAdjustmentForm} />
 
 							<Route exact path='/inventorystocktakes' component={InventoryStockTakes} />
-							<Route exact path='/inventorystocktakes/create' component={InventoryStockTakeForm} />
 
 							<Route exact path='/activesuppliers' component={ActiveSuppliers} />
 
@@ -390,13 +358,10 @@ class App extends Component {
 							<Route exact path='/supplieraddresses' component={SupplierAddresses} />
 
 							<Route exact path='/rawmaterials' component={RawMaterials} />
-							<Route exact path='/rawmaterials/create' component={RawMaterialForm} />
 
 							<Route exact path='/equipments' component={Equipments} />
-							<Route exact path='/equipments/create' component={EquipmentForm} />
 
 							<Route exact path='/consumables' component={Consumables} />
-							<Route exact path='/consumables/create' component={ConsumableForm} />
 
 							<Route exact path='/fullyreceivedandtotalpaidfororders' component={FullyReceivedAndTotalPaidForOrders} />
 
@@ -520,7 +485,5 @@ class App extends Component {
 		);
 	}
 }
-
-
 
 export default App;

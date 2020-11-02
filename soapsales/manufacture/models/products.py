@@ -5,8 +5,9 @@ from django.utils import timezone
 from simple_history.models import HistoricalRecords
 from datetime import datetime
 # from inventory.models import WareHouse, WareHouseItem
-from basedata.const import MANUFACTURING_PRODUCT_TYPES, PROCESSED_PRODUCTS_STOCK_STATUS_CHOICES
+from basedata.const import MANUFACTURING_PRODUCT_TYPES, PROCESSED_PRODUCTS_STOCK_STATUS_CHOICES, UNIT_OF_MEASURE_CHOICES
 from .stock import ManufacturedStockItem
+
 
 
 
@@ -17,7 +18,7 @@ class ProcessProduct(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
     type = models.PositiveSmallIntegerField(choices=MANUFACTURING_PRODUCT_TYPES)# main product, byproduct, waste,  wip
-    unit = models.ForeignKey('basedata.UnitOfMeasure', on_delete=models.SET_NULL, null=True)
+    unit = models.CharField(choices=UNIT_OF_MEASURE_CHOICES, max_length=100, default="Count")
     created_on = models.DateTimeField(auto_now_add=True, editable=False, db_index=True, verbose_name=('created on'))
     finished_goods= models.BooleanField(default=False)
     reference_number = models.CharField(max_length=255, null=True, default=None)

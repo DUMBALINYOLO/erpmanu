@@ -15,7 +15,16 @@ class SupplierAddressCreateUpdateSerializer(serializers.ModelSerializer):
 
 	class Meta:
 		model = SupplierAddress
-		fields = '__all__'
+		fields = [
+			'id',
+			'owner',
+			'type',
+			'street_address',
+			'floor_number',
+			'city',
+			'postal_code'
+
+		]
 
 
 class SupplierAddressSerializer(serializers.ModelSerializer):
@@ -32,7 +41,6 @@ class SupplierAddressSerializer(serializers.ModelSerializer):
 			'floor_number',
 			'city',
 			'postal_code'
-
 
 		]
 

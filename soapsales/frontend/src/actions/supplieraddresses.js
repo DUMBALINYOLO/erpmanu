@@ -3,7 +3,8 @@ import {
         ADD_SUPPLIER_ADDRESS,
         GET_SUPPLIER_ADDRESSES,
         DELETE_SUPPLIER_ADDRESS,
-        GET_SUPPLIER_ADDRESS
+        GET_SUPPLIER_ADDRESS,
+        EDIT_SUPPLIER_ADDRESS
     } from '../types/supplieraddressTypes';
 import { supplieraddressesURL } from '../constants';
 
@@ -50,4 +51,15 @@ export const getSupplierAddress = id => dispatch =>{
             });
         }).catch(err => console.log(err))
 
+}
+
+//Edit
+export const editSupplierAddress = (id, supplieraddress) => dispatch => {
+    axios.put(`http://127.0.0.1:8000/api/inventory/supplier-addresses/${id}/`, supplieraddress)
+        .then(res => {
+            dispatch({
+                type: EDIT_SUPPLIER_ADDRESS,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
 }

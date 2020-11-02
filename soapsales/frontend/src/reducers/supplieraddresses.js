@@ -3,6 +3,7 @@ import {
     GET_SUPPLIER_ADDRESSES,
     DELETE_SUPPLIER_ADDRESS,
     GET_SUPPLIER_ADDRESS,
+    EDIT_SUPPLIER_ADDRESS
 } from '../types/supplieraddressTypes';
 
 const initialState = {
@@ -32,7 +33,14 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 supplieraddress:action.payload
-                };
+            };
+        case EDIT_SUPPLIER_ADDRESS:
+            const arrayList = state.supplieraddresses;
+            arrayList.splice(arrayList.findIndex(item => item.id === action.payload.data.id), 1 , action.payload.data);
+            return {
+                ...state,
+                supplieraddresses: arrayList,
+            };
         default:
             return state;
     }

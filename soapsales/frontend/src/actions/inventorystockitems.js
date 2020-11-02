@@ -3,7 +3,8 @@ import {
         ADD_INVENTORY_STOCK_ITEM,
         GET_INVENTORY_STOCK_ITEMS,
         DELETE_INVENTORY_STOCK_ITEM,
-        GET_INVENTORY_STOCK_ITEM
+        GET_INVENTORY_STOCK_ITEM,
+        EDIT_INVENTORY_STOCK_ITEM
     } from '../types/inventorystockitemTypes';
 import { inventorystockitemsURL } from '../constants';
 
@@ -50,4 +51,15 @@ export const getInventoryStockItem = id => dispatch =>{
             });
         }).catch(err => console.log(err))
 
+}
+
+//Edit
+export const editInventoryStockItem = (id, inventorystockitem) => dispatch => {
+    axios.put(`http://127.0.0.1:8000/api/inventory/inventorystockitems/${id}/`, inventorystockitem)
+        .then(res => {
+            dispatch({
+                type: EDIT_INVENTORY_STOCK_ITEM,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
 }

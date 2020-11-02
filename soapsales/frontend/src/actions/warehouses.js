@@ -3,7 +3,8 @@ import {
         ADD_WAREHOUSE,
         GET_WAREHOUSES,
         DELETE_WAREHOUSE,
-        GET_WAREHOUSE
+        GET_WAREHOUSE,
+        EDIT_WAREHOUSE
     } from '../types/warehouseTypes';
 import { warehousesURL } from '../constants';
 
@@ -50,4 +51,15 @@ export const getWarehouse = id => dispatch =>{
             });
         }).catch(err => console.log(err))
 
+}
+
+//Edit
+export const editWarehouse = (id, warehouse) => dispatch => {
+    axios.put(`http://127.0.0.1:8000/api/inventory/warehouses/${id}/`, warehouse)
+        .then(res => {
+            dispatch({
+                type: EDIT_WAREHOUSE,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
 }

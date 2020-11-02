@@ -3,6 +3,7 @@ import {
     GET_RAW_MATERIALS,
     DELETE_RAW_MATERIAL,
     GET_RAW_MATERIAL,
+    EDIT_RAW_MATERIAL
 } from '../types/rawmaterialTypes';
 
 const initialState = {
@@ -32,7 +33,14 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 rawmaterial:action.payload
-                };
+            };
+        case EDIT_RAW_MATERIAL:
+            const arrayList = state.rawmaterials;
+            arrayList.splice(arrayList.findIndex(item => item.id === action.payload.data.id), 1 , action.payload.data);
+            return {
+                ...state,
+                rawmaterials: arrayList,
+            };
         default:
             return state;
     }

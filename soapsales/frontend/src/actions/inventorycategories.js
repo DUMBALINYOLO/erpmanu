@@ -3,7 +3,8 @@ import {
         ADD_INVENTORY_CATEGORY,
         GET_INVENTORY_CATEGORIES,
         DELETE_INVENTORY_CATEGORY,
-        GET_INVENTORY_CATEGORY
+        GET_INVENTORY_CATEGORY,
+        EDIT_INVENTORY_CATEGORY
     } from '../types/inventorycategoryTypes';
 import { inventorycategoriesURL } from '../constants';
 
@@ -50,4 +51,15 @@ export const getInventoryCategory = id => dispatch =>{
             });
         }).catch(err => console.log(err))
 
+}
+
+//Edit
+export const editInventoryCategory = (id, inventorycategory) => dispatch => {
+    axios.put(`http://127.0.0.1:8000/api/inventory/inventory-categories/${id}/`, inventorycategory)
+        .then(res => {
+            dispatch({
+                type: EDIT_INVENTORY_CATEGORY,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
 }

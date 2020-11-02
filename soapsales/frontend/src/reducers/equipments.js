@@ -3,6 +3,7 @@ import {
     GET_EQUIPMENTS,
     DELETE_EQUIPMENT,
     GET_EQUIPMENT,
+    EDIT_EQUIPMENT
 } from '../types/equipmentTypes';
 
 const initialState = {
@@ -32,7 +33,14 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 equipment:action.payload
-                };
+            };
+        case EDIT_EQUIPMENT:
+            const arrayList = state.equipments;
+            arrayList.splice(arrayList.findIndex(item => item.id === action.payload.data.id), 1 , action.payload.data);
+            return {
+                ...state,
+                equipments: arrayList,
+            };
         default:
             return state;
     }

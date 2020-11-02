@@ -1,4 +1,4 @@
-import { ADD_MANUFACTURING_PERSONEL, GET_MANUFACTURING_PERSONELS, GET_MANUFACTURING_PERSONEL, DELETE_MANUFACTURING_PERSONEL } from '../types/manufacturingpersonelTypes';
+import { ADD_MANUFACTURING_PERSONEL, GET_MANUFACTURING_PERSONELS, EDIT_MANUFACTURING_PERSONEL, GET_MANUFACTURING_PERSONEL, DELETE_MANUFACTURING_PERSONEL } from '../types/manufacturingpersonelTypes';
 
 const initialState = {
     manufacturingpersonels: [],
@@ -28,7 +28,14 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 manufacturingpersonel:action.payload
-                };
+            };
+        case EDIT_MANUFACTURING_PERSONEL:
+            const arrayList = state.manufacturingpersonels;
+            arrayList.splice(arrayList.findIndex(item => item.id === action.payload.data.id), 1 , action.payload.data);
+            return {
+                ...state,
+                manufacturingpersonels: arrayList,
+            };
         default:
             return state;
     }

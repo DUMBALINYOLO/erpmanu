@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_PROCESS_RATES, GET_PROCESS_RATE, DELETE_PROCESS_RATE, ADD_PROCESS_RATE } from '../types/processrateTypes';
+import { GET_PROCESS_RATES, GET_PROCESS_RATE, EDIT_PROCESS_RATE, DELETE_PROCESS_RATE, ADD_PROCESS_RATE } from '../types/processrateTypes';
 import { processratesURL } from '../constants';
 
 
@@ -47,4 +47,15 @@ export const getProcessRate = id => dispatch =>{
             });
         }).catch(err => console.log(err))
 
+}
+
+//Edit
+export const editProcessRate = (id, processrate) => dispatch => {
+    axios.put(`http://127.0.0.1:8000/api/manufacture/process-rates/${id}/`, processrate)
+        .then(res => {
+            dispatch({
+                type: EDIT_PROCESS_RATE,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
 }

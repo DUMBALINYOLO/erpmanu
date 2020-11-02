@@ -1,4 +1,4 @@
-import { GET_STORAGEMEDIAS, GET_STORAGEMEDIA, DELETE_STORAGEMEDIA, ADD_STORAGEMEDIA  } from '../types/storagemediaTypes';
+import { GET_STORAGEMEDIAS, GET_STORAGEMEDIA, EDIT_STORAGEMEDIA, DELETE_STORAGEMEDIA, ADD_STORAGEMEDIA  } from '../types/storagemediaTypes';
 
 const initialState = {
     storagemedias: [],
@@ -28,6 +28,13 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 storagemedia: action.payload
+            };
+        case EDIT_STORAGEMEDIA:
+            const arrayList = state.storagemedias;
+            arrayList.splice(arrayList.findIndex(item => item.id === action.payload.data.id), 1 , action.payload.data);
+            return {
+                ...state,
+                storagemedias: arrayList,
             };
         default:
             return state;

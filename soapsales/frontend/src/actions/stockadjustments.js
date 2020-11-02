@@ -3,7 +3,8 @@ import {
         ADD_STOCK_ADJUSTMENT,
         GET_STOCK_ADJUSTMENTS,
         DELETE_STOCK_ADJUSTMENT,
-        GET_STOCK_ADJUSTMENT
+        GET_STOCK_ADJUSTMENT,
+        EDIT_STOCK_ADJUSTMENT
     } from '../types/stockadjustmentTypes';
 import { stockadjustmentsURL } from '../constants';
 
@@ -50,4 +51,15 @@ export const getStockAdjustment = id => dispatch =>{
             });
         }).catch(err => console.log(err))
 
+}
+
+//Edit
+export const editStockAdjustment = (id, stockadjustment) => dispatch => {
+    axios.put(`http://127.0.0.1:8000/api/inventory/stockadjustments/${id}/`, stockadjustment)
+        .then(res => {
+            dispatch({
+                type: EDIT_STOCK_ADJUSTMENT,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
 }

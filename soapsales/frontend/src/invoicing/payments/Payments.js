@@ -5,7 +5,6 @@ import 'primeflex/primeflex.css';
 import React, { Component, Fragment } from 'react';
 import {Growl} from 'primereact/growl';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {DataTable} from 'primereact/datatable';
 import {Column} from 'primereact/column';
@@ -23,8 +22,6 @@ import { getCustomerPaymentMethodsChoices } from '..//../actions/choices';
 import { getInvoices } from '..//../actions/invoices';
 import { getEmployees } from '..//../actions/employees';
 import { getCashDrawers } from '..//../actions/cashdrawers';
-
-
 
 
 class Payments extends Component {
@@ -240,8 +237,8 @@ class Payments extends Component {
         if (!this.state.selectRow.id) {
             errorList.push({
                 severity: 'error',
-                summary: 'Boş Bırakılamaz!',
-                detail: 'Ad'
+                summary: 'cant be left blank!',
+                detail: 'Add'
             });
         }
         return errorList;
@@ -255,11 +252,11 @@ class Payments extends Component {
     renderHeader() {
         return (
             <div className="table-head">
-                <h1>Manage Accounts</h1>
+                <h1>Manage Payment</h1>
                 <div className="datatable-icons">
                     <div className="h"><FileUpload mode="basic" accept="image/*" maxFileSize={1000000} label="Import" chooseLabel="Import" className="p-mr-2 p-d-inline-block" /></div>
                     <div className="fancy-icon"><Button label="EXPORT TO CSV" icon="pi pi-upload" className="p-button-rounded p-button-help" onClick={this.export} /></div>
-                    <Button label="MAKE NEW ACCOUNT" className="p-button-success p-mr-2" onClick={this.openNew} />
+                    <Button label="MAKE NEW PAYMENT" className="p-button-success p-mr-2" onClick={this.openNew} />
                     <div className="fancy-icon"><Button type="button" className="p-button-warning p-button-rounded" icon="pi pi-file-pdf" iconPos="right" label="EXPORT TO PDF" onClick={this.export}></Button></div>
                     <div className="fancy-icon"><Button type="button" className="p-button-warning p-button-rounded" icon="pi pi-print" iconPos="right" label="PRINT" onClick={this.export}></Button></div>
                     <InputText className="fancy-icon" type="search" onInput={(e) => this.setState({globalFilter: e.target.value})} placeholder="Search" />
@@ -348,15 +345,6 @@ class Payments extends Component {
             </>
         );
 
-        const editDialogFooter = (
-            <div>
-
-                <Button label="Cancel" className="p-button-danger" icon="pi pi-times" onClick={this.onHideEditDialog}/>
-                <Button label="Save" className="p-button-success" icon="pi pi-check" onClick={this.editPayment}/>
-            </div>
-        );
-
-
         const header = this.renderHeader();
         const { invoices } = this.props;
         const { customerpaymentmethodschoices } = this.props;
@@ -383,7 +371,7 @@ class Payments extends Component {
                         style={{backgroundColor: '#4EB08E'}}
                         header={header} responsive className="table-head" dataKey="id" rowHover globalFilter={this.state.globalFilter}
                         selection={this.state.selectedAccounts} onSelectionChange={e => this.setState({selectedAccounts: e.value})}
-                        paginator rows={10} emptyMessage="No Accounts found" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                        paginator rows={10} emptyMessage="No Payments found" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
                         paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown" rowsPerPageOptions={[10,25,50]}>
                         <Column
                             className="table-field"

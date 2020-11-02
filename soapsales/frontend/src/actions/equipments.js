@@ -3,7 +3,8 @@ import {
         ADD_EQUIPMENT,
         GET_EQUIPMENTS,
         DELETE_EQUIPMENT,
-        GET_EQUIPMENT
+        GET_EQUIPMENT,
+        EDIT_EQUIPMENT
     } from '../types/equipmentTypes';
 import { equipmentsURL } from '../constants';
 
@@ -52,4 +53,13 @@ export const getEquipment = id => dispatch =>{
 
 }
 
-
+//Edit
+export const editEquipment = (id, equipment) => dispatch => {
+    axios.put(`http://127.0.0.1:8000/api/inventory/equipments/${id}/`, equipment)
+        .then(res => {
+            dispatch({
+                type: EDIT_EQUIPMENT,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
+}
