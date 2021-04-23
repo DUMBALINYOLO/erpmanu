@@ -1,65 +1,149 @@
 import axios from 'axios';
 import {
-        ADD_CUSTOMER_ADDRESS,
-        GET_CUSTOMER_ADDRESSES,
-        DELETE_CUSTOMER_ADDRESS,
-        GET_CUSTOMER_ADDRESS,
-        EDIT_CUSTOMER_ADDRESS
+    GET_CUSTOMER_ADDRESSES_START,
+    GET_CUSTOMER_ADDRESSES_SUCCESS,
+    GET_CUSTOMER_ADDRESSES_FAIL,
+    CREATE_CUSTOMER_ADDRESS_START,
+    CREATE_CUSTOMER_ADDRESS_SUCCESS,
+    CREATE_CUSTOMER_ADDRESS_FAIL,
+    GET_CUSTOMER_ADDRESS_START,
+    GET_CUSTOMER_ADDRESS_SUCCESS,
+    GET_CUSTOMER_ADDRESS_FAIL,
+    EDIT_CUSTOMER_ADDRESS
     } from '../types/customeraddressTypes';
 import { customeraddressesURL } from '../constants';
 
-// Get
-export const getCustomerAddresses = () => dispatch => {
-    axios.get(customeraddressesURL)
-        .then(res => {
-            dispatch({
-                type: GET_CUSTOMER_ADDRESSES,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+//customeraddresses
+const getCustomerAddressListStart = () => {
+  return {
+    type: GET_CUSTOMER_ADDRESSES_START
+  };
+};
 
-//Delete
-export const deleteCustomerAddress = (id) => dispatch => {
-    axios.delete(customeraddressesURL, id)
-        .then(res => {
-            dispatch({
-                type: DELETE_CUSTOMER_ADDRESS,
-                payload: id
-            });
-        }).catch(err => console.log(err))
-}
+const getCustomerAddressListSuccess = customeraddresses => {
+  return {
+    type: GET_CUSTOMER_ADDRESSES_SUCCESS,
+    customeraddresses
+  };
+};
 
-// Add
-export const addCustomerAddress = (customeraddress) => dispatch => {
-    axios.post(customeraddressesURL, customeraddress)
-        .then(res => {
-            dispatch({
-                type: ADD_CUSTOMER_ADDRESS,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+const getCustomerAddressListFail = error => {
+  return {
+    type: GET_CUSTOMER_ADDRESSES_FAIL,
+    error: error
+  };
+};
 
-//get
-export const getCustomerAddress = id => dispatch =>{
-      axios.get(`http://127.0.0.1:8000/api/customers/customer-addresses/${id}`)
-        .then(res => {
-            dispatch({
-                type: GET_CUSTOMER_ADDRESS,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
+const createCustomerAddressStart = () => {
+  return {
+    type: CREATE_CUSTOMER_ADDRESS_START
+  };
+};
 
-}
 
-//Edit
-export const editCustomerAddress = (id, customeraddress) => dispatch => {
-    axios.put(`http://127.0.0.1:8000/api/customers/customer-addresses/${id}/`, customeraddress)
+const createCustomerAddressSuccess = customeraddress => {
+  return {
+    type: CREATE_CUSTOMER_ADDRESS_SUCCESS,
+    customeraddress
+  };
+};
+
+const createCustomerAddressFail = error => {
+  return {
+    type: CREATE_CUSTOMER_ADDRESS_FAIL,
+    error: error
+  };
+};
+
+const getCustomerAddressDetailStart = () => {
+  return {
+    type: GET_CUSTOMER_ADDRESS_START
+  };
+};
+
+const getCustomerAddressDetailSuccess = customeraddress => {
+  return {
+    type: GET_CUSTOMER_ADDRESS_SUCCESS,
+    customeraddress
+  };
+};
+
+const getCustomerAddressDetailFail = error => {
+  return {
+    type: GET_CUSTOMER_ADDRESS_FAIL,
+    error: error
+  };
+};
+
+export const getCustomerAddresses = (token) => {
+  return dispatch => {
+      dispatch(getCustomerAddressListStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(customeraddressesURL, headers)
         .then(res => {
-            dispatch({
-                type: EDIT_CUSTOMER_ADDRESS,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
+          const customeraddresses = res.data;
+          dispatch(getCustomerAddressListSuccess(customeraddresses));
+          })
+        .catch(err => {
+          dispatch(getCustomerAddressListStart(err));
+        });
+    };
+};
+
+export const getCustomerAddress = (id, token) => {
+  return dispatch => {
+      dispatch(getCustomerAddressDetailStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(`${customeraddressesURL}${id}`, headers)
+        .then(res => {
+          const customeraddress = res.data;
+          dispatch(getCustomerAddressDetailSuccess(customeraddress));
+          })
+        .catch(err => {
+          dispatch(getCustomerAddressDetailFail(err));
+        });
+    };
+};
+
+export const addCustomerAddress = (customeraddress, token) => {
+  return dispatch => {
+      dispatch(createCustomerAddressStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .post(customeraddressesURL, customeraddress, headers)
+        .then(res => {
+          dispatch(createCustomerAddressSuccess(customeraddress));
+        })
+        .catch(err => {
+          dispatch(createCustomerAddressFail(err));
+          dispatch(returnErrors(err.response.data, err.response.status));
+        });
+    };
+};
+
+export const editCustomerAddress = (id, customeraddress, token) => dispatch => {
+    const headers ={
+          "Content-Type": "application/json",
+          Authorization: `Token ${token}`,
+          'Accept': 'application/json',
+    };
+    JSON.stringify(id, null, 3)
+    axios.patch(`${customeraddressesURL}${id}/`, customeraddress, headers)
+    .then(res => {
+        dispatch({
+            type: EDIT_CUSTOMER_ADDRESS,
+            payload: res.data
+        });
+    }).catch(err => console.log(err))
 }

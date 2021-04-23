@@ -1,65 +1,148 @@
 import axios from 'axios';
 import {
-        ADD_EQUIPMENT,
-        GET_EQUIPMENTS,
-        DELETE_EQUIPMENT,
-        GET_EQUIPMENT,
-        EDIT_EQUIPMENT
+    GET_EQUIPMENTS_START,
+    GET_EQUIPMENTS_SUCCESS,
+    GET_EQUIPMENTS_FAIL,
+    CREATE_EQUIPMENT_START,
+    CREATE_EQUIPMENT_SUCCESS,
+    CREATE_EQUIPMENT_FAIL,
+    GET_EQUIPMENT_START,
+    GET_EQUIPMENT_SUCCESS,
+    GET_EQUIPMENT_FAIL,
+    EDIT_EQUIPMENT
     } from '../types/equipmentTypes';
 import { equipmentsURL } from '../constants';
 
-// Get
-export const getEquipments = () => dispatch => {
-    axios.get(equipmentsURL)
-        .then(res => {
-            dispatch({
-                type: GET_EQUIPMENTS,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+//equipments
+const getEquipmentListStart = () => {
+  return {
+    type: GET_EQUIPMENTS_START
+  };
+};
 
-//Delete
-export const deleteEquipment = (id) => dispatch => {
-    axios.delete(equipmentsURL, id)
-        .then(res => {
-            dispatch({
-                type: DELETE_EQUIPMENT,
-                payload: id
-            });
-        }).catch(err => console.log(err))
-}
+const getEquipmentListSuccess = equipments => {
+  return {
+    type: GET_EQUIPMENTS_SUCCESS,
+    equipments
+  };
+};
 
-// Add
-export const addEquipment = (equipment) => dispatch => {
-    axios.post(equipmentsURL, equipment)
-        .then(res => {
-            dispatch({
-                type: ADD_EQUIPMENT,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+const getEquipmentListFail = error => {
+  return {
+    type: GET_EQUIPMENTS_FAIL,
+    error: error
+  };
+};
 
-//get
-export const getEquipment = id => dispatch =>{
-      axios.get(`http://127.0.0.1:8000/api/inventory/equipments/${id}`)
-        .then(res => {
-            dispatch({
-                type: GET_EQUIPMENT,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
+const createEquipmentStart = () => {
+  return {
+    type: CREATE_EQUIPMENT_START
+  };
+};
 
-}
+const createEquipmentSuccess = equipment => {
+  return {
+    type: CREATE_EQUIPMENT_SUCCESS,
+    equipment
+  };
+};
 
-//Edit
-export const editEquipment = (id, equipment) => dispatch => {
-    axios.put(`http://127.0.0.1:8000/api/inventory/equipments/${id}/`, equipment)
+const createEquipmentFail = error => {
+  return {
+    type: CREATE_EQUIPMENT_FAIL,
+    error: error
+  };
+};
+
+const getEquipmentDetailStart = () => {
+  return {
+    type: GET_EQUIPMENT_START
+  };
+};
+
+const getEquipmentDetailSuccess = equipment => {
+  return {
+    type: GET_EQUIPMENT_SUCCESS,
+    equipment
+  };
+};
+
+const getEquipmentDetailFail = error => {
+  return {
+    type: GET_EQUIPMENT_FAIL,
+    error: error
+  };
+};
+
+export const getEquipments = (token) => {
+  return dispatch => {
+      dispatch(getEquipmentListStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(equipmentsURL, headers)
         .then(res => {
-            dispatch({
-                type: EDIT_EQUIPMENT,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
+          const equipments = res.data;
+          dispatch(getEquipmentListSuccess(equipments));
+          })
+        .catch(err => {
+          dispatch(getEquipmentListStart(err));
+        });
+    };
+};
+
+export const getEquipment = (id, token) => {
+  return dispatch => {
+      dispatch(getEquipmentDetailStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(`${equipmentsURL}${id}`, headers)
+        .then(res => {
+          const equipment = res.data;
+          dispatch(getEquipmentDetailSuccess(equipment));
+          })
+        .catch(err => {
+          dispatch(getEquipmentDetailFail(err));
+        });
+    };
+};
+
+export const addEquipment = (equipment, token) => {
+  return dispatch => {
+      dispatch(createEquipmentStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .post(equipmentsURL, equipment, headers)
+        .then(res => {
+          dispatch(createEquipmentSuccess(equipment));
+        })
+        .catch(err => {
+          dispatch(createEquipmentFail(err));
+          dispatch(returnErrors(err.response.data, err.response.status));
+        });
+    };
+};
+
+export const editEquipment = (id, equipment, token) => dispatch => {
+    const headers ={
+          "Content-Type": "application/json",
+          Authorization: `Token ${token}`,
+          'Accept': 'application/json',
+    };
+    JSON.stringify(id, null, 3)
+    axios.patch(`${equipmentsURL}${id}/`, equipment, headers)
+    .then(res => {
+        dispatch({
+            type: EDIT_EQUIPMENT,
+            payload: res.data
+        });
+    }).catch(err => console.log(err))
 }

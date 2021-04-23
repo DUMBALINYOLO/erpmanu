@@ -1,41 +1,89 @@
 import axios from 'axios';
 import {
-        GET_FULLYPAID_NOT_YET_SALES_INVOICES,
-        DELETE_FULLYPAID_NOT_YET_SALES_INVOICE,
-        GET_FULLYPAID_NOT_YET_SALES_INVOICE
+    GET_FULLY_PAID_NOT_YET_SALES_INVOICES_START,
+    GET_FULLY_PAID_NOT_YET_SALES_SUCCESS,
+    GET_FULLY_PAID_NOT_YET_SALES_FAIL,
+    GET_FULLY_PAID_NOT_YET_SALE_START,
+    GET_FULLY_PAID_NOT_YET_SALE_SUCCESS,
+    GET_FULLY_PAID_NOT_YET_SALE_FAIL             
     } from '../types/fullypaidnotyetsalesinvoiceTypes';
 import { fullypaidnotyetsalesinvoicesURL } from '../constants';
 
-// Get
-export const getFullypaidNotYetSalesInvoices = () => dispatch => {
-    axios.get(fullypaidnotyetsalesinvoicesURL)
-        .then(res => {
-            dispatch({
-                type: GET_FULLYPAID_NOT_YET_SALES_INVOICES,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+//fully paid not yet sales invoices
+const getFullyPaidNotYetSalesInvoiceListStart = () => {
+  return {
+    type: GET_FULLY_PAID_NOT_YET_SALES_INVOICES_START
+  };
+};
 
-//Delete
-export const deleteFullypaidNotYetSalesInvoice = (id) => dispatch => {
-    axios.delete(fullypaidnotyetsalesinvoicesURL, id)
-        .then(res => {
-            dispatch({
-                type: DELETE_FULLYPAID_NOT_YET_SALES_INVOICE,
-                payload: id
-            });
-        }).catch(err => console.log(err))
-}
+const getFullyPaidNotYetSalesInvoiceListSuccess = fullypaidnotyetsalesinvoices => {
+  return {
+    type: GET_FULLY_PAID_NOT_YET_SALES_SUCCESS,
+    fullypaidnotyetsalesinvoices
+  };
+};
 
-//get
-export const getFullypaidNotYetSalesInvoice = id => dispatch =>{
-      axios.get(`http://127.0.0.1:8000/api/sales/fullypaid-not-yet-sales-invoices/${id}`)
-        .then(res => {
-            dispatch({
-                type: GET_FULLYPAID_NOT_YET_SALES_INVOICE,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
+const getFullyPaidNotYetSalesInvoiceListFail = error => {
+  return {
+    type: GET_FULLY_PAID_NOT_YET_SALES_FAIL,
+    error: error
+  };
+};
 
-}
+const getFullyPaidNotYetSalesInvoiceDetailStart = () => {
+  return {
+    type: GET_FULLY_PAID_NOT_YET_SALE_START
+  };
+};
+
+const getFullyPaidNotYetSalesInvoiceDetailSuccess = fullypaidnotyetsalesinvoice => {
+  return {
+    type: GET_FULLY_PAID_NOT_YET_SALE_SUCCESS,
+    fullypaidnotyetsalesinvoice
+  };
+};
+
+const getFullyPaidNotYetSalesInvoiceDetailFail = error => {
+  return {
+    type: GET_FULLY_PAID_NOT_YET_SALE_FAIL,
+    error: error
+  };
+};
+
+export const getFullyPaidNotYetSalesInvoices = (token) => {
+  return dispatch => {
+      dispatch(getFullyPaidNotYetSalesInvoiceListStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(fullypaidnotyetsalesinvoicesURL, headers)
+        .then(res => {
+          const fullypaidnotyetsalesinvoices = res.data;
+          dispatch(getFullyPaidNotYetSalesInvoiceListSuccess(fullypaidnotyetsalesinvoices));
+          })
+        .catch(err => {
+          dispatch(getFullyPaidNotYetSalesInvoiceListStart(err));
+        });
+    };
+};
+
+export const getFullyPaidNotYetSalesInvoice = (id, token) => {
+  return dispatch => {
+      dispatch(getFullyPaidNotYetSalesInvoiceDetailStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(`${fullypaidnotyetsalesinvoicesURL}${id}`, headers)
+        .then(res => {
+          const fullypaidnotyetsalesinvoice = res.data;
+          dispatch(getFullyPaidNotYetSalesInvoiceDetailSuccess(fullypaidnotyetsalesinvoice));
+          })
+        .catch(err => {
+          dispatch(getFullyPaidNotYetSalesInvoiceDetailFail(err));
+        });
+    };
+};

@@ -1,4 +1,10 @@
-export const ADD_BILL= 'ADD_BILL';
-export const GET_BILLS = 'GET_BILLS';
-export const DELETE_BILL = 'DELETE_BILL';
-export const GET_BILL = 'GET_BILL'
+export const GET_BILLS_START = 'GET_BILLS_START';
+export const GET_BILLS_SUCCESS = 'GET_BILLS_SUCCESS';
+export const GET_BILLS_FAIL = 'GET_BILLS_FAIL';
+export const CREATE_BILL_START = 'CREATE_BILL_START';
+export const CREATE_BILL_SUCCESS = 'CREATE_BILL_SUCCESS';
+export const CREATE_BILL_FAIL = 'CREATE_BILL_FAIL';
+export const GET_BILL_START = 'GET_BILL_START';
+export const GET_BILL_SUCCESS = 'GET_BILL_SUCCESS';
+export const GET_BILL_FAIL = 'GET_BILL_FAIL';
+export const EDIT_BILL = 'EDIT_BILL'

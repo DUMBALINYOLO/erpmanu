@@ -1,53 +1,149 @@
 import axios from 'axios';
 import {
-        ADD_COMPANY_SALESREP,
-        GET_COMPANY_SALESREPS,
-        GET_COMPANY_SALESREP,
-        DELETE_COMPANY_SALESREP
+    GET_COMPANY_SALESREPS_START,
+    GET_COMPANY_SALESREPS_SUCCESS,
+    GET_COMPANY_SALESREPS_FAIL,
+    CREATE_COMPANY_SALESREP_START,
+    CREATE_COMPANY_SALESREP_SUCCESS,
+    CREATE_COMPANY_SALESREP_FAIL,
+    GET_COMPANY_SALESREP_START,
+    GET_COMPANY_SALESREP_SUCCESS,
+    GET_COMPANY_SALESREP_FAIL,
+    EDIT_COMPANY_SALESREP
     } from '../types/companysalesrepTypes';
 import { companysalesrepsURL } from '../constants';
 
-// Get
-export const getCompanySalesreps =  () => dispatch => {
-    axios.get(companysalesrepsURL)
+//company salesreps
+const getCompanySalesrepListStart = () => {
+  return {
+    type: GET_COMPANY_SALESREPS_START
+  };
+};
+
+const getCompanySalesrepListSuccess = companysalesreps => {
+  return {
+    type: GET_COMPANY_SALESREPS_SUCCESS,
+    companysalesreps
+  };
+};
+
+const getCompanySalesrepListFail = error => {
+  return {
+    type: GET_COMPANY_SALESREPS_FAIL,
+    error: error
+  };
+};
+
+const createCompanySalesrepStart = () => {
+  return {
+    type: CREATE_COMPANY_SALESREP_START
+  };
+};
+
+
+const createCompanySalesrepSuccess = companysalesrep => {
+  return {
+    type: CREATE_COMPANY_SALESREP_SUCCESS,
+    companysalesrep
+  };
+};
+
+const createCompanySalesrepFail = error => {
+  return {
+    type: CREATE_COMPANY_SALESREP_FAIL,
+    error: error
+  };
+};
+
+const getCompanySalesrepDetailStart = () => {
+  return {
+    type: GET_COMPANY_SALESREP_START
+  };
+};
+
+const getCompanySalesrepDetailSuccess = companysalesrep => {
+  return {
+    type: GET_COMPANY_SALESREP_SUCCESS,
+    companysalesrep
+  };
+};
+
+const getCompanySalesrepDetailFail = error => {
+  return {
+    type: GET_COMPANY_SALESREP_FAIL,
+    error: error
+  };
+};
+
+export const getCompanySalesreps = (token) => {
+  return dispatch => {
+      dispatch(getCompanySalesrepListStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(companysalesrepsURL, headers)
         .then(res => {
-            dispatch({
-                type:  GET_COMPANY_SALESREPS,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+          const companysalesreps = res.data;
+          dispatch(getCompanySalesrepListSuccess(companysalesreps));
+          })
+        .catch(err => {
+          dispatch(getCompanySalesrepListStart(err));
+        });
+    };
+};
 
-//Delete
-
-export const deleteCompanySalesrep = (id) => dispatch => {
-    axios.delete(companysalesrepsURL, id)
+export const getCompanySalesrep = (id, token) => {
+  return dispatch => {
+      dispatch(getCompanySalesrepDetailStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(`${companysalesrepsURL}${id}`, headers)
         .then(res => {
-            dispatch({
-                type: DELETE_COMPANY_SALESREP,
-                payload: id
-            });
-        }).catch(err => console.log(err))
-}
+          const companysalesrep = res.data;
+          dispatch(getCompanySalesrepDetailSuccess(companysalesrep));
+          })
+        .catch(err => {
+          dispatch(getCompanySalesrepDetailFail(err));
+        });
+    };
+};
 
-// Add
-export const addCompanySalesrep = companysalesrep => dispatch => {
-    axios.post(companysalesrepsURL, companysalesrep)
+export const addCompanySalesrep = (companysalesrep, token) => {
+  return dispatch => {
+      dispatch(createCompanySalesrepStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .post(companysalesrepsURL, companysalesrep, headers)
         .then(res => {
-            dispatch({
-                type: ADD_COMPANY_SALESREP,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+          dispatch(createCompanySalesrepSuccess(companysalesrep));
+        })
+        .catch(err => {
+          dispatch(createCompanySalesrepFail(err));
+          dispatch(returnErrors(err.response.data, err.response.status));
+        });
+    };
+};
 
-export const getCompanySalesrep = id => dispatch =>{
-      axios.get(`http://127.0.0.1:8000/api/employees/company-salesreps/${id}`)
-        .then(res => {
-            dispatch({
-                type: GET_COMPANY_SALESREP,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-
+export const editCompanySalesrep = (id, companysalesrep, token) => dispatch => {
+    const headers ={
+          "Content-Type": "application/json",
+          Authorization: `Token ${token}`,
+          'Accept': 'application/json',
+    };
+    JSON.stringify(id, null, 3)
+    axios.patch(`${companysalesrepsURL}${id}/`, companysalesrep, headers)
+    .then(res => {
+        dispatch({
+            type: EDIT_COMPANY_SALESREP,
+            payload: res.data
+        });
+    }).catch(err => console.log(err))
 }

@@ -1,65 +1,149 @@
 import axios from 'axios';
 import {
-        ADD_CONSUMABLE,
-        GET_CONSUMABLES,
-        DELETE_CONSUMABLE,
-        GET_CONSUMABLE,
-        EDIT_CONSUMABLE
+    GET_CONSUMABLES_START,
+    GET_CONSUMABLES_SUCCESS,
+    GET_CONSUMABLES_FAIL,
+    CREATE_CONSUMABLE_START,
+    CREATE_CONSUMABLE_SUCCESS,
+    CREATE_CONSUMABLE_FAIL,
+    GET_CONSUMABLE_START,
+    GET_CONSUMABLE_SUCCESS,
+    GET_CONSUMABLE_FAIL,
+    EDIT_CONSUMABLE
     } from '../types/consumableTypes';
 import { consumablesURL } from '../constants';
 
-// Get
-export const getConsumables = () => dispatch => {
-    axios.get(consumablesURL)
-        .then(res => {
-            dispatch({
-                type: GET_CONSUMABLES,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+//consumables
+const getConsumableListStart = () => {
+  return {
+    type: GET_CONSUMABLES_START
+  };
+};
 
-//Delete
-export const deleteConsumable = (id) => dispatch => {
-    axios.delete(consumablesURL, id)
-        .then(res => {
-            dispatch({
-                type: DELETE_CONSUMABLE,
-                payload: id
-            });
-        }).catch(err => console.log(err))
-}
+const getConsumableListSuccess = consumables => {
+  return {
+    type: GET_CONSUMABLES_SUCCESS,
+    consumables
+  };
+};
 
-// Add
-export const addConsumable = (consumable) => dispatch => {
-    axios.post(consumablesURL, consumable)
-        .then(res => {
-            dispatch({
-                type: ADD_CONSUMABLE,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+const getConsumableListFail = error => {
+  return {
+    type: GET_CONSUMABLES_FAIL,
+    error: error
+  };
+};
 
-//get
-export const getConsumable = id => dispatch =>{
-      axios.get(`http://127.0.0.1:8000/api/inventory/consumables/${id}`)
-        .then(res => {
-            dispatch({
-                type: GET_CONSUMABLE,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
+const createConsumableStart = () => {
+  return {
+    type: CREATE_CONSUMABLE_START
+  };
+};
 
-}
 
-//Edit
-export const editConsumable = (id, consumable) => dispatch => {
-    axios.put(`http://127.0.0.1:8000/api/inventory/consumables/${id}/`, consumable)
+const createConsumableSuccess = consumable => {
+  return {
+    type: CREATE_CONSUMABLE_SUCCESS,
+    consumable
+  };
+};
+
+const createConsumableFail = error => {
+  return {
+    type: CREATE_CONSUMABLE_FAIL,
+    error: error
+  };
+};
+
+const getConsumableDetailStart = () => {
+  return {
+    type: GET_CONSUMABLE_START
+  };
+};
+
+const getConsumableDetailSuccess = consumable => {
+  return {
+    type: GET_CONSUMABLE_SUCCESS,
+    consumable
+  };
+};
+
+const getConsumableDetailFail = error => {
+  return {
+    type: GET_CONSUMABLE_FAIL,
+    error: error
+  };
+};
+
+export const getConsumables = (token) => {
+  return dispatch => {
+      dispatch(getConsumableListStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(consumablesURL, headers)
         .then(res => {
-            dispatch({
-                type: EDIT_CONSUMABLE,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
+          const consumables = res.data;
+          dispatch(getConsumableListSuccess(consumables));
+          })
+        .catch(err => {
+          dispatch(getConsumableListStart(err));
+        });
+    };
+};
+
+export const getConsumable = (id, token) => {
+  return dispatch => {
+      dispatch(getConsumableDetailStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(`${consumablesURL}${id}`, headers)
+        .then(res => {
+          const consumable = res.data;
+          dispatch(getConsumableDetailSuccess(consumable));
+          })
+        .catch(err => {
+          dispatch(getConsumableDetailFail(err));
+        });
+    };
+};
+
+export const addConsumable = (consumable, token) => {
+  return dispatch => {
+      dispatch(createConsumableStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .post(consumablesURL, consumable, headers)
+        .then(res => {
+          dispatch(createConsumableSuccess(consumable));
+        })
+        .catch(err => {
+          dispatch(createConsumableFail(err));
+          dispatch(returnErrors(err.response.data, err.response.status));
+        });
+    };
+};
+
+export const editConsumable = (id, consumable, token) => dispatch => {
+    const headers ={
+          "Content-Type": "application/json",
+          Authorization: `Token ${token}`,
+          'Accept': 'application/json',
+    };
+    JSON.stringify(id, null, 3)
+    axios.patch(`${consumablesURL}${id}/`, consumable, headers)
+    .then(res => {
+        dispatch({
+            type: EDIT_CONSUMABLE,
+            payload: res.data
+        });
+    }).catch(err => console.log(err))
 }

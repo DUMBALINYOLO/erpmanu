@@ -1,59 +1,148 @@
 import axios from 'axios';
-import { ADD_EMPLOYEE_ATTENDANCE_TIMESHEET, EDIT_EMPLOYEE_ATTENDANCE_TIMESHEET, GET_EMPLOYEE_ATTENDANCE_TIMESHEETS, GET_EMPLOYEE_ATTENDANCE_TIMESHEET, DELETE_EMPLOYEE_ATTENDANCE_TIMESHEET } from '../types/employeeattendancetimesheetTypes';
+import { 
+    GET_EMPLOYEE_ATTENDANCE_TIMESHEETS_START,
+    GET_EMPLOYEE_ATTENDANCE_TIMESHEETS_SUCCESS,
+    GET_EMPLOYEE_ATTENDANCE_TIMESHEETS_FAIL,
+    CREATE_EMPLOYEE_ATTENDANCE_TIMESHEET_START,
+    CREATE_EMPLOYEE_ATTENDANCE_TIMESHEET_SUCCESS,
+    CREATE_EMPLOYEE_ATTENDANCE_TIMESHEET_FAIL,
+    GET_EMPLOYEE_ATTENDANCE_TIMESHEET_START,
+    GET_EMPLOYEE_ATTENDANCE_TIMESHEET_SUCCESS,
+    GET_EMPLOYEE_ATTENDANCE_TIMESHEET_FAIL,
+    EDIT_EMPLOYEE_ATTENDANCE_TIMESHEET 
+} from '../types/employeeattendancetimesheetTypes';
 import { employeeattendancetimesheetsURL } from '../constants';
 
-// Get
-export const getEmployeeAttendanceTimesheets=  () => dispatch => {
-    axios.get(employeeattendancetimesheetsURL)
+//employee attendance timesheets
+const getEmployeeAttendanceTimesheetListStart = () => {
+  return {
+    type: GET_EMPLOYEE_ATTENDANCE_TIMESHEETS_START
+  };
+};
+
+const getEmployeeAttendanceTimesheetListSuccess = employeeattendancetimesheets => {
+  return {
+    type: GET_EMPLOYEE_ATTENDANCE_TIMESHEETS_SUCCESS,
+    employeeattendancetimesheets
+  };
+};
+
+const getEmployeeAttendanceTimesheetListFail = error => {
+  return {
+    type: GET_EMPLOYEE_ATTENDANCE_TIMESHEETS_FAIL,
+    error: error
+  };
+};
+
+const createEmployeeAttendanceTimesheetStart = () => {
+  return {
+    type: CREATE_EMPLOYEE_ATTENDANCE_TIMESHEET_START
+  };
+};
+
+const createEmployeeAttendanceTimesheetSuccess = employeeattendancetimesheet => {
+  return {
+    type: CREATE_EMPLOYEE_ATTENDANCE_TIMESHEET_SUCCESS,
+    employeeattendancetimesheet
+  };
+};
+
+const createEmployeeAttendanceTimesheetFail = error => {
+  return {
+    type: CREATE_EMPLOYEE_ATTENDANCE_TIMESHEET_FAIL,
+    error: error
+  };
+};
+
+const getEmployeeAttendanceTimesheetDetailStart = () => {
+  return {
+    type: GET_EMPLOYEE_ATTENDANCE_TIMESHEET_START
+  };
+};
+
+const getEmployeeAttendanceTimesheetDetailSuccess = employeeattendancetimesheet => {
+  return {
+    type: GET_EMPLOYEE_ATTENDANCE_TIMESHEET_SUCCESS,
+    employeeattendancetimesheet
+  };
+};
+
+const getEmployeeAttendanceTimesheetDetailFail = error => {
+  return {
+    type: GET_EMPLOYEE_ATTENDANCE_TIMESHEET_FAIL,
+    error: error
+  };
+};
+
+export const getEmployeeAttendanceTimesheets = (token) => {
+  return dispatch => {
+      dispatch(getEmployeeAttendanceTimesheetListStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(employeeattendancetimesheetsURL, headers)
         .then(res => {
-            dispatch({
-                type:  GET_EMPLOYEE_ATTENDANCE_TIMESHEETS,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+          const employeeattendancetimesheets = res.data;
+          dispatch(getEmployeeAttendanceTimesheetListSuccess(employeeattendancetimesheets));
+          })
+        .catch(err => {
+          dispatch(getEmployeeAttendanceTimesheetListStart(err));
+        });
+    };
+};
 
-//Delete
-
-export const deleteEmployeeAttendanceTimesheet = (id) => dispatch => {
-    axios.delete(employeeattendancetimesheetsURL, id)
+export const getEmployeeAttendanceTimesheet = (id, token) => {
+  return dispatch => {
+      dispatch(getEmployeeAttendanceTimesheetDetailStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(`${employeeattendancetimesheetsURL}${id}`, headers)
         .then(res => {
-            dispatch({
-                type: DELETE_EMPLOYEE_ATTENDANCE_TIMESHEET,
-                payload: id
-            });
-        }).catch(err => console.log(err))
-}
+          const employeeattendancetimesheet = res.data;
+          dispatch(getEmployeeAttendanceTimesheetDetailSuccess(employeeattendancetimesheet));
+          })
+        .catch(err => {
+          dispatch(getEmployeeAttendanceTimesheetDetailFail(err));
+        });
+    };
+};
 
-// Add
-export const addEmployeeAttendanceTimesheet = employeeattendancetimesheet => dispatch => {
-    axios.post(employeeattendancetimesheetsURL, employeeattendancetimesheet)
+export const addEmployeeAttendanceTimesheet = (employeeattendancetimesheet, token) => {
+  return dispatch => {
+      dispatch(createEmployeeAttendanceTimesheetStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .post(employeeattendancetimesheetsURL, employeeattendancetimesheet, headers)
         .then(res => {
-            dispatch({
-                type: ADD_EMPLOYEE_ATTENDANCE_TIMESHEET,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+          dispatch(createEmployeeAttendanceTimesheetSuccess(employeeattendancetimesheet));
+        })
+        .catch(err => {
+          dispatch(createEmployeeAttendanceTimesheetFail(err));
+          dispatch(returnErrors(err.response.data, err.response.status));
+        });
+    };
+};
 
-export const getEmployeeAttendanceTimesheet = id => dispatch =>{
-      axios.get(`http://127.0.0.1:8000/api/employees/employee-attendance-timesheets/${id}`)
-        .then(res => {
-            dispatch({
-                type: GET_EMPLOYEE_ATTENDANCE_TIMESHEET,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-
-}
-
-//Edit
-export const editEmployeeAttendanceTimesheet = (id, employeeattendancetimesheet) => dispatch => {
-    axios.put(`http://127.0.0.1:8000/api/employees/employee-attendance-timesheets/${id}/`, employeeattendancetimesheet)
-        .then(res => {
-            dispatch({
-                type: EDIT_EMPLOYEE_ATTENDANCE_TIMESHEET,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
+export const editEmployeeAttendanceTimesheet = (id, employeeattendancetimesheet, token) => dispatch => {
+    const headers ={
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`,
+        'Accept': 'application/json',
+    };
+    JSON.stringify(id, null, 3)
+    axios.patch(`${employeeattendancetimesheetsURL}${id}/`, employeeattendancetimesheet, headers)
+    .then(res => {
+        dispatch({
+            type: EDIT_EMPLOYEE_ATTENDANCE_TIMESHEET,
+            payload: res.data
+        });
+    }).catch(err => console.log(err))
 }

@@ -1,48 +1,132 @@
 import axios from 'axios';
-import { ADD_EMPLOYEE_PAYSLIP, GET_EMPLOYEE_PAYSLIPS, GET_EMPLOYEE_PAYSLIP, DELETE_EMPLOYEE_PAYSLIP } from '../types/employeepayslipTypes';
+import { 
+    GET_EMPLOYEE_PAYSLIPS_START,
+    GET_EMPLOYEE_PAYSLIPS_SUCCESS,
+    GET_EMPLOYEE_PAYSLIPS_FAIL,
+    CREATE_EMPLOYEE_PAYSLIP_START,
+    CREATE_EMPLOYEE_PAYSLIP_SUCCESS,
+    CREATE_EMPLOYEE_PAYSLIP_FAIL,
+    GET_EMPLOYEE_PAYSLIP_START,
+    GET_EMPLOYEE_PAYSLIP_SUCCESS,
+    GET_EMPLOYEE_PAYSLIP_FAIL 
+} from '../types/employeepayslipTypes';
 import { employeepayslipsURL } from '../constants';
 
-// Get
-export const getEmployeePayslips=  () => dispatch => {
-    axios.get(employeepayslipsURL)
+//employee payslips
+const getEmployeePayslipListStart = () => {
+  return {
+    type: GET_EMPLOYEE_PAYSLIPS_START
+  };
+};
+
+const getEmployeePayslipListSuccess = employeepayslips => {
+  return {
+    type: GET_EMPLOYEE_PAYSLIPS_SUCCESS,
+    employeepayslips
+  };
+};
+
+const getEmployeePayslipListFail = error => {
+  return {
+    type: GET_EMPLOYEE_PAYSLIPS_FAIL,
+    error: error
+  };
+};
+
+const createEmployeePayslipStart = () => {
+  return {
+    type: CREATE_EMPLOYEE_PAYSLIP_START
+  };
+};
+
+
+const createEmployeePayslipSuccess = employeepayslip => {
+  return {
+    type: CREATE_EMPLOYEE_PAYSLIP_SUCCESS,
+    employeepayslip
+  };
+};
+
+const createEmployeePayslipFail = error => {
+  return {
+    type: CREATE_EMPLOYEE_PAYSLIP_FAIL,
+    error: error
+  };
+};
+
+const getEmployeePayslipDetailStart = () => {
+  return {
+    type: GET_EMPLOYEE_PAYSLIP_START
+  };
+};
+
+const getEmployeePayslipDetailSuccess = employeepayslip => {
+  return {
+    type: GET_EMPLOYEE_PAYSLIP_SUCCESS,
+    employeepayslip
+  };
+};
+
+const getEmployeePayslipDetailFail = error => {
+  return {
+    type: GET_EMPLOYEE_PAYSLIP_FAIL,
+    error: error
+  };
+};
+
+export const getEmployeePayslips = (token) => {
+  return dispatch => {
+      dispatch(getEmployeePayslipListStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(employeepayslipsURL, headers)
         .then(res => {
-            dispatch({
-                type:  GET_EMPLOYEE_PAYSLIPS,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+          const employeepayslips = res.data;
+          dispatch(getEmployeePayslipListSuccess(employeepayslips));
+          })
+        .catch(err => {
+          dispatch(getEmployeePayslipListStart(err));
+        });
+    };
+};
 
-//Delete
-
-export const deleteEmployeePayslip = (id) => dispatch => {
-    axios.delete(employeepayslipsURL, id)
+export const getEmployeePayslip = (id, token) => {
+  return dispatch => {
+      dispatch(getEmployeePayslipDetailStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(`${employeepayslipsURL}${id}`, headers)
         .then(res => {
-            dispatch({
-                type: DELETE_EMPLOYEE_PAYSLIP,
-                payload: id
-            });
-        }).catch(err => console.log(err))
-}
+          const employeepayslip = res.data;
+          dispatch(getEmployeePayslipDetailSuccess(employeepayslip));
+          })
+        .catch(err => {
+          dispatch(getEmployeePayslipDetailFail(err));
+        });
+    };
+};
 
-// Add
-export const addEmployeePayslip = employeepayslip => dispatch => {
-    axios.post(employeepayslipsURL, employeepayslip)
+export const addEmployeePayslip = (employeepayslip, token) => {
+  return dispatch => {
+      dispatch(createEmployeePayslipStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .post(employeepayslipsURL, employeepayslip, headers)
         .then(res => {
-            dispatch({
-                type: ADD_EMPLOYEE_PAYSLIP,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
-
-export const getEmployeePayslip = id => dispatch =>{
-      axios.get(`http://127.0.0.1:8000/api/employees/employee-payslips/${id}`)
-        .then(res => {
-            dispatch({
-                type: GET_EMPLOYEE_PAYSLIP,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-
-}
+          dispatch(createEmployeePayslipSuccess(employeepayslip));
+        })
+        .catch(err => {
+          dispatch(createEmployeePayslipFail(err));
+          dispatch(returnErrors(err.response.data, err.response.status));
+        });
+    };
+};

@@ -1,53 +1,149 @@
 import axios from 'axios';
 import {
-        ADD_COMPLETED_EVENT,
-        GET_COMPLETED_EVENTS,
-        DELETE_COMPLETED_EVENT,
-        GET_COMPLETED_EVENT
+    GET_COMPLETED_EVENTS_START,
+    GET_COMPLETED_EVENTS_SUCCESS,
+    GET_COMPLETED_EVENTS_FAIL,
+    CREATE_COMPLETED_EVENT_START,
+    CREATE_COMPLETED_EVENT_SUCCESS,
+    CREATE_COMPLETED_EVENT_FAIL,
+    GET_COMPLETED_EVENT_START,
+    GET_COMPLETED_EVENT_SUCCESS,
+    GET_COMPLETED_EVENT_FAIL,
+    EDIT_COMPLETED_EVENT
     } from '../types/completedeventTypes';
 import { completedeventsURL } from '../constants';
 
-// Get
-export const getCompletedEvents = () => dispatch => {
-    axios.get(completedeventsURL)
-        .then(res => {
-            dispatch({
-                type: GET_COMPLETED_EVENTS,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+//completed events
+const getCompletedEventListStart = () => {
+  return {
+    type: GET_COMPLETED_EVENTS_START
+  };
+};
 
-//Delete
-export const deleteCompletedEvent = (id) => dispatch => {
-    axios.delete(completedeventsURL, id)
-        .then(res => {
-            dispatch({
-                type: DELETE_COMPLETED_EVENT,
-                payload: id
-            });
-        }).catch(err => console.log(err))
-}
+const getCompletedEventListSuccess = completedevents => {
+  return {
+    type: GET_COMPLETED_EVENTS_SUCCESS,
+    completedevents
+  };
+};
 
-// Add
-export const addCompletedEvent = (completedevent) => dispatch => {
-    axios.post(completedeventsURL, completedevent)
-        .then(res => {
-            dispatch({
-                type: ADD_COMPLETED_EVENT,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+const getCompletedEventListFail = error => {
+  return {
+    type: GET_COMPLETED_EVENTS_FAIL,
+    error: error
+  };
+};
 
-//get
-export const getCompletedEvent = id => dispatch =>{
-      axios.get(`http://127.0.0.1:8000/api/events/completed-events/${id}`)
-        .then(res => {
-            dispatch({
-                type: GET_COMPLETED_EVENT,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
+const createCompletedEventStart = () => {
+  return {
+    type: CREATE_COMPLETED_EVENT_START
+  };
+};
 
+
+const createCompletedEventSuccess = completedevent => {
+  return {
+    type: CREATE_COMPLETED_EVENT_SUCCESS,
+    completedevent
+  };
+};
+
+const createCompletedEventFail = error => {
+  return {
+    type: CREATE_COMPLETED_EVENT_FAIL,
+    error: error
+  };
+};
+
+const getCompletedEventDetailStart = () => {
+  return {
+    type: GET_COMPLETED_EVENT_START
+  };
+};
+
+const getCompletedEventDetailSuccess = completedevent => {
+  return {
+    type: GET_COMPLETED_EVENT_SUCCESS,
+    completedevent
+  };
+};
+
+const getCompletedEventDetailFail = error => {
+  return {
+    type: GET_COMPLETED_EVENT_FAIL,
+    error: error
+  };
+};
+
+export const getCompletedEvents = (token) => {
+  return dispatch => {
+      dispatch(getCompletedEventListStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(completedeventsURL, headers)
+        .then(res => {
+          const completedevents = res.data;
+          dispatch(getCompletedEventListSuccess(completedevents));
+          })
+        .catch(err => {
+          dispatch(getCompletedEventListStart(err));
+        });
+    };
+};
+
+export const getCompletedEvent = (id, token) => {
+  return dispatch => {
+      dispatch(getCompletedEventDetailStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(`${completedeventsURL}${id}`, headers)
+        .then(res => {
+          const completedevent = res.data;
+          dispatch(getCompletedEventDetailSuccess(completedevent));
+          })
+        .catch(err => {
+          dispatch(getCompletedEventDetailFail(err));
+        });
+    };
+};
+
+export const addCompletedEvent = (completedevent, token) => {
+  return dispatch => {
+      dispatch(createCompletedEventStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .post(completedeventsURL, completedevent, headers)
+        .then(res => {
+          dispatch(createCompletedEventSuccess(completedevent));
+        })
+        .catch(err => {
+          dispatch(createCompletedEventFail(err));
+          dispatch(returnErrors(err.response.data, err.response.status));
+        });
+    };
+};
+
+export const editCompletedEvent = (id, completedevent, token) => dispatch => {
+    const headers ={
+          "Content-Type": "application/json",
+          Authorization: `Token ${token}`,
+          'Accept': 'application/json',
+    };
+    JSON.stringify(id, null, 3)
+    axios.patch(`${completedeventsURL}${id}/`, completedevent, headers)
+    .then(res => {
+        dispatch({
+            type: EDIT_COMPLETED_EVENT,
+            payload: res.data
+        });
+    }).catch(err => console.log(err))
 }

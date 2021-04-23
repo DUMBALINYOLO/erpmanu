@@ -1,0 +1,6 @@
+export const GET_SCALES = "GET_SCALES";
+export const GET_SCALE = "GET_SCALE";
+export const ADD_SCALE = "ADD_SCALE";
+export const EDIT_SCALE = "EDIT_SCALE";
+export const GET_SCALE_INPUT_METHODS = 'GET_SCALE_INPUT_METHODS';
+export const GET_SERIAL_PORT_CHOICES = 'GET_SERIAL_PORT_CHOICES'

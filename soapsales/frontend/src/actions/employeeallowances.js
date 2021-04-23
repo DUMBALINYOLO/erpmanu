@@ -1,60 +1,148 @@
 import axios from 'axios';
-import { ADD_EMPLOYEE_ALLOWANCE, EDIT_EMPLOYEE_ALLOWANCE, GET_EMPLOYEE_ALLOWANCES, GET_EMPLOYEE_ALLOWANCE, DELETE_EMPLOYEE_ALLOWANCE } from '../types/employeeallowanceTypes';
+import { 
+    GET_EMPLOYEE_ALLOWANCES_START,
+    GET_EMPLOYEE_ALLOWANCES_SUCCESS,
+    GET_EMPLOYEE_ALLOWANCES_FAIL,
+    CREATE_EMPLOYEE_ALLOWANCE_START,
+    CREATE_EMPLOYEE_ALLOWANCE_SUCCESS,
+    CREATE_EMPLOYEE_ALLOWANCE_FAIL,
+    GET_EMPLOYEE_ALLOWANCE_START,
+    GET_EMPLOYEE_ALLOWANCE_SUCCESS,
+    GET_EMPLOYEE_ALLOWANCE_FAIL,
+    EDIT_EMPLOYEE_ALLOWANCE 
+} from '../types/employeeallowanceTypes';
 import { employeeallowancesURL } from '../constants';
 
-// Get
-export const getEmployeeAllowances=  () => dispatch => {
-    axios.get(employeeallowancesURL)
+//employee allowances
+const getEmployeeAllowanceListStart = () => {
+  return {
+    type: GET_EMPLOYEE_ALLOWANCES_START
+  };
+};
+
+const getEmployeeAllowanceListSuccess = employeeallowances => {
+  return {
+    type: GET_EMPLOYEE_ALLOWANCES_SUCCESS,
+    employeeallowances
+  };
+};
+
+const getEmployeeAllowanceListFail = error => {
+  return {
+    type: GET_EMPLOYEE_ALLOWANCES_FAIL,
+    error: error
+  };
+};
+
+const createEmployeeAllowanceStart = () => {
+  return {
+    type: CREATE_EMPLOYEE_ALLOWANCE_START
+  };
+};
+
+const createEmployeeAllowanceSuccess = employeeallowance => {
+  return {
+    type: CREATE_EMPLOYEE_ALLOWANCE_SUCCESS,
+    employeeallowance
+  };
+};
+
+const createEmployeeAllowanceFail = error => {
+  return {
+    type: CREATE_EMPLOYEE_ALLOWANCE_FAIL,
+    error: error
+  };
+};
+
+const getEmployeeAllowanceDetailStart = () => {
+  return {
+    type: GET_EMPLOYEE_ALLOWANCE_START
+  };
+};
+
+const getEmployeeAllowanceDetailSuccess = employeeallowance => {
+  return {
+    type: GET_EMPLOYEE_ALLOWANCE_SUCCESS,
+    employeeallowance
+  };
+};
+
+const getEmployeeAllowanceDetailFail = error => {
+  return {
+    type: GET_EMPLOYEE_ALLOWANCE_FAIL,
+    error: error
+  };
+};
+
+export const getEmployeeAllowances = (token) => {
+  return dispatch => {
+      dispatch(getEmployeeAllowanceListStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(employeeallowancesURL, headers)
         .then(res => {
-            dispatch({
-                type:  GET_EMPLOYEE_ALLOWANCES,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+          const employeeallowances = res.data;
+          dispatch(getEmployeeAllowanceListSuccess(employeeallowances));
+          })
+        .catch(err => {
+          dispatch(getEmployeeAllowanceListStart(err));
+        });
+    };
+};
 
-//Delete
-
-export const deleteEmployeeAllowance = (id) => dispatch => {
-    axios.delete(employeeallowancesURL, id)
+export const getEmployeeAllowance = (id, token) => {
+  return dispatch => {
+      dispatch(getEmployeeAllowanceDetailStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(`${employeeallowancesURL}${id}`, headers)
         .then(res => {
-            dispatch({
-                type: DELETE_EMPLOYEE_ALLOWANCE,
-                payload: id
-            });
-        }).catch(err => console.log(err))
-}
+          const employeeallowance = res.data;
+          dispatch(getEmployeeAllowanceDetailSuccess(employeeallowance));
+          })
+        .catch(err => {
+          dispatch(getEmployeeAllowanceDetailFail(err));
+        });
+    };
+};
 
-// Add
-export const addEmployeeAllowance = employeeallowance => dispatch => {
-    axios.post(employeeallowancesURL, employeeallowance)
+export const addEmployeeAllowance = (employeeallowance, token) => {
+  return dispatch => {
+      dispatch(createEmployeeAllowanceStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .post(employeeallowancesURL, employeeallowance, headers)
         .then(res => {
-            dispatch({
-                type: ADD_EMPLOYEE_ALLOWANCE,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+          dispatch(createEmployeeAllowanceSuccess(employeeallowance));
+        })
+        .catch(err => {
+          dispatch(createEmployeeAllowanceFail(err));
+          dispatch(returnErrors(err.response.data, err.response.status));
+        });
+    };
+};
 
-//Get
-export const getEmployeeAllowance = id => dispatch =>{
-      axios.get(`http://127.0.0.1:8000/api/employees/employee-allowances/${id}`)
-        .then(res => {
-            dispatch({
-                type: GET_EMPLOYEE_ALLOWANCE,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-
-}
-
-//Edit
-export const editEmployeeAllowance = (id, employeeallowance) => dispatch => {
-    axios.put(`http://127.0.0.1:8000/api/employees/employee-allowances/${id}/`, employeeallowance)
-        .then(res => {
-            dispatch({
-                type: EDIT_EMPLOYEE_ALLOWANCE,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
+export const editEmployeeAllowance = (id, employeeallowance, token) => dispatch => {
+    const headers ={
+          "Content-Type": "application/json",
+          Authorization: `Token ${token}`,
+          'Accept': 'application/json',
+    };
+    JSON.stringify(id, null, 3)
+    axios.patch(`${employeeallowancesURL}${id}/`, employeeallowance, headers)
+    .then(res => {
+        dispatch({
+            type: EDIT_EMPLOYEE_ALLOWANCE,
+            payload: res.data
+        });
+    }).catch(err => console.log(err))
 }

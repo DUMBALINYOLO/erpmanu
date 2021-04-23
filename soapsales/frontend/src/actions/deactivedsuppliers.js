@@ -1,41 +1,48 @@
 import axios from 'axios';
 import {
-        GET_DE_ACTIVED_SUPPLIERS,
-        DELETE_DE_ACTIVED_SUPPLIER,
-        GET_DE_ACTIVED_SUPPLIER
+    GET_DEACTIVED_SUPPLIERS_START,
+    GET_DEACTIVED_SUPPLIERS_SUCCESS,
+    GET_DEACTIVED_SUPPLIERS_FAIL
     } from '../types/deactivedsupplierTypes';
 import { deactivedsuppliersURL } from '../constants';
 
-// Get
-export const getDeActivedSuppliers = () => dispatch => {
-    axios.get(deactivedsuppliersURL)
-        .then(res => {
-            dispatch({
-                type: GET_DE_ACTIVED_SUPPLIERS,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+//deactived suppliers
+const getDeactivedSupplierListStart = () => {
+  return {
+    type: GET_DEACTIVED_SUPPLIERS_START
+  };
+};
 
-//Delete
-export const deleteDeActivedSupplier = (id) => dispatch => {
-    axios.delete(deactivedsuppliersURL, id)
-        .then(res => {
-            dispatch({
-                type: DELETE_DE_ACTIVED_SUPPLIER,
-                payload: id
-            });
-        }).catch(err => console.log(err))
-}
+const getDeactivedSupplierListSuccess = deactivedsuppliers => {
+  return {
+    type: GET_DEACTIVED_SUPPLIERS_SUCCESS,
+    deactivedsuppliers
+  };
+};
 
-//get
-export const getDeActivedSupplier = id => dispatch =>{
-      axios.get(`http://127.0.0.1:8000/api/inventory/de-actived-suppliers/${id}`)
-        .then(res => {
-            dispatch({
-                type: GET_DE_ACTIVED_SUPPLIER,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
+const getDeactivedSupplierListFail = error => {
+  return {
+    type: GET_DEACTIVED_SUPPLIERS_FAIL,
+    error: error
+  };
+};
 
-}
+export const getDeactivedSuppliers = (token) => {
+  return dispatch => {
+      dispatch(getDeactivedSupplierListStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(deactivedsuppliersURL, headers)
+        .then(res => {
+          const deactivedsuppliers = res.data;
+          dispatch(getDeactivedSupplierListSuccess(deactivedsuppliers));
+          })
+        .catch(err => {
+          dispatch(getDeactivedSupplierListStart(err));
+        });
+    };
+};
+

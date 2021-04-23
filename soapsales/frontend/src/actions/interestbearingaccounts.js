@@ -1,66 +1,149 @@
 import axios from 'axios';
 import {
-        ADD_INTEREST_BEARING_ACCOUNT,
-        GET_INTEREST_BEARING_ACCOUNTS,
-        DELETE_INTEREST_BEARING_ACCOUNT,
-        GET_INTEREST_BEARING_ACCOUNT,
-        EDIT_INTEREST_BEARING_ACCOUNT
+    GET_INTEREST_BEARING_ACCOUNTS_START,
+    GET_INTEREST_BEARING_ACCOUNTS_SUCCESS,
+    GET_INTEREST_BEARING_ACCOUNTS_FAIL,
+    CREATE_INTEREST_BEARING_ACCOUNT_START,
+    CREATE_INTEREST_BEARING_ACCOUNT_SUCCESS,
+    CREATE_INTEREST_BEARING_ACCOUNT_FAIL,
+    GET_INTEREST_BEARING_ACCOUNT_START,
+    GET_INTEREST_BEARING_ACCOUNT_SUCCESS,
+    GET_INTEREST_BEARING_ACCOUNT_FAIL,
+    EDIT_INTEREST_BEARING_ACCOUNT
     } from '../types/interestbearingaccountTypes';
 import { interestbearingaccountsURL } from '../constants';
 
-// Get
-export const getInterestBearingAccounts = () => dispatch => {
-    axios.get(interestbearingaccountsURL)
+//interest bearing accounts
+const getInterestBearingAccountListStart = () => {
+  return {
+    type: GET_INTEREST_BEARING_ACCOUNTS_START
+  };
+};
+
+const getInterestBearingAccountListSuccess = interestbearingaccounts => {
+  return {
+    type: GET_INTEREST_BEARING_ACCOUNTS_SUCCESS,
+    interestbearingaccounts
+  };
+};
+
+const getInterestBearingAccountListFail = error => {
+  return {
+    type: GET_INTEREST_BEARING_ACCOUNTS_FAIL,
+    error: error
+  };
+};
+
+const createInterestBearingAccountStart = () => {
+  return {
+    type: CREATE_INTEREST_BEARING_ACCOUNT_START
+  };
+};
+
+
+const createInterestBearingAccountSuccess = interestbearingaccount => {
+  return {
+    type: CREATE_INTEREST_BEARING_ACCOUNT_SUCCESS,
+    interestbearingaccount
+  };
+};
+
+const createInterestBearingAccountFail = error => {
+  return {
+    type: CREATE_INTEREST_BEARING_ACCOUNT_FAIL,
+    error: error
+  };
+};
+
+const getInterestBearingAccountDetailStart = () => {
+  return {
+    type: GET_INTEREST_BEARING_ACCOUNT_START
+  };
+};
+
+const getInterestBearingAccountDetailSuccess = interestbearingaccount => {
+  return {
+    type: GET_INTEREST_BEARING_ACCOUNT_SUCCESS,
+    interestbearingaccount
+  };
+};
+
+const getInterestBearingAccountDetailFail = error => {
+  return {
+    type: GET_INTEREST_BEARING_ACCOUNT_FAIL,
+    error: error
+  };
+};
+
+export const getInterestBearingAccounts = (token) => {
+  return dispatch => {
+      dispatch(getInterestBearingAccountListStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(interestbearingaccountsURL, headers)
         .then(res => {
-            dispatch({
-                type: GET_INTEREST_BEARING_ACCOUNTS,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+          const interestbearingaccounts = res.data;
+          dispatch(getInterestBearingAccountListSuccess(interestbearingaccounts));
+          })
+        .catch(err => {
+          dispatch(getInterestBearingAccountListStart(err));
+        });
+    };
+};
 
-//Delete
-export const deleteInterestBearingAccount = (id) => dispatch => {
-    axios.delete(interestbearingaccountsURL, id)
+export const getInterestBearingAccount = (id, token) => {
+  return dispatch => {
+      dispatch(getInterestBearingAccountDetailStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(`${interestbearingaccountsURL}${id}`, headers)
         .then(res => {
-            dispatch({
-                type: DELETE_INTEREST_BEARING_ACCOUNT,
-                payload: id
-            });
-        }).catch(err => console.log(err))
-}
+          const interestbearingaccount = res.data;
+          dispatch(getInterestBearingAccountDetailSuccess(interestbearingaccount));
+          })
+        .catch(err => {
+          dispatch(getInterestBearingAccountDetailFail(err));
+        });
+    };
+};
 
-// Add
-export const addInterestBearingAccount = (interestbearingaccount) => dispatch => {
-    axios.post(interestbearingaccountsURL, interestbearingaccount)
+export const addInterestBearingAccount = (interestbearingaccount, token) => {
+  return dispatch => {
+      dispatch(createInterestBearingAccountStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .post(interestbearingaccountsURL, interestbearingaccount, headers)
         .then(res => {
-            dispatch({
-                type: ADD_INTEREST_BEARING_ACCOUNT,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+          dispatch(createInterestBearingAccountSuccess(interestbearingaccount));
+        })
+        .catch(err => {
+          dispatch(createInterestBearingAccountFail(err));
+          dispatch(returnErrors(err.response.data, err.response.status));
+        });
+    };
+};
 
-//get
-export const getInterestBearingAccount = id => dispatch =>{
-      axios.get(`http://127.0.0.1:8000/api/accounting/interest-bearing-accounts/${id}`)
-        .then(res => {
-            dispatch({
-                type: GET_INTEREST_BEARING_ACCOUNT,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-
-}
-
-
-//Edit
-export const editInterestBearingAccount = (id, interestbearingaccount) => dispatch => {
-    axios.put(`http://127.0.0.1:8000/api/accounting/interest-bearing-accounts/${id}/`, interestbearingaccount)
-        .then(res => {
-            dispatch({
-                type: EDIT_INTEREST_BEARING_ACCOUNT,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
+export const editInterestBearingAccount = (id, interestbearingaccount, token) => dispatch => {
+    const headers ={
+          "Content-Type": "application/json",
+          Authorization: `Token ${token}`,
+          'Accept': 'application/json',
+    };
+    JSON.stringify(id, null, 3)
+    axios.patch(`${interestbearingaccountsURL}${id}/`, interestbearingaccount, headers)
+    .then(res => {
+        dispatch({
+            type: EDIT_INTEREST_BEARING_ACCOUNT,
+            payload: res.data
+        });
+    }).catch(err => console.log(err))
 }

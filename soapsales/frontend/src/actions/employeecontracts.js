@@ -1,59 +1,148 @@
 import axios from 'axios';
-import { ADD_EMPLOYEE_CONTRACT, EDIT_EMPLOYEE_CONTRACT, GET_EMPLOYEE_CONTRACTS, GET_EMPLOYEE_CONTRACT, DELETE_EMPLOYEE_CONTRACT } from '../types/employeecontractTypes';
+import { 
+    GET_EMPLOYEE_CONTRACTS_START,
+    GET_EMPLOYEE_CONTRACTS_SUCCESS,
+    GET_EMPLOYEE_CONTRACTS_FAIL,
+    CREATE_EMPLOYEE_CONTRACT_START,
+    CREATE_EMPLOYEE_CONTRACT_SUCCESS,
+    CREATE_EMPLOYEE_CONTRACT_FAIL,
+    GET_EMPLOYEE_CONTRACT_START,
+    GET_EMPLOYEE_CONTRACT_SUCCESS,
+    GET_EMPLOYEE_CONTRACT_FAIL,
+    EDIT_EMPLOYEE_CONTRACT
+} from '../types/employeecontractTypes';
 import { employeecontractsURL } from '../constants';
 
-// Get
-export const getEmployeeContracts=  () => dispatch => {
-    axios.get(employeecontractsURL)
+//employee contracts
+const getEmployeeContractListStart = () => {
+  return {
+    type: GET_EMPLOYEE_CONTRACTS_START
+  };
+};
+
+const getEmployeeContractListSuccess = employeecontracts => {
+  return {
+    type: GET_EMPLOYEE_CONTRACTS_SUCCESS,
+    employeecontracts
+  };
+};
+
+const getEmployeeContractListFail = error => {
+  return {
+    type: GET_EMPLOYEE_CONTRACTS_FAIL,
+    error: error
+  };
+};
+
+const createEmployeeContractStart = () => {
+  return {
+    type: CREATE_EMPLOYEE_CONTRACT_START
+  };
+};
+
+const createEmployeeContractSuccess = employeecontract => {
+  return {
+    type: CREATE_EMPLOYEE_CONTRACT_SUCCESS,
+    employeecontract
+  };
+};
+
+const createEmployeeContractFail = error => {
+  return {
+    type: CREATE_EMPLOYEE_CONTRACT_FAIL,
+    error: error
+  };
+};
+
+const getEmployeeContractDetailStart = () => {
+  return {
+    type: GET_EMPLOYEE_CONTRACT_START
+  };
+};
+
+const getEmployeeContractDetailSuccess = employeecontract => {
+  return {
+    type: GET_EMPLOYEE_CONTRACT_SUCCESS,
+    employeecontract
+  };
+};
+
+const getEmployeeContractDetailFail = error => {
+  return {
+    type: GET_EMPLOYEE_CONTRACT_FAIL,
+    error: error
+  };
+};
+
+export const getEmployeeContracts = (token) => {
+  return dispatch => {
+      dispatch(getEmployeeContractListStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(employeecontractsURL, headers)
         .then(res => {
-            dispatch({
-                type: GET_EMPLOYEE_CONTRACTS ,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+          const employeecontracts = res.data;
+          dispatch(getEmployeeContractListSuccess(employeecontracts));
+          })
+        .catch(err => {
+          dispatch(getEmployeeContractListStart(err));
+        });
+    };
+};
 
-//Delete
-
-export const deleteEmployeeContract = (id) => dispatch => {
-    axios.delete(employeecontractsURL, id)
+export const getEmployeeContract = (id, token) => {
+  return dispatch => {
+      dispatch(getEmployeeContractDetailStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(`${employeecontractsURL}${id}`, headers)
         .then(res => {
-            dispatch({
-                type: DELETE_EMPLOYEE_CONTRACT,
-                payload: id
-            });
-        }).catch(err => console.log(err))
-}
+          const employeecontract = res.data;
+          dispatch(getEmployeeContractDetailSuccess(employeecontract));
+          })
+        .catch(err => {
+          dispatch(getEmployeeContractDetailFail(err));
+        });
+    };
+};
 
-// Add
-export const addEmployeeContract = employeecontract => dispatch => {
-    axios.post(employeecontractsURL, employeecontract)
+export const addEmployeeContract = (employeecontract, token) => {
+  return dispatch => {
+      dispatch(createEmployeeContractStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .post(employeecontractsURL, employeecontract, headers)
         .then(res => {
-            dispatch({
-                type: ADD_EMPLOYEE_CONTRACT,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+          dispatch(createEmployeeContractSuccess(employeecontract));
+        })
+        .catch(err => {
+          dispatch(createEmployeeContractFail(err));
+          dispatch(returnErrors(err.response.data, err.response.status));
+        });
+    };
+};
 
-export const getEmployeeContract = id => dispatch =>{
-      axios.get(`http://127.0.0.1:8000/api/employees/employee-contracts/${id}`)
-        .then(res => {
-            dispatch({
-                type: GET_EMPLOYEE_CONTRACT,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-
-}
-
-//Edit
-export const editEmployeeContract = (id, employeecontract) => dispatch => {
-    axios.put(`http://127.0.0.1:8000/api/employees/employee-contracts/${id}/`, employeecontract)
-        .then(res => {
-            dispatch({
-                type: EDIT_EMPLOYEE_CONTRACT,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
+export const editEmployeeContract = (id, employeecontract, token) => dispatch => {
+    const headers ={
+          "Content-Type": "application/json",
+          Authorization: `Token ${token}`,
+          'Accept': 'application/json',
+    };
+    JSON.stringify(id, null, 3)
+    axios.patch(`${employeecontractsURL}${id}/`, employeecontract, headers)
+    .then(res => {
+        dispatch({
+            type: EDIT_EMPLOYEE_CONTRACT,
+            payload: res.data
+        });
+    }).catch(err => console.log(err))
 }

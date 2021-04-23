@@ -1,3 +1,6 @@
-export const GET_DEBITS = 'GET_DEBITS';
-export const DELETE_DEBIT = 'DELETE_DEBIT';
-export const GET_DEBIT = 'GET_DEBIT'
+export const GET_DEBITS_START = 'GET_DEBITS_START';
+export const GET_DEBITS_SUCCESS = 'GET_DEBITS_SUCCESS';
+export const GET_DEBITS_FAIL = 'GET_DEBITS_FAIL';
+export const GET_DEBIT_START = 'GET_DEBIT_START';
+export const GET_DEBIT_SUCCESS = 'GET_DEBIT_SUCCESS';
+export const GET_DEBIT_FAIL = 'GET_DEBIT_FAIL'

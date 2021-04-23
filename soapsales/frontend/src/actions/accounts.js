@@ -1,61 +1,145 @@
 import axios from 'axios';
 import {
-        ADD_ACCOUNT,
-        GET_ACCOUNTS,
-        DELETE_ACCOUNT,
-        GET_ACCOUNT,
-        EDIT_ACCOUNT,
+    GET_ACCOUNTS_START,
+    GET_ACCOUNTS_SUCCESS,
+    GET_ACCOUNTS_FAIL,
+    CREATE_ACCOUNT_START,
+    CREATE_ACCOUNT_SUCCESS,
+    CREATE_ACCOUNT_FAIL,
+    GET_ACCOUNT_START,
+    GET_ACCOUNT_SUCCESS,
+    GET_ACCOUNT_FAIL,
+    EDIT_ACCOUNT
     } from '../types/accountTypes';
 import { accountsURL } from '../constants';
 
-// Get
-export const getAccounts = () => dispatch => {
-    axios.get(accountsURL)
+//accounts
+const getAccountListStart = () => {
+  return {
+    type: GET_ACCOUNTS_START
+  };
+};
+
+const getAccountListSuccess = accounts => {
+  return {
+    type: GET_ACCOUNTS_SUCCESS,
+    accounts
+  };
+};
+
+const getAccountListFail = error => {
+  return {
+    type: GET_ACCOUNTS_FAIL,
+    error: error
+  };
+};
+
+const createAccountStart = () => {
+  return {
+    type: CREATE_ACCOUNT_START
+  };
+};
+
+
+const createAccountSuccess = account => {
+  return {
+    type: CREATE_ACCOUNT_SUCCESS,
+    account
+  };
+};
+
+const createAccountFail = error => {
+  return {
+    type: CREATE_ACCOUNT_FAIL,
+    error: error
+  };
+};
+
+const getAccountDetailStart = () => {
+  return {
+    type: GET_ACCOUNT_START
+  };
+};
+
+const getAccountDetailSuccess = account => {
+  return {
+    type: GET_ACCOUNT_SUCCESS,
+    account
+  };
+};
+
+const getAccountDetailFail = error => {
+  return {
+    type: GET_ACCOUNT_FAIL,
+    error: error
+  };
+};
+
+export const getAccounts = (token) => {
+  return dispatch => {
+      dispatch(getAccountListStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(accountsURL, headers)
         .then(res => {
-            dispatch({
-                type: GET_ACCOUNTS,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+          const accounts = res.data;
+          dispatch(getAccountListSuccess(accounts));
+          })
+        .catch(err => {
+          dispatch(getAccountListStart(err));
+        });
+    };
+};
 
-//Delete
-export const deleteAccount = (id) => dispatch => {
-    axios.delete(accountsURL, id)
+export const getAccount = (id, token) => {
+  return dispatch => {
+      dispatch(getAccountDetailStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(`${accountsURL}${id}`, headers)
         .then(res => {
-            dispatch({
-                type: DELETE_ACCOUNT,
-                payload: id
-            });
-        }).catch(err => console.log(err))
-}
+          const account = res.data;
+          dispatch(getAccountDetailSuccess(account));
+          })
+        .catch(err => {
+          dispatch(getAccountDetailFail(err));
+        });
+    };
+};
 
-// Add
-export const addAccount = (account) => dispatch => {
-    axios.post(accountsURL, account)
+export const addAccount = (account, token) => {
+  return dispatch => {
+      dispatch(createAccountStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .post(accountsURL, account, headers)
         .then(res => {
-            dispatch({
-                type: ADD_ACCOUNT,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+          dispatch(createAccountSuccess(account));
+        })
+        .catch(err => {
+          dispatch(createAccountFail(err));
+          dispatch(returnErrors(err.response.data, err.response.status));
+        });
+    };
+};
 
-//get
-export const getAccount = id => dispatch =>{
-      axios.get(`http://127.0.0.1:8000/api/accounting/accounts/${id}`)
-        .then(res => {
-            dispatch({
-                type: GET_ACCOUNT,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-
-}
-
-//Edit
-export const editAccount = (id, account) => dispatch => {
-    axios.put(`http://127.0.0.1:8000/api/accounting/accounts/${id}/`, account)
+export const editAccount = (id, account, token) => dispatch => {
+    const headers ={
+          "Content-Type": "application/json",
+          Authorization: `Token ${token}`,
+          'Accept': 'application/json',
+    };
+    JSON.stringify(id, null, 3)
+    axios.patch(`${accountsURL}${id}/`, account, headers)
         .then(res => {
             dispatch({
                 type: EDIT_ACCOUNT,
@@ -63,4 +147,3 @@ export const editAccount = (id, account) => dispatch => {
             });
         }).catch(err => console.log(err))
 }
-

@@ -1,53 +1,148 @@
 import axios from 'axios';
 import {
-        ADD_COMPANY_DRIVER,
-        GET_COMPANY_DRIVERS,
-        GET_COMPANY_DRIVER,
-        DELETE_COMPANY_DRIVER
+    GET_COMPANY_DRIVERS_START,
+    GET_COMPANY_DRIVERS_SUCCESS,
+    GET_COMPANY_DRIVERS_FAIL,
+    CREATE_COMPANY_DRIVER_START,
+    CREATE_COMPANY_DRIVER_SUCCESS,
+    CREATE_COMPANY_DRIVER_FAIL,
+    GET_COMPANY_DRIVER_START,
+    GET_COMPANY_DRIVER_SUCCESS,
+    GET_COMPANY_DRIVER_FAIL,
+    EDIT_COMPANY_DRIVER
     } from '../types/companydriverTypes';
 import { companydriversURL } from '../constants';
 
-// Get
-export const getCompanyDrivers =  () => dispatch => {
-    axios.get(companydriversURL)
+//company drivers
+const getCompanyDriverListStart = () => {
+  return {
+    type: GET_COMPANY_DRIVERS_START
+  };
+};
+
+const getCompanyDriverListSuccess = companydrivers => {
+  return {
+    type: GET_COMPANY_DRIVERS_SUCCESS,
+    companydrivers
+  };
+};
+
+const getCompanyDriverListFail = error => {
+  return {
+    type: GET_COMPANY_DRIVERS_FAIL,
+    error: error
+  };
+};
+
+const createCompanyDriverStart = () => {
+  return {
+    type: CREATE_COMPANY_DRIVER_START
+  };
+};
+
+const createCompanyDriverSuccess = companydriver => {
+  return {
+    type: CREATE_COMPANY_DRIVER_SUCCESS,
+    companydriver
+  };
+};
+
+const createCompanyDriverFail = error => {
+  return {
+    type: CREATE_COMPANY_DRIVER_FAIL,
+    error: error
+  };
+};
+
+const getCompanyDriverDetailStart = () => {
+  return {
+    type: GET_COMPANY_DRIVER_START
+  };
+};
+
+const getCompanyDriverDetailSuccess = companydriver => {
+  return {
+    type: GET_COMPANY_DRIVER_SUCCESS,
+    companydriver
+  };
+};
+
+const getCompanyDriverDetailFail = error => {
+  return {
+    type: GET_COMPANY_DRIVER_FAIL,
+    error: error
+  };
+};
+
+export const getCompanyDrivers = (token) => {
+  return dispatch => {
+      dispatch(getCompanyDriverListStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(companydriversURL, headers)
         .then(res => {
-            dispatch({
-                type:  GET_COMPANY_DRIVERS,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+          const companydrivers = res.data;
+          dispatch(getCompanyDriverListSuccess(companydrivers));
+          })
+        .catch(err => {
+          dispatch(getCompanyDriverListStart(err));
+        });
+    };
+};
 
-//Delete
-
-export const deleteCompanyDriver = (id) => dispatch => {
-    axios.delete(companydriversURL, id)
+export const getCompanyDriver = (id, token) => {
+  return dispatch => {
+      dispatch(getCompanyDriverDetailStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(`${companydriversURL}${id}`, headers)
         .then(res => {
-            dispatch({
-                type: DELETE_COMPANY_DRIVER,
-                payload: id
-            });
-        }).catch(err => console.log(err))
-}
+          const companydriver = res.data;
+          dispatch(getCompanyDriverDetailSuccess(companydriver));
+          })
+        .catch(err => {
+          dispatch(getCompanyDriverDetailFail(err));
+        });
+    };
+};
 
-// Add
-export const addCompanyDriver = companydriver => dispatch => {
-    axios.post(companydriversURL, companydriver)
+export const addCompanyDriver = (companydriver, token) => {
+  return dispatch => {
+      dispatch(createCompanyDriverStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .post(companydriversURL, companydriver, headers)
         .then(res => {
-            dispatch({
-                type: ADD_COMPANY_DRIVER,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+          dispatch(createCompanyDriverSuccess(companydriver));
+        })
+        .catch(err => {
+          dispatch(createCompanyDriverFail(err));
+          dispatch(returnErrors(err.response.data, err.response.status));
+        });
+    };
+};
 
-export const getCompanyDriver = id => dispatch =>{
-      axios.get(`http://127.0.0.1:8000/api/employees/company-drivers/${id}`)
-        .then(res => {
-            dispatch({
-                type: GET_COMPANY_DRIVER,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-
+export const editCompanyDriver = (id, companydriver, token) => dispatch => {
+    const headers ={
+          "Content-Type": "application/json",
+          Authorization: `Token ${token}`,
+          'Accept': 'application/json',
+    };
+    JSON.stringify(id, null, 3)
+    axios.patch(`${companydriversURL}${id}/`, companydriver, headers)
+    .then(res => {
+        dispatch({
+            type: EDIT_COMPANY_DRIVER,
+            payload: res.data
+        });
+    }).catch(err => console.log(err))
 }

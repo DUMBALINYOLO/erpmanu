@@ -1,9 +1,8 @@
-import { GET_CUSTOMER_STATUS_CHOICES } from '../actions/types.js';
+import { GET_CUSTOMER_STATUS_CHOICES } from '../types/choiceTypes';
 
 const initialState = {
    customerstatuschoices : [],
 }
-
 
 export default function(state = initialState, action){
     switch(action.type){
@@ -16,3 +15,4 @@ export default function(state = initialState, action){
             return state;
     }
 }
+

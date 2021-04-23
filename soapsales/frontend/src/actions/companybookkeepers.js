@@ -1,53 +1,149 @@
 import axios from 'axios';
 import {
-        ADD_COMPANY_BOOKKEEPER,
-        GET_COMPANY_BOOKKEEPERS,
-        GET_COMPANY_BOOKKEEPER,
-        DELETE_COMPANY_BOOKKEEPER
+    GET_COMPANY_BOOKKEEPERS_START,
+    GET_COMPANY_BOOKKEEPERS_SUCCESS,
+    GET_COMPANY_BOOKKEEPERS_FAIL,
+    CREATE_COMPANY_BOOKKEEPER_START,
+    CREATE_COMPANY_BOOKKEEPER_SUCCESS,
+    CREATE_COMPANY_BOOKKEEPER_FAIL,
+    GET_COMPANY_BOOKKEEPER_START,
+    GET_COMPANY_BOOKKEEPER_SUCCESS,
+    GET_COMPANY_BOOKKEEPER_FAIL,
+    EDIT_COMPANY_BOOKKEEPER
     } from '../types/companybookkeeperTypes';
 import { companybookkeepersURL } from '../constants';
 
-// Get
-export const getCompanyBookkeepers =  () => dispatch => {
-    axios.get(companybookkeepersURL)
+//company bookkeepers
+const getCompanyBookkeeperListStart = () => {
+  return {
+    type: GET_COMPANY_BOOKKEEPERS_START
+  };
+};
+
+const getCompanyBookkeeperListSuccess = companybookkeepers => {
+  return {
+    type: GET_COMPANY_BOOKKEEPERS_SUCCESS,
+    companybookkeepers
+  };
+};
+
+const getCompanyBookkeeperListFail = error => {
+  return {
+    type: GET_COMPANY_BOOKKEEPERS_FAIL,
+    error: error
+  };
+};
+
+const createCompanyBookkeeperStart = () => {
+  return {
+    type: CREATE_COMPANY_BOOKKEEPER_START
+  };
+};
+
+
+const createCompanyBookkeeperSuccess = companybookkeeper => {
+  return {
+    type: CREATE_COMPANY_BOOKKEEPER_SUCCESS,
+    companybookkeeper
+  };
+};
+
+const createCompanyBookkeeperFail = error => {
+  return {
+    type: CREATE_COMPANY_BOOKKEEPER_FAIL,
+    error: error
+  };
+};
+
+const getCompanyBookkeeperDetailStart = () => {
+  return {
+    type: GET_COMPANY_BOOKKEEPER_START
+  };
+};
+
+const getCompanyBookkeeperDetailSuccess = companybookkeeper => {
+  return {
+    type: GET_COMPANY_BOOKKEEPER_SUCCESS,
+    companybookkeeper
+  };
+};
+
+const getCompanyBookkeeperDetailFail = error => {
+  return {
+    type: GET_COMPANY_BOOKKEEPER_FAIL,
+    error: error
+  };
+};
+
+export const getCompanyBookkeepers = (token) => {
+  return dispatch => {
+      dispatch(getCompanyBookkeeperListStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(companybookkeepersURL, headers)
         .then(res => {
-            dispatch({
-                type:  GET_COMPANY_BOOKKEEPERS,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+          const companybookkeepers = res.data;
+          dispatch(getCompanyBookkeeperListSuccess(companybookkeepers));
+          })
+        .catch(err => {
+          dispatch(getCompanyBookkeeperListStart(err));
+        });
+    };
+};
 
-//Delete
-
-export const deleteCompanyBookkeeper = (id) => dispatch => {
-    axios.delete(companybookkeepersURL, id)
+export const getCompanyBookkeeper = (id, token) => {
+  return dispatch => {
+      dispatch(getCompanyBookkeeperDetailStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(`${companybookkeepersURL}${id}`, headers)
         .then(res => {
-            dispatch({
-                type: DELETE_COMPANY_BOOKKEEPER,
-                payload: id
-            });
-        }).catch(err => console.log(err))
-}
+          const companybookkeeper = res.data;
+          dispatch(getCompanyBookkeeperDetailSuccess(companybookkeeper));
+          })
+        .catch(err => {
+          dispatch(getCompanyBookkeeperDetailFail(err));
+        });
+    };
+};
 
-// Add
-export const addCompanyBookkeeper = companybookkeeper => dispatch => {
-    axios.post(companybookkeepersURL, companybookkeeper)
+export const addCompanyBookkeeper = (companybookkeeper, token) => {
+  return dispatch => {
+      dispatch(createCompanyBookkeeperStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .post(companybookkeepersURL, companybookkeeper, headers)
         .then(res => {
-            dispatch({
-                type: ADD_COMPANY_BOOKKEEPER,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+          dispatch(createCompanyBookkeeperSuccess(companybookkeeper));
+        })
+        .catch(err => {
+          dispatch(createCompanyBookkeeperFail(err));
+          dispatch(returnErrors(err.response.data, err.response.status));
+        });
+    };
+};
 
-export const getCompanyBookkeeper = id => dispatch =>{
-      axios.get(`http://127.0.0.1:8000/api/employees/company-bookkeepers/${id}`)
-        .then(res => {
-            dispatch({
-                type: GET_COMPANY_BOOKKEEPER,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-
+export const editCompanyBookkeeper = (id, companybookkeeper, token) => dispatch => {
+    const headers ={
+          "Content-Type": "application/json",
+          Authorization: `Token ${token}`,
+          'Accept': 'application/json',
+    };
+    JSON.stringify(id, null, 3)
+    axios.patch(`${companybookkeepersURL}${id}/`, companybookkeeper, headers)
+    .then(res => {
+        dispatch({
+            type: EDIT_COMPANY_BOOKKEEPER,
+            payload: res.data
+        });
+    }).catch(err => console.log(err))
 }

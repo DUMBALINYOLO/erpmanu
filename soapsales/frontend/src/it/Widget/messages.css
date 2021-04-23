@@ -1,0 +1,116 @@
+.bgInfo,
+div.bgInfo {
+  background: material-color("blue", "300");
+}
+.bgInfo button,
+div.bgInfo button {
+  color: material-color("blue", "900");
+}
+.bgSuccess,
+div.bgSuccess {
+  background: material-color("green", "300");
+}
+.bgSuccess button,
+div.bgSuccess button {
+  color: material-color("green", "900");
+}
+.bgWarning,
+div.bgWarning {
+  background: material-color("orange", "300");
+}
+.bgWarning button,
+div.bgWarning button {
+  color: material-color("orange", "900");
+}
+.bgError,
+div.bgError {
+  background: material-color("red", "300");
+}
+.bgError button,
+div.bgError button {
+  color: material-color("red", "900");
+}
+.bgDefault,
+div.bgDefault {
+  background: material-color("grey", "700");
+}
+table tr.bgInfo {
+  background: material-color("blue", "50");
+}
+table tr.bgInfo td {
+  color: material-color("blue", "500");
+}
+table tr.bgSuccess {
+  background: material-color("green", "50");
+}
+table tr.bgSuccess td {
+  color: material-color("green", "500");
+}
+table tr.bgWarning {
+  background: material-color("orange", "50");
+}
+table tr.bgWarning td {
+  color: material-color("orange", "500");
+}
+table tr.bgError {
+  background: material-color("red", "50");
+}
+table tr.bgError td {
+  color: material-color("red", "500");
+}
+table tr.bgDefault {
+  background: #fff;
+}
+table tr.bgDefault td {
+  color: #212121;
+}
+.messageInfo {
+  width: 100%;
+  display: flex;
+  padding: 10px;
+  background: none;
+  border: none;
+}
+.messageInfo .icon {
+  background: material-color("blue", "300");
+}
+.messageSuccess {
+  width: 100%;
+  display: flex;
+  padding: 10px;
+  background: none;
+  border: none;
+}
+.messageSuccess .icon {
+  background: material-color("green", "300");
+}
+.messageWarning {
+  width: 100%;
+  display: flex;
+  padding: 10px;
+  background: none;
+  border: none;
+}
+.messageWarning .icon {
+  background: material-color("orange", "300");
+}
+.messageError {
+  width: 100%;
+  display: flex;
+  padding: 10px;
+  background: none;
+  border: none;
+}
+.messageError .icon {
+  background: material-color("red", "300");
+}
+.messageDefault {
+  width: 100%;
+  display: flex;
+  padding: 10px;
+  background: none;
+  border: none;
+}
+.messageDefault .icon {
+  background: material-color("grey", "300");
+}

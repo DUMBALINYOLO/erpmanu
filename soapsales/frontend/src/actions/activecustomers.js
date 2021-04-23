@@ -1,66 +1,149 @@
 import axios from 'axios';
 import {
-        GET_ACTIVE_CUSTOMERS,
-        ADD_ACTIVE_CUSTOMER,
-        DELETE_ACTIVE_CUSTOMER,
-        EDIT_ACTIVE_CUSTOMER,
-        GET_ACTIVE_CUSTOMER
+    GET_ACTIVE_CUSTOMERS_START,
+    GET_ACTIVE_CUSTOMERS_SUCCESS,
+    GET_ACTIVE_CUSTOMERS_FAIL,
+    CREATE_ACTIVE_CUSTOMER_START,
+    CREATE_ACTIVE_CUSTOMER_SUCCESS,
+    CREATE_ACTIVE_CUSTOMER_FAIL,
+    GET_ACTIVE_CUSTOMER_START,
+    GET_ACTIVE_CUSTOMER_SUCCESS,
+    GET_ACTIVE_CUSTOMER_FAIL,
+    EDIT_ACTIVE_CUSTOMER
     } from '../types/activecustomerTypes';
 import { activecustomersURL } from '../constants';
 
-// Get
-export const getActiveCustomers = () => dispatch => {
-    axios.get(activecustomersURL)
+//active customers
+const getActiveCustomerListStart = () => {
+  return {
+    type: GET_ACTIVE_CUSTOMERS_START
+  };
+};
+
+const getActiveCustomerListSuccess = activecustomers => {
+  return {
+    type: GET_ACTIVE_CUSTOMERS_SUCCESS,
+    activecustomers
+  };
+};
+
+const getActiveCustomerListFail = error => {
+  return {
+    type: GET_ACTIVE_CUSTOMERS_FAIL,
+    error: error
+  };
+};
+
+const createActiveCustomerStart = () => {
+  return {
+    type: CREATE_ACTIVE_CUSTOMER_START
+  };
+};
+
+
+const createActiveCustomerSuccess = activecustomer => {
+  return {
+    type: CREATE_ACTIVE_CUSTOMER_SUCCESS,
+    activecustomer
+  };
+};
+
+const createActiveCustomerFail = error => {
+  return {
+    type: CREATE_ACTIVE_CUSTOMER_FAIL,
+    error: error
+  };
+};
+
+const getActiveCustomerDetailStart = () => {
+  return {
+    type: GET_ACTIVE_CUSTOMER_START
+  };
+};
+
+const getActiveCustomerDetailSuccess = activecustomer => {
+  return {
+    type: GET_ACTIVE_CUSTOMER_SUCCESS,
+    activecustomer
+  };
+};
+
+const getActiveCustomerDetailFail = error => {
+  return {
+    type: GET_ACTIVE_CUSTOMER_FAIL,
+    error: error
+  };
+};
+
+export const getActiveCustomers = (token) => {
+  return dispatch => {
+      dispatch(getActiveCustomerListStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(activecustomersURL, headers)
         .then(res => {
-            dispatch({
-                type: GET_ACTIVE_CUSTOMERS,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+          const activecustomers = res.data;
+          dispatch(getActiveCustomerListSuccess(activecustomers));
+          })
+        .catch(err => {
+          dispatch(getActiveCustomerListStart(err));
+        });
+    };
+};
 
-
-//Delete
-export const deleteActiveCustomer = (id) => dispatch => {
-    axios.delete(activecustomersURL, id)
+export const getActiveCustomer = (id, token) => {
+  return dispatch => {
+      dispatch(getAccountingAdjustmentDetailStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(`${activecustomersURL}${id}`, headers)
         .then(res => {
-            dispatch({
-                type: DELETE_ACTIVE_CUSTOMER,
-                payload: id
-            });
-        }).catch(err => console.log(err))
-}
+          const activecustomer = res.data;
+          dispatch(getActiveCustomerDetailSuccess(activecustomer));
+          })
+        .catch(err => {
+          dispatch(getActiveCustomerDetailFail(err));
+        });
+    };
+};
 
-// Add
-export const addActiveCustomer = (activecustomer) => dispatch => {
-    axios.post(activecustomersURL, activecustomer)
+export const addActiveCustomer = (activecustomer, token) => {
+  return dispatch => {
+      dispatch(createActiveCustomerStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .post(activecustomersURL, activecustomer, headers)
         .then(res => {
-            dispatch({
-                type: ADD_ACTIVE_CUSTOMER,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+          dispatch(createActiveCustomerSuccess(activecustomer));
+        })
+        .catch(err => {
+          dispatch(createActiveCustomerFail(err));
+          dispatch(returnErrors(err.response.data, err.response.status));
+        });
+    };
+};
 
-//get
-export const getActiveCustomer = id => dispatch =>{
-      axios.get(`http://127.0.0.1:8000/api/customers/active-customers/${id}`)
-        .then(res => {
-            dispatch({
-                type: GET_ACTIVE_CUSTOMER,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-
-}
-
-//Edit
-export const editActiveCustomer = (id, activecustomer) => dispatch => {
-    axios.put(`http://127.0.0.1:8000/api/customers/active-customers/${id}/`, activecustomer)
-        .then(res => {
-            dispatch({
-                type: EDIT_ACTIVE_CUSTOMER,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
+export const editActiveCustomer = (id, activecustomer, token) => dispatch => {
+    const headers ={
+          "Content-Type": "application/json",
+          Authorization: `Token ${token}`,
+          'Accept': 'application/json',
+    };
+    JSON.stringify(id, null, 3)
+    axios.patch(`${activecustomersURL}${id}/`, activecustomer, headers)
+    .then(res => {
+        dispatch({
+            type: EDIT_ACTIVE_CUSTOMER,
+            payload: res.data
+        });
+    }).catch(err => console.log(err))
 }

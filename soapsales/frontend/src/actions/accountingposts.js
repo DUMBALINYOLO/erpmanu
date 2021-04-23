@@ -1,65 +1,149 @@
 import axios from 'axios';
 import {
-        ADD_ACCOUNTING_POST,
-        GET_ACCOUNTING_POSTS,
-        DELETE_ACCOUNTING_POST,
-        GET_ACCOUNTING_POST,
-        EDIT_ACCOUNTING_POST
+    GET_ACCOUNTING_POSTS_START,
+    GET_ACCOUNTING_POSTS_SUCCESS,
+    GET_ACCOUNTING_POSTS_FAIL,
+    CREATE_ACCOUNTING_POST_START,
+    CREATE_ACCOUNTING_POST_SUCCESS,
+    CREATE_ACCOUNTING_POST_FAIL,
+    GET_ACCOUNTING_POST_START,
+    GET_ACCOUNTING_POST_SUCCESS,
+    GET_ACCOUNTING_POST_FAIL,
+    EDIT_ACCOUNTING_POST
     } from '../types/accountingpostTypes';
 import { accountingpostsURL } from '../constants';
 
-// Get
-export const getAccountingPosts = () => dispatch => {
-    axios.get(accountingpostsURL)
-        .then(res => {
-            dispatch({
-                type: GET_ACCOUNTING_POSTS,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+//accounting posts
+const getAccountingPostListStart = () => {
+  return {
+    type: GET_ACCOUNTING_POSTS_START
+  };
+};
 
-//Delete
-export const deleteAccountingPost = (id) => dispatch => {
-    axios.delete(accountingpostsURL, id)
-        .then(res => {
-            dispatch({
-                type: DELETE_ACCOUNTING_POST,
-                payload: id
-            });
-        }).catch(err => console.log(err))
-}
+const getAccountingPostListSuccess = accountingposts => {
+  return {
+    type: GET_ACCOUNTING_POSTS_SUCCESS,
+    accountingposts
+  };
+};
 
-// Add
-export const addAccountingPost = (accountingpost) => dispatch => {
-    axios.post(accountingpostsURL, accountingpost)
-        .then(res => {
-            dispatch({
-                type: ADD_ACCOUNTING_POST,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+const getAccountingPostListFail = error => {
+  return {
+    type: GET_ACCOUNTING_POSTS_FAIL,
+    error: error
+  };
+};
 
-//get
-export const getAccountingPost = id => dispatch =>{
-      axios.get(`http://127.0.0.1:8000/api/accounting/accounting-posts/${id}`)
-        .then(res => {
-            dispatch({
-                type: GET_ACCOUNTING_POST,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
+const createAccountingPostStart = () => {
+  return {
+    type: CREATE_ACCOUNTING_POST_START
+  };
+};
 
-}
 
-//Edit
-export const editAccountingPost = (id, accountingpost) => dispatch => {
-    axios.put(`http://127.0.0.1:8000/api/accounting/accounting-posts/${id}/`, accountingpost)
+const createAccountingPostSuccess = accountingpost => {
+  return {
+    type: CREATE_ACCOUNTING_POST_SUCCESS,
+    accountingpost
+  };
+};
+
+const createAccountingPostFail = error => {
+  return {
+    type: CREATE_ACCOUNTING_POST_FAIL,
+    error: error
+  };
+};
+
+const getAccountingPostDetailStart = () => {
+  return {
+    type: GET_ACCOUNTING_POST_START
+  };
+};
+
+const getAccountingPostDetailSuccess = accountingpost => {
+  return {
+    type: GET_ACCOUNTING_POST_SUCCESS,
+    accountingpost
+  };
+};
+
+const getAccountingPostDetailFail = error => {
+  return {
+    type: GET_ACCOUNTING_POST_FAIL,
+    error: error
+  };
+};
+
+export const getAccountingPosts = (token) => {
+  return dispatch => {
+      dispatch(getAccountingPostListStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(accountingadjustmentsURL, headers)
         .then(res => {
-            dispatch({
-                type: EDIT_ACCOUNTING_POST,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
+          const accountingposts = res.data;
+          dispatch(getAccountingPostListSuccess(accountingposts));
+          })
+        .catch(err => {
+          dispatch(getAccountingPostListStart(err));
+        });
+    };
+};
+
+export const getAccountingPost = (id, token) => {
+  return dispatch => {
+      dispatch(getAccountingPostDetailStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(`${accountingadjustmentsURL}${id}`, headers)
+        .then(res => {
+          const accountingpost = res.data;
+          dispatch(getAccountingPostDetailSuccess(accountingpost));
+          })
+        .catch(err => {
+          dispatch(getAccountingPostDetailFail(err));
+        });
+    };
+};
+
+export const addAccountingPost = (accountingpost, token) => {
+  return dispatch => {
+      dispatch(createAccountingPostStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .post(accountingadjustmentsURL, accountingpost, headers)
+        .then(res => {
+          dispatch(createAccountingPostSuccess(accountingpost));
+        })
+        .catch(err => {
+          dispatch(createAccountingPostFail(err));
+          dispatch(returnErrors(err.response.data, err.response.status));
+        });
+    };
+};
+
+export const editAccountingPost = (id, accountingpost, token) => dispatch => {
+    const headers ={
+          "Content-Type": "application/json",
+          Authorization: `Token ${token}`,
+          'Accept': 'application/json',
+    };
+    JSON.stringify(id, null, 3)
+    axios.patch(`${accountingadjustmentsURL}${id}/`, accountingpost, headers)
+    .then(res => {
+        dispatch({
+            type: EDIT_ACCOUNTING_POST,
+            payload: res.data
+        });
+    }).catch(err => console.log(err))
 }

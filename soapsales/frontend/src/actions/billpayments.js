@@ -1,65 +1,149 @@
 import axios from 'axios';
 import {
-        GET_BILL_PAYMENTS,
-        DELETE_BILL_PAYMENT,
-        ADD_BILL_PAYMENT,
-        GET_BILL_PAYMENT,
-        EDIT_BILL_PAYMENT
+    GET_BILL_PAYMENTS_START,
+    GET_BILL_PAYMENTS_SUCCESS,
+    GET_BILL_PAYMENTS_FAIL,
+    CREATE_BILL_PAYMENT_START,
+    CREATE_BILL_PAYMENT_SUCCESS,
+    CREATE_BILL_PAYMENT_FAIL,
+    GET_BILL_PAYMENT_START,
+    GET_BILL_PAYMENT_SUCCESS,
+    GET_BILL_PAYMENT_FAIL,
+    EDIT_BILL_PAYMENT
     } from '../types/billpaymentTypes';
 import { billpaymentsURL } from '../constants';
 
-// Get
-export const getBillPayments = () => dispatch => {
-    axios.get(billpaymentsURL)
-        .then(res => {
-            dispatch({
-                type: GET_BILL_PAYMENTS,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+//bill payments
+const getBillPaymentListStart = () => {
+  return {
+    type: GET_BILL_PAYMENTS_START
+  };
+};
 
-//Delete
-export const deleteBillPayment = (id) => dispatch => {
-    axios.delete(billpaymentsURL, id)
-        .then(res => {
-            dispatch({
-                type: DELETE_BILL_PAYMENT,
-                payload: id
-            });
-        }).catch(err => console.log(err))
-}
+const getBillPaymentListSuccess = billpayments => {
+  return {
+    type: GET_BILL_PAYMENTS_SUCCESS,
+    billpayments
+  };
+};
 
-// Add
-export const addBillPayment = (billpayment) => dispatch => {
-    axios.post(billpaymentsURL, billpayment)
-        .then(res => {
-            dispatch({
-                type: ADD_BILL_PAYMENT,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+const getBillPaymentListFail = error => {
+  return {
+    type: GET_BILL_PAYMENTS_FAIL,
+    error: error
+  };
+};
 
-//get
-export const getBillPayment = id => dispatch =>{
-      axios.get(`http://127.0.0.1:8000/api/accounting/bill-payments/${id}`)
-        .then(res => {
-            dispatch({
-                type: GET_BILL_PAYMENT,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
+const createBillPaymentStart = () => {
+  return {
+    type: CREATE_BILL_PAYMENT_START
+  };
+};
 
-}
 
-//Edit
-export const editBillPayment = (id, billpayment) => dispatch => {
-    axios.put(`http://127.0.0.1:8000/api/accounting/bill-payments/${id}/`, billpayment)
+const createBillPaymentSuccess = billpayment => {
+  return {
+    type: CREATE_BILL_PAYMENT_SUCCESS,
+    billpayment
+  };
+};
+
+const createBillPaymentFail = error => {
+  return {
+    type: CREATE_BILL_PAYMENT_FAIL,
+    error: error
+  };
+};
+
+const getBillPaymentDetailStart = () => {
+  return {
+    type: GET_BILL_PAYMENT_START
+  };
+};
+
+const getBillPaymentDetailSuccess = billpayment => {
+  return {
+    type: GET_BILL_PAYMENT_SUCCESS,
+    billpayment
+  };
+};
+
+const getBillPaymentDetailFail = error => {
+  return {
+    type: GET_BILL_PAYMENT_FAIL,
+    error: error
+  };
+};
+
+export const getBillPayments = (token) => {
+  return dispatch => {
+      dispatch(getBillPaymentListStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(billpaymentsURL, headers)
         .then(res => {
-            dispatch({
-                type: EDIT_BILL_PAYMENT,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
+          const billpayments = res.data;
+          dispatch(getBillPaymentListSuccess(billpayments));
+          })
+        .catch(err => {
+          dispatch(getBillPaymentListStart(err));
+        });
+    };
+};
+
+export const getBillPayment = (id, token) => {
+  return dispatch => {
+      dispatch(getBillPaymentDetailStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(`${billpaymentsURL}${id}`, headers)
+        .then(res => {
+          const billpayment = res.data;
+          dispatch(getBillPaymentDetailSuccess(billpayment));
+          })
+        .catch(err => {
+          dispatch(getBillPaymentDetailFail(err));
+        });
+    };
+};
+
+export const addBillPayment = (billpayment, token) => {
+  return dispatch => {
+      dispatch(createBillPaymentStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .post(billpaymentsURL, billpayment, headers)
+        .then(res => {
+          dispatch(createBillPaymentSuccess(billpayment));
+        })
+        .catch(err => {
+          dispatch(createBillPaymentFail(err));
+          dispatch(returnErrors(err.response.data, err.response.status));
+        });
+    };
+};
+
+export const editBillPayment = (id, billpayment, token) => dispatch => {
+    const headers ={
+          "Content-Type": "application/json",
+          Authorization: `Token ${token}`,
+          'Accept': 'application/json',
+    };
+    JSON.stringify(id, null, 3)
+    axios.patch(`${billpaymentsURL}${id}/`, billpayment, headers)
+    .then(res => {
+        dispatch({
+            type: EDIT_BILL_PAYMENT,
+            payload: res.data
+        });
+    }).catch(err => console.log(err))
 }
