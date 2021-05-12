@@ -1,32 +1,46 @@
 import {
-    GET_DE_ACTIVED_SUPPLIERS,
-    DELETE_DE_ACTIVED_SUPPLIER,
-    GET_DE_ACTIVED_SUPPLIER,
+    GET_DEACTIVED_SUPPLIERS_START,
+    GET_DEACTIVED_SUPPLIERS_SUCCESS,
+    GET_DEACTIVED_SUPPLIERS_FAIL
 } from '../types/deactivedsupplierTypes';
+import { updateObject } from "../utility";
 
 const initialState = {
     deactivedsuppliers: [],
-    deactivedsupplier: [],
-    loading: false
+    loading: false,
+    error: null,
 }
 
-export default function(state = initialState, action){
+const getDeactivedSupplierListStart = (state, action) => {
+  return updateObject(state, {
+    error: null,
+    loading: true
+  });
+};
+
+const getDeactivedSupplierListSuccess = (state, action) => {
+  return updateObject(state, {
+    deactivedsuppliers: action.deactivedsuppliers,
+    error: null,
+    loading: false
+  });
+};
+
+const getDeactivedSupplierListFail = (state, action) => {
+  return updateObject(state, {
+    error: action.error,
+    loading: false
+  });
+};
+
+export default function deactivedsuppliers(state = initialState, action){
     switch(action.type){
-        case GET_DE_ACTIVED_SUPPLIERS:
-            return {
-                ...state,
-                deactivedsuppliers: action.payload
-            };
-        case DELETE_DE_ACTIVED_SUPPLIER:
-            return {
-                ...state,
-                deactivedsupplier: state.deactivedsuppliers.filter(deactivedsupplier=> deactivedsupplier.id !== action.payload)
-            };
-        case GET_DE_ACTIVED_SUPPLIER:
-            return {
-                ...state,
-                deactivedsupplier:action.payload
-                };
+        case GET_DEACTIVED_SUPPLIERS_START:
+            return getDeactivedSupplierListStart(state, action);
+        case GET_DEACTIVED_SUPPLIERS_SUCCESS:
+            return getDeactivedSupplierListSuccess(state, action);
+        case GET_DEACTIVED_SUPPLIERS_FAIL:
+            return getDeactivedSupplierListFail(state, action);
         default:
             return state;
     }

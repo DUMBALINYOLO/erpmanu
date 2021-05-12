@@ -1,53 +1,148 @@
 import axios from 'axios';
 import {
-        ADD_INVENTORY_RECEIPT,
-        GET_INVENTORY_RECEIPTS,
-        DELETE_INVENTORY_RECEIPT,
-        GET_INVENTORY_RECEIPT
+    GET_INVENTORY_RECEIPTS_START,
+    GET_INVENTORY_RECEIPTS_SUCCESS,
+    GET_INVENTORY_RECEIPTS_FAIL,
+    CREATE_INVENTORY_RECEIPT_START,
+    CREATE_INVENTORY_RECEIPT_SUCCESS,
+    CREATE_INVENTORY_RECEIPT_FAIL,
+    GET_INVENTORY_RECEIPT_START,
+    GET_INVENTORY_RECEIPT_SUCCESS,
+    GET_INVENTORY_RECEIPT_FAIL,
+    EDIT_INVENTORY_RECEIPT
     } from '../types/inventoryreceiptTypes';
 import { inventoryreceiptsURL } from '../constants';
 
-// Get
-export const getInventoryReceipts = () => dispatch => {
-    axios.get(inventoryreceiptsURL)
-        .then(res => {
-            dispatch({
-                type: GET_INVENTORY_RECEIPTS,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+//inventory receipts
+const getInventoryReceiptListStart = () => {
+  return {
+    type: GET_INVENTORY_RECEIPTS_START
+  };
+};
 
-//Delete
-export const deleteInventoryReceipt = (id) => dispatch => {
-    axios.delete(inventoryreceiptsURL, id)
-        .then(res => {
-            dispatch({
-                type: DELETE_INVENTORY_RECEIPT,
-                payload: id
-            });
-        }).catch(err => console.log(err))
-}
+const getInventoryReceiptListSuccess = inventoryreceipts => {
+  return {
+    type: GET_INVENTORY_RECEIPTS_SUCCESS,
+    inventoryreceipts
+  };
+};
 
-// Add
-export const addInventoryReceipt = (inventoryreceipt) => dispatch => {
-    axios.post(inventoryreceiptsURL, inventoryreceipt)
-        .then(res => {
-            dispatch({
-                type: ADD_INVENTORY_RECEIPT,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+const getInventoryReceiptListFail = error => {
+  return {
+    type: GET_INVENTORY_RECEIPTS_FAIL,
+    error: error
+  };
+};
 
-//get
-export const getInventoryReceipt = id => dispatch =>{
-      axios.get(`http://127.0.0.1:8000/api/inventory/inventoryreceipts/${id}`)
-        .then(res => {
-            dispatch({
-                type: GET_INVENTORY_RECEIPT,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
+const createInventoryReceiptStart = () => {
+  return {
+    type: CREATE_INVENTORY_RECEIPT_START
+  };
+};
 
+const createInventoryReceiptSuccess = inventoryreceipt => {
+  return {
+    type: CREATE_INVENTORY_RECEIPT_SUCCESS,
+    inventoryreceipt
+  };
+};
+
+const createInventoryReceiptFail = error => {
+  return {
+    type: CREATE_INVENTORY_RECEIPT_FAIL,
+    error: error
+  };
+};
+
+const getInventoryReceiptDetailStart = () => {
+  return {
+    type: GET_INVENTORY_RECEIPT_START
+  };
+};
+
+const getInventoryReceiptDetailSuccess = inventoryreceipt => {
+  return {
+    type: GET_INVENTORY_RECEIPT_SUCCESS,
+    inventoryreceipt
+  };
+};
+
+const getInventoryReceiptDetailFail = error => {
+  return {
+    type: GET_INVENTORY_RECEIPT_FAIL,
+    error: error
+  };
+};
+
+export const getInventoryReceipts = (token) => {
+  return dispatch => {
+      dispatch(getInventoryReceiptListStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(inventoryreceiptsURL, headers)
+        .then(res => {
+          const inventoryreceipts = res.data;
+          dispatch(getInventoryReceiptListSuccess(inventoryreceipts));
+          })
+        .catch(err => {
+          dispatch(getInventoryReceiptListStart(err));
+        });
+    };
+};
+
+export const getInventoryReceipt = (id, token) => {
+  return dispatch => {
+      dispatch(getInventoryReceiptDetailStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(`${inventoryreceiptsURL}${id}`, headers)
+        .then(res => {
+          const inventoryreceipt = res.data;
+          dispatch(getInventoryReceiptDetailSuccess(inventoryreceipt));
+          })
+        .catch(err => {
+          dispatch(getInventoryReceiptDetailFail(err));
+        });
+    };
+};
+
+export const addInventoryReceipt = (inventoryreceipt, token) => {
+  return dispatch => {
+      dispatch(createInventoryReceiptStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .post(inventoryreceiptsURL, inventoryreceipt, headers)
+        .then(res => {
+          dispatch(createInventoryReceiptSuccess(inventoryreceipt));
+        })
+        .catch(err => {
+          dispatch(createInventoryReceiptFail(err));
+          dispatch(returnErrors(err.response.data, err.response.status));
+        });
+    };
+};
+
+export const editInventoryReceipt = (id, inventoryreceipt, token) => dispatch => {
+    const headers ={
+          "Content-Type": "application/json",
+          Authorization: `Token ${token}`,
+          'Accept': 'application/json',
+    };
+    JSON.stringify(id, null, 3)
+    axios.patch(`${inventoryreceiptsURL}${id}/`, inventoryreceipt, headers)
+    .then(res => {
+        dispatch({
+            type: EDIT_INVENTORY_RECEIPT,
+            payload: res.data
+        });
+    }).catch(err => console.log(err))
 }

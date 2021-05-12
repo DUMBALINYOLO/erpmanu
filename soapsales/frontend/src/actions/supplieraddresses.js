@@ -1,65 +1,148 @@
 import axios from 'axios';
 import {
-        ADD_SUPPLIER_ADDRESS,
-        GET_SUPPLIER_ADDRESSES,
-        DELETE_SUPPLIER_ADDRESS,
-        GET_SUPPLIER_ADDRESS,
-        EDIT_SUPPLIER_ADDRESS
+    GET_SUPPLIER_ADDRESSES_START,
+    GET_SUPPLIER_ADDRESSES_SUCCESS,
+    GET_SUPPLIER_ADDRESSES_FAIL,
+    CREATE_SUPPLIER_ADDRESS_START,
+    CREATE_SUPPLIER_ADDRESS_SUCCESS,
+    CREATE_SUPPLIER_ADDRESS_FAIL,
+    GET_SUPPLIER_ADDRESS_START,
+    GET_SUPPLIER_ADDRESS_SUCCESS,
+    GET_SUPPLIER_ADDRESS_FAIL,
+    EDIT_SUPPLIER_ADDRESS
     } from '../types/supplieraddressTypes';
 import { supplieraddressesURL } from '../constants';
 
-// Get
-export const getSupplierAddresses = () => dispatch => {
-    axios.get(supplieraddressesURL)
-        .then(res => {
-            dispatch({
-                type: GET_SUPPLIER_ADDRESSES,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+//supplier addresses
+const getSupplierAddressListStart = () => {
+  return {
+    type: GET_SUPPLIER_ADDRESSES_START
+  };
+};
 
-//Delete
-export const deleteSupplierAddress = (id) => dispatch => {
-    axios.delete(supplieraddressesURL, id)
-        .then(res => {
-            dispatch({
-                type: DELETE_SUPPLIER_ADDRESS,
-                payload: id
-            });
-        }).catch(err => console.log(err))
-}
+const getSupplierAddressListSuccess = supplieraddresses => {
+  return {
+    type: GET_SUPPLIER_ADDRESSES_SUCCESS,
+    supplieraddresses
+  };
+};
 
-// Add
-export const addSupplierAddress= (supplieraddress) => dispatch => {
-    axios.post(supplieraddressesURL, supplieraddress)
-        .then(res => {
-            dispatch({
-                type: ADD_SUPPLIER_ADDRESS,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+const getSupplierAddressListFail = error => {
+  return {
+    type: GET_SUPPLIER_ADDRESSES_FAIL,
+    error: error
+  };
+};
 
-//get
-export const getSupplierAddress = id => dispatch =>{
-      axios.get(`http://127.0.0.1:8000/api/inventory/supplier-addresses/${id}`)
-        .then(res => {
-            dispatch({
-                type: GET_SUPPLIER_ADDRESS,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
+const createSupplierAddressStart = () => {
+  return {
+    type: CREATE_SUPPLIER_ADDRESS_START
+  };
+};
 
-}
+const createSupplierAddressSuccess = supplieraddress => {
+  return {
+    type: CREATE_SUPPLIER_ADDRESS_SUCCESS,
+    supplieraddress
+  };
+};
 
-//Edit
-export const editSupplierAddress = (id, supplieraddress) => dispatch => {
-    axios.put(`http://127.0.0.1:8000/api/inventory/supplier-addresses/${id}/`, supplieraddress)
+const createSupplierAddressFail = error => {
+  return {
+    type: CREATE_SUPPLIER_ADDRESS_FAIL,
+    error: error
+  };
+};
+
+const getSupplierAddressDetailStart = () => {
+  return {
+    type: GET_SUPPLIER_ADDRESS_START
+  };
+};
+
+const getSupplierAddressDetailSuccess = supplieraddress => {
+  return {
+    type: GET_SUPPLIER_ADDRESS_SUCCESS,
+    supplieraddress
+  };
+};
+
+const getSupplierAddressDetailFail = error => {
+  return {
+    type: GET_SUPPLIER_ADDRESS_FAIL,
+    error: error
+  };
+};
+
+export const getSupplierAddresses = (token) => {
+  return dispatch => {
+      dispatch(getSupplierAddressListStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(supplieraddressesURL, headers)
         .then(res => {
-            dispatch({
-                type: EDIT_SUPPLIER_ADDRESS,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
+          const supplieraddresses = res.data;
+          dispatch(getSupplierAddressListSuccess(supplieraddresses));
+          })
+        .catch(err => {
+          dispatch(getSupplierAddressListStart(err));
+        });
+    };
+};
+
+export const getSupplierAddress = (id, token) => {
+  return dispatch => {
+      dispatch(getSupplierAddressDetailStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(`${supplieraddressesURL}${id}`, headers)
+        .then(res => {
+          const supplieraddress = res.data;
+          dispatch(getSupplierAddressDetailSuccess(supplieraddress));
+          })
+        .catch(err => {
+          dispatch(getSupplierAddressDetailFail(err));
+        });
+    };
+};
+
+export const addSupplierAddress = (supplieraddress, token) => {
+  return dispatch => {
+      dispatch(createSupplierAddressStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .post(supplieraddressesURL, supplieraddress, headers)
+        .then(res => {
+          dispatch(createSupplierAddressSuccess(supplieraddress));
+        })
+        .catch(err => {
+          dispatch(createSupplierAddressFail(err));
+          dispatch(returnErrors(err.response.data, err.response.status));
+        });
+    };
+};
+
+export const editSupplierAddress = (id, supplieraddress, token) => dispatch => {
+    const headers ={
+          "Content-Type": "application/json",
+          Authorization: `Token ${token}`,
+          'Accept': 'application/json',
+    };
+    JSON.stringify(id, null, 3)
+    axios.patch(`${supplieraddressesURL}${id}/`, supplieraddress, headers)
+    .then(res => {
+        dispatch({
+            type: EDIT_SUPPLIER_ADDRESS,
+            payload: res.data
+        });
+    }).catch(err => console.log(err))
 }

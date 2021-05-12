@@ -1,41 +1,89 @@
 import axios from 'axios';
 import {
-        GET_UNVERIFIED_INVOICES,
-        DELETE_UNVERIFIED_INVOICE,
-        GET_UNVERIFIED_INVOICE
+    GET_UNVERIFIED_INVOICES_START,
+    GET_UNVERIFIED_INVOICES_SUCCESS,
+    GET_UNVERIFIED_INVOICES_FAIL,
+    GET_UNVERIFIED_INVOICE_START,
+    GET_UNVERIFIED_INVOICE_SUCCESS,
+    GET_UNVERIFIED_INVOICE_FAIL
     } from '../types/unverifiedinvoiceTypes';
 import { unverifiedinvoicesURL } from '../constants';
 
-// Get
-export const getUnverifiedInvoices = () => dispatch => {
-    axios.get(unverifiedinvoicesURL)
-        .then(res => {
-            dispatch({
-                type: GET_UNVERIFIED_INVOICES,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+//unverified invoices
+const getUnverifiedInvoiceListStart = () => {
+  return {
+    type: GET_UNVERIFIED_INVOICES_START
+  };
+};
 
-//Delete
-export const deleteUnverifiedInvoice = (id) => dispatch => {
-    axios.delete(unverifiedinvoicesURL, id)
-        .then(res => {
-            dispatch({
-                type: DELETE_UNVERIFIED_INVOICE,
-                payload: id
-            });
-        }).catch(err => console.log(err))
-}
+const getUnverifiedInvoiceListSuccess = unverifiedinvoices => {
+  return {
+    type: GET_UNVERIFIED_INVOICES_SUCCESS,
+    unverifiedinvoices
+  };
+};
 
-//get
-export const getUnverifiedInvoice = id => dispatch =>{
-      axios.get(`http://127.0.0.1:8000/api/sales/unverified-invoices/${id}`)
-        .then(res => {
-            dispatch({
-                type: GET_UNVERIFIED_INVOICE,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
+const getUnverifiedInvoiceListFail = error => {
+  return {
+    type: GET_UNVERIFIED_INVOICES_FAIL,
+    error: error
+  };
+};
 
-}
+const getUnverifiedInvoiceDetailStart = () => {
+  return {
+    type: GET_UNVERIFIED_INVOICE_START
+  };
+};
+
+const getUnverifiedInvoiceDetailSuccess = unverifiedinvoice => {
+  return {
+    type: GET_UNVERIFIED_INVOICE_SUCCESS,
+    unverifiedinvoice
+  };
+};
+
+const getUnverifiedInvoiceDetailFail = error => {
+  return {
+    type: GET_UNVERIFIED_INVOICE_FAIL,
+    error: error
+  };
+};
+
+export const getUnverifiedInvoices = (token) => {
+  return dispatch => {
+      dispatch(getUnverifiedInvoiceListStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(unverifiedinvoicesURL, headers)
+        .then(res => {
+          const unverifiedinvoices = res.data;
+          dispatch(getUnverifiedInvoiceListSuccess(unverifiedinvoices));
+          })
+        .catch(err => {
+          dispatch(getUnverifiedInvoiceListStart(err));
+        });
+    };
+};
+
+export const getUnverifiedInvoice = (id, token) => {
+  return dispatch => {
+      dispatch(getUnverifiedInvoiceDetailStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(`${unverifiedinvoicesURL}${id}`, headers)
+        .then(res => {
+          const unverifiedinvoice = res.data;
+          dispatch(getUnverifiedInvoiceDetailSuccess(unverifiedinvoice));
+          })
+        .catch(err => {
+          dispatch(getUnverifiedInvoiceDetailFail(err));
+        });
+    };
+};

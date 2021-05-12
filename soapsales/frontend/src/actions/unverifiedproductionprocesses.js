@@ -1,55 +1,89 @@
 import axios from 'axios';
 import {
-        GET_UNVERIFIED_PRODUCTION_PROCESSES,
-        DELETE_UNVERIFIED_PRODUCTION_PROCESS,
-        GET_UNVERIFIED_PRODUCTION_PROCESS
+    GET_UNVERIFIED_PRODUCTION_PROCESSES_START,
+    GET_UNVERIFIED_PRODUCTION_PROCESSES_SUCCESS,
+    GET_UNVERIFIED_PRODUCTION_PROCESSES_FAIL,
+    GET_UNVERIFIED_PRODUCTION_PROCESS_START,
+    GET_UNVERIFIED_PRODUCTION_PROCESS_SUCCESS,
+    GET_UNVERIFIED_PRODUCTION_PROCESS_FAIL
     } from '../types/unverifiedproductionprocessTypes';
 import { unverifiedproductionprocessesURL } from '../constants';
-import { ADD_PROCESS } from './types';
 
-// Get
-export const getUnverifiedProductionProcesses = () => dispatch => {
-    axios.get(unverifiedproductionprocessesURL)
+//unverified production processes
+const getUnverifiedProductionProcessListStart = () => {
+  return {
+    type: GET_UNVERIFIED_PRODUCTION_PROCESSES_START
+  };
+};
+
+const getUnverifiedProductionProcessListSuccess = unverifiedproductionprocesses => {
+  return {
+    type: GET_UNVERIFIED_PRODUCTION_PROCESSES_SUCCESS,
+    unverifiedproductionprocesses
+  };
+};
+
+const getUnverifiedProductionProcessListFail = error => {
+  return {
+    type: GET_UNVERIFIED_PRODUCTION_PROCESSES_FAIL,
+    error: error
+  };
+};
+
+const getUnverifiedProductionProcessDetailStart = () => {
+  return {
+    type: GET_UNVERIFIED_PRODUCTION_PROCESS_START
+  };
+};
+
+const getUnverifiedProductionProcessDetailSuccess = unverifiedproductionprocess => {
+  return {
+    type: GET_UNVERIFIED_PRODUCTION_PROCESS_SUCCESS,
+    unverifiedproductionprocess
+  };
+};
+
+const getUnverifiedProductionProcessDetailFail = error => {
+  return {
+    type: GET_UNVERIFIED_PRODUCTION_PROCESS_FAIL,
+    error: error
+  };
+};
+
+export const getUnverifiedProductionProcesses = (token) => {
+  return dispatch => {
+      dispatch(getUnverifiedProductionProcessListStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(unverifiedproductionprocessesURL, headers)
         .then(res => {
-            dispatch({
-                type: GET_UNVERIFIED_PRODUCTION_PROCESSES,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+          const unverifiedproductionprocesses = res.data;
+          dispatch(getUnverifiedProductionProcessListSuccess(unverifiedproductionprocesses));
+          })
+        .catch(err => {
+          dispatch(getUnverifiedProductionProcessListStart(err));
+        });
+    };
+};
 
-export const addProcess = (process) => dispatch => {
-    axios.post(unverifiedproductionprocessesURL, process)
+export const getUnverifiedProductionProcess = (id, token) => {
+  return dispatch => {
+      dispatch(getUnverifiedProductionProcessDetailStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(`${unverifiedproductionprocessesURL}${id}`, headers)
         .then(res => {
-            dispatch({
-                type: ADD_PROCESS,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
-
-
-//Delete
-export const deleteUnverifiedProductionProcess = (id) => dispatch => {
-    axios.delete(unverifiedproductionprocessesURL, id)
-        .then(res => {
-            dispatch({
-                type: DELETE_UNVERIFIED_PRODUCTION_PROCESS,
-                payload: id
-            });
-        }).catch(err => console.log(err))
-}
-
-//get
-export const getUnverifiedProductionProcess = id => dispatch =>{
-      axios.get(`http://127.0.0.1:8000/api/manufacture/unverified-production-processes/${id}`)
-        .then(res => {
-            dispatch({
-                type: GET_UNVERIFIED_PRODUCTION_PROCESS,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-
-}
-
-
+          const unverifiedproductionprocess = res.data;
+          dispatch(getUnverifiedProductionProcessDetailSuccess(unverifiedproductionprocess));
+          })
+        .catch(err => {
+          dispatch(getUnverifiedProductionProcessDetailFail(err));
+        });
+    };
+};

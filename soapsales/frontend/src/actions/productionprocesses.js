@@ -1,15 +1,47 @@
 import axios from 'axios';
-import { GET_PROCESSES } from './types';
+import { 
+	GET_ACCOUNTING_ADJUSTMENTS_START,
+	GET_ACCOUNTING_ADJUSTMENTS_SUCCESS,
+	GET_ACCOUNTING_ADJUSTMENTS_FAIL 
+} from './types';
 import { productionprocessesURL } from '../constants';
 
+//production processes
+const getProductionProcessListStart = () => {
+  return {
+    type: GET_ACCOUNTING_ADJUSTMENTS_START
+  };
+};
 
-// Get
-export const getProductionProcesses = () => dispatch => {
-    axios.get(productionprocessesURL)
+const getProductionProcessListSuccess = productionprocesses => {
+  return {
+    type: GET_ACCOUNTING_ADJUSTMENTS_SUCCESS,
+    productionprocesses
+  };
+};
+
+const getProductionProcessListFail = error => {
+  return {
+    type: GET_ACCOUNTING_ADJUSTMENTS_FAIL,
+    error: error
+  };
+};
+
+export const getProductionProcesses = (token) => {
+  return dispatch => {
+      dispatch(getProductionProcessListStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(productionprocessesURL, headers)
         .then(res => {
-            dispatch({
-                type: GET_PROCESSES,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+          const productionprocesses = res.data;
+          dispatch(getProductionProcessListSuccess(productionprocesses));
+          })
+        .catch(err => {
+          dispatch(getProductionProcessListStart(err));
+        });
+    };
+};

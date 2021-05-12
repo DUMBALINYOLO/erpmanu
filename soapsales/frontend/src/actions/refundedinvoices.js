@@ -1,41 +1,90 @@
 import axios from 'axios';
 import {
-        GET_REFUNDED_INVOICES,
-        DELETE_REFUNDED_INVOICE,
-        GET_REFUNDED_INVOICE
+    GET_REFUNDED_INVOICES_START,
+    GET_REFUNDED_INVOICES_SUCCESS,
+    GET_REFUNDED_INVOICES_FAIL,
+    GET_REFUNDED_INVOICE_START,
+    GET_REFUNDED_INVOICE_SUCCESS,
+    GET_REFUNDED_INVOICE_FAIL
     } from '../types/refundedinvoiceTypes';
 import { refundedinvoicesURL } from '../constants';
 
-// Get
-export const getRefundedInvoices = () => dispatch => {
-    axios.get(refundedinvoicesURL)
-        .then(res => {
-            dispatch({
-                type: GET_REFUNDED_INVOICES,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+//refunded invoices
+const getRefundedInvoiceListStart = () => {
+  return {
+    type: GET_REFUNDED_INVOICES_START
+  };
+};
 
-//Delete
-export const deleteRefundedInvoice = (id) => dispatch => {
-    axios.delete(refundedinvoicesURL, id)
-        .then(res => {
-            dispatch({
-                type: DELETE_REFUNDED_INVOICE,
-                payload: id
-            });
-        }).catch(err => console.log(err))
-}
+const getRefundedInvoiceListSuccess = refundedinvoices => {
+  return {
+    type: GET_REFUNDED_INVOICES_SUCCESS,
+    refundedinvoices
+  };
+};
 
-//get
-export const getRefundedInvoice = id => dispatch =>{
-      axios.get(`http://127.0.0.1:8000/api/sales/refunded-invoices/${id}`)
-        .then(res => {
-            dispatch({
-                type: GET_REFUNDED_INVOICE,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
+const getRefundedInvoiceListFail = error => {
+  return {
+    type: GET_REFUNDED_INVOICES_FAIL,
+    error: error
+  };
+};
 
-}
+const getRefundedInvoiceDetailStart = () => {
+  return {
+    type: GET_REFUNDED_INVOICE_START
+  };
+};
+
+const getRefundedInvoiceDetailSuccess = refundedinvoice => {
+  return {
+    type: GET_REFUNDED_INVOICE_SUCCESS,
+    refundedinvoice
+  };
+};
+
+const getRefundedInvoiceDetailFail = error => {
+  return {
+    type: GET_REFUNDED_INVOICE_FAIL,
+    error: error
+  };
+};
+
+export const getRefundedInvoices = (token) => {
+  return dispatch => {
+      dispatch(getRefundedInvoiceListStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(refundedinvoicesURL, headers)
+        .then(res => {
+          const refundedinvoices = res.data;
+          dispatch(getRefundedInvoiceListSuccess(refundedinvoices));
+          })
+        .catch(err => {
+          dispatch(getRefundedInvoiceListStart(err));
+        });
+    };
+};
+
+export const getRefundedInvoice = (id, token) => {
+  return dispatch => {
+      dispatch(getRefundedInvoiceDetailStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(`${refundedinvoicesURL}${id}`, headers)
+        .then(res => {
+          const refundedinvoice = res.data;
+          dispatch(getRefundedInvoiceDetailSuccess(refundedinvoice));
+          })
+        .catch(err => {
+          dispatch(getRefundedInvoiceDetailFail(err));
+        });
+    };
+};
+

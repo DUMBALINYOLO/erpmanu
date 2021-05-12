@@ -1,50 +1,149 @@
 import axios from 'axios';
-import { GET_PROCESS_MACHINES, GET_PROCESS_MACHINE, DELETE_PROCESS_MACHINE, ADD_PROCESS_MACHINE } from '../types/processmachineTypes';
+import { 
+    GET_PROCESS_MACHINES_START,
+    GET_PROCESS_MACHINES_SUCCESS,
+    GET_PROCESS_MACHINES_FAIL,
+    CREATE_PROCESS_MACHINE_START,
+    CREATE_PROCESS_MACHINE_SUCCESS,
+    CREATE_PROCESS_MACHINE_FAIL,
+    GET_PROCESS_MACHINE_START,
+    GET_PROCESS_MACHINE_SUCCESS,
+    GET_PROCESS_MACHINE_FAIL,
+    EDIT_PROCESS_MACHINE 
+} from '../types/processmachineTypes';
 import { processmachinesURL } from '../constants';
 
+//process machines
+const getProcessMachineListStart = () => {
+  return {
+    type: GET_PROCESS_MACHINES_START
+  };
+};
 
-// Get
-export const getProcessMachines = () => dispatch => {
-    axios.get(processmachinesURL)
+const getProcessMachineListSuccess = processmachines => {
+  return {
+    type: GET_PROCESS_MACHINES_SUCCESS,
+    processmachines
+  };
+};
+
+const getProcessMachineListFail = error => {
+  return {
+    type: GET_PROCESS_MACHINES_FAIL,
+    error: error
+  };
+};
+
+const createProcessMachineStart = () => {
+  return {
+    type: CREATE_PROCESS_MACHINE_START
+  };
+};
+
+
+const createProcessMachineSuccess = processmachine => {
+  return {
+    type: CREATE_PROCESS_MACHINE_SUCCESS,
+    processmachine
+  };
+};
+
+const createProcessMachineFail = error => {
+  return {
+    type: CREATE_PROCESS_MACHINE_FAIL,
+    error: error
+  };
+};
+
+const getProcessMachineDetailStart = () => {
+  return {
+    type: GET_PROCESS_MACHINE_START
+  };
+};
+
+const getProcessMachineDetailSuccess = processmachine => {
+  return {
+    type: GET_PROCESS_MACHINE_SUCCESS,
+    processmachine
+  };
+};
+
+const getProcessMachineDetailFail = error => {
+  return {
+    type: GET_PROCESS_MACHINE_FAIL,
+    error: error
+  };
+};
+
+export const getProcessMachines = (token) => {
+  return dispatch => {
+      dispatch(getProcessMachineListStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(processmachinesURL, headers)
         .then(res => {
-            dispatch({
-                type: GET_PROCESS_MACHINES,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+          const processmachines = res.data;
+          dispatch(getProcessMachineListSuccess(processmachines));
+          })
+        .catch(err => {
+          dispatch(getProcessMachineListStart(err));
+        });
+    };
+};
 
-//Delete
-
-export const deleteProcessMachine = (id) => dispatch => {
-    axios.delete(processmachinesURL, id)
+export const getProcessMachine = (id, token) => {
+  return dispatch => {
+      dispatch(getProcessMachineDetailStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(`${processmachinesURL}${id}`, headers)
         .then(res => {
-            dispatch({
-                type: DELETE_PROCESS_MACHINE,
-                payload: id
-            });
-        }).catch(err => console.log(err))
-}
+          const processmachine = res.data;
+          dispatch(getProcessMachineDetailSuccess(processmachine));
+          })
+        .catch(err => {
+          dispatch(getProcessMachineDetailFail(err));
+        });
+    };
+};
 
-
-// Add
-export const addProcessMachine = (processmachine) => dispatch => {
-    axios.post(processmachinesURL, processmachine)
+export const addProcessMachine = (processmachine, token) => {
+  return dispatch => {
+      dispatch(createProcessMachineStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .post(processmachinesURL, processmachine, headers)
         .then(res => {
-            dispatch({
-                type: ADD_PROCESS_MACHINE,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+          dispatch(createProcessMachineSuccess(processmachine));
+        })
+        .catch(err => {
+          dispatch(createProcessMachineFail(err));
+          dispatch(returnErrors(err.response.data, err.response.status));
+        });
+    };
+};
 
-export const getProcessMachine = id => dispatch =>{
-      axios.get(`http://127.0.0.1:8000/api/manufacture/process-machines/${id}`)
-        .then(res => {
-            dispatch({
-                type: GET_PROCESS_MACHINE,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-
+export const editProcessMachine = (id, processmachine, token) => dispatch => {
+    const headers ={
+          "Content-Type": "application/json",
+          Authorization: `Token ${token}`,
+          'Accept': 'application/json',
+    };
+    JSON.stringify(id, null, 3)
+    axios.patch(`${processmachinesURL}${id}/`, processmachine, headers)
+    .then(res => {
+        dispatch({
+            type: EDIT_PROCESS_MACHINE,
+            payload: res.data
+        });
+    }).catch(err => console.log(err))
 }

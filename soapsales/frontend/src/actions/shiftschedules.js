@@ -1,59 +1,149 @@
 import axios from 'axios';
-import { ADD_SHIFT_SCHEDULE, GET_SHIFT_SCHEDULES, EDIT_SHIFT_SCHEDULE, GET_SHIFT_SCHEDULE, DELETE_SHIFT_SCHEDULE } from '../types/shiftscheduleTypes';
+import { 
+    GET_SHIFT_SCHEDULES_START,
+    GET_SHIFT_SCHEDULES_SUCCESS,
+    GET_SHIFT_SCHEDULES_FAIL,
+    CREATE_SHIFT_SCHEDULE_START,
+    CREATE_SHIFT_SCHEDULE_SUCCESS,
+    CREATE_SHIFT_SCHEDULE_FAIL,
+    GET_SHIFT_SCHEDULE_START,
+    GET_SHIFT_SCHEDULE_SUCCESS,
+    GET_SHIFT_SCHEDULE_FAIL,
+    EDIT_SHIFT_SCHEDULE 
+} from '../types/shiftscheduleTypes';
 import { shiftschedulesURL } from '../constants';
 
-// Get
-export const getShiftSchedules=  () => dispatch => {
-    axios.get(shiftschedulesURL)
+//shift schedules
+const getShiftScheduleListStart = () => {
+  return {
+    type: GET_SHIFT_SCHEDULES_START
+  };
+};
+
+const getShiftScheduleListSuccess = shiftschedules => {
+  return {
+    type: GET_SHIFT_SCHEDULES_SUCCESS,
+    shiftschedules
+  };
+};
+
+const getShiftScheduleListFail = error => {
+  return {
+    type: GET_SHIFT_SCHEDULES_FAIL,
+    error: error
+  };
+};
+
+const createShiftScheduleStart = () => {
+  return {
+    type: CREATE_SHIFT_SCHEDULE_START
+  };
+};
+
+
+const createShiftScheduleSuccess = shiftschedule => {
+  return {
+    type: CREATE_SHIFT_SCHEDULE_SUCCESS,
+    shiftschedule
+  };
+};
+
+const createShiftScheduleFail = error => {
+  return {
+    type: CREATE_SHIFT_SCHEDULE_FAIL,
+    error: error
+  };
+};
+
+const getShiftScheduleDetailStart = () => {
+  return {
+    type: GET_SHIFT_SCHEDULE_START
+  };
+};
+
+const getShiftScheduleDetailSuccess = shiftschedule => {
+  return {
+    type: GET_SHIFT_SCHEDULE_SUCCESS,
+    shiftschedule
+  };
+};
+
+const getShiftScheduleDetailFail = error => {
+  return {
+    type: GET_SHIFT_SCHEDULE_FAIL,
+    error: error
+  };
+};
+
+export const getShiftSchedules = (token) => {
+  return dispatch => {
+      dispatch(getShiftScheduleListStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(shiftschedulesURL, headers)
         .then(res => {
-            dispatch({
-                type:  GET_SHIFT_SCHEDULES,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+          const shiftschedules = res.data;
+          dispatch(getShiftScheduleListSuccess(shiftschedules));
+          })
+        .catch(err => {
+          dispatch(getShiftScheduleListStart(err));
+        });
+    };
+};
 
-//Delete
-
-export const deleteShiftSchedule = (id) => dispatch => {
-    axios.delete(shiftschedulesURL, id)
+export const getShiftSchedule = (id, token) => {
+  return dispatch => {
+      dispatch(getShiftScheduleDetailStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(`${shiftschedulesURL}${id}`, headers)
         .then(res => {
-            dispatch({
-                type: DELETE_SHIFT_SCHEDULE,
-                payload: id
-            });
-        }).catch(err => console.log(err))
-}
+          const shiftschedule = res.data;
+          dispatch(getShiftScheduleDetailSuccess(shiftschedule));
+          })
+        .catch(err => {
+          dispatch(getShiftScheduleDetailFail(err));
+        });
+    };
+};
 
-// Add
-export const addShiftSchedule = shiftschedule => dispatch => {
-    axios.post(shiftschedulesURL, shiftschedule)
+export const addShiftSchedule = (shiftschedule, token) => {
+  return dispatch => {
+      dispatch(createShiftScheduleStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .post(shiftschedulesURL, shiftschedule, headers)
         .then(res => {
-            dispatch({
-                type: ADD_SHIFT_SCHEDULE,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+          dispatch(createShiftScheduleSuccess(shiftschedule));
+        })
+        .catch(err => {
+          dispatch(createShiftScheduleFail(err));
+          dispatch(returnErrors(err.response.data, err.response.status));
+        });
+    };
+};
 
-export const getShiftSchedule = id => dispatch =>{
-      axios.get(`http://127.0.0.1:8000/api/manufacture/shift-schedules/${id}`)
-        .then(res => {
-            dispatch({
-                type: GET_SHIFT_SCHEDULE,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-
-}
-
-//Edit
-export const editShiftSchedule = (id, shiftschedule) => dispatch => {
-    axios.put(`http://127.0.0.1:8000/api/manufacture/shift-schedules/${id}/`, shiftschedule)
-        .then(res => {
-            dispatch({
-                type: EDIT_SHIFT_SCHEDULE,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
+export const editShiftSchedule = (id, shiftschedule, token) => dispatch => {
+    const headers ={
+          "Content-Type": "application/json",
+          Authorization: `Token ${token}`,
+          'Accept': 'application/json',
+    };
+    JSON.stringify(id, null, 3)
+    axios.patch(`${shiftschedulesURL}${id}/`, shiftschedule, headers)
+    .then(res => {
+        dispatch({
+            type: EDIT_SHIFT_SCHEDULE,
+            payload: res.data
+        });
+    }).catch(err => console.log(err))
 }

@@ -1,4 +1,10 @@
-export const GET_SALES = 'GET_SALES';
-export const DELETE_SALE = 'DELETE_SALE';
-export const GET_SALE = 'GET_SALE';
-export const ADD_SALE = 'ADD_SALE';
+export const GET_SALES_START = 'GET_SALES_START';
+export const GET_SALES_SUCCESS = 'GET_SALES_SUCCESS';
+export const GET_SALES_FAIL = 'GET_SALES_FAIL';
+export const CREATE_SALE_START = 'CREATE_SALE_START';
+export const CREATE_SALE_SUCCESS = 'CREATE_SALE_SUCCESS';
+export const CREATE_SALE_FAIL = 'CREATE_SALE_FAIL';
+export const GET_SALE_START = 'GET_SALE_START';
+export const GET_SALE_SUCCESS = 'GET_SALE_SUCCESS';
+export const GET_SALE_FAIL = 'GET_SALE_FAIL';
+export const EDIT_SALE = 'EDIT_SALE';

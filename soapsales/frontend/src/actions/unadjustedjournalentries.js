@@ -1,41 +1,90 @@
 import axios from 'axios';
 import {
-        GET_UNADJUSTED_JOURNAL_ENTRIES,
-        DELETE_UNADJUSTED_JOURNAL_ENTRY,
-        GET_UNADJUSTED_JOURNAL_ENTRY
+    GET_UNADJUSTED_JOURNAL_ENTRIES_START,
+    GET_UNADJUSTED_JOURNAL_ENTRIES_SUCCESS,
+    GET_UNADJUSTED_JOURNAL_ENTRIES_FAIL,
+    GET_UNADJUSTED_JOURNAL_ENTRY_START,
+    GET_UNADJUSTED_JOURNAL_ENTRY_SUCCESS,
+    GET_UNADJUSTED_JOURNAL_ENTRY_FAIL
     } from '../types/unadjustedjournalentryTypes';
 import { unadjustedjournalentriesURL } from '../constants';
 
-// Get
-export const getUnadjustedJournalEntries = () => dispatch => {
-    axios.get(unadjustedjournalentriesURL)
-        .then(res => {
-            dispatch({
-                type: GET_UNADJUSTED_JOURNAL_ENTRIES,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+//unadjusted journal entries
+const getUnadjustedJournalEntryListStart = () => {
+  return {
+    type: GET_UNADJUSTED_JOURNAL_ENTRIES_START
+  };
+};
 
-//Delete
-export const deleteUnadjustedJournalEntry = (id) => dispatch => {
-    axios.delete(unadjustedjournalentriesURL, id)
-        .then(res => {
-            dispatch({
-                type: DELETE_UNADJUSTED_JOURNAL_ENTRY,
-                payload: id
-            });
-        }).catch(err => console.log(err))
-}
+const getUnadjustedJournalEntryListSuccess = unadjustedjournalentries => {
+  return {
+    type: GET_UNADJUSTED_JOURNAL_ENTRIES_SUCCESS,
+    unadjustedjournalentries
+  };
+};
 
-//get
-export const getUnadjustedJournalEntry = id => dispatch =>{
-      axios.get(`http://127.0.0.1:8000/api/accounting/unadjusted-journal-entries/${id}`)
-        .then(res => {
-            dispatch({
-                type: GET_UNADJUSTED_JOURNAL_ENTRY,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
+const getUnadjustedJournalEntryListFail = error => {
+  return {
+    type: GET_UNADJUSTED_JOURNAL_ENTRIES_FAIL,
+    error: error
+  };
+};
 
-}
+const getUnadjustedJournalEntryDetailStart = () => {
+  return {
+    type: GET_UNADJUSTED_JOURNAL_ENTRY_START
+  };
+};
+
+const getUnadjustedJournalEntryDetailSuccess = unadjustedjournalentry => {
+  return {
+    type: GET_UNADJUSTED_JOURNAL_ENTRY_SUCCESS,
+    unadjustedjournalentry
+  };
+};
+
+const getUnadjustedJournalEntryDetailFail = error => {
+  return {
+    type: GET_UNADJUSTED_JOURNAL_ENTRY_FAIL,
+    error: error
+  };
+};
+
+export const getUnadjustedJournalEntryies = (token) => {
+  return dispatch => {
+      dispatch(getUnadjustedJournalEntryListStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(unadjustedjournalentriesURL, headers)
+        .then(res => {
+          const unadjustedjournalentries = res.data;
+          dispatch(getUnadjustedJournalEntryListSuccess(unadjustedjournalentries));
+          })
+        .catch(err => {
+          dispatch(getUnadjustedJournalEntryListStart(err));
+        });
+    };
+};
+
+export const getUnadjustedJournalEntry = (id, token) => {
+  return dispatch => {
+      dispatch(getUnadjustedJournalEntryDetailStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(`${unadjustedjournalentriesURL}${id}`, headers)
+        .then(res => {
+          const unadjustedjournalentry = res.data;
+          dispatch(getUnadjustedJournalEntryDetailSuccess(unadjustedjournalentry));
+          })
+        .catch(err => {
+          dispatch(getUnadjustedJournalEntryDetailFail(err));
+        });
+    };
+};
+

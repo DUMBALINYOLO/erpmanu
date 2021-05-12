@@ -8,7 +8,8 @@ import {
     CREATE_EMPLOYEE_PAYROLL_TAX_FAIL,
     GET_EMPLOYEE_PAYROLL_TAX_START,
     GET_EMPLOYEE_PAYROLL_TAX_SUCCESS,
-    GET_EMPLOYEE_PAYROLL_TAX_FAIL 
+    GET_EMPLOYEE_PAYROLL_TAX_FAIL,
+    EDIT_EMPLOYEE_PAYROLL_TAX 
 } from '../types/employeepayrolltaxeTypes';
 import { employeepayrolltaxesURL } from '../constants';
 

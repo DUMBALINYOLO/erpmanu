@@ -1,41 +1,90 @@
 import axios from 'axios';
 import {
-        GET_VOIDED_INVOICES,
-        DELETE_VOIDED_INVOICE,
-        GET_VOIDED_INVOICE
+    GET_VOIDED_INVOICES_START,
+    GET_VOIDED_INVOICES_SUCCESS,
+    GET_VOIDED_INVOICES_FAIL,
+    GET_VOIDED_INVOICE_START,
+    GET_VOIDED_INVOICE_SUCCESS,
+    GET_VOIDED_INVOICE_FAIL
     } from '../types/voidedinvoiceTypes';
 import { voidedinvoicesURL } from '../constants';
 
-// Get
-export const getVoidedInvoices = () => dispatch => {
-    axios.get(voidedinvoicesURL)
-        .then(res => {
-            dispatch({
-                type: GET_VOIDED_INVOICES,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+//voided invoices
+const getVoidedInvoiceListStart = () => {
+  return {
+    type: GET_VOIDED_INVOICES_START
+  };
+};
 
-//Delete
-export const deleteVoidedInvoice = (id) => dispatch => {
-    axios.delete(voidedinvoicesURL, id)
-        .then(res => {
-            dispatch({
-                type: DELETE_VOIDED_INVOICE,
-                payload: id
-            });
-        }).catch(err => console.log(err))
-}
+const getVoidedInvoiceListSuccess = voidedinvoices => {
+  return {
+    type: GET_VOIDED_INVOICES_SUCCESS,
+    voidedinvoices
+  };
+};
 
-//get
-export const getVoidedInvoice = id => dispatch =>{
-      axios.get(`http://127.0.0.1:8000/api/sales/voided-invoices/${id}`)
-        .then(res => {
-            dispatch({
-                type: GET_VOIDED_INVOICE,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
+const getVoidedInvoiceListFail = error => {
+  return {
+    type: GET_VOIDED_INVOICES_FAIL,
+    error: error
+  };
+};
 
-}
+const getVoidedInvoiceDetailStart = () => {
+  return {
+    type: GET_VOIDED_INVOICE_START
+  };
+};
+
+const getVoidedInvoiceDetailSuccess = voidedinvoice => {
+  return {
+    type: GET_VOIDED_INVOICE_SUCCESS,
+    voidedinvoice
+  };
+};
+
+const getVoidedInvoiceDetailFail = error => {
+  return {
+    type: GET_VOIDED_INVOICE_FAIL,
+    error: error
+  };
+};
+
+export const getVoidedInvoices = (token) => {
+  return dispatch => {
+      dispatch(getVoidedInvoiceListStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(voidedinvoicesURL, headers)
+        .then(res => {
+          const voidedinvoices = res.data;
+          dispatch(getVoidedInvoiceListSuccess(voidedinvoices));
+          })
+        .catch(err => {
+          dispatch(getVoidedInvoiceListStart(err));
+        });
+    };
+};
+
+export const getVoidedInvoice = (id, token) => {
+  return dispatch => {
+      dispatch(getVoidedInvoiceDetailStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(`${voidedinvoicesURL}${id}`, headers)
+        .then(res => {
+          const voidedinvoice = res.data;
+          dispatch(getVoidedInvoiceDetailSuccess(voidedinvoice));
+          })
+        .catch(err => {
+          dispatch(getVoidedInvoiceDetailFail(err));
+        });
+    };
+};
+

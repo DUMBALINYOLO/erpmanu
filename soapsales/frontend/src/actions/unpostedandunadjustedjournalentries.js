@@ -1,41 +1,89 @@
 import axios from 'axios';
 import {
-        GET_UNPOSTED_AND_UNADJUSTED_JOURNAL_ENTRIES,
-        DELETE_UNPOSTED_AND_UNADJUSTED_JOURNAL_ENTRY,
-        GET_UNPOSTED_AND_UNADJUSTED_JOURNAL_ENTRY
+    GET_UNPOSTED_AND_UNADJUSTED_JOURNAL_ENTRIES_START,
+    GET_UNPOSTED_AND_UNADJUSTED_JOURNAL_ENTRIES_SUCCESS,
+    GET_UNPOSTED_AND_UNADJUSTED_JOURNAL_ENTRIES_FAIL,
+    GET_UNPOSTED_AND_UNADJUSTED_JOURNAL_ENTRY_START,
+    GET_UNPOSTED_AND_UNADJUSTED_JOURNAL_ENTRY_SUCCESS,
+    GET_UNPOSTED_AND_UNADJUSTED_JOURNAL_ENTRY_FAIL
     } from '../types/unpostedandunadjustedjournalentryTypes';
 import { unpostedandunadjustedjournalentriesURL } from '../constants';
 
-// Get
-export const getUnpostedAndUnadjustedJournalEntries = () => dispatch => {
-    axios.get(unpostedandunadjustedjournalentriesURL)
-        .then(res => {
-            dispatch({
-                type: GET_UNPOSTED_AND_UNADJUSTED_JOURNAL_ENTRIES,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+//unposted and unadjusted journal entries
+const getUnpostedAndUnadjustedJournalEntryListStart = () => {
+  return {
+    type: GET_UNPOSTED_AND_UNADJUSTED_JOURNAL_ENTRIES_START
+  };
+};
 
-//Delete
-export const deleteUnpostedAndUnadjustedJournalEntry = (id) => dispatch => {
-    axios.delete(unpostedandunadjustedjournalentriesURL, id)
-        .then(res => {
-            dispatch({
-                type: DELETE_UNPOSTED_AND_UNADJUSTED_JOURNAL_ENTRY,
-                payload: id
-            });
-        }).catch(err => console.log(err))
-}
+const getUnpostedAndUnadjustedJournalEntryListSuccess = unpostedandunadjustedjournalentries => {
+  return {
+    type: GET_UNPOSTED_AND_UNADJUSTED_JOURNAL_ENTRIES_SUCCESS,
+    unpostedandunadjustedjournalentries
+  };
+};
 
-//get
-export const getUnpostedAndUnadjustedJournalEntry = id => dispatch =>{
-      axios.get(`http://127.0.0.1:8000/api/accounting/unposted-and-unadjusted-journal-entries/${id}`)
-        .then(res => {
-            dispatch({
-                type: GET_UNPOSTED_AND_UNADJUSTED_JOURNAL_ENTRY,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
+const getUnpostedAndUnadjustedJournalEntryListFail = error => {
+  return {
+    type: GET_UNPOSTED_AND_UNADJUSTED_JOURNAL_ENTRIES_FAIL,
+    error: error
+  };
+};
 
-}
+const getUnpostedAndUnadjustedJournalEntryDetailStart = () => {
+  return {
+    type: GET_UNPOSTED_AND_UNADJUSTED_JOURNAL_ENTRY_START
+  };
+};
+
+const getUnpostedAndUnadjustedJournalEntryDetailSuccess = unpostedandunadjustedjournalentry => {
+  return {
+    type: GET_UNPOSTED_AND_UNADJUSTED_JOURNAL_ENTRY_SUCCESS,
+    unpostedandunadjustedjournalentry
+  };
+};
+
+const getUnpostedAndUnadjustedJournalEntryDetailFail = error => {
+  return {
+    type: GET_UNPOSTED_AND_UNADJUSTED_JOURNAL_ENTRY_FAIL,
+    error: error
+  };
+};
+
+export const getUnpostedAndUnadjustedJournalEntries = (token) => {
+  return dispatch => {
+      dispatch(getUnpostedAndUnadjustedJournalEntryListStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(unpostedandunadjustedjournalentriesURL, headers)
+        .then(res => {
+          const unpostedandunadjustedjournalentries = res.data;
+          dispatch(getUnpostedAndUnadjustedJournalEntryListSuccess(unpostedandunadjustedjournalentries));
+          })
+        .catch(err => {
+          dispatch(getUnpostedAndUnadjustedJournalEntryListStart(err));
+        });
+    };
+};
+
+export const getUnpostedAndUnadjustedJournalEntry = (id, token) => {
+  return dispatch => {
+      dispatch(getUnpostedAndUnadjustedJournalEntryDetailStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(`${unpostedandunadjustedjournalentriesURL}${id}`, headers)
+        .then(res => {
+          const unpostedandunadjustedjournalentry = res.data;
+          dispatch(getUnpostedAndUnadjustedJournalEntryDetailSuccess(unpostedandunadjustedjournalentry));
+          })
+        .catch(err => {
+          dispatch(getUnpostedAndUnadjustedJournalEntryDetailFail(err));
+        });
+    };
+};

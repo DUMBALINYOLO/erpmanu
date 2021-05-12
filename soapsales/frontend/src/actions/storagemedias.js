@@ -1,65 +1,149 @@
 import axios from 'axios';
 import {
-        ADD_STORAGEMEDIA,
-        GET_STORAGEMEDIAS,
-        DELETE_STORAGEMEDIA,
-        GET_STORAGEMEDIA,
-        EDIT_STORAGEMEDIA
+    GET_STORAGE_MEDIAS_START,
+    GET_STORAGE_MEDIAS_SUCCESS,
+    GET_STORAGE_MEDIAS_FAIL,
+    CREATE_STORAGE_MEDIA_START,
+    CREATE_STORAGE_MEDIA_SUCCESS,
+    CREATE_STORAGE_MEDIA_FAIL,
+    GET_STORAGE_MEDIA_START,
+    GET_STORAGE_MEDIA_SUCCESS,
+    GET_STORAGE_MEDIA_FAIL,
+    EDIT_STORAGE_MEDIA
     } from '../types/storagemediaTypes';
 import { storagemediasURL } from '../constants';
 
-// Get
-export const getStoragemedias = () => dispatch => {
-    axios.get(storagemediasURL)
-        .then(res => {
-            dispatch({
-                type: GET_STORAGEMEDIAS,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+//accounting adjustments
+const getStorageMediaListStart = () => {
+  return {
+    type: GET_STORAGE_MEDIAS_START
+  };
+};
 
-//Delete
-export const deleteStoragemedia = (id) => dispatch => {
-    axios.delete(storagemediasURL, id)
-        .then(res => {
-            dispatch({
-                type: DELETE_STORAGEMEDIA,
-                payload: id
-            });
-        }).catch(err => console.log(err))
-}
+const getStorageMediaListSuccess = storagemedias => {
+  return {
+    type: GET_STORAGE_MEDIAS_SUCCESS,
+    storagemedias
+  };
+};
 
-// Add
-export const addStoragemedia = (storagemedia) => dispatch => {
-    axios.post(storagemediasURL, storagemedia)
-        .then(res => {
-            dispatch({
-                type: ADD_STORAGEMEDIA,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+const getStorageMediaListFail = error => {
+  return {
+    type: GET_STORAGE_MEDIAS_FAIL,
+    error: error
+  };
+};
 
-//get
-export const getStoragemedia = id => dispatch =>{
-      axios.get(`http://127.0.0.1:8000/api/inventory/storagemedias/${id}`)
-        .then(res => {
-            dispatch({
-                type: GET_STORAGEMEDIA,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
+const createStorageMediaStart = () => {
+  return {
+    type: CREATE_STORAGE_MEDIA_START
+  };
+};
 
-}
 
-//Edit
-export const editStoragemedia = (id, storagemedia) => dispatch => {
-    axios.put(`http://127.0.0.1:8000/api/inventory/storagemedias/${id}/`, storagemedia)
+const createStorageMediaSuccess = storagemedia => {
+  return {
+    type: CREATE_STORAGE_MEDIA_SUCCESS,
+    storagemedia
+  };
+};
+
+const createStorageMediaFail = error => {
+  return {
+    type: CREATE_STORAGE_MEDIA_FAIL,
+    error: error
+  };
+};
+
+const getStorageMediaDetailStart = () => {
+  return {
+    type: GET_STORAGE_MEDIA_START
+  };
+};
+
+const getStorageMediaDetailSuccess = storagemedia => {
+  return {
+    type: GET_STORAGE_MEDIA_SUCCESS,
+    storagemedia
+  };
+};
+
+const getStorageMediaDetailFail = error => {
+  return {
+    type: GET_STORAGE_MEDIA_FAIL,
+    error: error
+  };
+};
+
+export const getStorageMedias = (token) => {
+  return dispatch => {
+      dispatch(getStorageMediaListStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(storagemediasURL, headers)
         .then(res => {
-            dispatch({
-                type: EDIT_STORAGEMEDIA,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
+          const storagemedias = res.data;
+          dispatch(getStorageMediaListSuccess(storagemedias));
+          })
+        .catch(err => {
+          dispatch(getStorageMediaListStart(err));
+        });
+    };
+};
+
+export const getStorageMedia = (id, token) => {
+  return dispatch => {
+      dispatch(getStorageMediaDetailStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(`${storagemediasURL}${id}`, headers)
+        .then(res => {
+          const storagemedia = res.data;
+          dispatch(getStorageMediaDetailSuccess(storagemedia));
+          })
+        .catch(err => {
+          dispatch(getStorageMediaDetailFail(err));
+        });
+    };
+};
+
+export const addStorageMedia = (storagemedia, token) => {
+  return dispatch => {
+      dispatch(createStorageMediaStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .post(storagemediasURL, storagemedia, headers)
+        .then(res => {
+          dispatch(createStorageMediaSuccess(storagemedia));
+        })
+        .catch(err => {
+          dispatch(createStorageMediaFail(err));
+          dispatch(returnErrors(err.response.data, err.response.status));
+        });
+    };
+};
+
+export const editStorageMedia = (id, storagemedia, token) => dispatch => {
+    const headers ={
+          "Content-Type": "application/json",
+          Authorization: `Token ${token}`,
+          'Accept': 'application/json',
+    };
+    JSON.stringify(id, null, 3)
+    axios.patch(`${storagemediasURL}${id}/`, storagemedia, headers)
+    .then(res => {
+        dispatch({
+            type: EDIT_STORAGE_MEDIA,
+            payload: res.data
+        });
+    }).catch(err => console.log(err))
 }

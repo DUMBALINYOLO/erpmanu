@@ -2,7 +2,8 @@ import axios from 'axios';
 import { 
 	CREATE_EMPLOYEE_CONFIG_START,
 	CREATE_EMPLOYEE_CONFIG_SUCCESS,
-	CREATE_EMPLOYEE_CONFIG_FAIL 
+	CREATE_EMPLOYEE_CONFIG_FAIL,
+  EDIT_EMPLOYEE_CONFIG 
 } from '../types/employeeconfigTypes';
 import { employeeconfigURL } from '../constants';
 

@@ -1,59 +1,148 @@
 import axios from 'axios';
-import { ADD_SHIFT, GET_SHIFTS, GET_SHIFT, EDIT_SHIFT, DELETE_SHIFT } from '../types/shiftTypes';
+import { 
+    GET_SHIFTS_START,
+    GET_SHIFTS_SUCCESS,
+    GET_SHIFTS_FAIL,
+    CREATE_SHIFT_START,
+    CREATE_SHIFT_SUCCESS,
+    CREATE_SHIFT_FAIL,
+    GET_SHIFT_START,
+    GET_SHIFT_SUCCESS,
+    GET_SHIFT_FAIL,
+    EDIT_SHIFT 
+} from '../types/shiftTypes';
 import { shiftsURL } from '../constants';
 
-// Get
-export const getShifts=  () => dispatch => {
-    axios.get(shiftsURL)
+//shifts
+const getShiftListStart = () => {
+  return {
+    type: GET_SHIFTS_START
+  };
+};
+
+const getShiftListSuccess = shifts => {
+  return {
+    type: GET_SHIFTS_SUCCESS,
+    shifts
+  };
+};
+
+const getShiftListFail = error => {
+  return {
+    type: GET_SHIFTS_FAIL,
+    error: error
+  };
+};
+
+const createShiftStart = () => {
+  return {
+    type: CREATE_SHIFT_START
+  };
+};
+
+const createShiftSuccess = shift => {
+  return {
+    type: CREATE_SHIFT_SUCCESS,
+    shift
+  };
+};
+
+const createShiftFail = error => {
+  return {
+    type: CREATE_SHIFT_FAIL,
+    error: error
+  };
+};
+
+const getShiftDetailStart = () => {
+  return {
+    type: GET_SHIFT_START
+  };
+};
+
+const getShiftDetailSuccess = shift => {
+  return {
+    type: GET_SHIFT_SUCCESS,
+    shift
+  };
+};
+
+const getShiftDetailFail = error => {
+  return {
+    type: GET_SHIFT_FAIL,
+    error: error
+  };
+};
+
+export const getShifts = (token) => {
+  return dispatch => {
+      dispatch(getShiftListStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(shiftsURL, headers)
         .then(res => {
-            dispatch({
-                type:  GET_SHIFTS,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+          const shifts = res.data;
+          dispatch(getShiftListSuccess(shifts));
+          })
+        .catch(err => {
+          dispatch(getShiftListStart(err));
+        });
+    };
+};
 
-//Delete
-
-export const deleteShift = (id) => dispatch => {
-    axios.delete(shiftsURL, id)
+export const getShift = (id, token) => {
+  return dispatch => {
+      dispatch(getShiftDetailStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(`${shiftsURL}${id}`, headers)
         .then(res => {
-            dispatch({
-                type: DELETE_SHIFT,
-                payload: id
-            });
-        }).catch(err => console.log(err))
-}
+          const shift = res.data;
+          dispatch(getShiftDetailSuccess(shift));
+          })
+        .catch(err => {
+          dispatch(getShiftDetailFail(err));
+        });
+    };
+};
 
-// Add
-export const addShift = shift => dispatch => {
-    axios.post(shiftsURL, shift)
+export const addShift = (shift, token) => {
+  return dispatch => {
+      dispatch(createShiftStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .post(shiftsURL, shift, headers)
         .then(res => {
-            dispatch({
-                type: ADD_SHIFT,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+          dispatch(createShiftSuccess(shift));
+        })
+        .catch(err => {
+          dispatch(createShiftFail(err));
+          dispatch(returnErrors(err.response.data, err.response.status));
+        });
+    };
+};
 
-export const getShift = id => dispatch =>{
-      axios.get(`http://127.0.0.1:8000/api/manufacture/shifts/${id}`)
-        .then(res => {
-            dispatch({
-                type: GET_SHIFT,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-
-}
-
-//Edit
-export const editShift = (id, shift) => dispatch => {
-    axios.put(`http://127.0.0.1:8000/api/manufacture/shifts/${id}/`, shift)
-        .then(res => {
-            dispatch({
-                type: EDIT_SHIFT,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
+export const editShift = (id, shift, token) => dispatch => {
+    const headers ={
+          "Content-Type": "application/json",
+          Authorization: `Token ${token}`,
+          'Accept': 'application/json',
+    };
+    JSON.stringify(id, null, 3)
+    axios.patch(`${shiftsURL}${id}/`, shift, headers)
+    .then(res => {
+        dispatch({
+            type: EDIT_SHIFT,
+            payload: res.data
+        });
+    }).catch(err => console.log(err))
 }

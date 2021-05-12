@@ -1,43 +1,47 @@
 import axios from 'axios';
-import { GET_INVENTORY_ITEMS } from './types';
+import { 
+  GET_INVENTORY_ITEMS_START,
+  GET_INVENTORY_ITEMS_SUCCESS,
+  GET_INVENTORY_ITEMS_FAIL 
+} from './types';
 import { inventoryitemsURL } from '../constants';
 
-//accounting adjustments
-const getAccountingAdjustmentListStart = () => {
+//inventory items
+const getInventoryItemListStart = () => {
   return {
-    type: GET_ACCOUNTING_ADJUSTMENTS_START
+    type: GET_INVENTORY_ITEMS_START
   };
 };
 
-const getAccountingAdjustmentListSuccess = accountingadjustments => {
+const getInventoryItemListSuccess = inventoryitems => {
   return {
-    type: GET_ACCOUNTING_ADJUSTMENTS_SUCCESS,
-    accountingadjustments
+    type: GET_INVENTORY_ITEMS_SUCCESS,
+    inventoryitems
   };
 };
 
-const getAccountingAdjustmentListFail = error => {
+const getInventoryItemListFail = error => {
   return {
-    type: GET_ACCOUNTING_ADJUSTMENTS_FAIL,
+    type: GET_INVENTORY_ITEMS_FAIL,
     error: error
   };
 };
 
-export const getAccountingAdjustments = (token) => {
+export const getInventoryItems = (token) => {
   return dispatch => {
-      dispatch(getAccountingAdjustmentListStart());
+      dispatch(getInventoryItemListStart());
       const headers = {
         "Content-Type": "application/json",
         Authorization: `Token ${token}`
       };
       axios
-        .get(accountingadjustmentsURL, headers)
+        .get(inventoryitemsURL, headers)
         .then(res => {
-          const accountingadjustments = res.data;
-          dispatch(getAccountingAdjustmentListSuccess(accountingadjustments));
+          const inventoryitems = res.data;
+          dispatch(getInventoryItemListSuccess(inventoryitems));
           })
         .catch(err => {
-          dispatch(getAccountingAdjustmentListStart(err));
+          dispatch(getInventoryItemListStart(err));
         });
     };
 };

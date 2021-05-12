@@ -1,91 +1,148 @@
 import axios from 'axios';
-import { GET_PAYMENTS, GET_PAYMENT, ADD_PAYMENT, EDIT_PAYMENT, DELETE_PAYMENT } from '../types/paymentTypes';
+import { 
+    GET_PAYMENTS_START,
+    GET_PAYMENTS_SUCCESS,
+    GET_PAYMENTS_FAIL,
+    CREATE_PAYMENT_START,
+    CREATE_PAYMENT_SUCCESS,
+    CREATE_PAYMENT_FAIL,
+    GET_PAYMENT_START,
+    GET_PAYMENT_SUCCESS,
+    GET_PAYMENT_FAIL,
+    EDIT_PAYMENT 
+} from '../types/paymentTypes';
 import { paymentsURL } from '../constants';
 
-// Get
-export const getPayments = () => dispatch => {
-    axios.get(paymentsURL)
+//payments
+const getPaymentListStart = () => {
+  return {
+    type: GET_PAYMENTS_START
+  };
+};
+
+const getPaymentListSuccess = payments => {
+  return {
+    type: GET_PAYMENTS_SUCCESS,
+    payments
+  };
+};
+
+const getPaymentListFail = error => {
+  return {
+    type: GET_PAYMENTS_FAIL,
+    error: error
+  };
+};
+
+const createPaymentStart = () => {
+  return {
+    type: CREATE_PAYMENT_START
+  };
+};
+
+const createPaymentSuccess = payment => {
+  return {
+    type: CREATE_PAYMENT_SUCCESS,
+    payment
+  };
+};
+
+const createPaymentFail = error => {
+  return {
+    type: CREATE_PAYMENT_FAIL,
+    error: error
+  };
+};
+
+const getPaymentDetailStart = () => {
+  return {
+    type: GET_PAYMENT_START
+  };
+};
+
+const getPaymentDetailSuccess = payment => {
+  return {
+    type: GET_PAYMENT_SUCCESS,
+    payment
+  };
+};
+
+const getInventoryCategoryDetailFail = error => {
+  return {
+    type: GET_PAYMENT_FAIL,
+    error: error
+  };
+};
+
+export const getPayments = (token) => {
+  return dispatch => {
+      dispatch(getPaymentListStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(paymentsURL, headers)
         .then(res => {
-            dispatch({
-                type: GET_PAYMENTS ,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+          const payments = res.data;
+          dispatch(getPaymentListSuccess(payments));
+          })
+        .catch(err => {
+          dispatch(getPaymentListStart(err));
+        });
+    };
+};
 
-//Delete
-
-export const deletePayment = (id) => dispatch => {
-    axios.delete(paymentsURL, id)
+export const getPayment = (id, token) => {
+  return dispatch => {
+      dispatch(getPaymentDetailStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(`${paymentsURL}${id}`, headers)
         .then(res => {
-            dispatch({
-                type: DELETE_PAYMENT,
-                payload: id
-            });
-        }).catch(err => console.log(err))
-}
+          const payment = res.data;
+          dispatch(getPaymentDetailSuccess(payment));
+          })
+        .catch(err => {
+          dispatch(getPaymentDetailFail(err));
+        });
+    };
+};
 
-// Add
-export const addPayment = (payment) => dispatch => {
-    axios.post(paymentsURL, payment)
+export const addPayment = (payment, token) => {
+  return dispatch => {
+      dispatch(createPaymentStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .post(paymentsURL, payment, headers)
         .then(res => {
-            dispatch({
-                type: ADD_PAYMENT,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
+          dispatch(createPaymentSuccess(payment));
+        })
+        .catch(err => {
+          dispatch(createPaymentFail(err));
+          dispatch(returnErrors(err.response.data, err.response.status));
+        });
+    };
+};
+
+export const editPayment = (id, payment, token) => dispatch => {
+    const headers ={
+          "Content-Type": "application/json",
+          Authorization: `Token ${token}`,
+          'Accept': 'application/json',
+    };
+    JSON.stringify(id, null, 3)
+    axios.patch(`${paymentsURL}${id}/`, payment, headers)
+    .then(res => {
+        dispatch({
+            type: EDIT_PAYMENT,
+            payload: res.data
+        });
+    }).catch(err => console.log(err))
 }
-
-//Get
-export const getPayment = id => dispatch =>{
-      axios.get(`http://127.0.0.1:8000/api/sales/payments/${id}`)
-        .then(res => {
-            dispatch({
-                type: GET_PAYMENT,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-
-}
-
-
-export const editPayment = (id, payment) => dispatch => {
-    axios.put(`http://127.0.0.1:8000/api/sales/payments/${id}`, payment)
-        .then(res => {
-            dispatch({
-                type: EDIT_PAYMENT,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

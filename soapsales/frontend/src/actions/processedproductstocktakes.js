@@ -1,48 +1,149 @@
 import axios from 'axios';
-import { ADD_PROCESSED_PRODUCT_STOCK_TAKE, GET_PROCESSED_PRODUCT_STOCK_TAKES, GET_PROCESSED_PRODUCT_STOCK_TAKE, DELETE_PROCESSED_PRODUCT_STOCK_TAKE } from '../types/processedproductstocktakeTypes';
+import { 
+    GET_PROCESSED_PRODUCT_STOCK_TAKES_START,
+    GET_PROCESSED_PRODUCT_STOCK_TAKES_SUCCESS,
+    GET_PROCESSED_PRODUCT_STOCK_TAKES_FAIL,
+    CREATE_PROCESSED_PRODUCT_STOCK_TAKE_START,
+    CREATE_PROCESSED_PRODUCT_STOCK_TAKE_SUCCESS,
+    CREATE_PROCESSED_PRODUCT_STOCK_TAKE_FAIL,
+    GET_PROCESSED_PRODUCT_STOCK_TAKE_START,
+    GET_PROCESSED_PRODUCT_STOCK_TAKE_SUCCESS,
+    GET_PROCESSED_PRODUCT_STOCK_TAKE_FAIL,
+    EDIT_PROCESSED_PRODUCT_STOCK_TAKE 
+} from '../types/processedproductstocktakeTypes';
 import { processedproductstocktakesURL } from '../constants';
 
-// Get
-export const getProcessedProductStockTakes=  () => dispatch => {
-    axios.get(processedproductstocktakesURL)
+//processed product stock takes
+const getProcessedProductStockTakeListStart = () => {
+  return {
+    type: GET_PROCESSED_PRODUCT_STOCK_TAKES_START
+  };
+};
+
+const getProcessedProductStockTakeListSuccess = processedproductstocktakes => {
+  return {
+    type: GET_PROCESSED_PRODUCT_STOCK_TAKES_SUCCESS,
+    processedproductstocktakes
+  };
+};
+
+const getProcessedProductStockTakeListFail = error => {
+  return {
+    type: GET_PROCESSED_PRODUCT_STOCK_TAKES_FAIL,
+    error: error
+  };
+};
+
+const createProcessedProductStockTakeStart = () => {
+  return {
+    type: CREATE_PROCESSED_PRODUCT_STOCK_TAKE_START
+  };
+};
+
+
+const createProcessedProductStockTakeSuccess = processedproductstocktake => {
+  return {
+    type: CREATE_PROCESSED_PRODUCT_STOCK_TAKE_SUCCESS,
+    processedproductstocktake
+  };
+};
+
+const createProcessedProductStockTakeFail = error => {
+  return {
+    type: CREATE_PROCESSED_PRODUCT_STOCK_TAKE_FAIL,
+    error: error
+  };
+};
+
+const getProcessedProductStockTakeDetailStart = () => {
+  return {
+    type: GET_PROCESSED_PRODUCT_STOCK_TAKE_START
+  };
+};
+
+const getProcessedProductStockTakeDetailSuccess = processedproductstocktake => {
+  return {
+    type: GET_PROCESSED_PRODUCT_STOCK_TAKE_SUCCESS,
+    processedproductstocktake
+  };
+};
+
+const getProcessedProductStockTakeDetailFail = error => {
+  return {
+    type: GET_PROCESSED_PRODUCT_STOCK_TAKE_FAIL,
+    error: error
+  };
+};
+
+export const getProcessedProductStockTakes = (token) => {
+  return dispatch => {
+      dispatch(getProcessedProductStockTakeListStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(processedproductstocktakesURL, headers)
         .then(res => {
-            dispatch({
-                type:  GET_PROCESSED_PRODUCT_STOCK_TAKES,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+          const processedproductstocktakes = res.data;
+          dispatch(getProcessedProductStockTakeListSuccess(processedproductstocktakes));
+          })
+        .catch(err => {
+          dispatch(getProcessedProductStockTakeListStart(err));
+        });
+    };
+};
 
-//Delete
-
-export const deleteProcessedProductStockTake = (id) => dispatch => {
-    axios.delete(processedproductstocktakesURL, id)
+export const getProcessedProductStockTake = (id, token) => {
+  return dispatch => {
+      dispatch(getProcessedProductStockTakeDetailStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(`${processedproductstocktakesURL}${id}`, headers)
         .then(res => {
-            dispatch({
-                type: DELETE_PROCESSED_PRODUCT_STOCK_TAKE,
-                payload: id
-            });
-        }).catch(err => console.log(err))
-}
+          const processedproductstocktake = res.data;
+          dispatch(getProcessedProductStockTakeDetailSuccess(processedproductstocktake));
+          })
+        .catch(err => {
+          dispatch(getProcessedProductStockTakeDetailFail(err));
+        });
+    };
+};
 
-// Add
-export const addProcessedProductStockTake = processedproductstocktake => dispatch => {
-    axios.post(processedproductstocktakesURL, processedproductstocktake)
+export const addProcessedProductStockTake = (processedproductstocktake, token) => {
+  return dispatch => {
+      dispatch(createProcessedProductStockTakeStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .post(processedproductstocktakesURL, processedproductstocktake, headers)
         .then(res => {
-            dispatch({
-                type: ADD_PROCESSED_PRODUCT_STOCK_TAKE,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
+          dispatch(createProcessedProductStockTakeSuccess(processedproductstocktake));
+        })
+        .catch(err => {
+          dispatch(createProcessedProductStockTakeFail(err));
+          dispatch(returnErrors(err.response.data, err.response.status));
+        });
+    };
+};
 
-export const getProcessedProductStockTake = id => dispatch =>{
-      axios.get(`http://127.0.0.1:8000/api/manufacture/processed-product-stock-takes/${id}`)
-        .then(res => {
-            dispatch({
-                type: GET_PROCESSED_PRODUCT_STOCK_TAKE,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-
+export const editProcessedProductStockTake = (id, processedproductstocktake, token) => dispatch => {
+    const headers ={
+          "Content-Type": "application/json",
+          Authorization: `Token ${token}`,
+          'Accept': 'application/json',
+    };
+    JSON.stringify(id, null, 3)
+    axios.patch(`${processedproductstocktakesURL}${id}/`, processedproductstocktake, headers)
+    .then(res => {
+        dispatch({
+            type: EDIT_PROCESSED_PRODUCT_STOCK_TAKE,
+            payload: res.data
+        });
+    }).catch(err => console.log(err))
 }

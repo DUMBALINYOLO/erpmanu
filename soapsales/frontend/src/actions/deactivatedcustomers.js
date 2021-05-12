@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {
-    GET_DEACTIVATED_CUSTOMERS_START,
+  GET_DEACTIVATED_CUSTOMERS_START,
 	GET_DEACTIVATED_CUSTOMERS_SUCCESS,
 	GET_DEACTIVATED_CUSTOMERS_FAIL
     } from '../types/deactivatedcustomerTypes';

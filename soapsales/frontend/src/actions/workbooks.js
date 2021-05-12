@@ -1,65 +1,150 @@
 import axios from 'axios';
 import {
-        ADD_WORKBOOK,
-        GET_WORKBOOKS,
-        DELETE_WORKBOOK,
-        GET_WORKBOOK,
-        EDIT_WORKBOOK
+    GET_WORKBOOKS_START,
+    GET_WORKBOOKS_SUCCESS,
+    GET_WORKBOOKS_FAIL,
+    CREATE_WORKBOOK_START,
+    CREATE_WORKBOOK_SUCCESS,
+    CREATE_WORKBOOK_FAIL,
+    GET_WORKBOOK_START,
+    GET_WORKBOOK_SUCCESS,
+    GET_WORKBOOK_FAIL,
+    EDIT_WORKBOOK
     } from '../types/workbookTypes';
 import { workbooksURL } from '../constants';
 
-// Get
-export const getWorkbooks = () => dispatch => {
-    axios.get(workbooksURL)
+//workbooks
+const getWorkbookListStart = () => {
+  return {
+    type: GET_WORKBOOKS_START
+  };
+};
+
+const getWorkbookListSuccess = workbooks => {
+  return {
+    type: GET_WORKBOOKS_SUCCESS,
+    workbooks
+  };
+};
+
+const getWorkbookListFail = error => {
+  return {
+    type: GET_WORKBOOKS_FAIL,
+    error: error
+  };
+};
+
+const createWorkbookStart = () => {
+  return {
+    type: CREATE_WORKBOOK_START
+  };
+};
+
+
+const createWorkbookSuccess = workbook => {
+  return {
+    type: CREATE_WORKBOOK_SUCCESS,
+    workbook
+  };
+};
+
+const createWorkbookFail = error => {
+  return {
+    type: CREATE_WORKBOOK_FAIL,
+    error: error
+  };
+};
+
+const getWorkbookDetailStart = () => {
+  return {
+    type: GET_WORKBOOK_START
+  };
+};
+
+const getWorkbookDetailSuccess = workbook => {
+  return {
+    type: GET_WORKBOOK_SUCCESS,
+    workbook
+  };
+};
+
+const getWorkbookDetailFail = error => {
+  return {
+    type: GET_WORKBOOK_FAIL,
+    error: error
+  };
+};
+
+export const getWorkbooks = (token) => {
+  return dispatch => {
+      dispatch(getWorkbookListStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(workbooksURL, headers)
         .then(res => {
-            dispatch({
-                type: GET_WORKBOOKS,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
+          const workbooks = res.data;
+          dispatch(getWorkbookListSuccess(workbooks));
+          })
+        .catch(err => {
+          dispatch(getWorkbookListStart(err));
+        });
+    };
+};
+
+export const getWorkbook = (id, token) => {
+  return dispatch => {
+      dispatch(getWorkbookDetailStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .get(`${workbooksURL}${id}`, headers)
+        .then(res => {
+          const workbook = res.data;
+          dispatch(getWorkbookDetailSuccess(workbook));
+          })
+        .catch(err => {
+          dispatch(getWorkbookDetailFail(err));
+        });
+    };
+};
+
+export const addWorkbook = (workbook, token) => {
+  return dispatch => {
+      dispatch(createWorkbookStart());
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios
+        .post(workbooksURL, workbook, headers)
+        .then(res => {
+          dispatch(createWorkbookSuccess(workbook));
+        })
+        .catch(err => {
+          dispatch(createWorkbookFail(err));
+          dispatch(returnErrors(err.response.data, err.response.status));
+        });
+    };
+};
+
+export const editWorkbook = (id, workbook, token) => dispatch => {
+    const headers ={
+          "Content-Type": "application/json",
+          Authorization: `Token ${token}`,
+          'Accept': 'application/json',
+    };
+    JSON.stringify(id, null, 3)
+    axios.patch(`${workbooksURL}${id}/`, workbook, headers)
+    .then(res => {
+        dispatch({
+            type: EDIT_WORKBOOK,
+            payload: res.data
+        });
+    }).catch(err => console.log(err))
 }
 
-//Delete
-export const deleteWorkbook = (id) => dispatch => {
-    axios.delete(workbooksURL, id)
-        .then(res => {
-            dispatch({
-                type: DELETE_WORKBOOK,
-                payload: id
-            });
-        }).catch(err => console.log(err))
-}
-
-// Add
-export const addWorkbook = (workbook) => dispatch => {
-    axios.post(workbooksURL, workbook)
-        .then(res => {
-            dispatch({
-                type: ADD_WORKBOOK,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
-
-//get
-export const getWorkbook = id => dispatch =>{
-      axios.get(`http://127.0.0.1:8000/api/accounting/workbooks/${id}`)
-        .then(res => {
-            dispatch({
-                type: GET_WORKBOOK,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-
-}
-
-//Edit
-export const editWorkbook = (id, workbook) => dispatch => {
-    axios.put(`http://127.0.0.1:8000/api/accounting/workbooks/${id}/`, workbook)
-        .then(res => {
-            dispatch({
-                type: EDIT_WORKBOOK,
-                payload: res.data
-            });
-        }).catch(err => console.log(err))
-}
